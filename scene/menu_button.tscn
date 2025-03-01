@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkg3mbvjllejg"]
+
+[ext_resource type="Script" path="res://scene/wa2button.gd" id="1_86lan"]
+[ext_resource type="Texture2D" uid="uid://c5psqj30t21r0" path="res://assets/grp/T0101.tga" id="2_gvosl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dcxh0"]
+atlas = ExtResource("2_gvosl")
+region = Rect2(0, 0, 320, 40)
+
+[node name="MenuButton" type="TextureButton"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_86lan")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_dcxh0")

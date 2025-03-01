@@ -1,0 +1,8 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.pak
+/assets/
+.VSCodeCounter/
+.qodo/
+

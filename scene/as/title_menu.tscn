@@ -1,0 +1,838 @@
+[gd_scene load_steps=50 format=3 uid="uid://b6u3qm7g3fnoj"]
+
+[ext_resource type="Script" path="res://scene/as/title_menu.gd" id="1_nlawl"]
+[ext_resource type="Shader" path="res://shader/game.gdshader" id="2_n4ci5"]
+[ext_resource type="Texture2D" uid="uid://6njxooeuq2e7" path="res://assets/grp/AQUAPLUS.tga" id="3_m4rux"]
+[ext_resource type="Texture2D" uid="uid://c1iivcw2lc2u5" path="res://assets/grp/T0012.tga" id="4_xs2u4"]
+[ext_resource type="Texture2D" uid="uid://daw6s3mwwcoq" path="res://assets/grp/T0020.tga" id="5_asopg"]
+[ext_resource type="PackedScene" uid="uid://bkg3mbvjllejg" path="res://scene/menu_button.tscn" id="6_qxj8v"]
+[ext_resource type="Texture2D" uid="uid://bspm6r0uclfff" path="res://assets/grp/T0100.tga" id="7_sohma"]
+[ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="7_xo8l8"]
+[ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="8_cj50m"]
+[ext_resource type="Texture2D" uid="uid://bf3q7r17wdc2t" path="res://assets/grp/T0201.tga" id="8_u5ylh"]
+[ext_resource type="Texture2D" uid="uid://bu8yilf0bmwmn" path="res://assets/grp/T0000.tga" id="9_fn04i"]
+[ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="10_fma1i"]
+[ext_resource type="Texture2D" uid="uid://clnbaidoou7qv" path="res://assets/grp/weather.tga" id="10_kyofm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4rxvu"]
+shader = ExtResource("2_n4ci5")
+shader_parameter/chars_priority = false
+shader_parameter/bg1_scale = Vector2(1, 1)
+shader_parameter/bg1_offset = Vector2(0, 0)
+shader_parameter/bg2_scale = Vector2(1, 1)
+shader_parameter/bg2_offset = Vector2(0, 0)
+shader_parameter/amp_mode = 2
+shader_parameter/amp_flag = false
+shader_parameter/amp_strength = 0.0
+shader_parameter/bg2_alpha = 1.0
+shader_parameter/time = 0.0
+shader_parameter/bg1_texture = ExtResource("3_m4rux")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_usn7s"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1k54k"]
+atlas = SubResource("CompressedTexture2D_usn7s")
+region = Rect2(0, 200, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fa746"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lepnx"]
+atlas = SubResource("CompressedTexture2D_fa746")
+region = Rect2(0, 240, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ti5lm"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osct2"]
+atlas = SubResource("CompressedTexture2D_ti5lm")
+region = Rect2(0, 640, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ehh8g"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dywql"]
+atlas = SubResource("CompressedTexture2D_ehh8g")
+region = Rect2(0, 680, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ico1t"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qseaf"]
+atlas = SubResource("CompressedTexture2D_ico1t")
+region = Rect2(0, 320, 320, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7jcp"]
+atlas = ExtResource("7_sohma")
+region = Rect2(0, 0, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_n1k3p"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j56w6"]
+atlas = SubResource("CompressedTexture2D_n1k3p")
+region = Rect2(320, 0, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ia53l"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khyse"]
+atlas = SubResource("CompressedTexture2D_ia53l")
+region = Rect2(0, 40, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8vivm"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7r5i"]
+atlas = SubResource("CompressedTexture2D_8vivm")
+region = Rect2(320, 40, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ms0au"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71ye6"]
+atlas = SubResource("CompressedTexture2D_ms0au")
+region = Rect2(0, 80, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m01h6"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmpbt"]
+atlas = SubResource("CompressedTexture2D_m01h6")
+region = Rect2(320, 80, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qww8l"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prpdi"]
+atlas = SubResource("CompressedTexture2D_qww8l")
+region = Rect2(0, 160, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_utwsh"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ochr"]
+atlas = SubResource("CompressedTexture2D_utwsh")
+region = Rect2(320, 160, 320, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yml00"]
+atlas = ExtResource("8_u5ylh")
+region = Rect2(0, 0, 288, 40)
+
+[sub_resource type="Animation" id="Animation_plad3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TitleMenu/Start:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TitleMenu/Load:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TitleMenu/Options:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TitleMenu/Quit:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TitleMenu/TextureRect3:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("ColorRect:material:shader_parameter/bg2_alpha")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ColorRect:material:shader_parameter/bg1_offset")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("ColorRect:material:shader_parameter/bg1_texture")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_m4rux")]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("GPUParticles2D:emitting")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("ColorRect2:color")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("ColorRect2:mouse_filter")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("TitleMenu/Start:mouse_filter")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("TitleMenu/Load:mouse_filter")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("TitleMenu/Options:mouse_filter")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("TitleMenu/Quit:mouse_filter")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_lsq3n"]
+resource_name = "close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect2:mouse_filter")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_po4he"]
+resource_name = "logo"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/bg2_alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:material:shader_parameter/bg1_texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_m4rux")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect2:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_swoom"]
+resource_name = "open"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1.25, 1.25), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TitleMenu/Start:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.3, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TitleMenu/Load:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.5, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TitleMenu/Options:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.7, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("TitleMenu/Quit:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2.1, 2.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TitleMenu/TextureRect3:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2.3, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("ColorRect:material:shader_parameter/bg2_alpha")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ColorRect:material:shader_parameter/bg1_offset")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 136)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("ColorRect:material:shader_parameter/bg1_texture")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("9_fn04i")]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("GPUParticles2D:emitting")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("TitleMenu/Start:mouse_filter")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 0]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("TitleMenu/Load:mouse_filter")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("TitleMenu/Options:mouse_filter")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("TitleMenu/Quit:mouse_filter")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a6br7"]
+_data = {
+"RESET": SubResource("Animation_plad3"),
+"close": SubResource("Animation_lsq3n"),
+"logo": SubResource("Animation_po4he"),
+"open": SubResource("Animation_swoom")
+}
+
+[sub_resource type="Curve" id="Curve_cdx0a"]
+min_value = 0.1
+max_value = 0.5
+_data = [Vector2(0, 0.1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_nst6c"]
+width = 32
+curve = SubResource("Curve_cdx0a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m1pm3"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(640, 0, 1)
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 1.0
+initial_velocity_max = 128.0
+gravity = Vector3(0, 0, 0)
+scale_over_velocity_min = 32.0
+scale_over_velocity_max = 128.0
+scale_over_velocity_curve = SubResource("CurveTexture_nst6c")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5nfrc"]
+atlas = ExtResource("10_kyofm")
+region = Rect2(0, 32, 32, 32)
+
+[node name="TitleMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nlawl")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4rxvu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 264.0
+offset_top = 1.0
+offset_right = 1016.0
+offset_bottom = 449.0
+pivot_offset = Vector2(376, 224)
+mouse_filter = 2
+texture = ExtResource("4_xs2u4")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 998.0
+offset_top = 678.0
+offset_right = 1262.0
+offset_bottom = 702.0
+texture = ExtResource("5_asopg")
+
+[node name="InitalStart" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(320, 240)
+anchors_preset = 0
+offset_left = 480.0
+offset_top = 360.0
+offset_right = 520.0
+offset_bottom = 400.0
+mouse_filter = 2
+
+[node name="Ic" parent="InitalStart" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+texture_normal = SubResource("AtlasTexture_1k54k")
+click_se = ExtResource("7_xo8l8")
+
+[node name="Cc" parent="InitalStart" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+offset_top = 40.0
+offset_bottom = 80.0
+texture_normal = SubResource("AtlasTexture_lepnx")
+click_se = ExtResource("7_xo8l8")
+
+[node name="Coda" parent="InitalStart" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+offset_top = 80.0
+offset_bottom = 120.0
+click_se = ExtResource("7_xo8l8")
+
+[node name="As1" parent="InitalStart" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+offset_top = 120.0
+offset_right = 320.0
+offset_bottom = 160.0
+texture_normal = SubResource("AtlasTexture_osct2")
+click_se = ExtResource("7_xo8l8")
+
+[node name="Start2" parent="InitalStart" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+offset_top = 160.0
+offset_right = 320.0
+offset_bottom = 200.0
+texture_normal = SubResource("AtlasTexture_dywql")
+click_se = ExtResource("7_xo8l8")
+
+[node name="StartBack" parent="InitalStart" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+offset_top = 200.0
+offset_bottom = 240.0
+texture_normal = SubResource("AtlasTexture_qseaf")
+click_se = ExtResource("8_cj50m")
+
+[node name="TitleMenu" type="Control" parent="."]
+custom_minimum_size = Vector2(320, 240)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_right = 160.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Start" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+mouse_filter = 2
+texture_normal = SubResource("AtlasTexture_y7jcp")
+texture_pressed = SubResource("AtlasTexture_j56w6")
+click_se = ExtResource("10_fma1i")
+
+[node name="Load" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = 40.0
+offset_right = 320.0
+offset_bottom = 80.0
+mouse_filter = 2
+texture_normal = SubResource("AtlasTexture_khyse")
+texture_pressed = SubResource("AtlasTexture_b7r5i")
+click_se = ExtResource("10_fma1i")
+
+[node name="Options" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = 80.0
+offset_right = 320.0
+offset_bottom = 120.0
+mouse_filter = 2
+texture_normal = SubResource("AtlasTexture_71ye6")
+texture_pressed = SubResource("AtlasTexture_pmpbt")
+click_se = ExtResource("10_fma1i")
+
+[node name="Quit" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = 160.0
+offset_right = 320.0
+offset_bottom = 200.0
+mouse_filter = 2
+texture_normal = SubResource("AtlasTexture_prpdi")
+texture_pressed = SubResource("AtlasTexture_4ochr")
+click_se = ExtResource("10_fma1i")
+
+[node name="TextureRect3" type="TextureRect" parent="TitleMenu"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 260.0
+offset_right = 304.0
+offset_bottom = 300.0
+texture = SubResource("AtlasTexture_yml00")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a6br7")
+}
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(640, -48)
+emitting = false
+amount = 256
+process_material = SubResource("ParticleProcessMaterial_m1pm3")
+texture = SubResource("AtlasTexture_5nfrc")
+lifetime = 12.0
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[connection signal="button_down" from="InitalStart/Ic" to="." method="_on_ic_button_down"]
+[connection signal="button_down" from="InitalStart/Cc" to="." method="_on_cc_button_down"]
+[connection signal="button_down" from="InitalStart/Coda" to="." method="_on_coda_button_down"]
+[connection signal="button_down" from="InitalStart/As1" to="." method="_on_as_1_button_down"]
+[connection signal="button_down" from="InitalStart/Start2" to="." method="_on_start_2_button_down"]
+[connection signal="button_down" from="InitalStart/StartBack" to="." method="_on_start_back_button_down"]
+[connection signal="button_down" from="TitleMenu/Start" to="." method="_on_start_button_down"]
+[connection signal="button_down" from="TitleMenu/Load" to="." method="_on_load_button_down"]
+[connection signal="button_down" from="TitleMenu/Quit" to="." method="_on_quit_button_down"]
