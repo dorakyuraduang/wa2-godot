@@ -1,14 +1,13 @@
-[gd_scene load_steps=50 format=3 uid="uid://b6u3qm7g3fnoj"]
+[gd_scene load_steps=51 format=3 uid="uid://b6u3qm7g3fnoj"]
 
-[ext_resource type="Script" path="res://scene/as/title_menu.gd" id="1_nlawl"]
-[ext_resource type="Shader" path="res://shader/game.gdshader" id="2_n4ci5"]
+[ext_resource type="Script" uid="uid://od6jw6rx7c56" path="res://script/TitleMenu.cs" id="1_le5pv"]
+[ext_resource type="Shader" uid="uid://cdg2vfcimljql" path="res://shader/game.gdshader" id="2_n4ci5"]
 [ext_resource type="Texture2D" uid="uid://6njxooeuq2e7" path="res://assets/grp/AQUAPLUS.tga" id="3_m4rux"]
 [ext_resource type="Texture2D" uid="uid://c1iivcw2lc2u5" path="res://assets/grp/T0012.tga" id="4_xs2u4"]
 [ext_resource type="Texture2D" uid="uid://daw6s3mwwcoq" path="res://assets/grp/T0020.tga" id="5_asopg"]
 [ext_resource type="PackedScene" uid="uid://bkg3mbvjllejg" path="res://scene/menu_button.tscn" id="6_qxj8v"]
 [ext_resource type="Texture2D" uid="uid://bspm6r0uclfff" path="res://assets/grp/T0100.tga" id="7_sohma"]
 [ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="7_xo8l8"]
-[ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="8_cj50m"]
 [ext_resource type="Texture2D" uid="uid://bf3q7r17wdc2t" path="res://assets/grp/T0201.tga" id="8_u5ylh"]
 [ext_resource type="Texture2D" uid="uid://bu8yilf0bmwmn" path="res://assets/grp/T0000.tga" id="9_fn04i"]
 [ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="10_fma1i"]
@@ -16,6 +15,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4rxvu"]
 shader = ExtResource("2_n4ci5")
+shader_parameter/bg1_texture = ExtResource("3_m4rux")
 shader_parameter/chars_priority = false
 shader_parameter/bg1_scale = Vector2(1, 1)
 shader_parameter/bg1_offset = Vector2(0, 0)
@@ -26,7 +26,6 @@ shader_parameter/amp_flag = false
 shader_parameter/amp_strength = 0.0
 shader_parameter/bg2_alpha = 1.0
 shader_parameter/time = 0.0
-shader_parameter/bg1_texture = ExtResource("3_m4rux")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_usn7s"]
 load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
@@ -41,6 +40,13 @@ load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ct
 [sub_resource type="AtlasTexture" id="AtlasTexture_lepnx"]
 atlas = SubResource("CompressedTexture2D_fa746")
 region = Rect2(0, 240, 320, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ptj1n"]
+load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2uut"]
+atlas = SubResource("CompressedTexture2D_ptj1n")
+region = Rect2(0, 280, 320, 40)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ti5lm"]
 load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
@@ -338,6 +344,30 @@ tracks/17/keys = {
 "update": 1,
 "values": [2]
 }
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("InitalStart:visible")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("TitleMenu:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_lsq3n"]
 resource_name = "close"
@@ -376,6 +406,20 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"restart"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_po4he"]
@@ -616,15 +660,18 @@ tracks/15/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a6br7"]
 _data = {
-"RESET": SubResource("Animation_plad3"),
-"close": SubResource("Animation_lsq3n"),
-"logo": SubResource("Animation_po4he"),
-"open": SubResource("Animation_swoom")
+&"RESET": SubResource("Animation_plad3"),
+&"close": SubResource("Animation_lsq3n"),
+&"logo": SubResource("Animation_po4he"),
+&"open": SubResource("Animation_swoom")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5nfrc"]
+atlas = ExtResource("10_kyofm")
+region = Rect2(0, 32, 32, 32)
+
 [sub_resource type="Curve" id="Curve_cdx0a"]
-min_value = 0.1
-max_value = 0.5
+_limits = [0.1, 0.5, 0.0, 1.0]
 _data = [Vector2(0, 0.1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -645,18 +692,27 @@ scale_over_velocity_min = 32.0
 scale_over_velocity_max = 128.0
 scale_over_velocity_curve = SubResource("CurveTexture_nst6c")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5nfrc"]
-atlas = ExtResource("10_kyofm")
-region = Rect2(0, 32, 32, 32)
-
-[node name="TitleMenu" type="Control"]
+[node name="TitleMenu" type="Control" node_paths=PackedStringArray("MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "As1Button", "As2Button", "StartBackButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_nlawl")
+script = ExtResource("1_le5pv")
+MenuBttons = NodePath("TitleMenu")
+InitalStart = NodePath("InitalStart")
+AnimationPlayer = NodePath("AnimationPlayer")
+StartButton = NodePath("TitleMenu/Start")
+LoadtButton = NodePath("TitleMenu/Load")
+OptionsButton = NodePath("TitleMenu/Options")
+QuitButton = NodePath("TitleMenu/Quit")
+ICButton = NodePath("InitalStart/Ic")
+CcButton = NodePath("InitalStart/Cc")
+CodeaButton = NodePath("InitalStart/Coda")
+As1Button = NodePath("InitalStart/As1")
+As2Button = NodePath("InitalStart/As2")
+StartBackButton = NodePath("InitalStart/StartBack")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_4rxvu")
@@ -701,43 +757,46 @@ mouse_filter = 2
 [node name="Ic" parent="InitalStart" instance=ExtResource("6_qxj8v")]
 layout_mode = 0
 texture_normal = SubResource("AtlasTexture_1k54k")
-click_se = ExtResource("7_xo8l8")
+ClickStream = ExtResource("7_xo8l8")
 
 [node name="Cc" parent="InitalStart" instance=ExtResource("6_qxj8v")]
 layout_mode = 0
 offset_top = 40.0
 offset_bottom = 80.0
 texture_normal = SubResource("AtlasTexture_lepnx")
-click_se = ExtResource("7_xo8l8")
+ClickStream = ExtResource("7_xo8l8")
 
 [node name="Coda" parent="InitalStart" instance=ExtResource("6_qxj8v")]
 layout_mode = 0
 offset_top = 80.0
 offset_bottom = 120.0
-click_se = ExtResource("7_xo8l8")
+texture_normal = SubResource("AtlasTexture_f2uut")
+ClickStream = ExtResource("7_xo8l8")
 
 [node name="As1" parent="InitalStart" instance=ExtResource("6_qxj8v")]
+visible = false
 layout_mode = 0
 offset_top = 120.0
 offset_right = 320.0
 offset_bottom = 160.0
 texture_normal = SubResource("AtlasTexture_osct2")
-click_se = ExtResource("7_xo8l8")
+ClickStream = ExtResource("7_xo8l8")
 
-[node name="Start2" parent="InitalStart" instance=ExtResource("6_qxj8v")]
+[node name="As2" parent="InitalStart" instance=ExtResource("6_qxj8v")]
+visible = false
 layout_mode = 0
 offset_top = 160.0
 offset_right = 320.0
 offset_bottom = 200.0
 texture_normal = SubResource("AtlasTexture_dywql")
-click_se = ExtResource("7_xo8l8")
+ClickStream = ExtResource("7_xo8l8")
 
 [node name="StartBack" parent="InitalStart" instance=ExtResource("6_qxj8v")]
 layout_mode = 0
 offset_top = 200.0
 offset_bottom = 240.0
 texture_normal = SubResource("AtlasTexture_qseaf")
-click_se = ExtResource("8_cj50m")
+ClickStream = ExtResource("7_xo8l8")
 
 [node name="TitleMenu" type="Control" parent="."]
 custom_minimum_size = Vector2(320, 240)
@@ -760,7 +819,7 @@ layout_mode = 0
 mouse_filter = 2
 texture_normal = SubResource("AtlasTexture_y7jcp")
 texture_pressed = SubResource("AtlasTexture_j56w6")
-click_se = ExtResource("10_fma1i")
+ClickStream = ExtResource("10_fma1i")
 
 [node name="Load" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
 modulate = Color(1, 1, 1, 0)
@@ -771,7 +830,7 @@ offset_bottom = 80.0
 mouse_filter = 2
 texture_normal = SubResource("AtlasTexture_khyse")
 texture_pressed = SubResource("AtlasTexture_b7r5i")
-click_se = ExtResource("10_fma1i")
+ClickStream = ExtResource("10_fma1i")
 
 [node name="Options" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
 modulate = Color(1, 1, 1, 0)
@@ -782,7 +841,7 @@ offset_bottom = 120.0
 mouse_filter = 2
 texture_normal = SubResource("AtlasTexture_71ye6")
 texture_pressed = SubResource("AtlasTexture_pmpbt")
-click_se = ExtResource("10_fma1i")
+ClickStream = ExtResource("10_fma1i")
 
 [node name="Quit" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
 modulate = Color(1, 1, 1, 0)
@@ -793,7 +852,7 @@ offset_bottom = 200.0
 mouse_filter = 2
 texture_normal = SubResource("AtlasTexture_prpdi")
 texture_pressed = SubResource("AtlasTexture_4ochr")
-click_se = ExtResource("10_fma1i")
+ClickStream = ExtResource("10_fma1i")
 
 [node name="TextureRect3" type="TextureRect" parent="TitleMenu"]
 modulate = Color(1, 1, 1, 0)
@@ -806,16 +865,16 @@ texture = SubResource("AtlasTexture_yml00")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_a6br7")
+&"": SubResource("AnimationLibrary_a6br7")
 }
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(640, -48)
 emitting = false
 amount = 256
-process_material = SubResource("ParticleProcessMaterial_m1pm3")
 texture = SubResource("AtlasTexture_5nfrc")
 lifetime = 12.0
+process_material = SubResource("ParticleProcessMaterial_m1pm3")
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 layout_mode = 1
@@ -831,7 +890,7 @@ color = Color(0, 0, 0, 0)
 [connection signal="button_down" from="InitalStart/Cc" to="." method="_on_cc_button_down"]
 [connection signal="button_down" from="InitalStart/Coda" to="." method="_on_coda_button_down"]
 [connection signal="button_down" from="InitalStart/As1" to="." method="_on_as_1_button_down"]
-[connection signal="button_down" from="InitalStart/Start2" to="." method="_on_start_2_button_down"]
+[connection signal="button_down" from="InitalStart/As2" to="." method="_on_start_2_button_down"]
 [connection signal="button_down" from="InitalStart/StartBack" to="." method="_on_start_back_button_down"]
 [connection signal="button_down" from="TitleMenu/Start" to="." method="_on_start_button_down"]
 [connection signal="button_down" from="TitleMenu/Load" to="." method="_on_load_button_down"]

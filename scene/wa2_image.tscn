@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://nxk5i6p43qpl"]
+
+[ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="2_8703q"]
+[ext_resource type="Script" uid="uid://ch3fjcpjwskoj" path="res://script/Wa2Image.cs" id="2_kdes6"]
+
+[sub_resource type="Resource" id="Resource_5yddv"]
+metadata/__load_path__ = "res://script/Wa2CharImage.cs"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lwoc"]
+shader = ExtResource("2_8703q")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1upqu"]
+shader = ExtResource("2_8703q")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 2.0
+shader_parameter/fead_weight = 2.0
+
+[node name="Wa2CharImage" type="Control" node_paths=PackedStringArray("MaskTexture")]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = SubResource("Resource_5yddv")
+MaskTexture = NodePath("ColorRect")
+
+[node name="TextureRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_3lwoc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_kdes6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_1upqu")
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_kdes6")

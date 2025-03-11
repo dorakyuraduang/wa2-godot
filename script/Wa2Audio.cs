@@ -3,16 +3,17 @@ using System;
 
 public partial class Wa2Audio : AudioStreamPlayer
 {
-	protected int _duration;
-	protected int _counter;
+	protected float _duration;
+	protected float _counter;
 	protected bool _loop;
 	protected int _state;
 	protected float _volume;
-	public void StopStream(int frame)
+	public void StopStream(float time)
 	{
-		_duration = frame;
+
+		_duration = time;
 		_counter = 0;
-		if (_duration > 0)
+		if (_duration > 0.0f)
 		{
 			_state = 2;
 		}
@@ -21,7 +22,7 @@ public partial class Wa2Audio : AudioStreamPlayer
 			Stop();
 		}
 	}
-	public void SetVolume(float volume, int frame)
+	public void SetVolume(float volume, float frame)
 	{
 		_duration = frame;
 		_counter = 0;
@@ -32,9 +33,9 @@ public partial class Wa2Audio : AudioStreamPlayer
 		}
 		VolumeDb = Mathf.LinearToDb(volume);
 	}
-	public void PlayStream(AudioStream stream, bool loop, int frame, float volume)
+	public void PlayStream(AudioStream stream, bool loop, float time, float volume)
 	{
-		_duration = frame;
+		_duration = time;
 		Seek(0);
 		_counter = 0;
 		_volume = volume;
@@ -50,27 +51,36 @@ public partial class Wa2Audio : AudioStreamPlayer
 			_state = 0;
 			VolumeDb = Mathf.LinearToDb(volume);
 		}
-		
+
 	}
-public void Update()
+	public override void _Process(double delta)
 	{
 		switch (_state)
 		{
 			case 1:
-				_counter += 1;
-				VolumeDb = Mathf.LinearToDb((float)_counter / _duration * _volume);
-				if (_counter == _duration)
+				_counter += (float)delta;
+
+				if (_counter >= _duration)
 				{
 					_state = 0;
+					VolumeDb=Mathf.LinearToDb(_volume);
+				}
+				else
+				{
+					VolumeDb = Mathf.LinearToDb((float)_counter / _duration * _volume);
 				}
 				break;
 			case 2:
-				_counter += 1;
-				VolumeDb = Mathf.LinearToDb((1.0f - (float)_counter / _duration) * _volume);
-				if (_counter == _duration)
+				_counter += (float)delta;
+
+				if (_counter >= _duration)
 				{
 					_state = 0;
 					Stop();
+				}
+				else
+				{
+					VolumeDb = Mathf.LinearToDb(0);
 				}
 				break;
 		}
@@ -81,7 +91,7 @@ public void Update()
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	// public override void _Process(double delta)
+	// {
+	// }
 }

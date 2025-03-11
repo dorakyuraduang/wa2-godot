@@ -1,8 +1,9 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
-.pak
+*.pak
 /assets/
 .VSCodeCounter/
 .qodo/
-
+*.apk
+*.uid

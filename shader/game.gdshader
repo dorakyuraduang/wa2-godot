@@ -33,7 +33,7 @@ vec4 get_bg_color(sampler2D bg_texture,vec2 uv,vec2 offset,vec2 scale){
     vec2 bg_offset = ((vec2(1.0)-scale)/2.0/scale)-(offset/vec2(1280,720));
     vec2 centered_uv = (scaled_uv - bg_offset)/size;
 	vec4 bg_color=texture(bg_texture,centered_uv);
-	if(textureSize(bg_texture,0)==ivec2(4,4)){	
+	if(textureSize(bg_texture,0)==ivec2(4,4)){
 		bg_color=vec4(0);
 	}
 	return bg_color;
@@ -44,21 +44,21 @@ void fragment() {
 	vec4 bg2_color=get_bg_color(bg2_texture,UV,bg2_offset,bg2_scale);
     vec4 tex1 = texture(texture1, UV);
     vec4 tex2 = texture(texture2, UV);
-    float alpha1 = clamp(1.0 - time, 0.0, 1.0); 
-    float alpha2 = clamp(time, 0.0, 1.0); 
-	//float bg2_alpha1 = clamp(1.0 - bg2_alpha, 0.0, 1.0); 
-    //float bg2_alpha2 = clamp(bg2_alpha, 0.0, 1.0); 
-	if(textureSize(texture1,0)==ivec2(4,4) || tex1.a==0.0){	
+    float alpha1 = clamp(1.0 - time, 0.0, 1.0);
+    float alpha2 = clamp(time, 0.0, 1.0);
+	//float bg2_alpha1 = clamp(1.0 - bg2_alpha, 0.0, 1.0);
+    //float bg2_alpha2 = clamp(bg2_alpha, 0.0, 1.0);
+	if(textureSize(texture1,0)==ivec2(4,4) || tex1.a==0.0){
 		tex1=vec4(0);
 	}
-	if(textureSize(texture2,0)==ivec2(4,4)|| tex2.a==0.0){	
+	if(textureSize(texture2,0)==ivec2(4,4)|| tex2.a==0.0){
 		tex2=vec4(0);
 	}
 	if (tex1==vec4(0) && tex2!=vec4(0)){
 		chars_color=tex2*vec4(1,1,1,alpha2);
 	}else if (tex2==vec4(0) && tex1!=vec4(0)){
 		chars_color=tex1*vec4(1,1,1,alpha1);
-	}else 
+	}else
 	if (tex2==vec4(0) && tex1==vec4(0)){
 		chars_color=vec4(0);
 	}

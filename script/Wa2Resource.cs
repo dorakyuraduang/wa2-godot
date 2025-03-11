@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Text;
 using System.Collections.Generic;
-
 public class FileEntry
 {
 	public uint Crypted { get; set; }
@@ -14,17 +13,21 @@ public class FileEntry
 
 public class Wa2Resource
 {
+	public static string ResPath;
 	public static void Clear()
 	{
 		SoundDic.Clear();
+		ImageDic.Clear();
+
 	}
 	public static Dictionary<string, AudioStream> SoundDic { get; private set; } = new();
-
-	public static Dictionary<string, FileEntry> PkgDic { get; private set; } = new();
+	// public static Dictionary<string, FileAccess> PakDir { get; private set; } = new();
+	public static Dictionary<string, FileEntry> FileDic { get; private set; } = new();
+	public static Dictionary<string, ImageTexture> ImageDic { get; private set; } = new();
 	public static void LoadOggSound(string path)
 	{
 		byte[] buffer = LoadFileBuffer(path);
-		
+
 		if (buffer == null)
 		{
 			return;
@@ -32,45 +35,159 @@ public class Wa2Resource
 		AudioStream oggStream = AudioStreamOggVorbis.LoadFromBuffer(buffer);
 		SoundDic[path] = oggStream;
 	}
-	public static AudioStream GetOggSound(string path)
+	public static void LoadWavSound(string path)
+	{
+		GD.Print(path);
+		byte[] buffer = LoadFileBuffer(path);
+		if (buffer == null)
+		{
+			return;
+		}
+		AudioStream wavStream = AudioStreamWav.LoadFromBuffer(buffer);
+		SoundDic[path] = wavStream;
+
+	}
+	public static Texture2D GetMaskImage(int id)
+	{
+		return GetBmpImage(string.Format("f0{0:D3}.bmp", id));
+	}
+	public static AudioStream GetVoiceStream(int label, int id, int chr)
+	{
+		GD.Print(string.Format("{0:D4}_{1:D4}_{2:D2}.ogg", label, id, chr));
+		return GetOggStream(string.Format("{0:D4}_{1:D4}_{2:D2}.ogg", label, id, chr));
+	}
+	public static AudioStream GetSeStream(uint id)
+	{
+		if (FileDic.ContainsKey(string.Format("se_{0:D4}.wav", id)))
+		{
+			return GetWavStream(string.Format("se_{0:D4}.wav", id));
+		}
+		else
+		{
+			return GetOggStream(string.Format("se_{0:D4}.ogg", id));
+		}
+	}
+	public static AudioStream GetOggStream(string path)
 	{
 		path = path.ToLower();
 		if (!SoundDic.ContainsKey(path))
 		{
 			LoadOggSound(path);
 		}
-		GD.Print(SoundDic.GetValueOrDefault(path));
+		// GD.Print(SoundDic.GetValueOrDefault(path));
 		return SoundDic.GetValueOrDefault(path);
 	}
+	public static ImageTexture GetCgImage(int id, int no)
+	{
+		string path = string.Format("v{0:D5}{1:D1}.tga", id, no);
+		// GD.Print(path);
+		return GetTgaImage(path);
+
+	}
+	public static ImageTexture GetBgImage(int id, int type, int no)
+	{
+		string path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", id, no, type);
+		// GD.Print(path);
+		return GetTgaImage(path);
+
+	}
+	public static ImageTexture GetChrImage(int id, int type)
+	{
+		string path = string.Format("{0:S}{1:D6}.tga", Wa2Def.CharDict[id], type);
+		// GD.Print(path);
+		return GetTgaImage(path);
+
+	}
+	public static ImageTexture GetTgaImage(string path)
+	{
+		path = path.ToLower();
+		if (!ImageDic.ContainsKey(path))
+		{
+			LoadTgaImage(path);
+		}
+		// GD.Print(SoundDic.GetValueOrDefault(path));
+		return ImageDic.GetValueOrDefault(path);
+	}
+	public static ImageTexture GetBmpImage(string path)
+	{
+		path = path.ToLower();
+		if (!ImageDic.ContainsKey(path))
+		{
+			LoadBmpImage(path);
+		}
+		// GD.Print(SoundDic.GetValueOrDefault(path));
+		return ImageDic.GetValueOrDefault(path);
+	}
+	public static void LoadTgaImage(string path)
+	{
+		ulong start = Time.GetTicksMsec();
+		path = path.ToLower();
+		byte[] buffer = LoadFileBuffer(path);
+		GD.Print("加载时间2:", Time.GetTicksMsec() - start);
+
+
+		if (buffer == null)
+		{
+			return;
+		}
+		Image image = new();
+		image.LoadTgaFromBuffer(buffer);
+		ImageTexture tgaImage = ImageTexture.CreateFromImage(image);
+		ImageDic[path] = tgaImage;
+		
+	}
+	public static void LoadBmpImage(string path)
+	{
+		path = path.ToLower();
+		byte[] buffer = LoadFileBuffer(path);
+
+		if (buffer == null)
+		{
+			return;
+		}
+		Image image = new();
+		image.LoadBmpFromBuffer(buffer);
+		ImageTexture tgaImage = ImageTexture.CreateFromImage(image);
+		ImageDic[path] = tgaImage;
+	}
+	public static AudioStream GetWavStream(string path)
+	{
+		path = path.ToLower();
+		if (!SoundDic.ContainsKey(path))
+		{
+			LoadWavSound(path);
+		}
+		// GD.Print(SoundDic.GetValueOrDefault(path));
+		return SoundDic.GetValueOrDefault(path);
+	}
+
 	public static AudioStream GetBgmStream(int id, bool loop = false)
 	{
-		if (GetOggSound(string.Format("BGM_{0:D3}.OGG", id)) != null)
+		if (GetOggStream(string.Format("BGM_{0:D3}.OGG", id)) != null)
 		{
-			return GetOggSound(string.Format("BGM_{0:D3}.OGG", id));
+			return GetOggStream(string.Format("BGM_{0:D3}.OGG", id));
 		}
 		else
 		{
 			if (!loop)
 			{
-				return GetOggSound(string.Format("BGM_{0:D3}_A.OGG", id));
+				return GetOggStream(string.Format("BGM_{0:D3}_A.OGG", id));
 			}
 			else
 			{
-				return GetOggSound(string.Format("BGM_{0:D3}_B.OGG", id));
+				return GetOggStream(string.Format("BGM_{0:D3}_B.OGG", id));
 			}
 		}
 	}
 	public static byte[] LoadFileBuffer(string path)
 	{
 		path = path.ToLower();
-		FileEntry entry = PkgDic.GetValueOrDefault(path);
-
+		FileEntry entry = FileDic.GetValueOrDefault(path);
 		if (entry == null)
 		{
 			return null;
 		}
-		FileAccess file = FileAccess.Open(entry.PkgPath, FileAccess.ModeFlags.Read);
-
+		FileAccess file = FileAccess.Open(ResPath + entry.PkgPath, FileAccess.ModeFlags.Read);
 		file.Seek((ulong)entry.Offset);
 		byte[] buffer;
 		if (entry.Crypted == 0)
@@ -81,70 +198,113 @@ public class Wa2Resource
 		}
 		else
 		{
-			uint inceil = file.Get32();
-			uint outceil = file.Get32();
+			byte flag, byte1 , byte2 ;
+			
 			byte[] arr = new byte[0x1000];
 			for (int i = 0; i < 0xfee; i++)
 			{
 				arr[i] = 0x20;
 			}
-			uint insize = 0;
-			uint outsize = 0;
-			uint arrw = 0xfee;
-			buffer = new byte[outceil];
-			while (insize < inceil && outsize < outceil)
+			uint arr_r, arr_w = 0xfee;
+			uint counter;
+			uint insize = 0, outsize = 0;
+			uint inlim = file.Get32();
+			uint outlim = file.Get32();
+			byte[] readBuffer=file.GetBuffer(inlim);
+			file.Close();
+			buffer = new byte[outlim];
+			while (true )
 			{
-				byte flag = file.Get8();
-				insize++;
+				if (insize>=inlim){
+					return buffer;
+				}
+				flag = readBuffer[insize++];
 				for (int j = 0; j < 8; j++)
 				{
-					if (insize >= inceil || outsize >= outceil)
+					if (insize >= inlim || outsize >= outlim)
 					{
-						break;
+						return buffer;
 					}
-					byte b1 = file.Get8();
-					insize++;
-					if ((flag & 1) == 0)
+					byte1 = readBuffer[insize++];
+					if ((flag & 1)==0)
 					{
-						byte b2 = file.Get8();
-						insize++;
-						uint arrr = b1 | (uint)(b2 & 0xf0) << 4;
-						uint counter = (uint)(b2 & 0xf) + 3;
+						byte2 = readBuffer[insize++];
+						arr_r = (uint)(byte1 | (byte2 & 0xF0) << 4);
+						counter = (uint)(byte2 & 0xF) + 3;
 						while (counter > 0)
 						{
-							b1 = arr[arrr & 0xfff];
-							arr[arrw & 0xFFF] = b1;
-							buffer[outsize] = b1;
-							arrr++;
-							arrw++;
-							outsize++;
+							byte1 = arr[arr_r++ & 0xfff];
+							arr[arr_w++ & 0xfff] = byte1;
+							buffer[outsize++] = byte1;
 							counter--;
 						}
 					}
 					else
 					{
-						arr[arrw & 0xfff] = b1;
-						buffer[outsize] = b1;
-						arrw++;
-						outsize++;
+						arr[arr_w++ & 0xfff] = byte1;
+						buffer[outsize++] = byte1;
 					}
 					flag >>= 1;
 				}
 			}
-			file.Close();
-			return buffer;
+			// byte[] arr = new byte[0x1000];
+
+			// uint insize = 0;
+			// uint outsize = 0;
+			// uint arrw = 0xfee;
+			// buffer = new byte[outceil];
+			// while (insize < inceil && outsize < outceil)
+			// {
+			// 	byte flag = file.Get8();
+			// 	insize++;
+			// 	for (int j = 0; j < 8; j++)
+			// 	{
+			// 		if (insize >= inceil || outsize >= outceil)
+			// 		{
+			// 			break;
+			// 		}
+			// 		byte b1 = file.Get8();
+			// 		insize++;
+			// 		if ((flag & 1) == 0)
+			// 		{
+			// 			byte b2 = file.Get8();
+			// 			insize++;
+			// 			uint arrr = b1 | (uint)(b2 & 0xf0) << 4;
+			// 			uint counter = (uint)(b2 & 0xf) + 3;
+			// 			while (counter > 0)
+			// 			{
+			// 				b1 = arr[arrr & 0xfff];
+			// 				arr[arrw & 0xFFF] = b1;
+			// 				buffer[outsize] = b1;
+			// 				arrr++;
+			// 				arrw++;
+			// 				outsize++;
+			// 				counter--;
+			// 			}
+			// 		}
+			// 		else
+			// 		{
+			// 			arr[arrw & 0xfff] = b1;
+			// 			buffer[outsize] = b1;
+			// 			arrw++;
+			// 			outsize++;
+			// 		}
+			// 		flag >>= 1;
+			// 	}
+			// }
+			// return buffer;
 		}
 	}
 	public static void LoadPak(string path)
 	{
-		path = path.ToLower();
-		FileAccess file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+		FileAccess file = FileAccess.Open(ResPath + path, FileAccess.ModeFlags.Read);
+
 		uint magic = file.Get32();
 		if (magic == 0x5041434B)
 		{
 			file.Get64();
 			uint nentry = file.Get32();
-			
+
 			for (int i = 0; i < nentry; i++)
 			{
 				file.Seek((ulong)(16 + i * 44));
@@ -161,14 +321,13 @@ public class Wa2Resource
 					Crypted = crypted,
 					FileName = fileName
 				};
-				PkgDic[fileName] = entry;
-					// GD.Print(fileName);
+				FileDic[fileName] = entry;
 			}
 		}
 		else if (magic == 0x0043414c)
 		{
 			uint nentry = file.Get32();
-			
+
 			for (int i = 0; i < nentry; i++)
 			{
 				file.Seek((ulong)(8 + i * 40));
@@ -177,7 +336,7 @@ public class Wa2Resource
 				{
 					if (tempBuffer[j] != 0)
 					{
-						tempBuffer[j] =(byte)(~tempBuffer[j]&0xff);
+						tempBuffer[j] = (byte)(~tempBuffer[j] & 0xff);
 					}
 				}
 				string fileName = Encoding.GetEncoding("shift_jis").GetString(tempBuffer).ToLower().Replace("\0", "");
@@ -191,11 +350,12 @@ public class Wa2Resource
 					Crypted = 0,
 					FileName = fileName
 				};
-				PkgDic[fileName] = entry;
+
+				FileDic[fileName] = entry;
 				// GD.Print(fileName);
 			}
 		}
-		file.Close();
+		// PakDir[path] = file;
 	}
 
 	// 	var nentry=file.get_32()

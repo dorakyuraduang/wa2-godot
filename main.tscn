@@ -1,6 +1,347 @@
-[gd_scene load_steps=2 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=22 format=3 uid="uid://bblla2fup6lge"]
 
-[ext_resource type="Script" path="res://script/Main.cs" id="1_wdeo5"]
+[ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
+[ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
+[ext_resource type="Script" uid="uid://7o38nrw6moms" path="res://script/Wa2Viewport.cs" id="3_0aff7"]
+[ext_resource type="PackedScene" uid="uid://8iltc13k4sm1" path="res://scene/wa2_adv_main.tscn" id="3_ww1q6"]
+[ext_resource type="Script" uid="uid://ch3fjcpjwskoj" path="res://script/Wa2Image.cs" id="4_jqvt3"]
+[ext_resource type="Script" uid="uid://bplbwgh74r3w5" path="res://script/Wa2UiMgr.cs" id="4_p6nqb"]
+[ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="5_3be8l"]
+[ext_resource type="PackedScene" uid="uid://b6u3qm7g3fnoj" path="res://scene/as/title_menu.tscn" id="5_d5jo3"]
 
-[node name="Main" type="Node"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tw2vm"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c887e"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 0.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lekix"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rx1yr"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m30m8"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xteud"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0t8w5"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0havl"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8cquq"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdu5d"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8skep"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ogly6"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_536a2"]
+resource_local_to_scene = true
+shader = ExtResource("5_3be8l")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 0.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+
+[node name="EngineMain" type="Node" node_paths=PackedStringArray("CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
 script = ExtResource("1_wdeo5")
+CharGroup = NodePath("SubViewportContainer/SubViewport/CharGroup")
+SubViewport = NodePath("SubViewportContainer")
+Viewport = NodePath("SubViewportContainer/SubViewport")
+AdvMain = NodePath("Wa2UiMgr/AdvMain")
+UiMgr = NodePath("Wa2UiMgr")
+SoundMgr = NodePath("SoundMgr")
+BgTexture = NodePath("SubViewportContainer/SubViewport/Bg")
+MaskTexture = NodePath("MaskImage")
+
+[node name="SoundMgr" type="Node" parent="."]
+script = ExtResource("2_w3y5b")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+script = ExtResource("3_0aff7")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="Bg" type="ColorRect" parent="SubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_tw2vm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="CharGroup" type="Control" parent="SubViewportContainer/SubViewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_c887e")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="ColorRect2" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_lekix")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="ColorRect3" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_rx1yr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="ColorRect4" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_m30m8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="ColorRect5" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_xteud")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="ColorRect6" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_0t8w5")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="ColorRect7" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_0havl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="ColorRect8" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_8cquq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="ColorRect9" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_hdu5d")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="ColorRect10" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_8skep")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="ColorRect11" type="ColorRect" parent="SubViewportContainer/SubViewport/CharGroup"]
+material = SubResource("ShaderMaterial_ogly6")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_jqvt3")
+
+[node name="MaskImage" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_536a2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_jqvt3")
+
+[node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("AdvMain", "TitleMenu")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_p6nqb")
+AdvMain = NodePath("AdvMain")
+TitleMenu = NodePath("TitleMenu")
+
+[node name="AdvMain" parent="Wa2UiMgr" instance=ExtResource("3_ww1q6")]
+visible = false
+layout_mode = 1
+
+[node name="TitleMenu" parent="Wa2UiMgr" instance=ExtResource("5_d5jo3")]
+visible = false
+layout_mode = 1
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
