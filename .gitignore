@@ -4,6 +4,7 @@
 *.pak
 /assets/
 .VSCodeCounter/
+.vscode/
 .qodo/
 *.apk
 *.uid
