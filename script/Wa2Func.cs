@@ -165,10 +165,11 @@ public class Wa2Func
 	}
 	public void printEx(List<dynamic> args) { }
 	public void printEx2(List<dynamic> args) { }
-	public void SetMessage(List<dynamic> args) {
+	public void SetMessage(List<dynamic> args)
+	{
 		GD.Print("设置等待点击标签样式");
 
-	 }
+	}
 	public void SetMessageE(List<dynamic> args)
 	{
 		_engine.AdvMain.CurText = _engine.Script.ParseStr(args[0]).Replace("\\n", "\n");
@@ -193,8 +194,9 @@ public class Wa2Func
 	public void SetDemoMode(List<dynamic> args) { }
 	public void VI(List<dynamic> args)
 	{
-		if (args[0]==0){
-			_engine.Label=args[1];
+		if (args[0] == 0)
+		{
+			_engine.Label = args[1];
 		}
 		// int v0 = args[0];
 		// int v1 = args[1];
@@ -219,12 +221,12 @@ public class Wa2Func
 	}
 	public void WN(List<dynamic> args)
 	{
-		GD.Print("位置",_engine.Script.CurPos);
-		if (args[0]>=0)
+		GD.Print("位置", _engine.Script.CurPos);
+		if (args[0] >= 0)
 		{
 			_engine.AdvMain.CurName = _engine.Script.ParseStr(args[0]);
 		}
-		
+
 	}
 	public void WNS(List<dynamic> args) { }
 
@@ -247,7 +249,7 @@ public class Wa2Func
 		{
 			NextTexture = CeacheTexture;
 		}
-		GD.Print("遮罩图",args[0]);
+		GD.Print("遮罩图", args[0]);
 		if (args[0] >= 128)
 		{
 			_engine.MaskTexture.SetMaskTexture(Wa2Resource.GetMaskImage(args[0] & 0x7f));
@@ -256,22 +258,20 @@ public class Wa2Func
 		{
 			_engine.MaskTexture.SetMaskTexture(null);
 		}
-		_engine.MaskTexture.SetCurOffset(_engine.BgTexture.GetCurOffset());
-		_engine.MaskTexture.SetCurScale(_engine.BgTexture.GetCurScale());
-		_engine.BgTexture.SetCurOffset(new Vector2(0, 0));
-		_engine.BgTexture.SetCurScale(new Vector2(1, 1));
+		_engine.MaskTexture.SetCurOffset(Vector2.Zero);
+		_engine.MaskTexture.SetCurScale(Vector2.One);
 		_engine.MaskTexture.SetCurTexture(CeacheTexture);
 		_engine.MaskTexture.SetNextScale(new Vector2(1, 1));
 		_engine.MaskTexture.SetNextOffset(new Vector2(0, 0));
 		_engine.MaskTexture.SetNextTexture(NextTexture);
+		_engine.BgTexture.SetCurOffset(new Vector2(0, 0));
+		_engine.BgTexture.SetCurScale(new Vector2(1, 1));
 		// _engine.MaskTexture.SetMaskTexture(null);
 		Wa2Animator animator1 = new(_engine.MaskTexture);
 		Wa2Animator animator2 = new(_engine.MaskTexture);
 		animator1.InitFade(_engine.BgTime);
 		animator2.InitHide(_engine.BgTime);
 		ClearChar(_engine.BgTime);
-
-
 		// _engine.SubViewport.Hide();
 		_engine.BgTexture.SetCurTexture(NextTexture);
 		// _engine.BgTexture.SetCurScale(NextTexture);
@@ -356,6 +356,7 @@ public class Wa2Func
 	public void V(List<dynamic> args)
 	{
 		Texture2D NextTexture;
+
 		if (args[1] >= 0)
 		{
 			NextTexture = Wa2Resource.GetCgImage(args[1], args[2]);
@@ -410,7 +411,7 @@ public class Wa2Func
 			no = args[1],
 			pos = args[2],
 		};
-		int test=args[5];
+		int test = args[5];
 		UpdateChar(args[5] * _engine.FrameTime);
 		// int pos = Array.FindIndex(_engine.CharIdxs, x => x == args[0]);
 		// if (pos != args[2])
@@ -489,8 +490,9 @@ public class Wa2Func
 	}
 	public void M(List<dynamic> args)
 	{
-		if(args.Count==3){
-			GD.Print("错误位置",_engine.Script.CurPos);
+		if (args.Count == 3)
+		{
+			GD.Print("错误位置", _engine.Script.CurPos);
 		}
 		_engine.SoundMgr.PlayBgm(args[0], args[2] != 0, args[3]);
 	}
@@ -518,7 +520,7 @@ public class Wa2Func
 	}
 	public void SE(List<dynamic> args)
 	{
-		Wa2SoundMgr.Instance.PlaySe(0,args[0],false,0,args[1]);
+		Wa2SoundMgr.Instance.PlaySe(0, args[0], false, 0, args[1]);
 	}
 	public void SEP(List<dynamic> args)
 	{
@@ -531,7 +533,7 @@ public class Wa2Func
 	}
 	public void SEV(List<dynamic> args)
 	{
-		_engine.SoundMgr.SetSeVolume(args[0],args[1],args[2]*_engine.FrameTime);
+		_engine.SoundMgr.SetSeVolume(args[0], args[1], args[2] * _engine.FrameTime);
 		GD.Print("估计是设置音量");
 	}
 	public void SEW(List<dynamic> args)
@@ -774,8 +776,13 @@ public class Wa2Func
 	}
 	public void B2(List<dynamic> args)
 	{
+		_engine.AnimatorsFinish();
 		Texture2D NextTexture;
-		Texture2D CeacheTexture = _engine.BgTexture.GetCurTexture();
+		Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
+		if (args[3] > 0)
+		{
+			_engine.BgTime = args[3] * _engine.FrameTime;
+		}
 		if (args[1] >= 0)
 		{
 			NextTexture = Wa2Resource.GetBgImage(args[1], _engine.TimeMode, args[2]);
@@ -791,15 +798,18 @@ public class Wa2Func
 		_engine.MaskTexture.SetMaskTexture(null);
 		Wa2Animator animator1 = new(_engine.MaskTexture);
 		Wa2Animator animator2 = new(_engine.MaskTexture);
-		_engine.BgTexture.SetCurOffset(new Vector2(args[5] - args[4], args[6]));
-		_engine.BgTexture.SetCurScale(new Vector2(args[7], args[8]));
+		_engine.MaskTexture.SetCurOffset(Vector2.Zero);
+		_engine.MaskTexture.SetCurScale(Vector2.One);
 		_engine.MaskTexture.SetNextOffset(new Vector2(args[5] - args[4], args[6]));
 		_engine.MaskTexture.SetNextScale(new Vector2(args[7], args[8]));
-		animator1.InitFade(args[3] * _engine.FrameTime);
-		animator2.InitHide(args[3] * _engine.FrameTime);
+
 		// _engine.SubViewport.Hide();
+		_engine.BgTexture.SetCurOffset(new Vector2(args[5] - args[4], args[6]));
+		_engine.BgTexture.SetCurScale(new Vector2(args[7], args[8]));
 		_engine.BgTexture.SetCurTexture(NextTexture);
-		ClearChar(args[3] * _engine.FrameTime);
+		animator1.InitFade(_engine.BgTime);
+		animator2.InitHide(_engine.BgTime);
+		ClearChar(_engine.BgTime);
 	}
 	public void BC2(List<dynamic> args)
 	{
@@ -856,7 +866,7 @@ public class Wa2Func
 	}
 	public void SLoad(List<dynamic> args)
 	{
-		
+
 		LoadScript(_engine.Script.ParseStr(args[0]));
 	}
 	public void SCall(List<dynamic> args)

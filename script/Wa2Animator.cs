@@ -8,7 +8,8 @@ public class Wa2Animator
 	{
 		FEAD,
 		MOVE,
-		HIDE
+		HIDE,
+		SHOW
 	}
 	public bool Wait = true;
 	public Wa2Timer Timer;
@@ -45,6 +46,13 @@ public class Wa2Animator
 		Timer = new Wa2Timer();
 		Timer.Start(time);
 	}
+	public void InitShow(float time)
+	{
+		Type = AnimType.SHOW;
+		Image.Hide();
+		Timer = new Wa2Timer();
+		Timer.Start(time);
+	}
 	public void InitFade(float time, int ox = 0)
 	{
 		// BodyTexure.Hide();
@@ -74,6 +82,13 @@ public class Wa2Animator
 		// if (!IsActive()){
 		// 	return;
 		// }
+		if (Type == AnimType.SHOW)
+		{
+			if (Timer.GetProgress() >= 1f)
+			{
+			Image.Show();
+			}
+		}
 		if (Type == AnimType.FEAD)
 		{
 			// GD.Print(Timer.GetProgress());
@@ -83,11 +98,9 @@ public class Wa2Animator
 				Image.SetCurTexture(Image.GetNextTexture());
 				Image.SetMaskTexture(null);
 				Image.SetNextTexture(null);
-				GD.Print("图片名称", Image.Name);
-				GD.Print("当前图片", Image.GetCurTexture());
 				Image.SetBlend(0.0f);
-				Image.SetCurOffset(Image.GetNextOffset());
-				Image.SetCurScale(Image.GetNextScale());
+				// Image.SetCurOffset(Image.GetNextOffset());
+				// Image.SetCurScale(Image.GetNextScale());
 				// MaskTexure.Hide();
 				// BodyTexure.Show();
 				// MaskTexure.SetCurTexture(null);
@@ -103,7 +116,7 @@ public class Wa2Animator
 			Image.SetCurOffset(Timer.GetProgress() * MoveDistance + StartOffset);
 			if (Timer.GetProgress() >= 1f)
 			{
-				Image.SetCurOffset(MoveDistance + StartOffset);
+				// Image.SetCurOffset(MoveDistance + StartOffset);
 				// MaskTexure.Hide();
 				// BodyTexure.Show();
 				// MaskTexure.SetCurTexture(null);
