@@ -25,7 +25,7 @@ public partial class Wa2SoundMgr : Node
 		_bgmAudio.StopStream(time);
 	}
 	public float GetSeTime(int channel){
-		return (float)_seAudios[channel].Stream.GetLength();
+		return (float)_seAudios[channel].Stream.GetLength()-_seAudios[channel].GetPlaybackPosition();
 	}
 	public static Wa2SoundMgr Instance
 	{

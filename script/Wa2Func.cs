@@ -347,6 +347,7 @@ public class Wa2Func
 		_engine.BgTexture.SetMaskTexture(null);
 		Wa2Animator animator3 = new(_engine.BgTexture);
 		animator3.InitFade(_engine.BgTime);
+		UpdateChar(_engine.BgTime);
 		// _engine.SubViewport.Hide();
 		GD.Print("更新背景和角色");
 		// _engine.CharDic.Clear();
@@ -508,7 +509,7 @@ public class Wa2Func
 	}
 	public void MV(List<dynamic> args)
 	{
-		GD.Print("估计是显示日期");
+		GD.Print("估计是改变语言音量2个参数");
 	}
 	public void MW(List<dynamic> args)
 	{
@@ -534,10 +535,11 @@ public class Wa2Func
 	public void SEV(List<dynamic> args)
 	{
 		_engine.SoundMgr.SetSeVolume(args[0], args[1], args[2] * _engine.FrameTime);
-		GD.Print("估计是设置音量");
 	}
 	public void SEW(List<dynamic> args)
 	{
+		_engine.WaitSe=true;
+		_engine.WaitSeChannel=args[0];
 		_engine.WaitTimer.Start(_engine.SoundMgr.GetSeTime(args[0]));
 	}
 	public void SEVW(List<dynamic> args)

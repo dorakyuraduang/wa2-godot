@@ -23,6 +23,7 @@ public partial class Wa2EngineMain : Node
 	// Called when the node enters the scene tree for the first time.
 	public float BgTime;
 	public int ReplayMode;
+	public int WaitSeChannel;
 	public Dictionary<int, Wa2Char> CharDic = new();
 	public static Wa2EngineMain Engine;
 	public int Year;
@@ -31,6 +32,7 @@ public partial class Wa2EngineMain : Node
 	public int TimeMode;
 	public List<Wa2Animator> Animators { private set; get; } = new();
 	public bool WaitClick = false;
+	public bool WaitSe = false;
 	public Wa2Prefs Prefs;
 	public int Label;
 	public bool Skipping = false;
@@ -55,6 +57,7 @@ public partial class Wa2EngineMain : Node
 	public Wa2Image MaskTexture;
 	public GameState State = GameState.NONE;
 	public Wa2Timer WaitTimer = new();
+	public Wa2Timer SeWaitTimer = new();
 	public float FrameTime { private set; get; } = 1.0f / 60;
 	public Wa2Script Script;
 	public Wa2Func Func;
@@ -89,10 +92,10 @@ public partial class Wa2EngineMain : Node
 	// }
 	public override void _Ready()
 	{
-		
+
 		if (OS.GetName() == "Android")
 		{
-			
+
 			Wa2Resource.ResPath = "/storage/emulated/0/Wa2Res/";
 
 		}
@@ -160,13 +163,13 @@ public partial class Wa2EngineMain : Node
 			Script.ParseCmd();
 		}
 
-
 	}
 	public void LoadScript(string name, uint pos = 0)
 	{
 		WaitClick = false;
 		WaitTimer.Done();
 		AdvMain.Clear();
+		WaitSeFinish();
 		Script.LoadScript(name, pos);
 
 	}
@@ -197,7 +200,21 @@ public partial class Wa2EngineMain : Node
 			SkipCheck();
 			if (!WaitTimer.IsActive() && !WaitClick && !WaitAnimator())
 			{
+				WaitSeFinish();
 				Script.ParseCmd();
+			}
+		}
+	}
+	public void WaitSeFinish()
+	{
+		if (WaitSe)
+		{
+			WaitSe=false;
+			if (WaitSeChannel >= 0)
+			{
+				
+				SoundMgr.StopSe(WaitSeChannel);
+				WaitSeChannel = -1;
 			}
 		}
 	}
@@ -211,6 +228,7 @@ public partial class Wa2EngineMain : Node
 			}
 			AdvMain.Finish();
 			AnimatorsFinish();
+			WaitSeFinish();
 			WaitClick = false;
 		}
 	}
