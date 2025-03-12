@@ -8,8 +8,8 @@ public partial class Wa2AdvMain : Control
 	[Export]
 	public Wa2Label TextLabel;
 	private Wa2EngineMain _engine;
-	public string CurText="";
-	public string CurName="";
+	public string CurText = "";
+	public string CurName = "";
 	public enum AdvState
 	{
 		NONE,
@@ -28,6 +28,7 @@ public partial class Wa2AdvMain : Control
 	}
 	public void AdvShow(float time = 0.25f)
 	{
+		UpdateText();
 		State = AdvState.SHOW_MESSAGE;
 		_engine.WaitTimer.Start(time);
 	}
@@ -57,7 +58,6 @@ public partial class Wa2AdvMain : Control
 			if (_engine.WaitTimer.GetProgress() >= 1f)
 			{
 				Modulate = new Color(1, 1, 1, 1);
-
 				Active = true;
 				AdvShowText();
 			}
@@ -65,11 +65,14 @@ public partial class Wa2AdvMain : Control
 		if (State == AdvState.SHOW_TEXT)
 		{
 			TextLabel.VisibleRatio = _engine.WaitTimer.GetProgress();
+
 			if (_engine.WaitTimer.GetProgress() >= 1f)
 			{
 				TextLabel.VisibleRatio = 1F;
 				State = AdvState.WAIT_CLICK;
+				
 			}
+			UpdateText();
 		}
 		if (State == AdvState.HIDE_MESSAGE)
 		{
@@ -77,9 +80,13 @@ public partial class Wa2AdvMain : Control
 			if (_engine.WaitTimer.GetProgress() >= 1f)
 			{
 				Modulate = new Color(1, 1, 1, 0);
-				State=AdvState.NONE;
+				State = AdvState.NONE;
 			}
 		}
+		
+	}
+	public void UpdateText()
+	{
 		NameLabel.Update();
 		TextLabel.Update();
 	}

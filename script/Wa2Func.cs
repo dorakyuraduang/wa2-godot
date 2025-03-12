@@ -211,9 +211,21 @@ public class Wa2Func
 		}
 
 	}
-	public void VX(List<dynamic> args) { }
-	public void VW(List<dynamic> args) { }
-	public void VS(List<dynamic> args) { }
+	public void VX(List<dynamic> args)
+	{
+		GD.Print("插入对话");
+	}
+	public void VW(List<dynamic> args)
+	{
+		_engine.WaitTimer.Start(_engine.SoundMgr.GetViceoTime());
+		_engine.WaitClick=true;
+		GD.Print("等待对话结束跳转下一句");
+		// _engine.AdvMain.CurName="";
+	}
+	public void VS(List<dynamic> args)
+	{
+		GD.Print("停止对话");
+	}
 	public void W(List<dynamic> args) { }
 	public void WR(List<dynamic> args)
 	{
@@ -225,6 +237,11 @@ public class Wa2Func
 		{
 			_engine.AdvMain.CurName = _engine.Script.ParseStr(args[0]);
 		}
+		else
+		{
+			_engine.AdvMain.CurName = "";
+		}
+
 
 	}
 	public void WNS(List<dynamic> args) { }
@@ -303,6 +320,7 @@ public class Wa2Func
 		List<int> posList = new();
 		foreach (Wa2Char value in _engine.CharDic.Values)
 		{
+			GD.Print("id:",value.id,"pos:",value.pos);
 			Wa2Image image = _engine.Chars[value.pos];
 			Wa2Animator animator1 = new(image);
 			image.SetNextTexture(Wa2Resource.GetChrImage(value.id, value.no));
@@ -321,6 +339,7 @@ public class Wa2Func
 			image.SetNextTexture(null);
 			animator2.InitFade(time);
 		}
+		GD.Print("角色数量:",posList.Count);
 	}
 	public void BC(List<dynamic> args)
 	{
@@ -486,7 +505,7 @@ public class Wa2Func
 	}
 	public void CRW(List<dynamic> args)
 	{
-
+		_engine.CharDic.Remove(args[0]);
 	}
 	public void M(List<dynamic> args)
 	{
@@ -537,8 +556,8 @@ public class Wa2Func
 	}
 	public void SEW(List<dynamic> args)
 	{
-		_engine.WaitSe=true;
-		_engine.WaitSeChannel=args[0];
+		_engine.WaitSe = true;
+		_engine.WaitSeChannel = args[0];
 		_engine.WaitTimer.Start(_engine.SoundMgr.GetSeTime(args[0]));
 	}
 	public void SEVW(List<dynamic> args)
@@ -662,11 +681,11 @@ public class Wa2Func
 	}
 	public void GetGameFlag(List<dynamic> args)
 	{
-
+		_engine.Script.PushInt(_engine.GameFlags[args[0]]);
 	}
 	public void SetGameFlag(List<dynamic> args)
 	{
-		GD.Print("设置flag");
+		_engine.GameFlags[args[0]]=args[1];
 	}
 	public void LogOut(List<dynamic> args)
 	{
