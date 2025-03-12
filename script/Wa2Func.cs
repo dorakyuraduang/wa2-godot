@@ -221,7 +221,6 @@ public class Wa2Func
 	}
 	public void WN(List<dynamic> args)
 	{
-		GD.Print("位置", _engine.Script.CurPos);
 		if (args[0] >= 0)
 		{
 			_engine.AdvMain.CurName = _engine.Script.ParseStr(args[0]);

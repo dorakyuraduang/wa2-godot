@@ -57,15 +57,13 @@ public static class Wa2Def
 	public static void LoadFontMap()
 	{
 		byte[] buffer = FileAccess.GetFileAsBytes("res://assets/font.map");
-		string str = Encoding.GetEncoding("shift-jis").GetString(buffer).Replace("\n", "").Replace("\r", "");
-		for (int i = 0; i < str.Length; i ++)
+//new EncoderReplacementFallback(strUniRepChr), new DecoderReplacementFallback(strUniRepChr)
+		// GD.Print("长度",Encoding.GetEncoding("shift_jis").GetString(buffer).Length);
+		string str = Wa2EngineMain.Engine.Wa2Encoding.GetString(buffer).Replace("\n", "").Replace("\r", "");
+		GD.Print(str);
+		for (int i = 0; i < str.Length; i++)
 		{
-			if (!FontMap.ContainsKey(str[i]))
-			{
-				FontMap.Add(str[i], i);
-
-			}
-
+			FontMap.TryAdd(str[i], i);
 		}
 	}
 }

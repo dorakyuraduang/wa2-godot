@@ -29,7 +29,7 @@ public class Wa2Script
 	public uint Label;
 	private Dictionary<uint, uint> _points = new();
 	private Dictionary<uint, uint> _jumpDic = new();
-	private string[] _text;
+	private List<byte[]> _text=new();
 	private byte[] _bnrbuffer;
 	private List<dynamic> args = new();
 	private Wa2Func _func;
@@ -40,10 +40,10 @@ public class Wa2Script
 	}
 	public void LoadScript(string name, uint pos = 0)
 	{
-		GD.Print("脚本名:", name);
+
 		Wa2Resource.Clear();
 		_points.Clear();
-		_text = null;
+		_text.Clear();
 		args.Clear();
 		_bnrbuffer = null;
 		LoadBnr(name);
@@ -71,11 +71,22 @@ public class Wa2Script
 	}
 	public void LoadText(string name)
 	{
-		GD.Print("加载文本", name);
 		byte[] buffer = Wa2Resource.LoadFileBuffer(name + ".txt");
-		GD.Print(buffer);
-		_text = Encoding.GetEncoding("shift-jis").GetString(buffer).Split(',');
-		// GD.Print(_text.Length);
+		for (int i = 0; i < buffer.Length; i++)
+		{
+			int size = 0;
+			int pos=i;
+			
+			while (buffer[i] != 0x2c && i < buffer.Length)
+			{
+				i++;
+				size++;
+			}
+			byte[] bytes=new byte [size];
+			Buffer.BlockCopy(buffer, pos, bytes, 0, size);
+			_text.Add(bytes);
+		}
+		_text.Add([]);
 	}
 	public void ParseGalVar()
 	{
@@ -271,8 +282,17 @@ public class Wa2Script
 		// {
 		// 	GD.Print(CurPos);
 		// }
+		// StringBuilder binary = new StringBuilder();
+		// byte[] bytes = Encoding.GetEncoding("Shift_JIS").GetBytes(_text[pos]);
 
-		return _text[pos];
+		// foreach (byte b in bytes)
+		// {
+		// 	binary.Append(b.ToString("X2"));
+		// }
+
+		// GD.Print(binary);
+		// GD.Print(_text[pos]);
+		return Wa2EngineMain.Engine.Wa2Encoding.GetString(_text[pos]);
 
 	}
 	public void ParseCalc()
@@ -284,7 +304,7 @@ public class Wa2Script
 		}
 		dynamic a = 0;
 		dynamic b = 0;
-		if (args.Count >= 1 && v1<=0x1b)
+		if (args.Count >= 1 && v1 <= 0x1b)
 		{
 			a = args[^1];
 			args.RemoveAt(args.Count - 1);
@@ -311,9 +331,9 @@ public class Wa2Script
 				{
 
 					args.Add(a + b);
-					
+
 				}
-			break;
+				break;
 			case 2:
 				{
 					args.Add(b - a);

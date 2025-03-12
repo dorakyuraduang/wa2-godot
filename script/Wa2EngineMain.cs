@@ -61,6 +61,7 @@ public partial class Wa2EngineMain : Node
 	public float FrameTime { private set; get; } = 1.0f / 60;
 	public Wa2Script Script;
 	public Wa2Func Func;
+	public Wa2Encoding Wa2Encoding;
 	public Wa2EngineMain()
 	{
 		if (Engine == null)
@@ -107,6 +108,7 @@ public partial class Wa2EngineMain : Node
 		Func = new Wa2Func(this);
 		Script = new Wa2Script(Func);
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+		Wa2Encoding=new();
 		Wa2Def.LoadFontMap();
 		Wa2Resource.LoadPak("BGM.PAK");
 		Wa2Resource.LoadPak("/IC/BGM.PAK");
