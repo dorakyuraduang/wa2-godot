@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+public struct Wa2Var
+{
+	public int Type1;
+	public int Type2;
+	public int Value1;
+	public float Value2;
+}
 public struct JumpEntry
 {
 	public uint Type;
@@ -29,7 +36,7 @@ public class Wa2Script
 	public uint Label;
 	private Dictionary<uint, uint> _points = new();
 	private Dictionary<uint, uint> _jumpDic = new();
-	private List<byte[]> _text=new();
+	private List<byte[]> _text = new();
 	private byte[] _bnrbuffer;
 	private List<dynamic> args = new();
 	private Wa2Func _func;
@@ -46,6 +53,7 @@ public class Wa2Script
 		_text.Clear();
 		args.Clear();
 		_bnrbuffer = null;
+		JumpPos = 0;
 		LoadBnr(name);
 		CurPos = _points[pos];
 		_jumpEntrys = new JumpEntry[15];
@@ -75,20 +83,20 @@ public class Wa2Script
 		for (int i = 0; i < buffer.Length; i++)
 		{
 			int size = 0;
-			int pos=i;
-			
+			int pos = i;
+
 			while (buffer[i] != 0x2c && i < buffer.Length)
 			{
 				i++;
 				size++;
 			}
-			byte[] bytes=new byte [size];
+			byte[] bytes = new byte[size];
 			Buffer.BlockCopy(buffer, pos, bytes, 0, size);
 			_text.Add(bytes);
 		}
 		_text.Add([]);
 	}
-	public void ParseGalVar()
+	public void ParseGloVar()
 	{
 		uint flag = ReadU32();
 		switch (flag)
@@ -117,6 +125,7 @@ public class Wa2Script
 				}
 				break;
 			case 5:
+				GD.Print(CurPos);
 				if (JumpPos < 15)
 				{
 					JumpPos++;
@@ -184,11 +193,20 @@ public class Wa2Script
 				break;
 			case 13:
 				_jumpEntrys[JumpPos].Flag = args[^1];
-				if (_jumpEntrys[JumpPos].Flag == 0)
+				uint pos1 = _jumpEntrys[JumpPos].PosArr[0];
+				uint pos2 = _jumpEntrys[JumpPos].Pos;
+				if (_jumpEntrys[JumpPos].Flag == 0 && pos1 > 0)
 				{
-					CurPos = _jumpEntrys[JumpPos].Pos;
-					args.Clear();
+					CurPos = pos1;
 				}
+				else if (pos2 > 0)
+				{
+
+					CurPos = pos2;
+
+				}
+				GD.Print(CurPos);
+				args.Clear();
 				break;
 			case 14:
 				break;
@@ -222,7 +240,7 @@ public class Wa2Script
 			switch (ReadU32())
 			{
 				case 0:
-					ParseGalVar();
+					ParseGloVar();
 					ParseCmd();
 					break;
 				case 1:
@@ -269,7 +287,7 @@ public class Wa2Script
 		uint funcIdx = ReadU32();
 		if (_func.FuncDic.TryGetValue(funcIdx, out var func))
 		{
-			GD.Print(string.Format("{0:X}", funcIdx));
+			// GD.Print(string.Format("{0:X}", funcIdx));
 			func(args);
 		}
 		// if (funcIdx>=0x80){

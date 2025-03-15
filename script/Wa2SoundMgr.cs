@@ -4,12 +4,15 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class Wa2SoundMgr : Node
 {
-	const int MAX_SE_CHANNELS=8;
+	const int MAX_SE_CHANNELS=255;
 	private Wa2BgmAudio _bgmAudio=new ();
 	private AudioStreamPlayer _sysSeAudio=new();
 	private Wa2Audio _voiceAudio=new();
 	private Wa2Audio[] _seAudios;
 	public void SetSeVolume(int channel,int volume,float time){
+		if(channel>=MAX_SE_CHANNELS){
+			return ;
+		}
 		_seAudios[channel].SetVolume(volume/255.0f,time);
 	}
 	public void PlayViceo(int label,int id,int chr){

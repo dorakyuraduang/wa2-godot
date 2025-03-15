@@ -681,7 +681,7 @@ public class Wa2Func
 	}
 	public void GetGameFlag(List<dynamic> args)
 	{
-		_engine.Script.PushInt(_engine.GameFlags[args[0]]);
+		args[^1]=_engine.GameFlags[args[0]];
 	}
 	public void SetGameFlag(List<dynamic> args)
 	{
@@ -693,7 +693,7 @@ public class Wa2Func
 	}
 	public void V_Flag(List<dynamic> args)
 	{
-
+		GD.Print("cg解锁");
 	}
 	public void H_Flag(List<dynamic> args)
 	{
@@ -887,7 +887,7 @@ public class Wa2Func
 	public void SLoad(List<dynamic> args)
 	{
 
-		LoadScript(_engine.Script.ParseStr(args[0]));
+		LoadScript(_engine.Script.ParseStr(args[0]),(ushort)args[1]);
 	}
 	public void SCall(List<dynamic> args)
 	{
@@ -923,7 +923,7 @@ public class Wa2Func
 	}
 	public void Sin(List<dynamic> args)
 	{
-		_engine.Script.PushFloat(Mathf.Sin(args[0]));
+		args[^1]=Mathf.Sin(args[0]);
 	}
 	public void Cos(List<dynamic> args)
 	{
