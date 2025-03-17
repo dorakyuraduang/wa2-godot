@@ -22,7 +22,10 @@ public partial class Wa2EngineMain : Node
 	// public TextureRect Texture;
 	// Called when the node enters the scene tree for the first time.
 	public float BgTime;
+	public int[] GlovalVar=new int [255];
+	public int[] LocalVar=new int[255];
 	public int[] GameFlags=new int[1024];
+	public List<String> Texts=new();
 	public int ReplayMode;
 	public int WaitSeChannel;
 	public Dictionary<int, Wa2Char> CharDic = new();

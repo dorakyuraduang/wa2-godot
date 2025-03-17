@@ -4,12 +4,95 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-public struct Wa2Var
+public enum CmdType
 {
-	public int Type1;
-	public int Type2;
-	public int Value1;
-	public float Value2;
+	NONE = 0,
+	GLOBAL_VAR,
+	LOCAL_VAR = 2,
+	STR_VAR = 3,
+	FUNC = 4,
+	VAR = 5,
+	CALC = 6
+}
+public enum ValueType
+{
+	REF = 0,
+	FLOAT = 4,
+	INT = 3
+}
+public struct SystemTime
+{
+	public int Year;
+	public int Month;
+	public int DayOfWeek;
+	public int Day;
+	public int Hour;
+	public int Minute;
+	public int Second;
+	public int Milliseconds;
+}
+public class Wa2Var
+{
+	public CmdType CmdType;
+	public ValueType ValType;
+	public int Value0;
+	public int IntValue;
+	public float FloatValue;
+	static public Wa2Var CreateEmpty()
+	{
+		Wa2Var var = new()
+		{
+			CmdType = CmdType.VAR,
+			ValType = ValueType.INT,
+			IntValue = 0
+		};
+		return var;
+	}
+	public void Set(dynamic value)
+	{
+		if (value is int)
+		{
+			ValType = ValueType.INT;
+			IntValue = value;
+		}
+		else if (value is float)
+		{
+			ValType = ValueType.FLOAT;
+			FloatValue = value;
+		}
+	}
+	public  dynamic Get()
+	{
+		if (ValType == ValueType.FLOAT)
+		{
+			return FloatValue;
+		}
+		if (ValType == ValueType.INT)
+		{
+			return IntValue;
+		}
+		if (CmdType == CmdType.STR_VAR)
+		{
+			if (IntValue >= 0)
+			{
+				return Wa2EngineMain.Engine.Texts[IntValue].Replace("\\n", "\n"); ;
+			}
+			else
+			{
+				return "";
+			}
+		}
+		if (CmdType == CmdType.LOCAL_VAR)
+		{
+			return Wa2EngineMain.Engine.LocalVar[IntValue];
+		}
+		if (CmdType == CmdType.GLOBAL_VAR)
+		{
+			return Wa2EngineMain.Engine.GlovalVar[IntValue];
+		}
+
+		return 0;
+	}
 }
 public struct JumpEntry
 {
@@ -38,7 +121,7 @@ public class Wa2Script
 	private Dictionary<uint, uint> _jumpDic = new();
 	private List<byte[]> _text = new();
 	private byte[] _bnrbuffer;
-	private List<dynamic> args = new();
+	private List<Wa2Var> args = new();
 	private Wa2Func _func;
 	public Wa2Script(Wa2Func f)
 	{
@@ -50,7 +133,7 @@ public class Wa2Script
 
 		Wa2Resource.Clear();
 		_points.Clear();
-		_text.Clear();
+		Wa2EngineMain.Engine.Texts.Clear();
 		args.Clear();
 		_bnrbuffer = null;
 		JumpPos = 0;
@@ -80,21 +163,8 @@ public class Wa2Script
 	public void LoadText(string name)
 	{
 		byte[] buffer = Wa2Resource.LoadFileBuffer(name + ".txt");
-		for (int i = 0; i < buffer.Length; i++)
-		{
-			int size = 0;
-			int pos = i;
-
-			while (buffer[i] != 0x2c && i < buffer.Length)
-			{
-				i++;
-				size++;
-			}
-			byte[] bytes = new byte[size];
-			Buffer.BlockCopy(buffer, pos, bytes, 0, size);
-			_text.Add(bytes);
-		}
-		_text.Add([]);
+		string strs = Wa2EngineMain.Engine.Wa2Encoding.GetString(buffer);
+		Wa2EngineMain.Engine.Texts = [.. strs.Split(',')];
 	}
 	public void ParseGloVar()
 	{
@@ -129,15 +199,13 @@ public class Wa2Script
 				if (JumpPos < 15)
 				{
 					JumpPos++;
+					_jumpEntrys[JumpPos] = new();
 				}
-				else
-				{
-
-				}
-				ReadU32();
-				ReadU32();
-				ReadU32();
-				ReadU32();
+				_jumpEntrys[JumpPos].Type = 5;
+				_jumpEntrys[JumpPos].Pos = ReadU32();
+				_jumpEntrys[JumpPos].PosArr[0] = ReadU32();
+				_jumpEntrys[JumpPos].PosArr[1] = ReadU32();
+				_jumpEntrys[JumpPos].PosArr[2] = ReadU32();
 				break;
 			case 6:
 				if (JumpPos < 15)
@@ -192,7 +260,7 @@ public class Wa2Script
 				ReadU32();
 				break;
 			case 13:
-				_jumpEntrys[JumpPos].Flag = args[^1];
+				_jumpEntrys[JumpPos].Flag = args[^1].Get();
 				uint pos1 = _jumpEntrys[JumpPos].PosArr[0];
 				uint pos2 = _jumpEntrys[JumpPos].Pos;
 				if (_jumpEntrys[JumpPos].Flag == 0 && pos1 > 0)
@@ -209,11 +277,20 @@ public class Wa2Script
 				args.Clear();
 				break;
 			case 14:
+				_jumpEntrys[JumpPos].Flag = args[^1].Get();
+				if (_jumpEntrys[JumpPos].Flag == 0)
+				{
+					CurPos = _jumpEntrys[JumpPos].PosArr[0];
+				}
+				else
+				{
+					CurPos = _jumpEntrys[JumpPos].PosArr[2];
+				}
 				break;
 			case 15:
 				break;
 			case 16:
-				_jumpEntrys[JumpPos].Flag = args[^1];
+				_jumpEntrys[JumpPos].Flag = args[^1].Get();
 				if (_jumpEntrys[JumpPos].Type != 7)
 				{
 					return;
@@ -237,7 +314,8 @@ public class Wa2Script
 	{
 		if (CurPos < _bnrbuffer.Length && !Wait)
 		{
-			switch (ReadU32())
+			int cmd = (int)ReadU32();
+			switch (cmd)
 			{
 				case 0:
 					ParseGloVar();
@@ -246,21 +324,21 @@ public class Wa2Script
 				case 1:
 				case 2:
 				case 3:
-					args.Add((int)ReadU32());
+					PushInt(cmd, -1, (int)ReadU32());
 					ParseCmd();
 					break;
 				case 4:
-
 					CallFunc();
 					break;
 				case 5:
-					if (ReadU32() == 4)
+					int type = (int)ReadU32();
+					if (type == 4)
 					{
-						args.Add(ReadF32());
+						PushFloat(cmd, type, (int)ReadF32());
 					}
 					else
 					{
-						args.Add((int)ReadU32());
+						PushInt(cmd, type, (int)ReadU32());
 					}
 					ParseCmd();
 					break;
@@ -274,13 +352,25 @@ public class Wa2Script
 			}
 		}
 	}
-	public void PushInt(int v)
+	public void PushInt(int type1, int type2, int v)
 	{
-		args.Add((int)v);
+		Wa2Var var = new()
+		{
+			CmdType = (CmdType)type1,
+			ValType = (ValueType)type2,
+			IntValue = v
+		};
+		args.Add(var);
 	}
-	public void PushFloat(float v)
+	public void PushFloat(int type1, int type2, float v)
 	{
-		args.Add(v);
+		Wa2Var var = new()
+		{
+			CmdType = (CmdType)type1,
+			ValType = (ValueType)type2,
+			FloatValue = v
+		};
+		args.Add(var);
 	}
 	public void CallFunc()
 	{
@@ -294,25 +384,25 @@ public class Wa2Script
 		// 	args.Clear();
 		// }	
 	}
-	public string ParseStr(int pos)
-	{
-		// if (pos == 77260)
-		// {
-		// 	GD.Print(CurPos);
-		// }
-		// StringBuilder binary = new StringBuilder();
-		// byte[] bytes = Encoding.GetEncoding("Shift_JIS").GetBytes(_text[pos]);
+	// public string ParseStr(int pos)
+	// {
+	// 	// if (pos == 77260)
+	// 	// {
+	// 	// 	GD.Print(CurPos);
+	// 	// }
+	// 	// StringBuilder binary = new StringBuilder();
+	// 	// byte[] bytes = Encoding.GetEncoding("Shift_JIS").GetBytes(_text[pos]);
 
-		// foreach (byte b in bytes)
-		// {
-		// 	binary.Append(b.ToString("X2"));
-		// }
+	// 	// foreach (byte b in bytes)
+	// 	// {
+	// 	// 	binary.Append(b.ToString("X2"));
+	// 	// }
 
-		// GD.Print(binary);
-		// GD.Print(_text[pos]);
-		return Wa2EngineMain.Engine.Wa2Encoding.GetString(_text[pos]);
+	// 	// GD.Print(binary);
+	// 	// GD.Print(_text[pos]);
+	// 	return Wa2EngineMain.Engine.Wa2Encoding.GetString(_text[pos]);
 
-	}
+	// }
 	public void ParseCalc()
 	{
 		uint v1 = ReadU32();
@@ -320,18 +410,17 @@ public class Wa2Script
 		{
 			return;
 		}
-		dynamic a = 0;
-		dynamic b = 0;
+		Wa2Var a = Wa2Var.CreateEmpty();
+		Wa2Var b = Wa2Var.CreateEmpty();
 		if (args.Count >= 1 && v1 <= 0x1b)
 		{
 			a = args[^1];
-			args.RemoveAt(args.Count - 1);
 		}
-		if (v1 >= 1 && v1 < 0x17)
+		if ((v1 >= 1 && v1 < 0x17) || v1 == 0x1b)
 		{
-			if (args.Count >= 1)
+			if (args.Count > 1)
 			{
-				b = args[^1];
+				b = args[^2];
 				args.RemoveAt(args.Count - 1);
 			}
 		}
@@ -348,113 +437,112 @@ public class Wa2Script
 			case 1:
 				{
 
-					args.Add(a + b);
+					b.Set(a.Get() + b.Get());
 
 				}
 				break;
 			case 2:
 				{
-					args.Add(b - a);
+					b.Set(b.Get() - a.Get());
 					break;
 				}
 
 			case 3:
 				{
-					args.Add(b * a);
+					b.Set(b.Get() * a.Get());
 					break;
 				}
 			case 4:
 				{
-					args.Add(b / a);
+					b.Set(b.Get() / a.Get());
 					break;
 				}
 			case 5:
 				{
-					args.Add(b % a);
+					b.Set(b.Get() % a.Get());
 					break;
 				}
 			case 6:
 				{
-					args.Add(b & a);
+					b.Set(b.Get() & a.Get());
 					break;
 				}
 			case 7:
 				{
-					args.Add(b | a);
+					b.Set(b.Get() | a.Get());
 					break;
 				}
 			case 8:
 				{
-					args.Add(b == a ? 1 : 0);
+					b.Set(a.Get() == b.Get() ? 1 : 0);
 				}
 				break;
 			case 9:
 				{
-					args.Add(a < b ? 1 : 0);
+					b.Set(a.Get() < b.Get() ? 1 : 0);
 				}
 				break;
 			case 0xa:
 				{
-					args.Add(a > b ? 1 : 0);
+					b.Set(b.Get() > a.Get() ? 1 : 0);
 				}
 				break;
 			case 0xb:
 				{
-					args.Add(a <= b ? 1 : 0);
+					b.Set(b.Get() <= a.Get() ? 1 : 0);
 				}
 				break;
 			case 0xc:
 				{
-					args.Add(a >= b ? 1 : 0);
+					b.Set(b.Get() >= a.Get() ? 1 : 0);
 				}
 				break;
 			case 0xd:
 				{
-					args.Add((b == 0 || a == 0) ? 0 : 1);
+					b.Set((b.Get() == 0 || a.Get() == 0) ? 0 : 1);
 				}
 				break;
 			case 0xe:
 				{
-					args.Add(b || a ? 1 : 0);
+					b.Set(b.Get() || a.Get() ? 1 : 0);
 				}
 				break;
 			case 0xf:
 				{
-					args.Add(b != a ? 1 : 0);
+					b.Set(b.Get() != a.Get() ? 1 : 0);
 				}
 				break;
 			case 0x10:
 				{
-					args.Add((int)(b + a));
+					b.Set(a.Get() + b.Get());
 					break;
 				}
 			case 0x11:
 				{
 
-					args.Add((int)(b - a));
+					b.Set(b.Get() - a.Get());
 					break;
 				}
 			case 0x12:
 				{
 
-					args.Add((int)(b * a));
+					b.Set(b.Get() * a.Get());
 					break;
 				}
 			case 0x13:
 				{
-
-					args.Add((int)b / a);
+					b.Set(b.Get() / a.Get());
 					break;
 				}
 			case 0x14:
 				{
 
-					args.Add((int)b % a);
+					b.Set(b.Get() % a.Get());
 					break;
 				}
 			case 0x15:
 				{
-					args.Add((int)b & (int)a);
+					b.Set(b.Get() & a.Get());
 					if (args.Count == 0)
 					{
 						GD.Print("错误位置");
@@ -463,31 +551,32 @@ public class Wa2Script
 				}
 			case 0x16:
 				{
-					args.Add((int)b | (int)a);
+					b.Set(b.Get() | a.Get());
 					break;
 				}
 			case 0x17:
-				args.Add(a * -1);
+				a.Set(a.Get() * -1);
 				break;
 			case 0x18:
-				args.Add(a == 0 ? 1 : 0);
+				a.Set(a.Get() == 0 ? 1 : 0);
 				break;
 			case 0x19:
-				args.Add(a++);
+				a.Set(a.Get() + 1);
 				break;
 			case 0x1A:
-				args.Add(a--);
+				a.Set(a.Get() - 1);
 				break;
 			case 0x1B:
 				{
-					if (a.GetType() == typeof(int))
-					{
-						args.Add((int)b);
-					}
-					else
-					{
-						args.Add((int)b);
-					}
+					b.ValType =(ValueType)a.Get();
+					// if (a.GetType() == typeof(int))
+					// {
+					// 	args.Add((int)b);
+					// }
+					// else
+					// {
+					// 	args.Add((int)b);
+					// }
 
 				}
 				// GD.Print("字符串",args[^2]);
