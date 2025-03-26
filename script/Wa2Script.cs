@@ -61,7 +61,7 @@ public class Wa2Var
 			FloatValue = value;
 		}
 	}
-	public  dynamic Get()
+	public dynamic Get()
 	{
 		if (ValType == ValueType.FLOAT)
 		{
@@ -73,7 +73,11 @@ public class Wa2Var
 		}
 		if (CmdType == CmdType.STR_VAR)
 		{
-			if (IntValue >= 0)
+			if (IntValue == 0)
+			{
+				return "春希";
+			}
+			else if (IntValue > 0)
 			{
 				return Wa2EngineMain.Engine.Texts[IntValue].Replace("\\n", "\n"); ;
 			}
@@ -84,11 +88,16 @@ public class Wa2Var
 		}
 		if (CmdType == CmdType.LOCAL_VAR)
 		{
-			return Wa2EngineMain.Engine.LocalVar[IntValue];
+			if (IntValue >= 26)
+				return Wa2EngineMain.Engine.GloFloats[IntValue % 26];
+		}
+		else
+		{
+			return Wa2EngineMain.Engine.GloInts[IntValue];
 		}
 		if (CmdType == CmdType.GLOBAL_VAR)
 		{
-			return Wa2EngineMain.Engine.GlovalVar[IntValue];
+			return Wa2EngineMain.Engine.GloFlags[IntValue];
 		}
 
 		return 0;
@@ -112,6 +121,7 @@ public struct JumpEntry
 }
 public class Wa2Script
 {
+	public Wa2EngineMain _engine;
 	private JumpEntry[] _jumpEntrys = new JumpEntry[16];
 	public bool Wait = false;
 	public int JumpPos;
@@ -126,6 +136,7 @@ public class Wa2Script
 	public Wa2Script(Wa2Func f)
 	{
 		_func = f;
+		_engine=Wa2EngineMain.Engine;
 
 	}
 	public void LoadScript(string name, uint pos = 0)
@@ -139,7 +150,7 @@ public class Wa2Script
 		JumpPos = 0;
 		LoadBnr(name);
 		CurPos = _points[pos];
-		_jumpEntrys = new JumpEntry[15];
+		_jumpEntrys = new JumpEntry[16];
 		// GD.Print(CurPos);
 	}
 	public void LoadBnr(string name)
@@ -412,11 +423,11 @@ public class Wa2Script
 		}
 		Wa2Var a = Wa2Var.CreateEmpty();
 		Wa2Var b = Wa2Var.CreateEmpty();
-		if (args.Count >= 1 && v1 <= 0x1b)
+		if (args.Count >0 && v1 <= 0x1b)
 		{
 			a = args[^1];
 		}
-		if ((v1 >= 1 && v1 < 0x17) || v1 == 0x1b)
+		if ((v1 >= 1 && v1 < 0x17) || v1 == 0x1b || v1==0)
 		{
 			if (args.Count > 1)
 			{
@@ -433,6 +444,18 @@ public class Wa2Script
 		{
 
 			case 0:
+				if (a.CmdType == CmdType.GLOBAL_VAR)
+				{
+					_engine.GloFlags[b.Get()]=a.Get();
+				}
+				else if (a.CmdType == CmdType.LOCAL_VAR)
+				{
+					if (b.IntValue>=26){
+						_engine.GloFloats[b.IntValue%26]=a.Get();
+					}else{
+						_engine.GloInts[b.IntValue]=a.Get();
+					}
+				}
 				break;
 			case 1:
 				{
@@ -568,7 +591,7 @@ public class Wa2Script
 				break;
 			case 0x1B:
 				{
-					b.ValType =(ValueType)a.Get();
+					b.ValType = (ValueType)a.Get();
 					// if (a.GetType() == typeof(int))
 					// {
 					// 	args.Add((int)b);

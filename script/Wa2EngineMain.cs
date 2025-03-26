@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+// using System.IO;
 using System.Text;
 public class Wa2Char
 {
@@ -22,10 +23,11 @@ public partial class Wa2EngineMain : Node
 	// public TextureRect Texture;
 	// Called when the node enters the scene tree for the first time.
 	public float BgTime;
-	public int[] GlovalVar=new int [255];
-	public int[] LocalVar=new int[255];
-	public int[] GameFlags=new int[1024];
-	public List<String> Texts=new();
+	public int[] GloFlags = new int[255];
+	public int [] GloInts=new int [26];
+	public float [] GloFloats = new float[26];
+	public int[] GameFlags = new int[1024];
+	public List<String> Texts = new();
 	public int ReplayMode;
 	public int WaitSeChannel;
 	public Dictionary<int, Wa2Char> CharDic = new();
@@ -112,7 +114,7 @@ public partial class Wa2EngineMain : Node
 		Func = new Wa2Func(this);
 		Script = new Wa2Script(Func);
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-		Wa2Encoding=new();
+		Wa2Encoding = new();
 		Wa2Def.LoadFontMap();
 		Wa2Resource.LoadPak("BGM.PAK");
 		Wa2Resource.LoadPak("/IC/BGM.PAK");
@@ -216,10 +218,10 @@ public partial class Wa2EngineMain : Node
 	{
 		if (WaitSe)
 		{
-			WaitSe=false;
+			WaitSe = false;
 			if (WaitSeChannel >= 0)
 			{
-				
+
 				SoundMgr.StopSe(WaitSeChannel);
 				WaitSeChannel = -1;
 			}
@@ -275,6 +277,39 @@ public partial class Wa2EngineMain : Node
 			}
 		}
 		return false;
+	}
+	public void LoadSav(int idx)
+	{
+		FileAccess file = FileAccess.Open(string.Format("user://{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
+		if (file == null)
+		{
+			return;
+		}
+		file.Seek(0x110a0);
+		byte[] buffer = file.GetBuffer(2317 * 4);
+		for (int i = 0; i < 8; i++)
+		{
+			int charShow = BitConverter.ToInt32(buffer, 48+i*4);
+			if (charShow>0)
+			{
+				int u1=BitConverter.ToInt32(buffer, 100+i*4);
+				int u2=BitConverter.ToInt32(buffer, 72+i*4);
+				if (u2>0){
+					int no=BitConverter.ToInt32(buffer, 64+i*4);
+					int pos=BitConverter.ToInt32(buffer, 84+i*4);
+					int u3=BitConverter.ToInt32(buffer, 108+i*4);
+					int u4=BitConverter.ToInt32(buffer, 92+i*4);
+					int chr=BitConverter.ToInt32(buffer, 56+i*4);
+				}else{
+					int pos=BitConverter.ToInt32(buffer, 76+i*4);
+					int no=BitConverter.ToInt32(buffer, 64+i*4);
+					int u3=BitConverter.ToInt32(buffer, 108+i*4);
+					int u4=BitConverter.ToInt32(buffer, 92+i*4);
+					int chr=BitConverter.ToInt32(buffer, 56+i*4);
+				}
+			}
+		}
+
 	}
 }
 

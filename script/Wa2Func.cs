@@ -725,7 +725,7 @@ public class Wa2Func
 	}
 	public void SetSelectMess(List<Wa2Var> args)
 	{
-
+		GD.Print("设置选项");
 	}
 	public void SetSelect(List<Wa2Var> args)
 	{
