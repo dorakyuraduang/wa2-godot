@@ -1,0 +1,120 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5gbh4n4b3ocd"]
+
+[ext_resource type="Script" uid="uid://bimbds61s743t" path="res://addons/texture_fonts/UI/font_editor.gd" id="1_c336f"]
+[ext_resource type="Texture2D" uid="uid://sanipjn5peiu" path="res://addons/texture_fonts/Assets/ExternalLink.svg" id="2"]
+[ext_resource type="Script" uid="uid://d1p0n0je77nt3" path="res://addons/texture_fonts/UI/mapping_list.gd" id="2_cpen6"]
+[ext_resource type="PackedScene" uid="uid://ud2mcabp2mg0" path="res://addons/texture_fonts/UI/Mapping.tscn" id="3_ewae4"]
+[ext_resource type="PackedScene" uid="uid://drm7k5iue6ov4" path="res://addons/texture_fonts/UI/Settings.tscn" id="4_3ba0m"]
+[ext_resource type="Script" uid="uid://bkfmctrcc6c8b" path="res://addons/texture_fonts/UI/help_button.gd" id="5_tnrwx"]
+
+[node name="FontEditor" type="MarginContainer" node_paths=PackedStringArray("file_list", "file_dialog", "mapping_settings", "no_selection_overlay", "font_settings")]
+custom_minimum_size = Vector2(0, 280)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_stretch_ratio = 2.0
+script = ExtResource("1_c336f")
+file_list = NodePath("TabContainer/Mapping/TextureList/Panel/ScrollContainer/FileList")
+file_dialog = NodePath("TabContainer/Mapping/TextureList/HeadingBox/AddTextureButton/FileDialog")
+mapping_settings = NodePath("TabContainer/Mapping/MappingSettings")
+no_selection_overlay = NodePath("TabContainer/Mapping/MappingSettings/NoSelectionOverlay")
+font_settings = NodePath("TabContainer/Settings")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+current_tab = 0
+
+[node name="Mapping" type="HSplitContainer" parent="TabContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_tab_index = 0
+
+[node name="TextureList" type="VBoxContainer" parent="TabContainer/Mapping"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_cpen6")
+
+[node name="HeadingBox" type="HBoxContainer" parent="TabContainer/Mapping/TextureList"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="TabContainer/Mapping/TextureList/HeadingBox"]
+layout_mode = 2
+text = "Textures"
+
+[node name="HSeparator" type="HSeparator" parent="TabContainer/Mapping/TextureList/HeadingBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddTextureButton" type="Button" parent="TabContainer/Mapping/TextureList/HeadingBox"]
+layout_mode = 2
+text = "Add"
+
+[node name="FileDialog" type="FileDialog" parent="TabContainer/Mapping/TextureList/HeadingBox/AddTextureButton"]
+title = "Open a File"
+size = Vector2i(312, 280)
+ok_button_text = "Open"
+file_mode = 0
+filters = PackedStringArray("*.png, *.bmp, *.dds, *.exr, *.hdr, *.jpg, *.jpeg, *.tga, *.svg, *.svgz, *.webp; Textures")
+
+[node name="Panel" type="Panel" parent="TabContainer/Mapping/TextureList"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Mapping/TextureList/Panel"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FileList" type="VBoxContainer" parent="TabContainer/Mapping/TextureList/Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MappingSettings" parent="TabContainer/Mapping" instance=ExtResource("3_ewae4")]
+layout_mode = 2
+
+[node name="NoSelectionOverlay" type="ColorRect" parent="TabContainer/Mapping/MappingSettings"]
+visible = false
+layout_mode = 2
+color = Color(0.14902, 0.172549, 0.231373, 0.784314)
+
+[node name="Label" type="Label" parent="TabContainer/Mapping/MappingSettings/NoSelectionOverlay"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Add or Select a Texture"
+
+[node name="Settings" parent="TabContainer" instance=ExtResource("4_3ba0m")]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Others" type="Control" parent="."]
+layout_mode = 2
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="HelpButton" type="Button" parent="Others"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -64.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Help"
+icon = ExtResource("2")
+icon_alignment = 2
+script = ExtResource("5_tnrwx")
+
+[connection signal="textures_dropped" from="TabContainer/Mapping/TextureList" to="." method="_on_Files_textures_dropped"]
+[connection signal="pressed" from="TabContainer/Mapping/TextureList/HeadingBox/AddTextureButton" to="." method="_on_AddTextureButton_pressed"]
+[connection signal="file_selected" from="TabContainer/Mapping/TextureList/HeadingBox/AddTextureButton/FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="changed" from="TabContainer/Settings" to="." method="_on_Settings_changed"]

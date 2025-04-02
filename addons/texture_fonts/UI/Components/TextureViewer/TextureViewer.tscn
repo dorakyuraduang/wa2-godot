@@ -1,0 +1,119 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjca34ig077sx"]
+
+[ext_resource type="FontFile" uid="uid://vxqsbmlofgoq" path="res://addons/texture_fonts/Assets/Fonts/RobotoMono-Medium.ttf" id="2"]
+[ext_resource type="Texture2D" uid="uid://yn34nyba10uy" path="res://addons/texture_fonts/Assets/TransparentBG.png" id="3"]
+[ext_resource type="Script" path="res://addons/texture_fonts/UI/Components/TextureViewer/TextureViewer.gd" id="4"]
+[ext_resource type="Script" path="res://addons/texture_fonts/UI/Components/TextureViewer/TextureView.gd" id="5"]
+[ext_resource type="Script" path="res://addons/texture_fonts/UI/Components/TextureViewer/TextureContainer.gd" id="6"]
+
+[node name="TextureViewer" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "- Press any mouse button to pan.
+- Use the mouse wheel to zoom in and out."
+mouse_default_cursor_shape = 16
+script = ExtResource("4")
+
+[node name="Heading" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Heading"]
+layout_mode = 2
+text = "View Texture"
+
+[node name="HSeparator" type="HSeparator" parent="Heading"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Label2" type="Label" parent="Heading"]
+layout_mode = 2
+text = "Zoom:"
+
+[node name="SpinBox" type="SpinBox" parent="Heading"]
+layout_mode = 2
+min_value = 10.0
+max_value = 5000.0
+step = 50.0
+value = 100.0
+exp_edit = true
+suffix = "%"
+custom_arrow_step = 50.0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="TextureContainer" type="Container" parent="Control"]
+clip_contents = true
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("6")
+
+[node name="TextureView" type="TextureRect" parent="Control/TextureContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+stretch_mode = 3
+script = ExtResource("5")
+
+[node name="RectPreview" type="ColorRect" parent="Control/TextureContainer/TextureView"]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 5
+size_flags_vertical = 5
+mouse_filter = 2
+color = Color(1, 0, 0, 0.431373)
+
+[node name="Label" type="Label" parent="Control/TextureContainer/TextureView/RectPreview"]
+texture_filter = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -11.0
+offset_right = 5.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.129412, 0.156863, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0.52549, 0.670588)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2")
+text = "a"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="value_changed" from="Heading/SpinBox" to="." method="_on_SpinBox_value_changed"]
+[connection signal="mouse_entered" from="Control/TextureContainer" to="." method="_on_TextureContainer_mouse_entered"]
+[connection signal="mouse_exited" from="Control/TextureContainer" to="." method="_on_TextureContainer_mouse_exited"]
+[connection signal="resized" from="Control/TextureContainer" to="Control/TextureContainer" method="_on_TextureContainer_resized"]
+[connection signal="mouse_entered" from="Control/TextureContainer/TextureView" to="Control/TextureContainer/TextureView" method="_on_TextureView_mouse_entered"]
+[connection signal="mouse_exited" from="Control/TextureContainer/TextureView" to="Control/TextureContainer/TextureView" method="_on_TextureView_mouse_exited"]

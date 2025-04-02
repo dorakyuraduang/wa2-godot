@@ -20,17 +20,7 @@ public enum ValueType
 	FLOAT = 4,
 	INT = 3
 }
-public struct SystemTime
-{
-	public int Year;
-	public int Month;
-	public int DayOfWeek;
-	public int Day;
-	public int Hour;
-	public int Minute;
-	public int Second;
-	public int Milliseconds;
-}
+
 public class Wa2Var
 {
 	public CmdType CmdType;
@@ -89,11 +79,11 @@ public class Wa2Var
 		if (CmdType == CmdType.LOCAL_VAR)
 		{
 			if (IntValue >= 26)
-				return Wa2EngineMain.Engine.GloFloats[IntValue % 26];
+				return Wa2EngineMain.Engine.GameSav.GloFloats[IntValue % 26];
 		}
 		else
 		{
-			return Wa2EngineMain.Engine.GloInts[IntValue];
+			return Wa2EngineMain.Engine.GameSav.GloInts[IntValue];
 		}
 		if (CmdType == CmdType.GLOBAL_VAR)
 		{
@@ -125,7 +115,6 @@ public class Wa2Script
 	private JumpEntry[] _jumpEntrys = new JumpEntry[16];
 	public bool Wait = false;
 	public int JumpPos;
-	public uint CurPos { private set; get; }
 	public uint Label;
 	private Dictionary<uint, uint> _points = new();
 	private Dictionary<uint, uint> _jumpDic = new();
@@ -142,6 +131,7 @@ public class Wa2Script
 	public void LoadScript(string name, uint pos = 0)
 	{
 
+   _engine.GameSav.ScriptName=name;
 		Wa2Resource.Clear();
 		_points.Clear();
 		Wa2EngineMain.Engine.Texts.Clear();
@@ -149,9 +139,9 @@ public class Wa2Script
 		_bnrbuffer = null;
 		JumpPos = 0;
 		LoadBnr(name);
-		CurPos = _points[pos];
+		_engine.GameSav.ScriptPos = _points[pos];
 		_jumpEntrys = new JumpEntry[16];
-		// GD.Print(CurPos);
+		// GD.Print(_engine.GameSav.ScriptPos);
 	}
 	public void LoadBnr(string name)
 	{
@@ -201,12 +191,12 @@ public class Wa2Script
 			case 4:
 				if (_jumpEntrys[JumpPos].Flag == 0)
 				{
-					CurPos = _jumpEntrys[JumpPos].Pos;
+					_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].Pos;
 					args.Clear();
 				}
 				break;
 			case 5:
-				GD.Print(CurPos);
+				GD.Print(_engine.GameSav.ScriptPos);
 				if (JumpPos < 15)
 				{
 					JumpPos++;
@@ -276,26 +266,26 @@ public class Wa2Script
 				uint pos2 = _jumpEntrys[JumpPos].Pos;
 				if (_jumpEntrys[JumpPos].Flag == 0 && pos1 > 0)
 				{
-					CurPos = pos1;
+					_engine.GameSav.ScriptPos = pos1;
 				}
 				else if (pos2 > 0)
 				{
 
-					CurPos = pos2;
+					_engine.GameSav.ScriptPos = pos2;
 
 				}
-				GD.Print(CurPos);
+				GD.Print(_engine.GameSav.ScriptPos);
 				args.Clear();
 				break;
 			case 14:
 				_jumpEntrys[JumpPos].Flag = args[^1].Get();
 				if (_jumpEntrys[JumpPos].Flag == 0)
 				{
-					CurPos = _jumpEntrys[JumpPos].PosArr[0];
+					_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[0];
 				}
 				else
 				{
-					CurPos = _jumpEntrys[JumpPos].PosArr[2];
+					_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[2];
 				}
 				break;
 			case 15:
@@ -310,12 +300,12 @@ public class Wa2Script
 				{
 					if (_jumpEntrys[JumpPos].FlagArr[i] == _jumpEntrys[JumpPos].Flag)
 					{
-						CurPos = _jumpEntrys[JumpPos].PosArr[i];
+						_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[i];
 						args.Clear();
 						return;
 					}
 				}
-				CurPos = _jumpEntrys[JumpPos].Pos;
+				_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].Pos;
 				args.Clear();
 				break;
 
@@ -323,7 +313,7 @@ public class Wa2Script
 	}
 	public void ParseCmd()
 	{
-		if (CurPos < _bnrbuffer.Length && !Wait)
+		if (_engine.GameSav.ScriptPos < _bnrbuffer.Length && !Wait)
 		{
 			int cmd = (int)ReadU32();
 			switch (cmd)
@@ -345,7 +335,7 @@ public class Wa2Script
 					int type = (int)ReadU32();
 					if (type == 4)
 					{
-						PushFloat(cmd, type, (int)ReadF32());
+						PushFloat(cmd, type, ReadF32());
 					}
 					else
 					{
@@ -399,7 +389,7 @@ public class Wa2Script
 	// {
 	// 	// if (pos == 77260)
 	// 	// {
-	// 	// 	GD.Print(CurPos);
+	// 	// 	GD.Print(_engine.GameSav.ScriptPos);
 	// 	// }
 	// 	// StringBuilder binary = new StringBuilder();
 	// 	// byte[] bytes = Encoding.GetEncoding("Shift_JIS").GetBytes(_text[pos]);
@@ -451,9 +441,9 @@ public class Wa2Script
 				else if (a.CmdType == CmdType.LOCAL_VAR)
 				{
 					if (b.IntValue>=26){
-						_engine.GloFloats[b.IntValue%26]=a.Get();
+						_engine.GameSav.GloFloats[b.IntValue%26]=a.Get();
 					}else{
-						_engine.GloInts[b.IntValue]=a.Get();
+						_engine.GameSav.GloInts[b.IntValue]=a.Get();
 					}
 				}
 				break;
@@ -618,21 +608,21 @@ public class Wa2Script
 	}
 	public uint ReadU32()
 	{
-		uint r = BitConverter.ToUInt32(_bnrbuffer, (int)CurPos);
-		CurPos += 4;
+		uint r = BitConverter.ToUInt32(_bnrbuffer, (int)_engine.GameSav.ScriptPos);
+		_engine.GameSav.ScriptPos += 4;
 		return r;
 	}
 
 	public float ReadF32()
 	{
-		float r = BitConverter.ToSingle(_bnrbuffer, (int)CurPos);
-		CurPos += 4;
+		float r = BitConverter.ToSingle(_bnrbuffer, (int)_engine.GameSav.ScriptPos);
+		_engine.GameSav.ScriptPos += 4;
 		return r;
 	}
 	public static void ParseFunc()
 	{
-		// 	int r = BitConverter.ToInt32(_bnrbuffer, (int)CurPos);
-		// 	CurPos += 4;
+		// 	int r = BitConverter.ToInt32(_bnrbuffer, (int)_engine.GameSav.ScriptPos);
+		// 	_engine.GameSav.ScriptPos += 4;
 		// 	return r;
 		// }
 	}

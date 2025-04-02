@@ -1,0 +1,92 @@
+[gd_scene load_steps=5 format=3 uid="uid://ud2mcabp2mg0"]
+
+[ext_resource type="Script" uid="uid://b7gcee7qewgww" path="res://addons/texture_fonts/UI/mapping.gd" id="1_uoe0t"]
+[ext_resource type="PackedScene" uid="uid://cf8py46vfqbf4" path="res://addons/texture_fonts/UI/Components/Vector2Edit.tscn" id="2_mp5wm"]
+[ext_resource type="FontFile" uid="uid://vxqsbmlofgoq" path="res://addons/texture_fonts/Assets/Fonts/RobotoMono-Medium.ttf" id="3_hh27p"]
+[ext_resource type="PackedScene" uid="uid://cjca34ig077sx" path="res://addons/texture_fonts/UI/Components/TextureViewer/TextureViewer.tscn" id="4_ubswt"]
+
+[node name="MappingSettings" type="MarginContainer" node_paths=PackedStringArray("size_edit", "gap", "offset", "chars", "texture_viewer")]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+script = ExtResource("1_uoe0t")
+size_edit = NodePath("VBoxContainer/RectSettings/Size")
+gap = NodePath("VBoxContainer/RectSettings/Gap")
+offset = NodePath("VBoxContainer/RectSettings/Offset")
+chars = NodePath("VBoxContainer/HSplitContainer/HBoxContainer/TextEdit")
+texture_viewer = NodePath("VBoxContainer/HSplitContainer/TextureViewer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RectSettings" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Size" parent="VBoxContainer/RectSettings" instance=ExtResource("2_mp5wm")]
+layout_mode = 2
+tooltip_text = "The width and height of every character in the texture."
+mouse_default_cursor_shape = 16
+min_value = Vector2(1, 1)
+value = Vector2(1, 1)
+label = "Rectangle Size"
+
+[node name="Gap" parent="VBoxContainer/RectSettings" instance=ExtResource("2_mp5wm")]
+layout_mode = 2
+tooltip_text = "Additional gap between every character in the texture."
+mouse_default_cursor_shape = 16
+min_value = Vector2(0, 0)
+label = "Rectangle Gap"
+
+[node name="Offset" parent="VBoxContainer/RectSettings" instance=ExtResource("2_mp5wm")]
+layout_mode = 2
+tooltip_text = "Offset from the top-left in pixels, applied before the first characters in the texture."
+mouse_default_cursor_shape = 16
+min_value = Vector2(0, 0)
+max_value = Vector2(0, 0)
+label = "Start Offset"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="VBoxContainer" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+tooltip_text = "The characters represented in the texture, arranged in a grid.
+Hover your mouse over the View Texture section to see what character corresponds to what."
+mouse_default_cursor_shape = 16
+
+[node name="HeadingBox" type="HBoxContainer" parent="VBoxContainer/HSplitContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharactersLabel" type="Label" parent="VBoxContainer/HSplitContainer/HBoxContainer/HeadingBox"]
+layout_mode = 2
+text = "Characters"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HSplitContainer/HBoxContainer/HeadingBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/HSplitContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+theme_override_fonts/font = ExtResource("3_hh27p")
+placeholder_text = "abcdegh
+ijklmnop
+..."
+draw_tabs = true
+draw_spaces = true
+
+[node name="TextureViewer" parent="VBoxContainer/HSplitContainer" instance=ExtResource("4_ubswt")]
+layout_mode = 2
+
+[connection signal="value_changed" from="VBoxContainer/RectSettings/Size" to="." method="_on_Size_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/RectSettings/Gap" to="." method="_on_Gap_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/RectSettings/Offset" to="." method="_on_Offset_value_changed"]
+[connection signal="text_changed" from="VBoxContainer/HSplitContainer/HBoxContainer/TextEdit" to="." method="_on_TextEdit_text_changed"]

@@ -1,7 +1,5 @@
 using Godot;
-using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
+
 
 
 public partial class TitleMenu : Control
@@ -45,7 +43,11 @@ public partial class TitleMenu : Control
 		As1Button.ButtonDown += OnAs1ButtonDown;
 		As2Button.ButtonDown += OnAs2ButtonDown;
 		CodeaButton.ButtonDown += OnCodeaButtonDown;
+		LoadtButton.ButtonDown+=OnLoadButtonDown;
 
+	}
+	public void OnLoadButtonDown(){
+		_engine.UiMgr.OpenLoadMenu();
 	}
 	public async void OnCodeaButtonDown()
 	{
@@ -60,7 +62,7 @@ public partial class TitleMenu : Control
 		_engine.SoundMgr.StopBgm();
 		AnimationPlayer.Play("close");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_engine.LoadScript("2001");
+		_engine.LoadScript("2003");
 		_engine.UiMgr.OpenGame();
 	}
 	public async void OnIcButtonDown()

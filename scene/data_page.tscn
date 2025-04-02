@@ -1,0 +1,287 @@
+[gd_scene load_steps=44 format=3 uid="uid://2rgflu1ybhl4"]
+
+[ext_resource type="Texture2D" uid="uid://75suq1ohbh2u" path="res://assets/grp/sys_01020.tga" id="1_6nwnh"]
+[ext_resource type="PackedScene" uid="uid://vhl58c04l614" path="res://scene/data_slot.tscn" id="2_vahd7"]
+[ext_resource type="Texture2D" uid="uid://dgr56sk15w3ts" path="res://assets/grp/sys_01021.tga" id="3_qxgoh"]
+[ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="4_7tkfx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih6vw"]
+atlas = ExtResource("3_qxgoh")
+region = Rect2(0, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fomwf"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wynx"]
+atlas = SubResource("CompressedTexture2D_fomwf")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dk2q3"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1gnd"]
+atlas = SubResource("CompressedTexture2D_dk2q3")
+region = Rect2(64, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h5rnl"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qafel"]
+atlas = SubResource("CompressedTexture2D_h5rnl")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jwejl"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldp26"]
+atlas = SubResource("CompressedTexture2D_jwejl")
+region = Rect2(128, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6573c"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmefc"]
+atlas = SubResource("CompressedTexture2D_6573c")
+region = Rect2(128, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o0kcw"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmv6t"]
+atlas = SubResource("CompressedTexture2D_o0kcw")
+region = Rect2(192, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_40d0s"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dro5t"]
+atlas = SubResource("CompressedTexture2D_40d0s")
+region = Rect2(192, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gfdma"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jl54"]
+atlas = SubResource("CompressedTexture2D_gfdma")
+region = Rect2(256, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s6k2g"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfyqj"]
+atlas = SubResource("CompressedTexture2D_s6k2g")
+region = Rect2(256, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kq0fp"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i74tr"]
+atlas = SubResource("CompressedTexture2D_kq0fp")
+region = Rect2(320, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_trmkg"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7t5y"]
+atlas = SubResource("CompressedTexture2D_trmkg")
+region = Rect2(320, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_68o17"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5daxh"]
+atlas = SubResource("CompressedTexture2D_68o17")
+region = Rect2(384, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k3h34"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klssu"]
+atlas = SubResource("CompressedTexture2D_k3h34")
+region = Rect2(384, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0tp4h"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibw41"]
+atlas = SubResource("CompressedTexture2D_0tp4h")
+region = Rect2(448, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4m2ys"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_au8rm"]
+atlas = SubResource("CompressedTexture2D_4m2ys")
+region = Rect2(448, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8j4tt"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18jol"]
+atlas = SubResource("CompressedTexture2D_8j4tt")
+region = Rect2(512, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lptds"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyr6n"]
+atlas = SubResource("CompressedTexture2D_lptds")
+region = Rect2(512, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0i10m"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ld5hw"]
+atlas = SubResource("CompressedTexture2D_0i10m")
+region = Rect2(576, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uxx42"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1n1u"]
+atlas = SubResource("CompressedTexture2D_uxx42")
+region = Rect2(576, 0, 64, 32)
+
+[node name="DataPage" type="Control"]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 64.0
+offset_right = 1280.0
+offset_bottom = 160.0
+mouse_filter = 2
+texture = ExtResource("1_6nwnh")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -632.0
+offset_top = -252.0
+offset_right = 632.0
+offset_bottom = 228.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="SaveSlot" parent="GridContainer" instance=ExtResource("2_vahd7")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot2" parent="GridContainer" instance=ExtResource("2_vahd7")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot3" parent="GridContainer" instance=ExtResource("2_vahd7")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot4" parent="GridContainer" instance=ExtResource("2_vahd7")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot5" parent="GridContainer" instance=ExtResource("2_vahd7")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot6" parent="GridContainer" instance=ExtResource("2_vahd7")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot7" parent="GridContainer" instance=ExtResource("2_vahd7")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot8" parent="GridContainer" instance=ExtResource("2_vahd7")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot9" parent="GridContainer" instance=ExtResource("2_vahd7")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot10" parent="GridContainer" instance=ExtResource("2_vahd7")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="PageBtnContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 70.0
+offset_right = 1264.0
+offset_bottom = 102.0
+theme_override_constants/separation = 0
+
+[node name="TextureButton" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ih6vw")
+texture_focused = SubResource("AtlasTexture_7wynx")
+script = ExtResource("4_7tkfx")
+
+[node name="TextureButton2" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_k1gnd")
+texture_focused = SubResource("AtlasTexture_qafel")
+script = ExtResource("4_7tkfx")
+
+[node name="TextureButton3" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ldp26")
+texture_focused = SubResource("AtlasTexture_hmefc")
+script = ExtResource("4_7tkfx")
+
+[node name="TextureButton4" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_nmv6t")
+texture_focused = SubResource("AtlasTexture_dro5t")
+script = ExtResource("4_7tkfx")
+
+[node name="TextureButton5" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_5jl54")
+texture_focused = SubResource("AtlasTexture_rfyqj")
+script = ExtResource("4_7tkfx")
+
+[node name="TextureButton6" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_i74tr")
+texture_focused = SubResource("AtlasTexture_x7t5y")
+script = ExtResource("4_7tkfx")
+
+[node name="TextureButton7" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_5daxh")
+texture_focused = SubResource("AtlasTexture_klssu")
+script = ExtResource("4_7tkfx")
+
+[node name="TextureButton8" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ibw41")
+texture_focused = SubResource("AtlasTexture_au8rm")
+script = ExtResource("4_7tkfx")
+
+[node name="TextureButton9" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_18jol")
+texture_focused = SubResource("AtlasTexture_lyr6n")
+script = ExtResource("4_7tkfx")
+
+[node name="TextureButton10" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ld5hw")
+texture_focused = SubResource("AtlasTexture_q1n1u")
+script = ExtResource("4_7tkfx")

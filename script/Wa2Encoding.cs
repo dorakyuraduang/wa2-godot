@@ -41,10 +41,10 @@ public class Wa2Encoding : Encoding
 
     private readonly Dictionary<char, byte[]> customCharToBytes = new Dictionary<char, byte[]>()
     {
-        { '爸', new byte[] { 0x81, 0x7f } },
-        { '爹', new byte[] { 0x83, 0x7f } },
-        { '艺', new byte[] { 0x84, 0x7f } },
-        { '节', new byte[] { 0x87, 0x7f } },
+        // { '爸', new byte[] { 0x81, 0x7f } },
+        // { '爹', new byte[] { 0x83, 0x7f } },
+        // { '艺', new byte[] { 0x84, 0x7f } },
+        // { '节', new byte[] { 0x87, 0x7f } },
         { '蹑', new byte[] { 0x89, 0x7f } },
         { '蹒', new byte[] { 0x8a, 0x7f } },
         { '荚', new byte[] { 0x8b, 0x7f } },

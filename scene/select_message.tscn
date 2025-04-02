@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://c7lxvocpmkbiu"]
+
+[ext_resource type="Texture2D" uid="uid://gy8fe86dy4t8" path="res://assets/grp/sys_00200.png" id="1_3nk4o"]
+[ext_resource type="Script" uid="uid://qsw3xkgywsql" path="res://script/Wa2Label.cs" id="2_2tuhy"]
+[ext_resource type="Texture2D" uid="uid://cmgdubqht36c6" path="res://assets/fonts/cn/本体80.png" id="3_3ecsp"]
+[ext_resource type="Texture2D" uid="uid://kphqvd0w7amu" path="res://assets/fonts/cn/袋影80.png" id="4_ktgq3"]
+[ext_resource type="Texture2D" uid="uid://dl8c41uirpqks" path="res://assets/grp/sys_00011.png" id="5_va5ci"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ioubw"]
+atlas = ExtResource("1_3nk4o")
+region = Rect2(0, 0, 784, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pe64g"]
+atlas = ExtResource("1_3nk4o")
+region = Rect2(0, 72, 784, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrrn3"]
+atlas = ExtResource("1_3nk4o")
+region = Rect2(0, 144, 784, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhwum"]
+atlas = ExtResource("5_va5ci")
+region = Rect2(204, 64, 32, 32)
+
+[node name="SelectMessage" type="TextureButton"]
+texture_normal = SubResource("AtlasTexture_ioubw")
+texture_pressed = SubResource("AtlasTexture_pe64g")
+texture_hover = SubResource("AtlasTexture_pe64g")
+texture_disabled = SubResource("AtlasTexture_ioubw")
+texture_focused = SubResource("AtlasTexture_pe64g")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_wrrn3")
+
+[node name="TextLabel" type="Node2D" parent="."]
+position = Vector2(144, 12)
+script = ExtResource("2_2tuhy")
+FontTexture = ExtResource("3_3ecsp")
+ShadowTexture = ExtResource("4_ktgq3")
+Shadow = true
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 16.0
+offset_right = 112.0
+offset_bottom = 48.0
+texture = SubResource("AtlasTexture_nhwum")

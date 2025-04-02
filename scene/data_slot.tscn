@@ -1,0 +1,137 @@
+[gd_scene load_steps=14 format=3 uid="uid://vhl58c04l614"]
+
+[ext_resource type="Script" uid="uid://dstvmh6b1vjdi" path="res://script/DataSlot.cs" id="1_pudf4"]
+[ext_resource type="Texture2D" uid="uid://ekms51gcnb2h" path="res://assets/grp/sys_01010.tga" id="2_yye6e"]
+[ext_resource type="FontFile" uid="uid://13ow1d25naon" path="res://assets/fonts/number.tres" id="3_8eqka"]
+[ext_resource type="Texture2D" uid="uid://dwuhirbqoetti" path="res://assets/grp/sys_01016.png" id="4_qg7dv"]
+[ext_resource type="Texture2D" uid="uid://dai73h84v2ui3" path="res://assets/grp/sys_01015.png" id="5_d6xoc"]
+[ext_resource type="FontFile" uid="uid://dg4n23b2hume7" path="res://assets/fonts/cn.tres" id="6_fyfrv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6o85h"]
+atlas = ExtResource("2_yye6e")
+region = Rect2(0, 0, 632, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbthv"]
+atlas = ExtResource("2_yye6e")
+region = Rect2(632, 0, 632, 96)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8eqka"]
+line_spacing = 0.0
+font = ExtResource("3_8eqka")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6xoc"]
+resource_local_to_scene = true
+atlas = ExtResource("4_qg7dv")
+region = Rect2(0, 0, 248, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyfrv"]
+resource_local_to_scene = true
+atlas = ExtResource("5_d6xoc")
+region = Rect2(0, 0, 40, 24)
+
+[sub_resource type="LabelSettings" id="LabelSettings_k5oa6"]
+font = ExtResource("3_8eqka")
+
+[sub_resource type="LabelSettings" id="LabelSettings_smn8n"]
+font = ExtResource("6_fyfrv")
+font_size = 12
+shadow_size = 0
+
+[node name="DataSlot" type="TextureButton" node_paths=PackedStringArray("NoData", "ExistData", "SaveTexture", "IdxLabel", "DateLabel", "Category", "DayLabel", "Month", "FirstSentenceLabel")]
+custom_minimum_size = Vector2(632, 96)
+offset_right = 632.0
+offset_bottom = 96.0
+script = ExtResource("1_pudf4")
+NoData = NodePath("NoData")
+ExistData = NodePath("ExistData")
+SaveTexture = NodePath("SavTexture")
+IdxLabel = NodePath("No")
+DateLabel = NodePath("Date")
+Category = NodePath("Category")
+DayLabel = NodePath("Day")
+Month = NodePath("Month")
+FirstSentenceLabel = NodePath("FirstSentence")
+
+[node name="NoData" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 632.0
+offset_bottom = 96.0
+texture = SubResource("AtlasTexture_6o85h")
+
+[node name="ExistData" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 632.0
+offset_bottom = 96.0
+texture = SubResource("AtlasTexture_pbthv")
+
+[node name="No" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 48.0
+offset_bottom = 41.0
+theme_override_fonts/font = ExtResource("3_8eqka")
+theme_override_font_sizes/font_size = 16
+text = "00"
+
+[node name="SavTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(128, 72)
+layout_mode = 0
+offset_left = 54.0
+offset_top = 10.0
+offset_right = 182.0
+offset_bottom = 82.0
+expand_mode = 1
+
+[node name="Date" type="Label" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 20.0
+offset_right = 349.0
+offset_bottom = 36.0
+text = "2012 04/1 20:49"
+label_settings = SubResource("LabelSettings_8eqka")
+
+[node name="Wa2Text" type="Node2D" parent="."]
+position = Vector2(188, 46)
+
+[node name="Category" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 16.0
+offset_right = 624.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_d6xoc")
+
+[node name="Month" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 540.0
+offset_top = 16.0
+offset_right = 580.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_fyfrv")
+
+[node name="Day" type="Label" parent="."]
+layout_mode = 0
+offset_left = 584.0
+offset_top = 16.0
+offset_right = 624.0
+offset_bottom = 39.0
+text = "11"
+label_settings = SubResource("LabelSettings_k5oa6")
+
+[node name="FirstSentence" type="Label" parent="."]
+clip_contents = true
+layout_mode = 0
+offset_left = 198.0
+offset_top = 44.0
+offset_right = 455.0
+offset_bottom = 70.0
+text = "，空，剿痩暁。
+厰積…空，空…意魯積厰痩意惑逢行"
+label_settings = SubResource("LabelSettings_smn8n")
+clip_text = true
+text_overrun_behavior = 3
+visible_characters = 11
+visible_ratio = 0.48

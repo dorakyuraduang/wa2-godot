@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=23 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bplbwgh74r3w5" path="res://script/Wa2UiMgr.cs" id="4_p6nqb"]
 [ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="5_3be8l"]
 [ext_resource type="PackedScene" uid="uid://b6u3qm7g3fnoj" path="res://scene/as/title_menu.tscn" id="5_d5jo3"]
+[ext_resource type="PackedScene" uid="uid://bxa3gtl880ece" path="res://scene/LoadSaveMenu.tscn" id="9_kek77"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tw2vm"]
 resource_local_to_scene = true
@@ -317,7 +318,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_jqvt3")
 
-[node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("AdvMain", "TitleMenu")]
+[node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("AdvMain", "TitleMenu", "LoadSaveMenu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -328,13 +329,17 @@ mouse_filter = 2
 script = ExtResource("4_p6nqb")
 AdvMain = NodePath("AdvMain")
 TitleMenu = NodePath("TitleMenu")
+LoadSaveMenu = NodePath("LoadSaveMenu")
+
+[node name="TitleMenu" parent="Wa2UiMgr" instance=ExtResource("5_d5jo3")]
+visible = false
+layout_mode = 1
 
 [node name="AdvMain" parent="Wa2UiMgr" instance=ExtResource("3_ww1q6")]
 visible = false
 layout_mode = 1
 
-[node name="TitleMenu" parent="Wa2UiMgr" instance=ExtResource("5_d5jo3")]
-visible = false
+[node name="LoadSaveMenu" parent="Wa2UiMgr" instance=ExtResource("9_kek77")]
 layout_mode = 1
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]

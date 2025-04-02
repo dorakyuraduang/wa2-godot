@@ -3,12 +3,6 @@ using System;
 using System.Collections.Generic;
 // using System.IO;
 using System.Text;
-public class Wa2Char
-{
-	public int pos;
-	public int id;
-	public int no;
-}
 public partial class Wa2EngineMain : Node
 {
 	public enum GameState
@@ -22,16 +16,13 @@ public partial class Wa2EngineMain : Node
 	// [Export]
 	// public TextureRect Texture;
 	// Called when the node enters the scene tree for the first time.
-	public float BgTime;
+	public Wa2GameSav GameSav;
 	public int[] GloFlags = new int[255];
-	public int [] GloInts=new int [26];
-	public float [] GloFloats = new float[26];
-	public int[] GameFlags = new int[1024];
 	public List<String> Texts = new();
 	public int ReplayMode;
 	public int WaitSeChannel;
-	public Dictionary<int, Wa2Char> CharDic = new();
 	public static Wa2EngineMain Engine;
+	public Wa2Var SelectVar;
 	public int Year;
 	public int Month;
 	public int Day;
@@ -42,8 +33,6 @@ public partial class Wa2EngineMain : Node
 	public Wa2Prefs Prefs;
 	public int Label;
 	public bool Skipping = false;
-	[Export]
-	public TestUi TestUi;
 	[Export]
 	public Node CharGroup;
 	public Wa2Image[] Chars;
@@ -129,8 +118,7 @@ public partial class Wa2EngineMain : Node
 		Wa2Resource.LoadPak("char.pak");
 		Wa2Resource.LoadPak("VOICE.PAK");
 		Wa2Resource.LoadPak("SE.PAK");
-
-
+		AdvMain.Init(this);
 		Chars = new Wa2Image[Wa2Def.CharPos.Length];
 		for (int i = 0; i < Wa2Def.CharPos.Length; i++)
 		{
@@ -172,8 +160,10 @@ public partial class Wa2EngineMain : Node
 		}
 
 	}
+	public void LoadData(int idx){}
 	public void LoadScript(string name, uint pos = 0)
 	{
+		GameSav = new(this);
 		WaitClick = false;
 		WaitTimer.Done();
 		AdvMain.Clear();
@@ -289,26 +279,31 @@ public partial class Wa2EngineMain : Node
 		byte[] buffer = file.GetBuffer(2317 * 4);
 		for (int i = 0; i < 8; i++)
 		{
-			int charShow = BitConverter.ToInt32(buffer, 48+i*4);
-			if (charShow>0)
+			int charShow = BitConverter.ToInt32(buffer, 48 + i * 4);
+			if (charShow > 0)
 			{
-				int u1=BitConverter.ToInt32(buffer, 100+i*4);
-				int u2=BitConverter.ToInt32(buffer, 72+i*4);
-				if (u2>0){
-					int no=BitConverter.ToInt32(buffer, 64+i*4);
-					int pos=BitConverter.ToInt32(buffer, 84+i*4);
-					int u3=BitConverter.ToInt32(buffer, 108+i*4);
-					int u4=BitConverter.ToInt32(buffer, 92+i*4);
-					int chr=BitConverter.ToInt32(buffer, 56+i*4);
-				}else{
-					int pos=BitConverter.ToInt32(buffer, 76+i*4);
-					int no=BitConverter.ToInt32(buffer, 64+i*4);
-					int u3=BitConverter.ToInt32(buffer, 108+i*4);
-					int u4=BitConverter.ToInt32(buffer, 92+i*4);
-					int chr=BitConverter.ToInt32(buffer, 56+i*4);
+				int u1 = BitConverter.ToInt32(buffer, 100 + i * 4);
+				int u2 = BitConverter.ToInt32(buffer, 72 + i * 4);
+				if (u2 > 0)
+				{
+					int no = BitConverter.ToInt32(buffer, 64 + i * 4);
+					int pos = BitConverter.ToInt32(buffer, 84 + i * 4);
+					int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
+					int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
+					int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
+				}
+				else
+				{
+					int pos = BitConverter.ToInt32(buffer, 76 + i * 4);
+					int no = BitConverter.ToInt32(buffer, 64 + i * 4);
+					int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
+					int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
+					int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
 				}
 			}
 		}
+	}
+	public void UpdateBg(){
 
 	}
 }

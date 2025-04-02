@@ -4,11 +4,13 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class Wa2UiMgr : Control
 {
-	public Stack<Control> UiQueue=new();
+	public Stack<Control> UiQueue = new();
 	[Export]
 	public Wa2AdvMain AdvMain;
 	[Export]
 	public TitleMenu TitleMenu;
+	[Export]
+	public LoadSaveMenu LoadSaveMenu;
 	private Wa2EngineMain _engine;
 	public override void _Ready()
 	{
@@ -21,10 +23,19 @@ public partial class Wa2UiMgr : Control
 	// public override void _Process(double delta)
 	// {
 	// }
-	public void OpenGame(){
+	public void OpenGame()
+	{
 		_engine.SubViewport.Show();
 		_engine.State = Wa2EngineMain.GameState.GAME;
 		JumpScene(AdvMain);
+	}
+	public void OpenSaveMenu()
+	{
+		LoadSaveMenu.Open(DataMode.Save);
+	}
+	public void OpenLoadMenu()
+	{
+		LoadSaveMenu.Open(DataMode.Load);
 	}
 	public void OpenTitleMenu()
 	{
@@ -33,16 +44,17 @@ public partial class Wa2UiMgr : Control
 		TitleMenu.Open();
 		JumpScene(TitleMenu);
 	}
-	public void JumpScene(Control scene){
-		if (UiQueue.Count>0)
+	public void JumpScene(Control scene)
+	{
+		if (UiQueue.Count > 0)
 		{
-			Control ui=UiQueue.Pop();
+			Control ui = UiQueue.Pop();
 			ui.Hide();
 
 		}
-		
-		
+
+
 		scene.Show();
-		UiQueue.Push(scene); 
+		UiQueue.Push(scene);
 	}
 }

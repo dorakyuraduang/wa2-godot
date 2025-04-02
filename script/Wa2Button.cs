@@ -1,6 +1,6 @@
 using Godot;
 using System;
-
+[GlobalClass]
 public partial class Wa2Button : TextureButton
 {
 	[Export]
@@ -18,6 +18,5 @@ public partial class Wa2Button : TextureButton
 		_engine.SoundMgr.PlaySysSe(ClickStream);
 	}
 	private void OnHover(){
-
 	}
 }

@@ -4,6 +4,20 @@ using System;
 public partial class Wa2AdvMain : Control
 {
 	[Export]
+	public Wa2Button SaveButton;
+	[Export]
+	public Wa2Button LoadButton;
+	[Export]
+	public Wa2Button OptionButton;
+	[Export]
+	public Wa2Button AutoButton;
+	[Export]
+	public Wa2Button SkipButton;
+	[Export]
+	public Wa2Button OffButton;
+	[Export]
+	public VBoxContainer SelectMessageContainer;
+	[Export]
 	public Wa2Label NameLabel;
 	[Export]
 	public Wa2Label TextLabel;
@@ -20,11 +34,16 @@ public partial class Wa2AdvMain : Control
 	}
 	public AdvState State;
 	public bool Active { private set; get; }
-	public override void _Ready()
+	public void Init(Wa2EngineMain e)
 	{
-		_engine = Wa2EngineMain.Engine;
+		_engine = e;
 		Active = false;
 		Modulate = new Color(1, 1, 1, 0);
+		LoadButton.ButtonDown+=OnLoadButtonDown;
+		SaveButton.ButtonDown+=OnSaveButtonDown;
+		// for (int i = 0; i < 3; i++){
+		// 	SelectMessageContainer
+		// }
 	}
 	public void AdvShow(float time = 0.25f)
 	{
@@ -70,7 +89,7 @@ public partial class Wa2AdvMain : Control
 			{
 				TextLabel.VisibleRatio = 1F;
 				State = AdvState.WAIT_CLICK;
-				
+
 			}
 			UpdateText();
 		}
@@ -83,7 +102,7 @@ public partial class Wa2AdvMain : Control
 				State = AdvState.NONE;
 			}
 		}
-		
+
 	}
 	public void UpdateText()
 	{
@@ -112,5 +131,12 @@ public partial class Wa2AdvMain : Control
 	{
 		_engine.WaitTimer.Done();
 		Update();
+	}
+	public void OnSaveButtonDown(){
+		GD.Print("666");
+		_engine.UiMgr.OpenSaveMenu();
+	}
+		public void OnLoadButtonDown(){
+		_engine.UiMgr.OpenLoadMenu();
 	}
 }

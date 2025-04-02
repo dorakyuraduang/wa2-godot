@@ -1,0 +1,551 @@
+[gd_scene load_steps=59 format=3 uid="uid://bxa3gtl880ece"]
+
+[ext_resource type="Texture2D" uid="uid://cy5jrp4jpngky" path="res://assets/grp/sys_05012.tga" id="1_fpsiy"]
+[ext_resource type="Script" uid="uid://dbkyiayv0e7wj" path="res://script/LoadSaveMenu.cs" id="1_l5c20"]
+[ext_resource type="Texture2D" uid="uid://dfvs633fxj3ov" path="res://assets/grp/sys_09000.tga" id="3_6yasr"]
+[ext_resource type="Texture2D" uid="uid://k20quccu5fx" path="res://assets/grp/sys_01000.png" id="3_l5c20"]
+[ext_resource type="Texture2D" uid="uid://qv6t25tic016" path="res://assets/grp/sys_09100.tga" id="4_8mjx4"]
+[ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="6_damy8"]
+[ext_resource type="Texture2D" uid="uid://fry7muu30vjg" path="res://assets/grp/sys_00110.tga" id="7_i0eel"]
+[ext_resource type="AudioStream" uid="uid://clwoheb3ixdy1" path="res://assets/se/SE_9211.WAV" id="7_n1sq5"]
+[ext_resource type="Texture2D" uid="uid://75suq1ohbh2u" path="res://assets/grp/sys_01020.tga" id="7_ngv2f"]
+[ext_resource type="PackedScene" uid="uid://vhl58c04l614" path="res://scene/data_slot.tscn" id="8_21eec"]
+[ext_resource type="AudioStream" uid="uid://c4ucnxq7r28er" path="res://assets/se/SE_9213.WAV" id="8_xqhj0"]
+[ext_resource type="Texture2D" uid="uid://dgr56sk15w3ts" path="res://assets/grp/sys_01021.tga" id="9_n1sq5"]
+[ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="12_xqhj0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvxw4"]
+atlas = ExtResource("4_8mjx4")
+region = Rect2(0, 0, 56, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_065nf"]
+atlas = ExtResource("4_8mjx4")
+region = Rect2(0, 48, 56, 24)
+
+[sub_resource type="Animation" id="Animation_e8bpg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_18w4g"]
+resource_name = "close"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05)]
+}
+
+[sub_resource type="Animation" id="Animation_qdctb"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1lri4"]
+_data = {
+&"RESET": SubResource("Animation_e8bpg"),
+&"close": SubResource("Animation_18w4g"),
+&"open": SubResource("Animation_qdctb")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih6vw"]
+atlas = ExtResource("9_n1sq5")
+region = Rect2(0, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fomwf"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wynx"]
+atlas = SubResource("CompressedTexture2D_fomwf")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dk2q3"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1gnd"]
+atlas = SubResource("CompressedTexture2D_dk2q3")
+region = Rect2(64, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h5rnl"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qafel"]
+atlas = SubResource("CompressedTexture2D_h5rnl")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jwejl"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldp26"]
+atlas = SubResource("CompressedTexture2D_jwejl")
+region = Rect2(128, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6573c"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hmefc"]
+atlas = SubResource("CompressedTexture2D_6573c")
+region = Rect2(128, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o0kcw"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmv6t"]
+atlas = SubResource("CompressedTexture2D_o0kcw")
+region = Rect2(192, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_40d0s"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dro5t"]
+atlas = SubResource("CompressedTexture2D_40d0s")
+region = Rect2(192, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gfdma"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jl54"]
+atlas = SubResource("CompressedTexture2D_gfdma")
+region = Rect2(256, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s6k2g"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfyqj"]
+atlas = SubResource("CompressedTexture2D_s6k2g")
+region = Rect2(256, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kq0fp"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i74tr"]
+atlas = SubResource("CompressedTexture2D_kq0fp")
+region = Rect2(320, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_trmkg"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7t5y"]
+atlas = SubResource("CompressedTexture2D_trmkg")
+region = Rect2(320, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_68o17"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5daxh"]
+atlas = SubResource("CompressedTexture2D_68o17")
+region = Rect2(384, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k3h34"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klssu"]
+atlas = SubResource("CompressedTexture2D_k3h34")
+region = Rect2(384, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0tp4h"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibw41"]
+atlas = SubResource("CompressedTexture2D_0tp4h")
+region = Rect2(448, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4m2ys"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_au8rm"]
+atlas = SubResource("CompressedTexture2D_4m2ys")
+region = Rect2(448, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8j4tt"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18jol"]
+atlas = SubResource("CompressedTexture2D_8j4tt")
+region = Rect2(512, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lptds"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyr6n"]
+atlas = SubResource("CompressedTexture2D_lptds")
+region = Rect2(512, 0, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0i10m"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ld5hw"]
+atlas = SubResource("CompressedTexture2D_0i10m")
+region = Rect2(576, 64, 64, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uxx42"]
+load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1n1u"]
+atlas = SubResource("CompressedTexture2D_uxx42")
+region = Rect2(576, 0, 64, 32)
+
+[node name="LoadSaveMenu" type="Control" node_paths=PackedStringArray("PageTop", "ExitBtn", "DataSlots", "Tabs")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(640, 360)
+script = ExtResource("1_l5c20")
+PageTop = NodePath("PageTop")
+ExitBtn = NodePath("ExitButton")
+DataSlots = NodePath("GridContainer")
+Tabs = NodePath("PageBtnContainer")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.564706)
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 304.0
+offset_bottom = 168.0
+texture = ExtResource("1_fpsiy")
+
+[node name="PageTop" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_l5c20")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -56.0
+offset_right = 640.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_6yasr")
+
+[node name="ExitButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -89.0
+offset_top = -34.0
+offset_right = -33.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = SubResource("AtlasTexture_pvxw4")
+texture_pressed = SubResource("AtlasTexture_065nf")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("8_xqhj0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_1lri4")
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 64.0
+offset_right = 1280.0
+offset_bottom = 160.0
+mouse_filter = 2
+texture = ExtResource("7_ngv2f")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -632.0
+offset_top = -252.0
+offset_right = 632.0
+offset_bottom = 228.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="SaveSlot" parent="GridContainer" instance=ExtResource("8_21eec")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot2" parent="GridContainer" instance=ExtResource("8_21eec")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot3" parent="GridContainer" instance=ExtResource("8_21eec")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot4" parent="GridContainer" instance=ExtResource("8_21eec")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot5" parent="GridContainer" instance=ExtResource("8_21eec")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot6" parent="GridContainer" instance=ExtResource("8_21eec")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot7" parent="GridContainer" instance=ExtResource("8_21eec")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot8" parent="GridContainer" instance=ExtResource("8_21eec")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot9" parent="GridContainer" instance=ExtResource("8_21eec")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="SaveSlot10" parent="GridContainer" instance=ExtResource("8_21eec")]
+layout_mode = 2
+focus_mode = 0
+
+[node name="PageBtnContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 70.0
+offset_right = 1264.0
+offset_bottom = 102.0
+theme_override_constants/separation = 0
+
+[node name="TextureButton" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ih6vw")
+texture_focused = SubResource("AtlasTexture_7wynx")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("12_xqhj0")
+
+[node name="TextureButton2" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_k1gnd")
+texture_focused = SubResource("AtlasTexture_qafel")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("12_xqhj0")
+
+[node name="TextureButton3" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ldp26")
+texture_focused = SubResource("AtlasTexture_hmefc")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("12_xqhj0")
+
+[node name="TextureButton4" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_nmv6t")
+texture_focused = SubResource("AtlasTexture_dro5t")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("12_xqhj0")
+
+[node name="TextureButton5" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_5jl54")
+texture_focused = SubResource("AtlasTexture_rfyqj")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("12_xqhj0")
+
+[node name="TextureButton6" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_i74tr")
+texture_focused = SubResource("AtlasTexture_x7t5y")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("12_xqhj0")
+
+[node name="TextureButton7" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_5daxh")
+texture_focused = SubResource("AtlasTexture_klssu")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("12_xqhj0")
+
+[node name="TextureButton8" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ibw41")
+texture_focused = SubResource("AtlasTexture_au8rm")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("12_xqhj0")
+
+[node name="TextureButton9" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_18jol")
+texture_focused = SubResource("AtlasTexture_lyr6n")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("12_xqhj0")
+
+[node name="TextureButton10" type="TextureButton" parent="PageBtnContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_ld5hw")
+texture_focused = SubResource("AtlasTexture_q1n1u")
+script = ExtResource("6_damy8")
+HoverStream = ExtResource("7_n1sq5")
+ClickStream = ExtResource("12_xqhj0")
+
+[node name="Tip" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="TextureRect4" type="TextureRect" parent="Tip"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -56.0
+offset_right = 240.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_i0eel")
+
+[node name="Label" type="Label" parent="Tip/TextureRect4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "存档已保存"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -20,11 +20,17 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/window_width_override=800
+window/size/window_height_override=450
 window/stretch/mode="canvas_items"
 
 [dotnet]
 
 project/assembly_name="wa2"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/texture_fonts/plugin.cfg")
 
 [input]
 

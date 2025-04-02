@@ -7,6 +7,8 @@ using System.Text.Unicode;
 public partial class Wa2Label : Node2D
 {
 	[Export]
+	public Color Color=new Color(1.0f,1.0f,1.0f,1.0f);
+	[Export]
 	public float VisibleRatio;
 	[Export]
 	public string Text = "";
@@ -73,7 +75,7 @@ public partial class Wa2Label : Node2D
 					{
 						DrawTextureRectRegion(ShadowTexture, rect, srcRect, new Color(0.15f, 0.15f, 0.15f, 1));
 					}
-					DrawTextureRectRegion(FontTexture, rect, srcRect);
+					DrawTextureRectRegion(FontTexture, rect, srcRect,Color);
 				}
 				drawPos.X++;
 			}

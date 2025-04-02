@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://od6jw6rx7c56" path="res://script/TitleMenu.cs" id="1_le5pv"]
 [ext_resource type="Shader" uid="uid://cdg2vfcimljql" path="res://shader/game.gdshader" id="2_n4ci5"]
 [ext_resource type="Texture2D" uid="uid://6njxooeuq2e7" path="res://assets/grp/AQUAPLUS.tga" id="3_m4rux"]
-[ext_resource type="Texture2D" uid="uid://c1iivcw2lc2u5" path="res://assets/grp/T0012.tga" id="4_xs2u4"]
-[ext_resource type="Texture2D" uid="uid://daw6s3mwwcoq" path="res://assets/grp/T0020.tga" id="5_asopg"]
+[ext_resource type="Texture2D" uid="uid://b2l2ae7pgpkg0" path="res://assets/grp/T0011.png" id="4_ptj1n"]
+[ext_resource type="Texture2D" uid="uid://mo7h0usloxai" path="res://assets/grp/T0020.png" id="5_ptj1n"]
 [ext_resource type="PackedScene" uid="uid://bkg3mbvjllejg" path="res://scene/menu_button.tscn" id="6_qxj8v"]
 [ext_resource type="Texture2D" uid="uid://bspm6r0uclfff" path="res://assets/grp/T0100.tga" id="7_sohma"]
 [ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="7_xo8l8"]
@@ -733,7 +733,7 @@ offset_right = 1016.0
 offset_bottom = 449.0
 pivot_offset = Vector2(376, 224)
 mouse_filter = 2
-texture = ExtResource("4_xs2u4")
+texture = ExtResource("4_ptj1n")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -742,7 +742,7 @@ offset_left = 998.0
 offset_top = 678.0
 offset_right = 1262.0
 offset_bottom = 702.0
-texture = ExtResource("5_asopg")
+texture = ExtResource("5_ptj1n")
 
 [node name="InitalStart" type="Control" parent="."]
 visible = false
