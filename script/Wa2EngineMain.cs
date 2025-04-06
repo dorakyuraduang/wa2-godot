@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 // using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 public partial class Wa2EngineMain : Node
 {
 	public enum GameState
@@ -19,6 +20,7 @@ public partial class Wa2EngineMain : Node
 	public Wa2GameSav GameSav;
 	public int[] GloFlags = new int[255];
 	public List<String> Texts = new();
+	public int SkipMode = 0;
 	public int ReplayMode;
 	public int WaitSeChannel;
 	public static Wa2EngineMain Engine;
@@ -64,6 +66,11 @@ public partial class Wa2EngineMain : Node
 			Engine = this;
 		}
 	}
+	public void StopSkip()
+	{
+		Skipping = false;
+		SkipMode = 0;
+	}
 	// public void RemoveChar(int chr)
 	// {
 	// 	CharDic.Remove(chr);
@@ -86,14 +93,17 @@ public partial class Wa2EngineMain : Node
 	// 	CharDic[id].no = no;
 	// 	CharDic[id].show = show;
 	// }
-	public override void _Ready()
+	public override async void _Ready()
 	{
 
 		if (OS.GetName() == "Android")
 		{
-
 			Wa2Resource.ResPath = "/storage/emulated/0/Wa2Res/";
-
+			if (!OS.HasFeature("android.permission.MANAGE_EXTERNAL_STORAGE"))
+			{
+				OS.RequestPermission("android.permission.MANAGE_EXTERNAL_STORAGE");
+				await ToSignal(GetTree(), SceneTree.SignalName.OnRequestPermissionsResult);
+			}
 		}
 		else
 		{
@@ -160,7 +170,7 @@ public partial class Wa2EngineMain : Node
 		}
 
 	}
-	public void LoadData(int idx){}
+	public void LoadData(int idx) { }
 	public void LoadScript(string name, uint pos = 0)
 	{
 		GameSav = new(this);
@@ -174,6 +184,11 @@ public partial class Wa2EngineMain : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void InputKeyHandling()
 	{
+		if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain)
+		{
+			StopSkip();
+			return;
+		}
 		if (Input.IsActionPressed("Skip"))
 		{
 			Skipping = true;
@@ -303,7 +318,8 @@ public partial class Wa2EngineMain : Node
 			}
 		}
 	}
-	public void UpdateBg(){
+	public void UpdateBg()
+	{
 
 	}
 }

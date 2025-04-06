@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.Unicode;
 
@@ -64,7 +65,13 @@ public partial class Wa2Label : Node2D
 			}
 			else
 			{
+				if (!Wa2Def.FontMap.ContainsKey(ch)	)
+				{
+					GD.Print($"未知字符 '{ch}'");
+					continue;
+				}
 				int pos = Wa2Def.FontMap[ch];
+		
 				if (pos >= 0)
 				{
 					int x = pos % 80;

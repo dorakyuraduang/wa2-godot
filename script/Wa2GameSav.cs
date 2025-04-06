@@ -111,7 +111,7 @@ public class Wa2GameSav
 		}
 	}
 	public void SaveData(int idx){
-		FileAccess file=FileAccess.Open("user://sav"+idx+".sav",FileAccess.ModeFlags.Write);
+		FileAccess file=FileAccess.Open(string.Format("user://sav{0:D2}.sav",idx),FileAccess.ModeFlags.Write);
 		SystemTime=DateTime.Now;
 		Image image=_engine.Viewport.GetTexture().GetImage();
 		image.Resize(256,144);

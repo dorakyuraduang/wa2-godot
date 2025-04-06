@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://13ow1d25naon" path="res://assets/fonts/number.tres" id="3_8eqka"]
 [ext_resource type="Texture2D" uid="uid://dwuhirbqoetti" path="res://assets/grp/sys_01016.png" id="4_qg7dv"]
 [ext_resource type="Texture2D" uid="uid://dai73h84v2ui3" path="res://assets/grp/sys_01015.png" id="5_d6xoc"]
-[ext_resource type="FontFile" uid="uid://dg4n23b2hume7" path="res://assets/fonts/cn.tres" id="6_fyfrv"]
+[ext_resource type="FontFile" uid="uid://dg4n23b2hume7" path="res://assets/fonts/jp.tres" id="6_fyfrv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6o85h"]
 atlas = ExtResource("2_yye6e")

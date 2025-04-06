@@ -29,13 +29,23 @@ public partial class Wa2UiMgr : Control
 		_engine.State = Wa2EngineMain.GameState.GAME;
 		JumpScene(AdvMain);
 	}
+	public void ReturnScene(){
+		if (UiQueue.Count > 0)
+		{
+			Control ui = UiQueue.Pop();
+			ui.Hide();
+
+		}
+	}
 	public void OpenSaveMenu()
 	{
 		LoadSaveMenu.Open(DataMode.Save);
+		UiQueue.Push(LoadSaveMenu);
 	}
 	public void OpenLoadMenu()
 	{
 		LoadSaveMenu.Open(DataMode.Load);
+		UiQueue.Push(LoadSaveMenu);
 	}
 	public void OpenTitleMenu()
 	{
