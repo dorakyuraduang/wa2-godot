@@ -242,6 +242,7 @@ public class Wa2Func
 		{
 			_engine.AdvMain.CurName = "";
 		}
+		_engine.GameSav.CharName=_engine.AdvMain.CurName;
 
 	}
 	public void WNS(List<Wa2Var> args) { }
@@ -262,7 +263,7 @@ public class Wa2Func
 		{
 			_engine.GameSav.BgInfo.Id = args[1].Get();
 			_engine.GameSav.BgInfo.No = args[2].Get();
-			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.TimeMode, args[2].Get());
+			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.GameSav.TimeMode, args[2].Get());
 		}
 		else
 		{
@@ -359,7 +360,7 @@ public class Wa2Func
 		{
 			_engine.GameSav.BgInfo.Id=args[1].Get();
 			_engine.GameSav.BgInfo.No=args[2].Get();
-			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.TimeMode, args[2].Get());
+			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.GameSav.TimeMode, args[2].Get());
 		}
 		else
 		{
@@ -576,6 +577,7 @@ public class Wa2Func
 	public void SetTimeMode(List<Wa2Var> args)
 	{
 		_engine.GameSav.TimeMode = args[0].Get();
+		GD.Print("mode",args[0].Get());
 		// uint v0 = args[0];
 	}
 	public void SetChromaMode(List<Wa2Var> args)
@@ -735,11 +737,17 @@ public class Wa2Func
 	}
 	public void SetSelectMess(List<Wa2Var> args)
 	{
-		// _engine.AdvMain.SelectMessageContainer.GetChild(args)
+		SelectMessage btn=_engine.AdvMain.SelectMessageContainer.GetChild<SelectMessage>(_engine.CurSelect);
+		btn.TextLabel.Text=args[0].Get();
+		btn.TextLabel.Update();
+		btn.Show();
+		_engine.CurSelect++;
 	}
 	public void SetSelect(List<Wa2Var> args)
 	{
 		_engine.SelectVar = args[0];
+		_engine.CurSelect=0;
+		_engine.WaitSelect=true;
 	}
 	public void S(List<Wa2Var> args)
 	{
@@ -817,7 +825,7 @@ public class Wa2Func
 		{
 			_engine.GameSav.BgInfo.Id = args[1].Get();
 			_engine.GameSav.BgInfo.No=args[2].Get();
-			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.TimeMode, args[2].Get());
+			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.GameSav.TimeMode, args[2].Get());
 		}
 		else
 		{

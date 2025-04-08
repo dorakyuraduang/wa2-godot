@@ -2,13 +2,16 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Text;
-public struct Calender{
+using System.Linq;
+public struct Calender
+{
 	public int Year;
 	public int Month;
 	public int Day;
 	public int DayOfWeek;
 }
-public struct BgmInfo{
+public struct BgmInfo
+{
 	public int Id;
 	public int Loop;
 	public int Volume;
@@ -19,7 +22,8 @@ public struct SelectItem
 	public bool Disable;
 	public bool Show;
 }
-public struct BgInfo{
+public struct BgInfo
+{
 	public Vector2 Scale;
 	public Vector2 Offset;
 	public int Id;
@@ -30,10 +34,11 @@ public struct BgInfo{
 	public int V2;
 	public int V3;
 	public int V4;
-	public BgInfo(){
-		Scale=Vector2.One;
-		Offset=Vector2.Zero;
-		Frame=120;
+	public BgInfo()
+	{
+		Scale = Vector2.One;
+		Offset = Vector2.Zero;
+		Frame = 120;
 	}
 }
 public struct CharItem
@@ -42,6 +47,9 @@ public struct CharItem
 	public int id;
 	public int no;
 }
+// public struct FirstCmd{
+
+// }
 // public struct SystemTime
 // {
 // 	public int Year;
@@ -56,12 +64,12 @@ public struct CharItem
 public class Wa2GameSav
 {
 	public int TimeMode;
-	public BgmInfo BgmInfo=new();
-	public BgInfo BgInfo=new();
+	public BgmInfo BgmInfo = new();
+	public BgInfo BgInfo = new();
 	public float BgTime;
 	public int[] GloInts = new int[26];
 	public float[] GloFloats = new float[26];
-	public int[] GameFlags = new int[1024];
+	public int[] GameFlags = new int[0x1d];
 	public int GameDate;
 	public DateTime SystemTime;
 	public int CurBg;
@@ -69,13 +77,15 @@ public class Wa2GameSav
 	public string ScriptName;
 	public string ScriptPak;
 	public uint ScriptPos;
-	public Calender Calender=new();
+	public Calender Calender = new();
 	public string FirstSentence;
+	public string CharName;
 	private Wa2EngineMain _engine;
 	public List<CharItem> CharItems = new();
-	public Wa2GameSav(Wa2EngineMain e){
-		_engine=e;
-		
+	public Wa2GameSav(Wa2EngineMain e)
+	{
+		_engine = e;
+
 		// GD.Print(SystemTime.Year+"年");
 		// GD.Print(SystemTime.Month+"月");
 		// GD.Print(SystemTime.DayOfWeek+"周");
@@ -110,11 +120,12 @@ public class Wa2GameSav
 			}
 		}
 	}
-	public void SaveData(int idx){
-		FileAccess file=FileAccess.Open(string.Format("user://sav{0:D2}.sav",idx),FileAccess.ModeFlags.Write);
-		SystemTime=DateTime.Now;
-		Image image=_engine.Viewport.GetTexture().GetImage();
-		image.Resize(256,144);
+	public void SaveData(int idx)
+	{
+		FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Write);
+		SystemTime = DateTime.Now;
+		Image image = _engine.Viewport.GetTexture().GetImage();
+		image.Resize(256, 144);
 		file.Store32((uint)SystemTime.Year);
 		file.Store32((uint)SystemTime.Month);
 		file.Store32((uint)SystemTime.DayOfWeek);
@@ -124,15 +135,36 @@ public class Wa2GameSav
 		file.Store32((uint)SystemTime.Second);
 		file.Store32((uint)SystemTime.Millisecond);
 		file.StoreBuffer(image.GetData());
-	  file.StoreString(ScriptName);
-		byte[] buffer=new byte[256];
-		byte[] strBuffer=Encoding.Unicode.GetBytes(FirstSentence);
-		GD.Print(FirstSentence);
-	  Array.Copy(strBuffer,buffer,Math.Min(strBuffer.Length, 256));
-		file.StoreBuffer(buffer);
+		file.StoreString(ScriptName);
+		// byte[] buffer=new byte[256];
+		// byte[] strBuffer=Encoding.Unicode.GetBytes(FirstSentence);
+		// Array.Copy(strBuffer,buffer,Math.Min(strBuffer.Length, 256));
+		file.StoreBuffer(Encoding.Unicode.GetBytes(FirstSentence).Concat(new byte[256]).Take(256).ToArray());
+		// buffer=new byte[16];
+		// byte[] strBuffer=Encoding.Unicode.GetBytes(FirstSentence);
+		// file.StoreBuffer(buffer);
+		file.StoreBuffer(Encoding.Unicode.GetBytes(CharName).Concat(new byte[16]).Take(16).ToArray());
+		file.Store32(ScriptPos);
+		file.Store32((uint)BgInfo.Id);
+		file.Store32((uint)BgInfo.No);
+		file.Store32((uint)BgInfo.Scale.X);
+		file.Store32((uint)BgInfo.Scale.Y);
+		file.Store32((uint)BgInfo.Offset.X);
+		file.Store32((uint)BgInfo.Offset.Y);
+		file.Store32((uint)BgInfo.Frame);
+		file.Store32((uint)BgInfo.V0);
+		file.Store32((uint)BgInfo.V1);
+		file.Store32((uint)BgInfo.V2);
+		file.Store32((uint)BgInfo.V3);
+		file.Store32((uint)BgInfo.V4);
+		file.Store32((uint)BgmInfo.Id);
+		file.Store32((uint)BgmInfo.Loop);
+		file.Store32((uint)BgmInfo.Volume);
+
 		file.Close();
 	}
-	public void LoadData(int idx){
+	public void LoadData(int idx)
+	{
 
 	}
 }

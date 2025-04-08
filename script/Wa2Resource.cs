@@ -14,37 +14,38 @@ public class FileEntry
 public class Wa2Resource
 {
 	public static string ResPath;
-	public static void Clear()
-	{
-		SoundDic.Clear();
-		ImageDic.Clear();
+	// public static void Clear()
+	// {
+	// 	SoundDic.Clear();
+	// 	ImageDic.Clear();
 
-	}
-	public static Dictionary<string, AudioStream> SoundDic { get; private set; } = new();
-	// public static Dictionary<string, FileAccess> PakDir { get; private set; } = new();
+	// }
+	// public static Dictionary<string, AudioStream> SoundDic { get; private set; } = new();
+	// // public static Dictionary<string, FileAccess> PakDir { get; private set; } = new();
 	public static Dictionary<string, FileEntry> FileDic { get; private set; } = new();
-	public static Dictionary<string, ImageTexture> ImageDic { get; private set; } = new();
-	public static void LoadOggSound(string path)
+	// public static Dictionary<string, ImageTexture> ImageDic { get; private set; } = new();
+	public static AudioStream LoadOggSound(string path)
 	{
 		byte[] buffer = LoadFileBuffer(path);
 
 		if (buffer == null)
 		{
-			return;
+			return null;
 		}
 		AudioStream oggStream = AudioStreamOggVorbis.LoadFromBuffer(buffer);
-		SoundDic[path] = oggStream;
+		return oggStream;
+		// SoundDic[path] = oggStream;
 	}
-	public static void LoadWavSound(string path)
+	public static AudioStream LoadWavSound(string path)
 	{
 		GD.Print(path);
 		byte[] buffer = LoadFileBuffer(path);
 		if (buffer == null)
 		{
-			return;
+			return null;
 		}
 		AudioStream wavStream = AudioStreamWav.LoadFromBuffer(buffer);
-		SoundDic[path] = wavStream;
+		return wavStream;
 
 	}
 	public static Texture2D GetMaskImage(int id)
@@ -70,12 +71,11 @@ public class Wa2Resource
 	public static AudioStream GetOggStream(string path)
 	{
 		path = path.ToLower();
-		if (!SoundDic.ContainsKey(path))
-		{
-			LoadOggSound(path);
-		}
+
+			
+		
 		// GD.Print(SoundDic.GetValueOrDefault(path));
-		return SoundDic.GetValueOrDefault(path);
+		return LoadOggSound(path);
 	}
 	public static ImageTexture GetCgImage(int id, int no)
 	{
@@ -101,64 +101,61 @@ public class Wa2Resource
 	public static ImageTexture GetTgaImage(string path)
 	{
 		path = path.ToLower();
-		if (!ImageDic.ContainsKey(path))
-		{
-			LoadTgaImage(path);
-		}
+
+			
+		
 		// GD.Print(SoundDic.GetValueOrDefault(path));
-		return ImageDic.GetValueOrDefault(path);
+		return LoadTgaImage(path);
 	}
 	public static ImageTexture GetBmpImage(string path)
 	{
 		path = path.ToLower();
-		if (!ImageDic.ContainsKey(path))
-		{
-			LoadBmpImage(path);
-		}
+
+			
+		
 		// GD.Print(SoundDic.GetValueOrDefault(path));
-		return ImageDic.GetValueOrDefault(path);
+		return LoadBmpImage(path);
 	}
-	public static void LoadTgaImage(string path)
+	public static ImageTexture LoadTgaImage(string path)
 	{
-		ulong start = Time.GetTicksMsec();
+		// ulong start = Time.GetTicksMsec();
 		path = path.ToLower();
 		byte[] buffer = LoadFileBuffer(path);
-		GD.Print("加载时间2:", Time.GetTicksMsec() - start);
+		GD.Print(path);
 
 
 		if (buffer == null)
 		{
-			return;
+			return null;
 		}
 		Image image = new();
 		image.LoadTgaFromBuffer(buffer);
 		ImageTexture tgaImage = ImageTexture.CreateFromImage(image);
-		ImageDic[path] = tgaImage;
+		return tgaImage;
 		
 	}
-	public static void LoadBmpImage(string path)
+	public static ImageTexture LoadBmpImage(string path)
 	{
 		path = path.ToLower();
 		byte[] buffer = LoadFileBuffer(path);
 
 		if (buffer == null)
 		{
-			return;
+			return null;
 		}
 		Image image = new();
 		image.LoadBmpFromBuffer(buffer);
 		ImageTexture tgaImage = ImageTexture.CreateFromImage(image);
-		ImageDic[path] = tgaImage;
+		return tgaImage;
 	}
 	public static AudioStream GetWavStream(string path)
 	{
 		path = path.ToLower();
-		if (!SoundDic.ContainsKey(path))
-		{
-			LoadWavSound(path);
-		}
+
+			
+
 		// GD.Print(SoundDic.GetValueOrDefault(path));
-		return SoundDic.GetValueOrDefault(path);
+		return LoadWavSound(path);
 	}
 
 	public static AudioStream GetBgmStream(int id, bool loop = false)

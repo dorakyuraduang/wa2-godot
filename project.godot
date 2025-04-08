@@ -31,7 +31,7 @@ project/assembly_name="wa2"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/bitmap_fonts_atlas_replacer/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

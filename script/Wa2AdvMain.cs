@@ -39,11 +39,23 @@ public partial class Wa2AdvMain : Control
 		_engine = e;
 		Active = false;
 		Modulate = new Color(1, 1, 1, 0);
-		LoadButton.ButtonDown+=OnLoadButtonDown;
-		SaveButton.ButtonDown+=OnSaveButtonDown;
-		// for (int i = 0; i < 3; i++){
-		// 	SelectMessageContainer
-		// }
+		LoadButton.ButtonDown += OnLoadButtonDown;
+		SaveButton.ButtonDown += OnSaveButtonDown;
+		for (int i = 0; i < SelectMessageContainer.GetChildCount(); i++)
+		{
+			int idx = i;
+			SelectMessageContainer.GetChild<SelectMessage>(i).ButtonDown += () => OnSelectMessageButtonDown(idx);
+		}
+	}
+	public void OnSelectMessageButtonDown(int idx)
+	{
+		_engine.WaitSelect = false;
+		for (int i = 0; i < SelectMessageContainer.GetChildCount(); i++)
+		{
+			SelectMessageContainer.GetChild<SelectMessage>(i).Hide();
+		}
+		// GD.Print("索引",_engine.Script.args[^2].IntValue);
+		_engine.Script.args[^1].Set(idx);
 	}
 	public void AdvShow(float time = 0.25f)
 	{
@@ -132,11 +144,13 @@ public partial class Wa2AdvMain : Control
 		_engine.WaitTimer.Done();
 		Update();
 	}
-	public void OnSaveButtonDown(){
+	public void OnSaveButtonDown()
+	{
 		GD.Print("666");
 		_engine.UiMgr.OpenSaveMenu();
 	}
-		public void OnLoadButtonDown(){
+	public void OnLoadButtonDown()
+	{
 		_engine.UiMgr.OpenLoadMenu();
 	}
 }

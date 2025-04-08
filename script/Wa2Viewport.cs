@@ -10,12 +10,12 @@ public partial class Wa2Viewport : SubViewportContainer
 
 	// public AnimType Type { get; private set; }
 	[Export]
-	public TextureRect BgTexure;
+	public Wa2Image BgTexure;
 	[Export]
 	public Control CharGroup;
 	public SubViewport SubViewport;
 	[Export]
-	public ColorRect RenderTexture;
+	public Wa2Image RenderTexture;
 	// public int BgDrawFrame;
 	// public Texture BgTexture;
 	// public Image BgImage = Image.CreateEmpty(1280, 720, false, Image.Format.Rgba8);

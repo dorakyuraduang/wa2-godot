@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://gy8fe86dy4t8" path="res://assets/grp/sys_00200.png" id="1_3nk4o"]
 [ext_resource type="Script" uid="uid://qsw3xkgywsql" path="res://script/Wa2Label.cs" id="2_2tuhy"]
+[ext_resource type="Script" uid="uid://crrhojl1rbbpq" path="res://script/SelectMessage.cs" id="2_3ecsp"]
 [ext_resource type="Texture2D" uid="uid://cmgdubqht36c6" path="res://assets/fonts/cn/本体80.png" id="3_3ecsp"]
 [ext_resource type="Texture2D" uid="uid://kphqvd0w7amu" path="res://assets/fonts/cn/袋影80.png" id="4_ktgq3"]
 [ext_resource type="Texture2D" uid="uid://dl8c41uirpqks" path="res://assets/grp/sys_00011.png" id="5_va5ci"]
@@ -9,10 +10,6 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_ioubw"]
 atlas = ExtResource("1_3nk4o")
 region = Rect2(0, 0, 784, 72)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pe64g"]
-atlas = ExtResource("1_3nk4o")
-region = Rect2(0, 72, 784, 72)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wrrn3"]
 atlas = ExtResource("1_3nk4o")
@@ -22,22 +19,26 @@ region = Rect2(0, 144, 784, 72)
 atlas = ExtResource("5_va5ci")
 region = Rect2(204, 64, 32, 32)
 
-[node name="SelectMessage" type="TextureButton"]
+[node name="SelectMessage" type="TextureButton" node_paths=PackedStringArray("TextLabel")]
 texture_normal = SubResource("AtlasTexture_ioubw")
-texture_pressed = SubResource("AtlasTexture_pe64g")
-texture_hover = SubResource("AtlasTexture_pe64g")
+texture_pressed = SubResource("AtlasTexture_ioubw")
+texture_hover = SubResource("AtlasTexture_ioubw")
 texture_disabled = SubResource("AtlasTexture_ioubw")
-texture_focused = SubResource("AtlasTexture_pe64g")
+texture_focused = SubResource("AtlasTexture_ioubw")
+script = ExtResource("2_3ecsp")
+TextLabel = NodePath("TextLabel")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(1.5, 1.5, 1.5, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("AtlasTexture_wrrn3")
 
 [node name="TextLabel" type="Node2D" parent="."]
-position = Vector2(144, 12)
+position = Vector2(118, 18)
 script = ExtResource("2_2tuhy")
+VisibleRatio = 1.0
 FontTexture = ExtResource("3_3ecsp")
 ShadowTexture = ExtResource("4_ktgq3")
 Shadow = true

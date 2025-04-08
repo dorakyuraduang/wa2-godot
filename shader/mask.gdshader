@@ -49,8 +49,10 @@ void fragment() {
 	float result=(blend*2.0-(1.0-mask_color.r))*fead_weight;
 	float final=clamp(result,0.0,1.0);
 
-	if(textureSize(cur_texture,0)==ivec2(4,4)){
+	if(cur_color.a==0.0){
 		COLOR=next_color*vec4(1.0,1.0,1.0,blend);
+	}else if(next_color.a==0.0){
+		COLOR=cur_color*vec4(1.0,1.0,1.0,1.0-blend);
 	}else{
 		COLOR=mix(cur_color,next_color,final);
 	}

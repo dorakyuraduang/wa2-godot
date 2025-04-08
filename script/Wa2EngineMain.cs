@@ -1,7 +1,10 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 // using System.IO;
+
 using System.Text;
 using System.Threading.Tasks;
 public partial class Wa2EngineMain : Node
@@ -18,11 +21,13 @@ public partial class Wa2EngineMain : Node
 	// public TextureRect Texture;
 	// Called when the node enters the scene tree for the first time.
 	public Wa2GameSav GameSav;
+	public int CurSelect=0;
 	public int[] GloFlags = new int[255];
 	public List<String> Texts = new();
 	public int SkipMode = 0;
 	public int ReplayMode;
 	public int WaitSeChannel;
+	public bool WaitSelect=false;
 	public static Wa2EngineMain Engine;
 	public Wa2Var SelectVar;
 	public int Year;
@@ -93,17 +98,18 @@ public partial class Wa2EngineMain : Node
 	// 	CharDic[id].no = no;
 	// 	CharDic[id].show = show;
 	// }
-	public override async void _Ready()
+	public override void _Ready()
 	{
 
 		if (OS.GetName() == "Android")
 		{
 			Wa2Resource.ResPath = "/storage/emulated/0/Wa2Res/";
-			if (!OS.HasFeature("android.permission.MANAGE_EXTERNAL_STORAGE"))
-			{
-				OS.RequestPermission("android.permission.MANAGE_EXTERNAL_STORAGE");
-				await ToSignal(GetTree(), SceneTree.SignalName.OnRequestPermissionsResult);
-			}
+			// if (!OS.HasFeature("android.permission.MANAGE_EXTERNAL_STORAGE"))
+			// {
+				OS.RequestPermissions();
+				while(!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE"));
+				// await ToSignal(GetTree(), SceneTree.SignalName.OnRequestPermissionsResult);
+			// }
 		}
 		else
 		{
@@ -211,7 +217,7 @@ public partial class Wa2EngineMain : Node
 			UpdateAnimators((float)delta);
 			AdvMain.Update();
 			SkipCheck();
-			if (!WaitTimer.IsActive() && !WaitClick && !WaitAnimator())
+			if (!WaitTimer.IsActive() && !WaitClick && !WaitAnimator() &&!WaitSelect)
 			{
 				// AdvMain.Clear();
 				WaitSeFinish();

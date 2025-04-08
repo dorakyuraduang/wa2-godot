@@ -121,11 +121,11 @@ public partial class LoadSaveMenu : Control
     ConfirmMessage.Show();
     if (_mode == DataMode.Load)
     {
-      ConfirmLabel.Text = "读取存档。\n正确吗？";
+      ConfirmLabel.Text = "读取存档。\n确定吗？";
     }
     else if (_mode == DataMode.Save)
     {
-      ConfirmLabel.Text = "存档将被覆盖。\n正确吗？";
+      ConfirmLabel.Text = "存档将被覆盖。\n确定吗？";
     }
   }
 

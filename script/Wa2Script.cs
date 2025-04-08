@@ -7,7 +7,7 @@ using System.Threading;
 public enum CmdType
 {
 	NONE = 0,
-	GLOBAL_VAR,
+	GLOBAL_VAR = 1,
 	LOCAL_VAR = 2,
 	STR_VAR = 3,
 	FUNC = 4,
@@ -79,11 +79,14 @@ public class Wa2Var
 		if (CmdType == CmdType.LOCAL_VAR)
 		{
 			if (IntValue >= 26)
+			{
 				return Wa2EngineMain.Engine.GameSav.GloFloats[IntValue % 26];
-		}
-		else
-		{
-			return Wa2EngineMain.Engine.GameSav.GloInts[IntValue];
+			}
+			else
+			{
+				return Wa2EngineMain.Engine.GameSav.GloInts[IntValue];
+			}
+
 		}
 		if (CmdType == CmdType.GLOBAL_VAR)
 		{
@@ -120,19 +123,19 @@ public class Wa2Script
 	private Dictionary<uint, uint> _jumpDic = new();
 	private List<byte[]> _text = new();
 	private byte[] _bnrbuffer;
-	private List<Wa2Var> args = new();
+	public List<Wa2Var> args = new();
 	private Wa2Func _func;
 	public Wa2Script(Wa2Func f)
 	{
 		_func = f;
-		_engine=Wa2EngineMain.Engine;
+		_engine = Wa2EngineMain.Engine;
 
 	}
 	public void LoadScript(string name, uint pos = 0)
 	{
 
-   _engine.GameSav.ScriptName=name;
-		Wa2Resource.Clear();
+		_engine.GameSav.ScriptName = name;
+
 		_points.Clear();
 		Wa2EngineMain.Engine.Texts.Clear();
 		args.Clear();
@@ -189,7 +192,7 @@ public class Wa2Script
 			case 3:
 				break;
 			case 4:
-				if (_jumpEntrys[JumpPos].Flag == 0)
+				if (_jumpEntrys[JumpPos].Flag != 0)
 				{
 					_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].Pos;
 					args.Clear();
@@ -261,53 +264,62 @@ public class Wa2Script
 				ReadU32();
 				break;
 			case 13:
+				GD.Print("jump:", args[^1].Get());
 				_jumpEntrys[JumpPos].Flag = args[^1].Get();
 				uint pos1 = _jumpEntrys[JumpPos].PosArr[0];
 				uint pos2 = _jumpEntrys[JumpPos].Pos;
-				if (_jumpEntrys[JumpPos].Flag == 0 && pos1 > 0)
-				{
-					_engine.GameSav.ScriptPos = pos1;
-				}
-				else if (pos2 > 0)
-				{
-
-					_engine.GameSav.ScriptPos = pos2;
-
-				}
-				GD.Print(_engine.GameSav.ScriptPos);
-				args.Clear();
-				break;
-			case 14:
-				_jumpEntrys[JumpPos].Flag = args[^1].Get();
-				if (_jumpEntrys[JumpPos].Flag == 0)
-				{
-					_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[0];
-				}
-				else
-				{
-					_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[2];
-				}
-				break;
-			case 15:
-				break;
-			case 16:
-				_jumpEntrys[JumpPos].Flag = args[^1].Get();
-				if (_jumpEntrys[JumpPos].Type != 7)
+				if (_jumpEntrys[JumpPos].Flag == 1)
 				{
 					return;
 				}
-				for (int i = 0; i < _jumpEntrys[JumpPos].Count; i++)
+				if (pos1 != 0)
 				{
-					if (_jumpEntrys[JumpPos].FlagArr[i] == _jumpEntrys[JumpPos].Flag)
-					{
-						_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[i];
-						args.Clear();
-						return;
-					}
+					_engine.GameSav.ScriptPos = pos1;
 				}
-				_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].Pos;
-				args.Clear();
-				break;
+				else
+				{
+					_engine.GameSav.ScriptPos = pos2;
+				}
+
+				// }
+				// else if (pos2 > 0)
+				// {
+
+				// 	_engine.GameSav.ScriptPos = pos2;
+		GD.Print(_engine.GameSav.ScriptPos);
+		args.Clear();
+		break;
+			case 14:
+			_jumpEntrys[JumpPos].Flag = args[^1].Get();
+			if (_jumpEntrys[JumpPos].Flag == 0)
+			{
+				_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[0];
+			}
+			else
+			{
+				_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[2];
+			}
+			break;
+		case 15:
+			break;
+		case 16:
+			_jumpEntrys[JumpPos].Flag = args[^1].Get();
+			if (_jumpEntrys[JumpPos].Type != 7)
+			{
+				return;
+			}
+			for (int i = 0; i < _jumpEntrys[JumpPos].Count; i++)
+			{
+				if (_jumpEntrys[JumpPos].FlagArr[i] == _jumpEntrys[JumpPos].Flag)
+				{
+					_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[i];
+					args.Clear();
+					return;
+				}
+			}
+			_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].Pos;
+			args.Clear();
+			break;
 
 		}
 	}
@@ -413,11 +425,11 @@ public class Wa2Script
 		}
 		Wa2Var a = Wa2Var.CreateEmpty();
 		Wa2Var b = Wa2Var.CreateEmpty();
-		if (args.Count >0 && v1 <= 0x1b)
+		if (args.Count > 0 && v1 <= 0x1b)
 		{
 			a = args[^1];
 		}
-		if ((v1 >= 1 && v1 < 0x17) || v1 == 0x1b || v1==0)
+		if ((v1 >= 1 && v1 < 0x17) || v1 == 0x1b || v1 == 0)
 		{
 			if (args.Count > 1)
 			{
@@ -434,16 +446,21 @@ public class Wa2Script
 		{
 
 			case 0:
-				if (a.CmdType == CmdType.GLOBAL_VAR)
+				if (b.CmdType == CmdType.GLOBAL_VAR)
 				{
-					_engine.GloFlags[b.Get()]=a.Get();
+					GD.Print("全局变量,索引:", b.IntValue, "值:", a.Get());
+					_engine.GloFlags[b.IntValue] = a.Get();
 				}
-				else if (a.CmdType == CmdType.LOCAL_VAR)
+				else if (b.CmdType == CmdType.LOCAL_VAR)
 				{
-					if (b.IntValue>=26){
-						_engine.GameSav.GloFloats[b.IntValue%26]=a.Get();
-					}else{
-						_engine.GameSav.GloInts[b.IntValue]=a.Get();
+					GD.Print("局部变量,索引:", b.IntValue, "值:", a.Get());
+					if (b.IntValue >= 26)
+					{
+						_engine.GameSav.GloFloats[b.IntValue % 26] = a.Get();
+					}
+					else
+					{
+						_engine.GameSav.GloInts[b.IntValue] = a.Get();
 					}
 				}
 				break;
@@ -488,6 +505,8 @@ public class Wa2Script
 			case 8:
 				{
 					b.Set(a.Get() == b.Get() ? 1 : 0);
+					GD.Print(a.Get());
+					GD.Print(b.Get());
 				}
 				break;
 			case 9:
