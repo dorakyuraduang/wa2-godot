@@ -22,6 +22,7 @@ public partial class Wa2EngineMain : Node
 	// Called when the node enters the scene tree for the first time.
 	public Wa2GameSav GameSav;
 	public int CurSelect=0;
+
 	public int[] GloFlags = new int[255];
 	public List<String> Texts = new();
 	public int SkipMode = 0;
@@ -69,6 +70,7 @@ public partial class Wa2EngineMain : Node
 		if (Engine == null)
 		{
 			Engine = this;
+
 		}
 	}
 	public void StopSkip()
@@ -100,6 +102,7 @@ public partial class Wa2EngineMain : Node
 	// }
 	public override void _Ready()
 	{
+		GameSav=new(this);
 
 		if (OS.GetName() == "Android")
 		{
@@ -176,16 +179,19 @@ public partial class Wa2EngineMain : Node
 		}
 
 	}
-	public void LoadData(int idx) { }
-	public void LoadScript(string name, uint pos = 0)
-	{
-		GameSav = new(this);
+	public void Reset(){
 		WaitClick = false;
 		WaitTimer.Done();
 		AdvMain.Clear();
 		WaitSeFinish();
+		Skipping=false;
+		GameSav.Reset();
+	}
+	public void LoadScript(string name, uint pos = 0)
+	{
+		Reset();
+		GameSav.GameFlags = new int[0x1d];
 		Script.LoadScript(name, pos);
-
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void InputKeyHandling()

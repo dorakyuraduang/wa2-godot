@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuqgvqnfroi7h"]
-
-[ext_resource type="Texture2D" uid="uid://i3nbyt2hrm7g" path="res://aco001001.tga" id="1_1xxb1"]
+[gd_scene format=3 uid="uid://cuqgvqnfroi7h"]
 
 [node name="CharSprite" type="Control"]
 layout_mode = 3
@@ -9,7 +7,6 @@ pivot_offset = Vector2(640, 360)
 
 [node name="Sprite2D" type="TextureRect" parent="."]
 layout_mode = 0
-texture = ExtResource("1_1xxb1")
 
 [node name="Sprite2D2" type="TextureRect" parent="."]
 layout_mode = 0

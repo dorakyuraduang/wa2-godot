@@ -49,10 +49,6 @@ public partial class LoadSaveMenu : Control
     if (_mode == DataMode.Save)
     {
       _engine.GameSav.SaveData(_pageNum * 10 + _selectIdx);
-      
-    }
-    else if (_mode == DataMode.Load)
-    {
 
     }
     ShowTipMessage();
@@ -84,7 +80,7 @@ public partial class LoadSaveMenu : Control
     _selectIdx = _pageNum * 10 + idx;
     if (_mode == DataMode.Save)
     {
-      if (FileAccess.FileExists(string.Format("user://sav{0:D2}.sav",_selectIdx)))
+      if (FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", _selectIdx)))
       {
         ShowConfirmMessage();
       }
@@ -94,7 +90,7 @@ public partial class LoadSaveMenu : Control
         ShowTipMessage();
       }
     }
-    else if (_mode == DataMode.Load && FileAccess.FileExists(string.Format("user://sav{0:D2}.sav",_selectIdx)))
+    else if (_mode == DataMode.Load && FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", _selectIdx)))
     {
       ShowConfirmMessage();
     }
@@ -107,13 +103,32 @@ public partial class LoadSaveMenu : Control
     if (_mode == DataMode.Save)
     {
       TipLabel.Text = "存档已保存";
+      await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
+      Close();
     }
     else if (_mode == DataMode.Load)
     {
       TipLabel.Text = "存档读取成功";
+      await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
+      if (_engine.State == Wa2EngineMain.GameState.TITLE)
+      {
+        Close();
+        await ToSignal(AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
+        _engine.UiMgr.TitleMenu.AnimationPlayer.Play("close");
+        await ToSignal(_engine.UiMgr.TitleMenu.AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
+        _engine.UiMgr.OpenGame();
+      }
+      else if (_engine.State == Wa2EngineMain.GameState.GAME)
+      {
+        TipMessage.Hide();
+        Mask.Hide();
+
+      }
+      _engine.GameSav.LoadData(_pageNum * 10 + _selectIdx);
+
+
     }
-    await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
-    Close();
+
   }
   public void ShowConfirmMessage()
   {

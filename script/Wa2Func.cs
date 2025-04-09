@@ -159,10 +159,7 @@ public class Wa2Func
 	{
 		Wa2SoundMgr.Instance.PlaySysSe(stream);
 	}
-	public void LoadScript(string name, uint pos = 0)
-	{
-		_engine.LoadScript(name, pos);
-	}
+
 	public void printEx(List<Wa2Var> args) { }
 	public void printEx2(List<Wa2Var> args) { }
 	public void SetMessage(List<Wa2Var> args)
@@ -173,7 +170,7 @@ public class Wa2Func
 	public void SetMessageE(List<Wa2Var> args)
 	{
 		_engine.AdvMain.CurText = args[0].Get();
-		_engine.GameSav.FirstSentence=args[0].Get();
+		_engine.GameSav.FirstSentence = args[0].Get();
 		if (!_engine.AdvMain.Active)
 		{
 			_engine.AdvMain.AdvShow();
@@ -197,7 +194,7 @@ public class Wa2Func
 	{
 		if (args[0].Get() == 0)
 		{
-			_engine.Label = args[1].Get();
+			_engine.GameSav.Label = args[1].Get();
 		}
 		// int v0 = args[0];
 		// int v1 = args[1];
@@ -208,7 +205,7 @@ public class Wa2Func
 	{
 		if (!_engine.Skipping)
 		{
-			_engine.SoundMgr.PlayViceo(_engine.Label, args[4].Get(), args[0].Get());
+			_engine.SoundMgr.PlayViceo(_engine.GameSav.Label, args[4].Get(), args[0].Get());
 		}
 
 	}
@@ -242,7 +239,7 @@ public class Wa2Func
 		{
 			_engine.AdvMain.CurName = "";
 		}
-		_engine.GameSav.CharName=_engine.AdvMain.CurName;
+		_engine.GameSav.CharName = _engine.AdvMain.CurName;
 
 	}
 	public void WNS(List<Wa2Var> args) { }
@@ -286,14 +283,14 @@ public class Wa2Func
 		_engine.MaskTexture.SetNextTexture(NextTexture);
 		_engine.BgTexture.SetCurOffset(new Vector2(0, 0));
 		_engine.BgTexture.SetCurScale(new Vector2(1, 1));
-		_engine.GameSav.BgInfo.Scale=Vector2.One;
-		_engine.GameSav.BgInfo.Offset=Vector2.Zero;
+		_engine.GameSav.BgInfo.Scale = Vector2.One;
+		_engine.GameSav.BgInfo.Offset = Vector2.Zero;
 		// _engine.MaskTexture.SetMaskTexture(null);
 		Wa2Animator animator1 = new(_engine.MaskTexture);
 		Wa2Animator animator2 = new(_engine.MaskTexture);
-		animator1.InitFade(_engine.GameSav.BgInfo.Frame*_engine.FrameTime);
-		animator2.InitHide(_engine.GameSav.BgInfo.Frame*_engine.FrameTime);
-		ClearChar(_engine.GameSav.BgInfo.Frame*_engine.FrameTime);
+		animator1.InitFade(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
+		animator2.InitHide(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
+		ClearChar(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
 		// _engine.SubViewport.Hide();
 		_engine.BgTexture.SetCurTexture(NextTexture);
 		// _engine.BgTexture.SetCurScale(NextTexture);
@@ -358,8 +355,8 @@ public class Wa2Func
 		Texture2D CeacheTexture = _engine.BgTexture.GetCurTexture();
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Id=args[1].Get();
-			_engine.GameSav.BgInfo.No=args[2].Get();
+			_engine.GameSav.BgInfo.Id = args[1].Get();
+			_engine.GameSav.BgInfo.No = args[2].Get();
 			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.GameSav.TimeMode, args[2].Get());
 		}
 		else
@@ -372,8 +369,8 @@ public class Wa2Func
 		_engine.BgTexture.SetNextTexture(NextTexture);
 		_engine.BgTexture.SetMaskTexture(null);
 		Wa2Animator animator3 = new(_engine.BgTexture);
-		animator3.InitFade(_engine.GameSav.BgInfo.Frame*_engine.FrameTime);
-		UpdateChar(_engine.GameSav.BgInfo.Frame*_engine.FrameTime);
+		animator3.InitFade(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
+		UpdateChar(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
 		// _engine.SubViewport.Hide();
 		GD.Print("更新背景和角色");
 		// _engine.CharDic.Clear();
@@ -520,9 +517,9 @@ public class Wa2Func
 		{
 			GD.Print("错误位置", _engine.GameSav.ScriptPos);
 		}
-		_engine.GameSav.BgmInfo.Id=args[0].Get();
-		_engine.GameSav.BgmInfo.Loop=args[2].Get();
-		_engine.GameSav.BgmInfo.Volume=args[3].Get();
+		_engine.GameSav.BgmInfo.Id = args[0].Get();
+		_engine.GameSav.BgmInfo.Loop = args[2].Get();
+		_engine.GameSav.BgmInfo.Volume = args[3].Get();
 		_engine.SoundMgr.PlayBgm(args[0].Get(), args[2].Get() != 0, args[3].Get());
 	}
 	public void MS(List<Wa2Var> args)
@@ -577,7 +574,7 @@ public class Wa2Func
 	public void SetTimeMode(List<Wa2Var> args)
 	{
 		_engine.GameSav.TimeMode = args[0].Get();
-		GD.Print("mode",args[0].Get());
+		GD.Print("mode", args[0].Get());
 		// uint v0 = args[0];
 	}
 	public void SetChromaMode(List<Wa2Var> args)
@@ -712,10 +709,10 @@ public class Wa2Func
 	}
 	public void Calender(List<Wa2Var> args)
 	{
-		_engine.GameSav.Calender.Year=args[0].Get();
-		_engine.GameSav.Calender.Month=args[1].Get();
-		_engine.GameSav.Calender.Day=args[2].Get();
-		_engine.GameSav.Calender.DayOfWeek=(int)new DateTime(args[0].Get(), args[1].Get(), args[2].Get()).DayOfWeek;
+		_engine.GameSav.Calender.Year = args[0].Get();
+		_engine.GameSav.Calender.Month = args[1].Get();
+		_engine.GameSav.Calender.Day = args[2].Get();
+		_engine.GameSav.Calender.DayOfWeek = (int)new DateTime(args[0].Get(), args[1].Get(), args[2].Get()).DayOfWeek;
 		// uint hour=args[3];
 		// GD.Print("设置日期" + year + "年" + month + "月" + day + "日");
 	}
@@ -737,8 +734,8 @@ public class Wa2Func
 	}
 	public void SetSelectMess(List<Wa2Var> args)
 	{
-		SelectMessage btn=_engine.AdvMain.SelectMessageContainer.GetChild<SelectMessage>(_engine.CurSelect);
-		btn.TextLabel.Text=args[0].Get();
+		SelectMessage btn = _engine.AdvMain.SelectMessageContainer.GetChild<SelectMessage>(_engine.CurSelect);
+		btn.TextLabel.Text = args[0].Get();
 		btn.TextLabel.Update();
 		btn.Show();
 		_engine.CurSelect++;
@@ -746,8 +743,8 @@ public class Wa2Func
 	public void SetSelect(List<Wa2Var> args)
 	{
 		_engine.SelectVar = args[0];
-		_engine.CurSelect=0;
-		_engine.WaitSelect=true;
+		_engine.CurSelect = 0;
+		_engine.WaitSelect = true;
 	}
 	public void S(List<Wa2Var> args)
 	{
@@ -824,7 +821,7 @@ public class Wa2Func
 		if (args[1].Get() >= 0)
 		{
 			_engine.GameSav.BgInfo.Id = args[1].Get();
-			_engine.GameSav.BgInfo.No=args[2].Get();
+			_engine.GameSav.BgInfo.No = args[2].Get();
 			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.GameSav.TimeMode, args[2].Get());
 		}
 		else
@@ -840,8 +837,8 @@ public class Wa2Func
 		Wa2Animator animator2 = new(_engine.MaskTexture);
 		_engine.MaskTexture.SetCurOffset(Vector2.Zero);
 		_engine.MaskTexture.SetCurScale(Vector2.One);
-		_engine.GameSav.BgInfo.Offset=new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
-		_engine.GameSav.BgInfo.Scale=new Vector2(args[7].Get(), args[8].Get());
+		_engine.GameSav.BgInfo.Offset = new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
+		_engine.GameSav.BgInfo.Scale = new Vector2(args[7].Get(), args[8].Get());
 		_engine.MaskTexture.SetNextOffset(_engine.GameSav.BgInfo.Offset);
 		_engine.MaskTexture.SetNextScale(_engine.GameSav.BgInfo.Scale);
 
@@ -849,9 +846,9 @@ public class Wa2Func
 		_engine.BgTexture.SetCurOffset(_engine.GameSav.BgInfo.Offset);
 		_engine.BgTexture.SetCurScale(_engine.GameSav.BgInfo.Scale);
 		_engine.BgTexture.SetCurTexture(NextTexture);
-		animator1.InitFade(_engine.GameSav.BgInfo.Frame*_engine.FrameTime);
-		animator2.InitHide(_engine.GameSav.BgInfo.Frame*_engine.FrameTime);
-		ClearChar(_engine.GameSav.BgInfo.Frame*_engine.FrameTime);
+		animator1.InitFade(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
+		animator2.InitHide(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
+		ClearChar(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
 	}
 	public void BC2(List<Wa2Var> args)
 	{
@@ -908,8 +905,9 @@ public class Wa2Func
 	}
 	public void SLoad(List<Wa2Var> args)
 	{
+		_engine.Reset();
+		_engine.Script.LoadScript(args[0].Get(), args[1].Get());
 
-		LoadScript(args[0].Get(), (ushort)args[1].Get());
 	}
 	public void SCall(List<Wa2Var> args)
 	{

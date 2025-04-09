@@ -96,7 +96,7 @@ public class Wa2Var
 		return 0;
 	}
 }
-public struct JumpEntry
+public class JumpEntry
 {
 	public uint Type;
 	public uint Count;
@@ -115,9 +115,8 @@ public struct JumpEntry
 public class Wa2Script
 {
 	public Wa2EngineMain _engine;
-	private JumpEntry[] _jumpEntrys = new JumpEntry[16];
+
 	public bool Wait = false;
-	public int JumpPos;
 	public uint Label;
 	private Dictionary<uint, uint> _points = new();
 	private Dictionary<uint, uint> _jumpDic = new();
@@ -133,17 +132,14 @@ public class Wa2Script
 	}
 	public void LoadScript(string name, uint pos = 0)
 	{
-
 		_engine.GameSav.ScriptName = name;
-
 		_points.Clear();
 		Wa2EngineMain.Engine.Texts.Clear();
 		args.Clear();
 		_bnrbuffer = null;
-		JumpPos = 0;
 		LoadBnr(name);
 		_engine.GameSav.ScriptPos = _points[pos];
-		_jumpEntrys = new JumpEntry[16];
+		
 		// GD.Print(_engine.GameSav.ScriptPos);
 	}
 	public void LoadBnr(string name)
@@ -180,95 +176,97 @@ public class Wa2Script
 			case 1:
 				break;
 			case 2:
-				if (JumpPos < 15)
+				if (_engine.GameSav.JumpEntrys.Count < 15)
 				{
-					JumpPos++;
-					_jumpEntrys[JumpPos] = new();
+					_engine.GameSav.JumpEntrys.Add(new());
 				}
-				_jumpEntrys[JumpPos].Type = 2;
-				_jumpEntrys[JumpPos].PosArr[0] = ReadU32();
-				_jumpEntrys[JumpPos].Pos = ReadU32();
+				_engine.GameSav.JumpEntrys[^1].Type = 2;
+				_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
+				_engine.GameSav.JumpEntrys[^1].Pos = ReadU32();
 				break;
 			case 3:
+				if (_engine.GameSav.JumpEntrys[^1].Flag == 1)
+				{
+					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
+				}
+				_engine.GameSav.JumpEntrys[^1].Type = 3;
+				_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
+				args.Clear();
 				break;
 			case 4:
-				if (_jumpEntrys[JumpPos].Flag != 0)
+				if (_engine.GameSav.JumpEntrys[^1].Flag != 0)
 				{
-					_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].Pos;
-					args.Clear();
+					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
+
 				}
+				args.Clear();
 				break;
 			case 5:
 				GD.Print(_engine.GameSav.ScriptPos);
-				if (JumpPos < 15)
+				if (_engine.GameSav.JumpEntrys.Count < 15)
 				{
-					JumpPos++;
-					_jumpEntrys[JumpPos] = new();
+					_engine.GameSav.JumpEntrys.Add(new());
 				}
-				_jumpEntrys[JumpPos].Type = 5;
-				_jumpEntrys[JumpPos].Pos = ReadU32();
-				_jumpEntrys[JumpPos].PosArr[0] = ReadU32();
-				_jumpEntrys[JumpPos].PosArr[1] = ReadU32();
-				_jumpEntrys[JumpPos].PosArr[2] = ReadU32();
+				_engine.GameSav.JumpEntrys[^1].Type = 5;
+				_engine.GameSav.JumpEntrys[^1].Pos = ReadU32();
+				_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
+				_engine.GameSav.JumpEntrys[^1].PosArr[1] = ReadU32();
+				_engine.GameSav.JumpEntrys[^1].PosArr[2] = ReadU32();
 				break;
 			case 6:
-				if (JumpPos < 15)
+				if (_engine.GameSav.JumpEntrys.Count < 15)
 				{
-					JumpPos++;
+					_engine.GameSav.JumpEntrys.Add(new());
 				}
-				else
-				{
-
-				}
-				ReadU32();
+				_engine.GameSav.JumpEntrys[^1].Type = 6;
+				_engine.GameSav.JumpEntrys[^1].Pos=ReadU32();
 				break;
 			case 7:
 
-				if (JumpPos < 15)
+				if (_engine.GameSav.JumpEntrys.Count < 15)
 				{
-					JumpPos++;
-					_jumpEntrys[JumpPos] = new();
+					_engine.GameSav.JumpEntrys.Add(new());
 				}
-				_jumpEntrys[JumpPos].Count = ReadU32();
-				for (int i = 0; i < _jumpEntrys[JumpPos].Count; i++)
+				_engine.GameSav.JumpEntrys[^1].Count = ReadU32();
+				for (int i = 0; i < _engine.GameSav.JumpEntrys[^1].Count; i++)
 				{
-					_jumpEntrys[JumpPos].PosArr[i] = ReadU32();
-					_jumpEntrys[JumpPos].FlagArr[i] = ReadU32();
+					_engine.GameSav.JumpEntrys[^1].PosArr[i] = ReadU32();
+					_engine.GameSav.JumpEntrys[^1].FlagArr[i] = ReadU32();
 				}
-				_jumpEntrys[JumpPos].Pos = ReadU32();
+				_engine.GameSav.JumpEntrys[^1].Pos = ReadU32();
 				break;
 			case 8:
 				break;
 			case 9:
 				break;
 			case 0xa:
-				if (JumpPos < 0)
-				{
-				}
-				else
-				{
+				// if (JumpPos < 0)
+				// {
+				// }
+				// else
+				// {
 
-				}
-				break;
+				// }
+				// break;
 			case 11:
-				if (JumpPos < 0)
-				{
+				// if (JumpPos < 0)
+				// {
 
-				}
-				else
-				{
+				// }
+				// else
+				// {
 
-				}
+				// }
 				break;
 			case 12:
 				ReadU32();
 				break;
 			case 13:
-				GD.Print("jump:", args[^1].Get());
-				_jumpEntrys[JumpPos].Flag = args[^1].Get();
-				uint pos1 = _jumpEntrys[JumpPos].PosArr[0];
-				uint pos2 = _jumpEntrys[JumpPos].Pos;
-				if (_jumpEntrys[JumpPos].Flag == 1)
+
+				_engine.GameSav.JumpEntrys[^1].Flag = args[^1].Get();
+				uint pos1 = _engine.GameSav.JumpEntrys[^1].PosArr[0];
+				uint pos2 = _engine.GameSav.JumpEntrys[^1].Pos;
+				if (_engine.GameSav.JumpEntrys[^1].Flag == 1)
 				{
 					return;
 				}
@@ -286,40 +284,40 @@ public class Wa2Script
 				// {
 
 				// 	_engine.GameSav.ScriptPos = pos2;
-		GD.Print(_engine.GameSav.ScriptPos);
-		args.Clear();
-		break;
+				GD.Print(_engine.GameSav.ScriptPos);
+				args.Clear();
+				break;
 			case 14:
-			_jumpEntrys[JumpPos].Flag = args[^1].Get();
-			if (_jumpEntrys[JumpPos].Flag == 0)
-			{
-				_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[0];
-			}
-			else
-			{
-				_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[2];
-			}
-			break;
-		case 15:
-			break;
-		case 16:
-			_jumpEntrys[JumpPos].Flag = args[^1].Get();
-			if (_jumpEntrys[JumpPos].Type != 7)
-			{
-				return;
-			}
-			for (int i = 0; i < _jumpEntrys[JumpPos].Count; i++)
-			{
-				if (_jumpEntrys[JumpPos].FlagArr[i] == _jumpEntrys[JumpPos].Flag)
+				_engine.GameSav.JumpEntrys[^1].Flag = args[^1].Get();
+				if (_engine.GameSav.JumpEntrys[^1].Flag == 0)
 				{
-					_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].PosArr[i];
-					args.Clear();
+					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[0];
+				}
+				else
+				{
+					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[2];
+				}
+				break;
+			case 15:
+				break;
+			case 16:
+				_engine.GameSav.JumpEntrys[^1].Flag = args[^1].Get();
+				if (_engine.GameSav.JumpEntrys[^1].Type != 7)
+				{
 					return;
 				}
-			}
-			_engine.GameSav.ScriptPos = _jumpEntrys[JumpPos].Pos;
-			args.Clear();
-			break;
+				for (int i = 0; i < _engine.GameSav.JumpEntrys[^1].Count; i++)
+				{
+					if (_engine.GameSav.JumpEntrys[^1].FlagArr[i] == _engine.GameSav.JumpEntrys[^1].Flag)
+					{
+						_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[i];
+						args.Clear();
+						return;
+					}
+				}
+				_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
+				args.Clear();
+				break;
 
 		}
 	}
