@@ -21,14 +21,13 @@ public partial class Wa2EngineMain : Node
 	// public TextureRect Texture;
 	// Called when the node enters the scene tree for the first time.
 	public Wa2GameSav GameSav;
-	public int CurSelect=0;
+	// public int CurSelect=0;
 
 	public int[] GloFlags = new int[255];
 	public List<String> Texts = new();
 	public int SkipMode = 0;
 	public int ReplayMode;
 	public int WaitSeChannel;
-	public bool WaitSelect=false;
 	public static Wa2EngineMain Engine;
 	public Wa2Var SelectVar;
 	public int Year;
@@ -78,6 +77,49 @@ public partial class Wa2EngineMain : Node
 		Skipping = false;
 		SkipMode = 0;
 	}
+	public void ShowSelectMessage()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			SelectMessage btn = AdvMain.SelectMessageContainer.GetChild<SelectMessage>(i);
+			if (i < GameSav.SelectItems.Count)
+			{
+
+				btn.TextLabel.Text = GameSav.SelectItems[i].Text;
+				btn.TextLabel.Update();
+				btn.Show();
+			}
+			else
+			{
+				btn.Hide();
+			}
+		}
+	}
+		public void UpdateChar(float time)
+	{
+		List<int> posList = new();
+		foreach (CharItem value in GameSav.CharItems)
+		{
+			// GD.Print("id:", value.id, "pos:", value.pos);
+			Wa2Image image =  Chars[value.pos];
+			Wa2Animator animator1 = new(image);
+			image.SetNextTexture(Wa2Resource.GetChrImage(value.id, value.no));
+			animator1.InitFade(time);
+			posList.Add(value.pos);
+		}
+		for (int i = 0; i < Chars.Length; i++)
+		{
+			if (posList.Contains(i))
+			{
+				continue;
+			}
+			Wa2Image image = Chars[i];
+			Wa2Animator animator2 = new(image);
+			// image.SetCurTexture(image.GetNextTexture());
+			image.SetNextTexture(null);
+			animator2.InitFade(time);
+		}
+	}
 	// public void RemoveChar(int chr)
 	// {
 	// 	CharDic.Remove(chr);
@@ -102,16 +144,16 @@ public partial class Wa2EngineMain : Node
 	// }
 	public override void _Ready()
 	{
-		GameSav=new(this);
+		GameSav = new(this);
 
 		if (OS.GetName() == "Android")
 		{
 			Wa2Resource.ResPath = "/storage/emulated/0/Wa2Res/";
 			// if (!OS.HasFeature("android.permission.MANAGE_EXTERNAL_STORAGE"))
 			// {
-				OS.RequestPermissions();
-				while(!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE"));
-				// await ToSignal(GetTree(), SceneTree.SignalName.OnRequestPermissionsResult);
+			OS.RequestPermissions();
+			while (!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE")) ;
+			// await ToSignal(GetTree(), SceneTree.SignalName.OnRequestPermissionsResult);
 			// }
 		}
 		else
@@ -179,18 +221,21 @@ public partial class Wa2EngineMain : Node
 		}
 
 	}
-	public void Reset(){
+	public void Reset()
+	{
+		Script.Wait=false;
 		WaitClick = false;
 		WaitTimer.Done();
 		AdvMain.Clear();
 		WaitSeFinish();
-		Skipping=false;
-		GameSav.Reset();
+		Skipping = false;
+		// GameSav.Reset();
 	}
-	public void LoadScript(string name, uint pos = 0)
+	public void StartScript(string name, uint pos = 0)
 	{
 		Reset();
-		GameSav.GameFlags = new int[0x1d];
+		GameSav.Reset();
+
 		Script.LoadScript(name, pos);
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -223,7 +268,7 @@ public partial class Wa2EngineMain : Node
 			UpdateAnimators((float)delta);
 			AdvMain.Update();
 			SkipCheck();
-			if (!WaitTimer.IsActive() && !WaitClick && !WaitAnimator() &&!WaitSelect)
+			if (!WaitTimer.IsActive() && !WaitClick && !WaitAnimator())
 			{
 				// AdvMain.Clear();
 				WaitSeFinish();

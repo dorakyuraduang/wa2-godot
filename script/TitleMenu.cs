@@ -54,7 +54,7 @@ public partial class TitleMenu : Control
 		_engine.SoundMgr.StopBgm();
 		AnimationPlayer.Play("close");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_engine.LoadScript("3001");
+		_engine.StartScript("3001");
 		_engine.UiMgr.OpenGame();
 	}
 	public async void OnCCButtonDown()
@@ -62,7 +62,7 @@ public partial class TitleMenu : Control
 		_engine.SoundMgr.StopBgm();
 		AnimationPlayer.Play("close");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_engine.LoadScript("2003");
+		_engine.StartScript("2003");
 		_engine.UiMgr.OpenGame();
 	}
 	public async void OnIcButtonDown()
@@ -70,7 +70,7 @@ public partial class TitleMenu : Control
 		_engine.SoundMgr.StopBgm();
 		AnimationPlayer.Play("close");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_engine.LoadScript("1001");
+		_engine.StartScript("1001");
 		_engine.UiMgr.OpenGame();
 	}
 	public async void OnAs1ButtonDown()
@@ -78,7 +78,7 @@ public partial class TitleMenu : Control
 		_engine.SoundMgr.StopBgm();
 		AnimationPlayer.Play("close");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_engine.LoadScript("6001");
+		_engine.StartScript("6001");
 		_engine.UiMgr.OpenGame();
 
 	}
@@ -87,7 +87,7 @@ public partial class TitleMenu : Control
 		_engine.SoundMgr.StopBgm();
 		AnimationPlayer.Play("close");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_engine.LoadScript("6101");
+		_engine.StartScript("6101");
 		_engine.UiMgr.OpenGame();
 
 	}

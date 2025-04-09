@@ -18,9 +18,10 @@ public struct BgmInfo
 }
 public struct SelectItem
 {
-	public int StrRef;
-	public bool Disable;
-	public bool Show;
+	public string Text;
+	public int V1;
+	public int V2;
+	public int V3;
 }
 public struct BgInfo
 {
@@ -65,6 +66,7 @@ public class Wa2GameSav
 {
 	public int TimeMode;
 	public int Label;
+	public List<Wa2Var> args = new();
 	public List<JumpEntry> JumpEntrys = new();
 	public int Weather;
 	public BgmInfo BgmInfo = new();
@@ -77,7 +79,7 @@ public class Wa2GameSav
 	public string ScriptName;
 	public string ScriptPak;
 	public uint ScriptPos;
-	public List<SelectItem> SelectItems;
+	public List<SelectItem> SelectItems = new();
 	public Calender Calender = new();
 	public string FirstSentence;
 	public string CharName;
@@ -85,11 +87,19 @@ public class Wa2GameSav
 	public List<CharItem> CharItems = new();
 	public void Reset()
 	{
-		
+
+		args.Clear();
+		GameFlags=new int[0x1d];
 		GloFloats = new float[26];
 		GloInts = new int[26];
 		JumpEntrys.Clear();
 		CharItems.Clear();
+		SelectItems.Clear();
+		BgmInfo=new();
+		BgInfo=new();
+		FirstSentence="";
+		CharName="";
+
 	}
 	public Wa2GameSav(Wa2EngineMain e)
 	{
@@ -162,44 +172,48 @@ public class Wa2GameSav
 			file.Store32((uint)GloFloats[i]);
 		}
 		file.Store32((uint)JumpEntrys.Count);
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < JumpEntrys.Count; i++)
 		{
-			if (i < JumpEntrys.Count)
-			{
-				file.Store32(JumpEntrys[i].Type);
-				file.Store32(JumpEntrys[i].Count);
-				file.Store32(JumpEntrys[i].Pos);
-				file.Store32((uint)JumpEntrys[i].Flag);
-				for (int k = 0; k < 64; k++)
-				{
-					file.Store32(JumpEntrys[i].PosArr[k]);
-				}
-				for (int k = 0; k < 64; k++)
-				{
-					file.Store32(JumpEntrys[i].FlagArr[k]);
-				}
-			}
-			else
-			{
-				file.StoreBuffer(new byte[132 * 4]);
-			}
 
+			file.Store32(JumpEntrys[i].Type);
+			file.Store32(JumpEntrys[i].Count);
+			file.Store32(JumpEntrys[i].Pos);
+			file.Store32((uint)JumpEntrys[i].Flag);
+			for (int k = 0; k < 64; k++)
+			{
+				file.Store32(JumpEntrys[i].PosArr[k]);
+			}
+			for (int k = 0; k < 64; k++)
+			{
+				file.Store32(JumpEntrys[i].FlagArr[k]);
+			}
+		}
+		file.Store32((uint)args.Count);
+		for (int i = 0; i < args.Count; i++)
+		{
+
+			file.Store32((uint)args[i].CmdType);
+			file.Store32((uint)args[i].ValType);
+			file.Store32((uint)args[i].Value0);
+			file.Store32((uint)args[i].IntValue);
+			file.Store32((uint)args[i].FloatValue);
 		}
 		file.Store32((uint)CharItems.Count);
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < CharItems.Count; i++)
 		{
-			if (i < CharItems.Count)
-			{
-				file.Store32((uint)CharItems[i].pos);
-				file.Store32((uint)CharItems[i].id);
-				file.Store32((uint)CharItems[i].no);
-			}
-			else
-			{
-				file.Store32(0);
-				file.Store32(0);
-				file.Store32(0);
-			}
+
+			file.Store32((uint)CharItems[i].pos);
+			file.Store32((uint)CharItems[i].id);
+			file.Store32((uint)CharItems[i].no);
+
+		}
+		file.Store32((uint)SelectItems.Count);
+		for (int i = 0; i < SelectItems.Count; i++)
+		{
+			file.StoreBuffer([.. Encoding.Unicode.GetBytes(SelectItems[i].Text).Concat(new byte[64]).Take(64)]);
+			file.Store32((uint)SelectItems[i].V1);
+			file.Store32((uint)SelectItems[i].V2);
+			file.Store32((uint)SelectItems[i].V3);
 		}
 		file.Store32((uint)Calender.Year);
 		file.Store32((uint)Calender.Month);
@@ -227,6 +241,7 @@ public class Wa2GameSav
 	}
 	public void LoadData(int idx)
 	{
+		_engine.Reset();
 		Reset();
 		FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
 		file.Seek(0x1b000 + 32);
@@ -254,46 +269,60 @@ public class Wa2GameSav
 
 		int JumpEntryCount = (int)file.Get32();
 		GD.Print("跳转数量:", JumpEntryCount);
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < JumpEntryCount; i++)
 		{
-			if (i < JumpEntryCount)
+
+			JumpEntrys.Add(new());
+			JumpEntrys[i].Type = file.Get32();
+			JumpEntrys[i].Count = file.Get32();
+			JumpEntrys[i].Pos = file.Get32();
+			JumpEntrys[i].Flag = (int)file.Get32();
+			for (int k = 0; k < 64; k++)
 			{
-				JumpEntrys.Add(new());
-				JumpEntrys[i].Type = file.Get32();
-				JumpEntrys[i].Count = file.Get32();
-				JumpEntrys[i].Pos = file.Get32();
-				JumpEntrys[i].Flag = (int)file.Get32();
-				for (int k = 0; k < 64; k++)
-				{
-					JumpEntrys[i].PosArr[k] = file.Get32();
-				}
-				for (int k = 0; k < 64; k++)
-				{
-					JumpEntrys[i].FlagArr[k] = file.Get32();
-				}
+				JumpEntrys[i].PosArr[k] = file.Get32();
 			}
-			else
+			for (int k = 0; k < 64; k++)
 			{
-				file.Seek(file.GetPosition() + 132 * 4);
+				JumpEntrys[i].FlagArr[k] = file.Get32();
 			}
 
 		}
-		int charCount = (int)file.Get32();
-		for (int i = 0; i < 8; i++)
+		int ArgsCount = (int)file.Get32();
+		GD.Print("args数量:",ArgsCount);
+		for (int i = 0; i < ArgsCount; i++)
 		{
-			if (i < charCount)
+			args.Add(new());
+			args[i].CmdType = (CmdType)file.Get32();
+			args[i].ValType = (ValueType)file.Get32();
+			args[i].Value0 = (int)file.Get32();
+			args[i].IntValue = (int)file.Get32();
+			args[i].FloatValue = file.GetFloat();
+		}
+		
+		int charCount = (int)file.Get32();
+		GD.Print("角色数",charCount);
+		for (int i = 0; i < charCount; i++)
+		{
+
+			CharItems.Add(new CharItem()
 			{
-				CharItems.Add(new CharItem()
-				{
-					pos = (int)file.Get32(),
-					id = (int)file.Get32(),
-					no = (int)file.Get32()
-				});
-			}
-			else
+				pos = (int)file.Get32(),
+				id = (int)file.Get32(),
+				no = (int)file.Get32()
+			});
+		}
+		int selectCount = (int)file.Get32();
+		GD.Print("选项数量:", selectCount);
+		for (int i = 0; i < selectCount; i++)
+		{
+
+			SelectItems.Add(new SelectItem()
 			{
-				file.Seek(file.GetPosition() + 12);
-			}
+				Text = Encoding.Unicode.GetString(file.GetBuffer(64)),
+				V1 = (int)file.Get32(),
+				V2 = (int)file.Get32(),
+				V3 = (int)file.Get32()
+			});
 		}
 		Calender = new Calender()
 		{
@@ -320,9 +349,21 @@ public class Wa2GameSav
 		BgmInfo.Id = (int)file.Get32();
 		BgmInfo.Loop = (int)file.Get32();
 		BgmInfo.Volume = (int)file.Get32();
-		_engine.AdvMain.CurText = FirstSentence;
-		_engine.AdvMain.CurName = CharName;
-		 _engine.WaitClick=true;
+		_engine.AdvMain.CurText = FirstSentence.Replace("\0", "");
+		_engine.AdvMain.CurName = CharName.Replace("\0", "");
+		_engine.UpdateChar(0f);
+		if (selectCount > 0)
+		{
+			_engine.ShowSelectMessage();
+			_engine.SelectVar = args[0];
+			_engine.Script.Wait = true;
+		}
+		else
+		{
+			_engine.WaitClick=true;
+
+		}
+
 		_engine.AdvMain.AdvShow(0.0f);
 		_engine.SoundMgr.PlayBgm(BgmInfo.Id, BgmInfo.Loop != 0, BgmInfo.Volume);
 		_engine.BgTexture.SetCurTexture(Wa2Resource.GetBgImage(BgInfo.Id, TimeMode, BgInfo.No));

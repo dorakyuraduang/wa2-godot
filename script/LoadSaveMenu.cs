@@ -109,22 +109,25 @@ public partial class LoadSaveMenu : Control
     else if (_mode == DataMode.Load)
     {
       TipLabel.Text = "存档读取成功";
-      await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
+      
       if (_engine.State == Wa2EngineMain.GameState.TITLE)
       {
+        await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
         Close();
         await ToSignal(AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
         _engine.UiMgr.TitleMenu.AnimationPlayer.Play("close");
         await ToSignal(_engine.UiMgr.TitleMenu.AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
         _engine.UiMgr.OpenGame();
+        _engine.GameSav.LoadData(_pageNum * 10 + _selectIdx);
       }
       else if (_engine.State == Wa2EngineMain.GameState.GAME)
       {
-        TipMessage.Hide();
-        Mask.Hide();
+        _engine.GameSav.LoadData(_pageNum * 10 + _selectIdx);
+        await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
+        Close();
 
       }
-      _engine.GameSav.LoadData(_pageNum * 10 + _selectIdx);
+
 
 
     }

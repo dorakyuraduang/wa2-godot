@@ -122,7 +122,7 @@ public class Wa2Script
 	private Dictionary<uint, uint> _jumpDic = new();
 	private List<byte[]> _text = new();
 	private byte[] _bnrbuffer;
-	public List<Wa2Var> args = new();
+
 	private Wa2Func _func;
 	public Wa2Script(Wa2Func f)
 	{
@@ -132,10 +132,13 @@ public class Wa2Script
 	}
 	public void LoadScript(string name, uint pos = 0)
 	{
-		_engine.GameSav.ScriptName = name;
+		
 		_points.Clear();
+		// _engine.GameSav.Reset();
+		_engine.GameSav.JumpEntrys.Clear();
+		_engine.GameSav.ScriptName = name;
 		Wa2EngineMain.Engine.Texts.Clear();
-		args.Clear();
+		_engine.GameSav.args.Clear();
 		_bnrbuffer = null;
 		LoadBnr(name);
 		_engine.GameSav.ScriptPos = _points[pos];
@@ -191,7 +194,7 @@ public class Wa2Script
 				}
 				_engine.GameSav.JumpEntrys[^1].Type = 3;
 				_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
-				args.Clear();
+				_engine.GameSav.args.Clear();
 				break;
 			case 4:
 				if (_engine.GameSav.JumpEntrys[^1].Flag != 0)
@@ -199,7 +202,7 @@ public class Wa2Script
 					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
 
 				}
-				args.Clear();
+				_engine.GameSav.args.Clear();
 				break;
 			case 5:
 				GD.Print(_engine.GameSav.ScriptPos);
@@ -263,7 +266,7 @@ public class Wa2Script
 				break;
 			case 13:
 
-				_engine.GameSav.JumpEntrys[^1].Flag = args[^1].Get();
+				_engine.GameSav.JumpEntrys[^1].Flag = _engine.GameSav.args[^1].Get();
 				uint pos1 = _engine.GameSav.JumpEntrys[^1].PosArr[0];
 				uint pos2 = _engine.GameSav.JumpEntrys[^1].Pos;
 				if (_engine.GameSav.JumpEntrys[^1].Flag == 1)
@@ -285,10 +288,10 @@ public class Wa2Script
 
 				// 	_engine.GameSav.ScriptPos = pos2;
 				GD.Print(_engine.GameSav.ScriptPos);
-				args.Clear();
+				_engine.GameSav.args.Clear();
 				break;
 			case 14:
-				_engine.GameSav.JumpEntrys[^1].Flag = args[^1].Get();
+				_engine.GameSav.JumpEntrys[^1].Flag = _engine.GameSav.args[^1].Get();
 				if (_engine.GameSav.JumpEntrys[^1].Flag == 0)
 				{
 					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[0];
@@ -301,7 +304,7 @@ public class Wa2Script
 			case 15:
 				break;
 			case 16:
-				_engine.GameSav.JumpEntrys[^1].Flag = args[^1].Get();
+				_engine.GameSav.JumpEntrys[^1].Flag = _engine.GameSav.args[^1].Get();
 				if (_engine.GameSav.JumpEntrys[^1].Type != 7)
 				{
 					return;
@@ -311,12 +314,12 @@ public class Wa2Script
 					if (_engine.GameSav.JumpEntrys[^1].FlagArr[i] == _engine.GameSav.JumpEntrys[^1].Flag)
 					{
 						_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[i];
-						args.Clear();
+						_engine.GameSav.args.Clear();
 						return;
 					}
 				}
 				_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
-				args.Clear();
+				_engine.GameSav.args.Clear();
 				break;
 
 		}
@@ -371,7 +374,7 @@ public class Wa2Script
 			ValType = (ValueType)type2,
 			IntValue = v
 		};
-		args.Add(var);
+		_engine.GameSav.args.Add(var);
 	}
 	public void PushFloat(int type1, int type2, float v)
 	{
@@ -381,7 +384,7 @@ public class Wa2Script
 			ValType = (ValueType)type2,
 			FloatValue = v
 		};
-		args.Add(var);
+		_engine.GameSav.args.Add(var);
 	}
 	public void CallFunc()
 	{
@@ -389,10 +392,10 @@ public class Wa2Script
 		if (_func.FuncDic.TryGetValue(funcIdx, out var func))
 		{
 			// GD.Print(string.Format("{0:X}", funcIdx));
-			func(args);
+			func(_engine.GameSav.args);
 		}
 		// if (funcIdx>=0x80){
-		// 	args.Clear();
+		// 	_engine.GameSav.args.Clear();
 		// }	
 	}
 	// public string ParseStr(int pos)
@@ -423,21 +426,21 @@ public class Wa2Script
 		}
 		Wa2Var a = Wa2Var.CreateEmpty();
 		Wa2Var b = Wa2Var.CreateEmpty();
-		if (args.Count > 0 && v1 <= 0x1b)
+		if (_engine.GameSav.args.Count > 0 && v1 <= 0x1b)
 		{
-			a = args[^1];
+			a = _engine.GameSav.args[^1];
 		}
 		if ((v1 >= 1 && v1 < 0x17) || v1 == 0x1b || v1 == 0)
 		{
-			if (args.Count > 1)
+			if (_engine.GameSav.args.Count > 1)
 			{
-				b = args[^2];
-				args.RemoveAt(args.Count - 1);
+				b = _engine.GameSav.args[^2];
+				_engine.GameSav.args.RemoveAt(_engine.GameSav.args.Count - 1);
 			}
 		}
 		// if (v1 >= 0x17)
 		// {
-		// 	args.Clear();
+		// 	_engine.GameSav.args.Clear();
 		// }
 		;
 		switch (v1)
@@ -573,7 +576,7 @@ public class Wa2Script
 			case 0x15:
 				{
 					b.Set(b.Get() & a.Get());
-					if (args.Count == 0)
+					if (_engine.GameSav.args.Count == 0)
 					{
 						GD.Print("错误位置");
 					}
@@ -601,22 +604,22 @@ public class Wa2Script
 					b.ValType = (ValueType)a.Get();
 					// if (a.GetType() == typeof(int))
 					// {
-					// 	args.Add((int)b);
+					// 	_engine.GameSav.args.Add((int)b);
 					// }
 					// else
 					// {
-					// 	args.Add((int)b);
+					// 	_engine.GameSav.args.Add((int)b);
 					// }
 
 				}
-				// GD.Print("字符串",args[^2]);
-				// args[^2]=(int)(args[^2]);
+				// GD.Print("字符串",_engine.GameSav.args[^2]);
+				// _engine.GameSav.args[^2]=(int)(_engine.GameSav.args[^2]);
 				break;
 			case 0x1C:
 			case 0x1D:
 				break;
 			case 0x1e:
-				args.Clear();
+				_engine.GameSav.args.Clear();
 
 				break;
 			default:

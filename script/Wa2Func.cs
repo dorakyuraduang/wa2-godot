@@ -318,32 +318,7 @@ public class Wa2Func
 		}
 		_engine.GameSav.CharItems.Clear();
 	}
-	public void UpdateChar(float time)
-	{
-		List<int> posList = new();
-		foreach (CharItem value in _engine.GameSav.CharItems)
-		{
-			// GD.Print("id:", value.id, "pos:", value.pos);
-			Wa2Image image = _engine.Chars[value.pos];
-			Wa2Animator animator1 = new(image);
-			image.SetNextTexture(Wa2Resource.GetChrImage(value.id, value.no));
-			animator1.InitFade(time);
-			posList.Add(value.pos);
-		}
-		for (int i = 0; i < _engine.Chars.Length; i++)
-		{
-			if (posList.Contains(i))
-			{
-				continue;
-			}
-			Wa2Image image = _engine.Chars[i];
-			Wa2Animator animator2 = new(image);
-			// image.SetCurTexture(image.GetNextTexture());
-			image.SetNextTexture(null);
-			animator2.InitFade(time);
-		}
-		GD.Print("角色数量:", posList.Count);
-	}
+
 	public void BC(List<Wa2Var> args)
 	{
 		if (args[3].Get() > 0)
@@ -370,7 +345,7 @@ public class Wa2Func
 		_engine.BgTexture.SetMaskTexture(null);
 		Wa2Animator animator3 = new(_engine.BgTexture);
 		animator3.InitFade(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
-		UpdateChar(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
+		_engine.UpdateChar(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
 		// _engine.SubViewport.Hide();
 		GD.Print("更新背景和角色");
 		// _engine.CharDic.Clear();
@@ -435,7 +410,7 @@ public class Wa2Func
 			no = args[1].Get(),
 			pos = args[2].Get(),
 		});
-		UpdateChar(args[5].Get() * _engine.FrameTime);
+		_engine.UpdateChar(args[5].Get() * _engine.FrameTime);
 		// int pos = Array.FindIndex(_engine.CharIdxs, x => x == args[0]);
 		// if (pos != args[2])
 		// {
@@ -501,7 +476,7 @@ public class Wa2Func
 		// animator1.InitFade(args[2] * _engine.FrameTime);
 		// animator2.InitHide(args[2] * _engine.FrameTime);
 		_engine.GameSav.RemoveChar(args[0].Get());
-		UpdateChar(args[2].Get() * _engine.FrameTime);
+		_engine.UpdateChar(args[2].Get() * _engine.FrameTime);
 		// GD.Print(image.GetCurTexture());
 		// _engine.RemoveChar(args[0]);
 		// _engine.Viewport.Char();
@@ -734,17 +709,19 @@ public class Wa2Func
 	}
 	public void SetSelectMess(List<Wa2Var> args)
 	{
-		SelectMessage btn = _engine.AdvMain.SelectMessageContainer.GetChild<SelectMessage>(_engine.CurSelect);
-		btn.TextLabel.Text = args[0].Get();
-		btn.TextLabel.Update();
-		btn.Show();
-		_engine.CurSelect++;
+		_engine.GameSav.SelectItems.Add(new SelectItem
+		{
+			Text = args[0].Get(),
+			V1 = args[1].Get(),
+			V2 = args[2].Get(),
+			V3 = args[3].Get(),
+		});
 	}
 	public void SetSelect(List<Wa2Var> args)
 	{
+		_engine.ShowSelectMessage();
 		_engine.SelectVar = args[0];
-		_engine.CurSelect = 0;
-		_engine.WaitSelect = true;
+		_engine.Script.Wait = true;
 	}
 	public void S(List<Wa2Var> args)
 	{
@@ -906,7 +883,7 @@ public class Wa2Func
 	public void SLoad(List<Wa2Var> args)
 	{
 		_engine.Reset();
-		_engine.Script.LoadScript(args[0].Get(), args[1].Get());
+		_engine.Script.LoadScript(args[0].Get(),(uint)args[1].Get());
 
 	}
 	public void SCall(List<Wa2Var> args)

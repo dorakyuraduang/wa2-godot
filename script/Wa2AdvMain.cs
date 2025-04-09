@@ -49,13 +49,15 @@ public partial class Wa2AdvMain : Control
 	}
 	public void OnSelectMessageButtonDown(int idx)
 	{
-		_engine.WaitSelect = false;
+		
 		for (int i = 0; i < SelectMessageContainer.GetChildCount(); i++)
 		{
 			SelectMessageContainer.GetChild<SelectMessage>(i).Hide();
 		}
 		// GD.Print("索引",_engine.Script.args[^2].IntValue);
-		_engine.Script.args[^1].Set(idx);
+		_engine.GameSav.args[^1].Set(idx);
+		_engine.GameSav.SelectItems.Clear();
+		_engine.Script.Wait=false;
 	}
 	public void AdvShow(float time = 0.25f)
 	{
@@ -146,7 +148,10 @@ public partial class Wa2AdvMain : Control
 	}
 	public void OnSaveButtonDown()
 	{
-		GD.Print("666");
+		if (_engine.WaitTimer.IsActive() || _engine.WaitAnimator())
+		{
+			return;
+		}
 		_engine.UiMgr.OpenSaveMenu();
 	}
 	public void OnLoadButtonDown()
