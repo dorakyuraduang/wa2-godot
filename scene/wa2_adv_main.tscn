@@ -1122,7 +1122,7 @@ load_path = "res://.godot/imported/sys_00011.tga-a7550ff07c62b8024ec3c2a784c7e37
 atlas = SubResource("CompressedTexture2D_y0nv3")
 region = Rect2(284, 64, 40, 40)
 
-[node name="AdvMain" type="Control" node_paths=PackedStringArray("SaveButton", "LoadButton", "OptionButton", "AutoButton", "SkipButton", "OffButton", "SelectMessageContainer", "NameLabel", "TextLabel")]
+[node name="AdvMain" type="Control" node_paths=PackedStringArray("SaveButton", "LoadButton", "OptionButton", "AutoButton", "SkipButton", "OffButton", "SelectMessageContainer", "NameLabel", "TextLabel", "WaitSprite")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1139,6 +1139,7 @@ OffButton = NodePath("HBoxContainer/Off")
 SelectMessageContainer = NodePath("SelectMessage")
 NameLabel = NodePath("NameLabel")
 TextLabel = NodePath("TextLabel")
+WaitSprite = NodePath("AwaitSprite")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0.627451)
@@ -1194,6 +1195,8 @@ Shadow = true
 visible = false
 sprite_frames = SubResource("SpriteFrames_5lqc7")
 animation = &"Page2"
+autoplay = "Page2"
+frame_progress = 0.667928
 centered = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

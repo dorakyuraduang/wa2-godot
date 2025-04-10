@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://bxa3gtl880ece"]
+[gd_scene load_steps=78 format=3 uid="uid://bxa3gtl880ece"]
 
 [ext_resource type="Texture2D" uid="uid://cy5jrp4jpngky" path="res://assets/grp/sys_05012.tga" id="1_fpsiy"]
 [ext_resource type="Script" uid="uid://dbkyiayv0e7wj" path="res://script/LoadSaveMenu.cs" id="1_l5c20"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://drerrl4salxby" path="res://assets/grp/sys_00100.png" id="15_ptr3u"]
 [ext_resource type="FontFile" uid="uid://bqnr5jmcejvam" path="res://assets/fonts/fzzyjt.ttf" id="16_q83v8"]
 [ext_resource type="Texture2D" uid="uid://dr0gcwfsp0q0n" path="res://assets/grp/sys_00101.png" id="17_8afw7"]
+[ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="18_4g5eb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pvxw4"]
 atlas = ExtResource("4_8mjx4")
@@ -787,6 +788,7 @@ texture_hover = SubResource("AtlasTexture_5f1n6")
 texture_disabled = SubResource("AtlasTexture_4g5eb")
 texture_focused = SubResource("AtlasTexture_fwtsg")
 script = ExtResource("6_damy8")
+ClickStream = ExtResource("18_4g5eb")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="Wa2Button2" type="TextureButton" parent="ConfirmMessage/VBoxContainer"]
@@ -797,4 +799,5 @@ texture_hover = SubResource("AtlasTexture_e727q")
 texture_disabled = SubResource("AtlasTexture_8afw7")
 texture_focused = SubResource("AtlasTexture_kslka")
 script = ExtResource("6_damy8")
+ClickStream = ExtResource("12_xqhj0")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"

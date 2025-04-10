@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://vhl58c04l614"]
+[gd_scene load_steps=15 format=3 uid="uid://vhl58c04l614"]
 
 [ext_resource type="Script" uid="uid://dstvmh6b1vjdi" path="res://script/DataSlot.cs" id="1_pudf4"]
+[ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="2_k5oa6"]
 [ext_resource type="Texture2D" uid="uid://ekms51gcnb2h" path="res://assets/grp/sys_01010.tga" id="2_yye6e"]
 [ext_resource type="FontFile" uid="uid://13ow1d25naon" path="res://assets/fonts/number.tres" id="3_8eqka"]
 [ext_resource type="Texture2D" uid="uid://dwuhirbqoetti" path="res://assets/grp/sys_01016.png" id="4_qg7dv"]
@@ -51,6 +52,7 @@ Category = NodePath("Category")
 DayLabel = NodePath("Day")
 Month = NodePath("Month")
 FirstSentenceLabel = NodePath("FirstSentence")
+ClickStream = ExtResource("2_k5oa6")
 
 [node name="NoData" type="TextureRect" parent="."]
 layout_mode = 0

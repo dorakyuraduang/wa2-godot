@@ -177,6 +177,7 @@ public class Wa2Script
 		uint flag = ReadU32();
 		GD.Print(_engine.GameSav.ScriptPos);
 		GD.Print(_engine.GameSav.ScriptName);
+		GD.Print("指令:",flag);
 		switch (flag)
 		{
 			case 0:
@@ -330,10 +331,10 @@ public class Wa2Script
 	}
 	public void ParseCmd()
 	{
-		GD.Print("位置",_engine.GameSav.ScriptPos);
 		if (_engine.GameSav.ScriptPos < _bnrbuffer.Length && !Wait)
 		{
 			int cmd = (int)ReadU32();
+			// GD.Print("位置",_engine.GameSav.ScriptPos);
 			switch (cmd)
 			{
 				case 0:

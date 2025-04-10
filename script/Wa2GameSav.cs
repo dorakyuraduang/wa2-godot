@@ -119,9 +119,9 @@ public class Wa2GameSav
 	{
 		for (int i = 0; i < CharItems.Count; i++)
 		{
-			if (CharItems[i].id == item.id)
+			if (CharItems[i].id == item.id|| CharItems[i].pos == item.pos)
 			{
-				CharItems.RemoveAt(i); ;
+				CharItems.RemoveAt(i);
 				break;
 			}
 		}
@@ -363,8 +363,8 @@ public class Wa2GameSav
 		}
 		_engine.AdvMain.Modulate = new Color(1, 1, 1, 1);
 		_engine.AdvMain.State = Wa2AdvMain.AdvState.WAIT_CLICK;
-		_engine.AdvMain.TextLabel.VisibleRatio=1;
-		_engine.AdvMain.NameLabel.VisibleRatio=1;
+		_engine.AdvMain.TextLabel.VisibleRatio = 1;
+		_engine.AdvMain.NameLabel.VisibleRatio = 1;
 		_engine.AdvMain.UpdateText();
 		_engine.SoundMgr.PlayBgm(BgmInfo.Id, BgmInfo.Loop != 0, BgmInfo.Volume);
 		GD.Print(BgInfo.Path);

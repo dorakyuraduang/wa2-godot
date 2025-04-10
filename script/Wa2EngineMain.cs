@@ -25,8 +25,9 @@ public partial class Wa2EngineMain : Node
 
 	// public int[] GameFlags = new int[1024];
 	public List<String> Texts = new();
-	public int SkipMode = 0;
+	public bool SkipMode =false;
 	public int ReplayMode;
+	public bool AutoMode=false;
 	public int WaitSeChannel;
 	public static Wa2EngineMain Engine;
 	public Wa2Var SelectVar;
@@ -78,7 +79,7 @@ public partial class Wa2EngineMain : Node
 	public void StopSkip()
 	{
 		Skipping = false;
-		SkipMode = 0;
+		SkipMode = false;
 	}
 	public void ShowSelectMessage()
 	{
@@ -230,7 +231,10 @@ public partial class Wa2EngineMain : Node
 		{
 			return;
 		}
-
+		if(SkipMode){
+			StopSkip();
+			return;
+		}
 		if (AdvMain.State == Wa2AdvMain.AdvState.SHOW_TEXT)
 		{
 			AdvMain.Finish();
@@ -315,6 +319,7 @@ public partial class Wa2EngineMain : Node
 				// AdvMain.Clear();
 				WaitSeFinish();
 				Script.ParseCmd();
+				
 			}
 		}
 	}
@@ -333,7 +338,7 @@ public partial class Wa2EngineMain : Node
 	}
 	public void SkipCheck()
 	{
-		if (Skipping)
+		if (Skipping || SkipMode)
 		{
 			if (WaitTimer.IsActive())
 			{

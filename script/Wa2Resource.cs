@@ -36,11 +36,11 @@ public class Wa2Resource
 		return oggStream;
 		// SoundDic[path] = oggStream;
 	}
-	public static VideoStream GetMovie(string name){
-		VideoStream video=new();
-		video.File=ResPath+"movie/mv100.mp4";
-		return video;
-	}
+	// public static VideoStream GetMovie(string name){
+	// 	VideoStream video=new();
+	// 	video.File=ResPath+"movie/"+name+"0.mp4";
+	// 	return video;
+	// }
 	public static AudioStream LoadWavSound(string path)
 	{
 		GD.Print(path);

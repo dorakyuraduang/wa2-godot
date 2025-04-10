@@ -21,8 +21,10 @@ public partial class Wa2AdvMain : Control
 	public Wa2Label NameLabel;
 	[Export]
 	public Wa2Label TextLabel;
+	[Export]
+	public AnimatedSprite2D WaitSprite;
 	public double PressedTime = 0.0f;
-	public bool IsPressed=false;
+	public bool IsPressed = false;
 	private Wa2EngineMain _engine;
 	public string CurText = "";
 	public string CurName = "";
@@ -43,11 +45,21 @@ public partial class Wa2AdvMain : Control
 		Modulate = new Color(1, 1, 1, 0);
 		LoadButton.ButtonDown += OnLoadButtonDown;
 		SaveButton.ButtonDown += OnSaveButtonDown;
+		AutoButton.ButtonDown += OnAutoButtonDown;
+		SkipButton.ButtonDown += OnSkipButtonDown;
 		for (int i = 0; i < SelectMessageContainer.GetChildCount(); i++)
 		{
 			int idx = i;
 			SelectMessageContainer.GetChild<SelectMessage>(i).ButtonDown += () => OnSelectMessageButtonDown(idx);
 		}
+	}
+	public void OnAutoButtonDown()
+	{
+		_engine.AutoMode = !_engine.AutoMode;
+	}
+	public void OnSkipButtonDown()
+	{
+		_engine.SkipMode = !_engine.SkipMode;
 	}
 	public void OnSelectMessageButtonDown(int idx)
 	{
@@ -80,14 +92,15 @@ public partial class Wa2AdvMain : Control
 	{
 		if (@event is InputEventScreenTouch && @event.IsPressed())
 		{
-			IsPressed=true;
+			IsPressed = true;
 		}
 		else
 		{
-			IsPressed=false;
+			IsPressed = false;
 		}
-		if(!IsPressed){
-			PressedTime=0.0;
+		if (!IsPressed)
+		{
+			PressedTime = 0.0;
 		}
 		if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
 		{
@@ -115,7 +128,7 @@ public partial class Wa2AdvMain : Control
 			{
 				TextLabel.VisibleRatio = 1F;
 				State = AdvState.WAIT_CLICK;
-
+				WaitSprite.Position = TextLabel.GetEndPosition();
 			}
 			UpdateText();
 		}
@@ -129,11 +142,22 @@ public partial class Wa2AdvMain : Control
 			}
 		}
 
+
+
 	}
 	public void UpdateText()
 	{
 		NameLabel.Update();
 		TextLabel.Update();
+		if (State == AdvState.WAIT_CLICK)
+		{
+			WaitSprite.Show();
+		}
+		else
+		{
+			WaitSprite.Hide();
+
+		}
 	}
 	public void Clear()
 	{
@@ -152,6 +176,7 @@ public partial class Wa2AdvMain : Control
 		TextLabel.VisibleRatio = 0;
 		_engine.WaitTimer.Start((float)CurText.Length / (float)_engine.Prefs.TextSpeed);
 		_engine.Script.ParseCmd();
+		GD.Print("AdvShowText");
 	}
 	public void Finish()
 	{
@@ -160,7 +185,7 @@ public partial class Wa2AdvMain : Control
 	}
 	public void OnSaveButtonDown()
 	{
-		if (_engine.WaitTimer.IsActive() || _engine.WaitAnimator() ||(!_engine.WaitClick && !_engine.Script.Wait) || _engine.VideoPlayer.IsPlaying())
+		if (_engine.WaitTimer.IsActive() || _engine.WaitAnimator() || (!_engine.WaitClick && !_engine.Script.Wait) || _engine.VideoPlayer.IsPlaying())
 		{
 			// GD.Print("等待中");
 			return;

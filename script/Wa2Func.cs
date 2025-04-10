@@ -257,7 +257,7 @@ public class Wa2Func
 		}
 		_engine.AnimatorsFinish();
 		Texture2D NextTexture;
-		Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
+		Texture2D CeacheTexture = _engine.BgTexture.GetCurTexture();
 
 		if (args[1].Get() >= 0)
 		{
@@ -645,6 +645,7 @@ public class Wa2Func
 	public void SetMovie(List<Wa2Var> args)
 	{
 		_engine.WirtSysFlag(args[0].IntValue, 1);
+		GD.Print("视频",Wa2Resource.ResPath + "movie/" + args[0].Get() + "0.mp4");
 		_engine.VideoPlayer.Call("set_movie", Wa2Resource.ResPath + "movie/" + args[0].Get() + "0.mp4");
 		_engine.VideoPlayer.Play();
 		_engine.VideoPlayer.Show();
@@ -796,7 +797,7 @@ public class Wa2Func
 	{
 		_engine.AnimatorsFinish();
 		Texture2D NextTexture;
-		Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
+		Texture2D CeacheTexture = _engine.BgTexture.GetCurTexture();
 		if (args[3].Get() > 0)
 		{
 			_engine.GameSav.BgInfo.Frame = args[3].Get();
@@ -883,7 +884,7 @@ public class Wa2Func
 	}
 	public void GetSkip2(List<Wa2Var> args)
 	{
-
+		_engine.Script.PushInt(5, 3, _engine.SkipMode ? 1 : 0);
 	}
 	public void SLoad(List<Wa2Var> args)
 	{

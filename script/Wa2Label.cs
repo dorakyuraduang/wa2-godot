@@ -8,7 +8,7 @@ using System.Text.Unicode;
 public partial class Wa2Label : Node2D
 {
 	[Export]
-	public Color Color=new Color(1.0f,1.0f,1.0f,1.0f);
+	public Color Color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 	[Export]
 	public float VisibleRatio;
 	[Export]
@@ -39,6 +39,24 @@ public partial class Wa2Label : Node2D
 	{
 		QueueRedraw();
 	}
+	public Vector2 GetEndPosition()
+	{
+		Vector2 drawPos = new(0, 0);
+		for (int i = 0; i < Text.Length; i++)
+		{
+			char ch = Text[i];
+			if (ch == '\n')
+			{
+				drawPos = new Vector2(0, drawPos.Y + 1);
+			}
+			else
+			{
+				drawPos.X++;
+			}
+		}
+		return drawPos * new Vector2(FontSize, FontSize)+Position;
+
+	}
 	public override void _Draw()
 	{
 		Vector2 drawPos = new(0, 0);
@@ -46,7 +64,7 @@ public partial class Wa2Label : Node2D
 		{
 			return;
 		}
-		
+
 		int end = (int)(VisibleRatio * Text.Length);
 		string str = Text.Substr(0, end);
 		for (int i = 0; i < str.Length; i++)
@@ -58,20 +76,20 @@ public partial class Wa2Label : Node2D
 			// 	GD.Print($"未知字符 '{ch}' 的 Shift-JIS 编码是: {BitConverter.ToString(shiftJISBytes)}");
 			// }
 
-			
+
 			if (ch == '\n')
 			{
 				drawPos = new Vector2(0, drawPos.Y + 1);
 			}
 			else
 			{
-				if (!Wa2Def.FontMap.ContainsKey(ch)	)
+				if (!Wa2Def.FontMap.ContainsKey(ch))
 				{
 					GD.Print($"未知字符 '{ch}'");
 					continue;
 				}
 				int pos = Wa2Def.FontMap[ch];
-		
+
 				if (pos >= 0)
 				{
 					int x = pos % 80;
@@ -82,7 +100,7 @@ public partial class Wa2Label : Node2D
 					{
 						DrawTextureRectRegion(ShadowTexture, rect, srcRect, new Color(0.15f, 0.15f, 0.15f, 1));
 					}
-					DrawTextureRectRegion(FontTexture, rect, srcRect,Color);
+					DrawTextureRectRegion(FontTexture, rect, srcRect, Color);
 				}
 				drawPos.X++;
 			}
