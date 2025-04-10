@@ -155,9 +155,9 @@ public class Wa2GameSav
 		file.Store32((uint)SystemTime.Second);
 		file.Store32((uint)SystemTime.Millisecond);
 		file.StoreBuffer(image.GetData());
-		file.StoreString(ScriptName);
-		file.StoreBuffer(Encoding.Unicode.GetBytes(FirstSentence).Concat(new byte[256]).Take(256).ToArray());
-		file.StoreBuffer(Encoding.Unicode.GetBytes(CharName).Concat(new byte[16]).Take(16).ToArray());
+		file.StoreBuffer([.. Encoding.Unicode.GetBytes(ScriptName).Concat(new byte[8]).Take(8)]);
+		file.StoreBuffer([.. Encoding.Unicode.GetBytes(FirstSentence).Concat(new byte[256]).Take(256)]);
+		file.StoreBuffer([.. Encoding.Unicode.GetBytes(CharName).Concat(new byte[16]).Take(16)]);
 		file.Store32(ScriptPos);
 		for (int i = 0; i < GameFlags.Length; i++)
 		{
@@ -241,11 +241,12 @@ public class Wa2GameSav
 	}
 	public void LoadData(int idx)
 	{
+		GD.Print("位置",idx);
 		_engine.Reset();
 		Reset();
 		FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
 		file.Seek(0x1b000 + 32);
-		ScriptName = file.GetBuffer(4).GetStringFromUtf8();
+		ScriptName = file.GetBuffer(8).GetStringFromUtf8().Replace("\0","");
 		FirstSentence = Encoding.Unicode.GetString(file.GetBuffer(256));
 		CharName = Encoding.Unicode.GetString(file.GetBuffer(16));
 		_engine.Script.LoadScript(ScriptName);

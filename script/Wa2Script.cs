@@ -90,7 +90,7 @@ public class Wa2Var
 		}
 		if (CmdType == CmdType.GLOBAL_VAR)
 		{
-			return Wa2EngineMain.Engine.GloFlags[IntValue];
+			return Wa2EngineMain.Engine.GameSav.GameFlags[IntValue];
 		}
 
 		return 0;
@@ -134,8 +134,11 @@ public class Wa2Script
 	{
 		
 		_points.Clear();
+		// _engine.GloFlags=new int[255];
 		// _engine.GameSav.Reset();
 		_engine.GameSav.JumpEntrys.Clear();
+		_engine.GameSav.GloFloats=new float[26];
+		_engine.GameSav.GloInts=new int[26];
 		_engine.GameSav.ScriptName = name;
 		Wa2EngineMain.Engine.Texts.Clear();
 		_engine.GameSav.args.Clear();
@@ -172,6 +175,8 @@ public class Wa2Script
 	public void ParseGloVar()
 	{
 		uint flag = ReadU32();
+		GD.Print(_engine.GameSav.ScriptPos);
+		GD.Print(_engine.GameSav.ScriptName);
 		switch (flag)
 		{
 			case 0:
@@ -200,12 +205,11 @@ public class Wa2Script
 				if (_engine.GameSav.JumpEntrys[^1].Flag != 0)
 				{
 					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
-
 				}
 				_engine.GameSav.args.Clear();
+				_engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
 				break;
 			case 5:
-				GD.Print(_engine.GameSav.ScriptPos);
 				if (_engine.GameSav.JumpEntrys.Count < 15)
 				{
 					_engine.GameSav.JumpEntrys.Add(new());
@@ -281,13 +285,12 @@ public class Wa2Script
 				{
 					_engine.GameSav.ScriptPos = pos2;
 				}
-
+				// _engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
 				// }
 				// else if (pos2 > 0)
 				// {
 
 				// 	_engine.GameSav.ScriptPos = pos2;
-				GD.Print(_engine.GameSav.ScriptPos);
 				_engine.GameSav.args.Clear();
 				break;
 			case 14:
@@ -300,6 +303,7 @@ public class Wa2Script
 				{
 					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[2];
 				}
+				// _engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
 				break;
 			case 15:
 				break;
@@ -450,7 +454,7 @@ public class Wa2Script
 				if (b.CmdType == CmdType.GLOBAL_VAR)
 				{
 					GD.Print("全局变量,索引:", b.IntValue, "值:", a.Get());
-					_engine.GloFlags[b.IntValue] = a.Get();
+					_engine.GameSav.GameFlags[b.IntValue] = a.Get();
 				}
 				else if (b.CmdType == CmdType.LOCAL_VAR)
 				{
@@ -537,7 +541,7 @@ public class Wa2Script
 				break;
 			case 0xe:
 				{
-					b.Set(b.Get() || a.Get() ? 1 : 0);
+					b.Set(b.Get()!=0 || a.Get()!=0 ? 1 : 0);
 				}
 				break;
 			case 0xf:

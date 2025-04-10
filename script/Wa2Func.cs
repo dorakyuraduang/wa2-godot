@@ -664,11 +664,12 @@ public class Wa2Func
 	}
 	public void GetGameFlag(List<Wa2Var> args)
 	{
-		args[^1].Set(_engine.GameSav.GameFlags[args[0].Get()]);
+		args[^1].Set(_engine.ReadSysFlag(args[0].Get()));
 	}
 	public void SetGameFlag(List<Wa2Var> args)
 	{
-		_engine.GameSav.GameFlags[args[0].Get()] = args[1].Get();
+		GD.Print("flag",args[0].Get());
+		_engine.WirtSysFlag(args[0].Get(),args[1].Get());
 	}
 	public void LogOut(List<Wa2Var> args)
 	{

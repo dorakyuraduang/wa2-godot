@@ -23,7 +23,7 @@ public partial class Wa2EngineMain : Node
 	public Wa2GameSav GameSav;
 	// public int CurSelect=0;
 
-	public int[] GloFlags = new int[255];
+	// public int[] GameFlags = new int[1024];
 	public List<String> Texts = new();
 	public int SkipMode = 0;
 	public int ReplayMode;
@@ -64,6 +64,7 @@ public partial class Wa2EngineMain : Node
 	public Wa2Script Script;
 	public Wa2Func Func;
 	public Wa2Encoding Wa2Encoding;
+	public FileAccess SysSav;
 	public Wa2EngineMain()
 	{
 		if (Engine == null)
@@ -95,13 +96,13 @@ public partial class Wa2EngineMain : Node
 			}
 		}
 	}
-		public void UpdateChar(float time)
+	public void UpdateChar(float time)
 	{
 		List<int> posList = new();
 		foreach (CharItem value in GameSav.CharItems)
 		{
 			// GD.Print("id:", value.id, "pos:", value.pos);
-			Wa2Image image =  Chars[value.pos];
+			Wa2Image image = Chars[value.pos];
 			Wa2Animator animator1 = new(image);
 			image.SetNextTexture(Wa2Resource.GetChrImage(value.id, value.no));
 			animator1.InitFade(time);
@@ -142,6 +143,21 @@ public partial class Wa2EngineMain : Node
 	// 	CharDic[id].no = no;
 	// 	CharDic[id].show = show;
 	// }
+	public int ReadSysFlag(int idx)
+	{
+		SysSav.Seek((ulong)idx * 4);
+		return (int)SysSav.Get32();
+	}
+	public void WirtSysFlag(int idx, int value)
+	{
+		SysSav.Seek((ulong)idx * 4);
+		SysSav.Store32((uint)value);
+	}
+	public override void _ExitTree()
+	{
+		SysSav.Close();
+	}
+
 	public override void _Ready()
 	{
 		GameSav = new(this);
@@ -159,6 +175,13 @@ public partial class Wa2EngineMain : Node
 		else
 		{
 			Wa2Resource.ResPath = "res://assets/";
+		}
+		if (!FileAccess.FileExists("user://sys.sav"))
+		{
+			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.Write);
+			SysSav.StoreBuffer(new byte[0x4000]);
+		}else{
+			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.Write);
 		}
 		Prefs = new Wa2Prefs();
 		Func = new Wa2Func(this);
@@ -223,7 +246,7 @@ public partial class Wa2EngineMain : Node
 	}
 	public void Reset()
 	{
-		Script.Wait=false;
+		Script.Wait = false;
 		WaitClick = false;
 		WaitTimer.Done();
 		AdvMain.Clear();

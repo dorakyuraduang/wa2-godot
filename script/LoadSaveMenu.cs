@@ -71,6 +71,7 @@ public partial class LoadSaveMenu : Control
       Tabs.GetChild<Wa2Button>(i).ButtonDown += () =>
       {
         _pageNum = idx;
+    
         UpdatePage();
       };
     }
@@ -118,11 +119,11 @@ public partial class LoadSaveMenu : Control
         _engine.UiMgr.TitleMenu.AnimationPlayer.Play("close");
         await ToSignal(_engine.UiMgr.TitleMenu.AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
         _engine.UiMgr.OpenGame();
-        _engine.GameSav.LoadData(_pageNum * 10 + _selectIdx);
+        _engine.GameSav.LoadData(_selectIdx);
       }
       else if (_engine.State == Wa2EngineMain.GameState.GAME)
       {
-        _engine.GameSav.LoadData(_pageNum * 10 + _selectIdx);
+        _engine.GameSav.LoadData(_selectIdx);
         await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
         Close();
 

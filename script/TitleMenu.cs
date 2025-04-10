@@ -62,7 +62,7 @@ public partial class TitleMenu : Control
 		_engine.SoundMgr.StopBgm();
 		AnimationPlayer.Play("close");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_engine.StartScript("2003");
+		_engine.StartScript("2001");
 		_engine.UiMgr.OpenGame();
 	}
 	public async void OnIcButtonDown()
