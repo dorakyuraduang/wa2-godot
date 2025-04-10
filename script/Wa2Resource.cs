@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 public class FileEntry
 {
 	public uint Crypted { get; set; }
@@ -10,7 +11,6 @@ public class FileEntry
 	public uint Size { get; set; }
 	public string PkgPath { get; set; }
 }
-
 public class Wa2Resource
 {
 	public static string ResPath;
@@ -35,6 +35,11 @@ public class Wa2Resource
 		AudioStream oggStream = AudioStreamOggVorbis.LoadFromBuffer(buffer);
 		return oggStream;
 		// SoundDic[path] = oggStream;
+	}
+	public static VideoStream GetMovie(string name){
+		VideoStream video=new();
+		video.File=ResPath+"movie/mv100.mp4";
+		return video;
 	}
 	public static AudioStream LoadWavSound(string path)
 	{

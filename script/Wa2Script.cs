@@ -330,6 +330,7 @@ public class Wa2Script
 	}
 	public void ParseCmd()
 	{
+		GD.Print("位置",_engine.GameSav.ScriptPos);
 		if (_engine.GameSav.ScriptPos < _bnrbuffer.Length && !Wait)
 		{
 			int cmd = (int)ReadU32();

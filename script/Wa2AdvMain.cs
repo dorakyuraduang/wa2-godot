@@ -21,6 +21,8 @@ public partial class Wa2AdvMain : Control
 	public Wa2Label NameLabel;
 	[Export]
 	public Wa2Label TextLabel;
+	public double PressedTime = 0.0f;
+	public bool IsPressed=false;
 	private Wa2EngineMain _engine;
 	public string CurText = "";
 	public string CurName = "";
@@ -49,7 +51,7 @@ public partial class Wa2AdvMain : Control
 	}
 	public void OnSelectMessageButtonDown(int idx)
 	{
-		
+
 		for (int i = 0; i < SelectMessageContainer.GetChildCount(); i++)
 		{
 			SelectMessageContainer.GetChild<SelectMessage>(i).Hide();
@@ -57,10 +59,13 @@ public partial class Wa2AdvMain : Control
 		// GD.Print("索引",_engine.Script.args[^2].IntValue);
 		_engine.GameSav.args[^1].Set(idx);
 		_engine.GameSav.SelectItems.Clear();
-		_engine.Script.Wait=false;
+		_engine.Script.Wait = false;
 	}
 	public void AdvShow(float time = 0.25f)
 	{
+		// if(Active){
+		// 	return;
+		// }
 		UpdateText();
 		State = AdvState.SHOW_MESSAGE;
 		_engine.WaitTimer.Start(time);
@@ -73,9 +78,16 @@ public partial class Wa2AdvMain : Control
 	}
 	public override void _GuiInput(InputEvent @event)
 	{
-		if (!Active)
+		if (@event is InputEventScreenTouch && @event.IsPressed())
 		{
-			return;
+			IsPressed=true;
+		}
+		else
+		{
+			IsPressed=false;
+		}
+		if(!IsPressed){
+			PressedTime=0.0;
 		}
 		if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
 		{
@@ -148,8 +160,9 @@ public partial class Wa2AdvMain : Control
 	}
 	public void OnSaveButtonDown()
 	{
-		if (_engine.WaitTimer.IsActive() || _engine.WaitAnimator())
+		if (_engine.WaitTimer.IsActive() || _engine.WaitAnimator() ||(!_engine.WaitClick && !_engine.Script.Wait) || _engine.VideoPlayer.IsPlaying())
 		{
+			// GD.Print("等待中");
 			return;
 		}
 		_engine.UiMgr.OpenSaveMenu();

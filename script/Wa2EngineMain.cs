@@ -41,6 +41,8 @@ public partial class Wa2EngineMain : Node
 	public int Label;
 	public bool Skipping = false;
 	[Export]
+	public VideoStreamPlayer VideoPlayer;
+	[Export]
 	public Node CharGroup;
 	public Wa2Image[] Chars;
 	[Export]
@@ -178,10 +180,12 @@ public partial class Wa2EngineMain : Node
 		}
 		if (!FileAccess.FileExists("user://sys.sav"))
 		{
-			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.Write);
+			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.WriteRead);
 			SysSav.StoreBuffer(new byte[0x4000]);
-		}else{
-			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.Write);
+		}
+		else
+		{
+			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.WriteRead);
 		}
 		Prefs = new Wa2Prefs();
 		Func = new Wa2Func(this);
@@ -202,6 +206,7 @@ public partial class Wa2EngineMain : Node
 		Wa2Resource.LoadPak("char.pak");
 		Wa2Resource.LoadPak("VOICE.PAK");
 		Wa2Resource.LoadPak("SE.PAK");
+		VideoPlayer.Finished += OnVideoFinished;
 		AdvMain.Init(this);
 		Chars = new Wa2Image[Wa2Def.CharPos.Length];
 		for (int i = 0; i < Wa2Def.CharPos.Length; i++)
@@ -241,6 +246,11 @@ public partial class Wa2EngineMain : Node
 			WaitTimer.Done();
 			// AdvMain.Clear();
 			Script.ParseCmd();
+			GD.Print("点击");
+		}
+		if (VideoPlayer.IsPlaying())
+		{
+			VideoPlayer.StreamPosition = VideoPlayer.GetStreamLength();
 		}
 
 	}
@@ -253,6 +263,11 @@ public partial class Wa2EngineMain : Node
 		WaitSeFinish();
 		Skipping = false;
 		// GameSav.Reset();
+	}
+	public void OnVideoFinished()
+	{
+		VideoPlayer.Stream = null;
+		VideoPlayer.Hide();
 	}
 	public void StartScript(string name, uint pos = 0)
 	{
@@ -269,7 +284,11 @@ public partial class Wa2EngineMain : Node
 			StopSkip();
 			return;
 		}
-		if (Input.IsActionPressed("Skip"))
+		// GD.Print("pressed:",AdvMain.IsPressed);
+		if(AdvMain.IsPressed){
+			AdvMain.PressedTime+=GetProcessDeltaTime();
+		}
+		if (Input.IsActionPressed("Skip") || AdvMain.PressedTime >= 0.5)
 		{
 			Skipping = true;
 		}
@@ -291,7 +310,7 @@ public partial class Wa2EngineMain : Node
 			UpdateAnimators((float)delta);
 			AdvMain.Update();
 			SkipCheck();
-			if (!WaitTimer.IsActive() && !WaitClick && !WaitAnimator())
+			if (!WaitTimer.IsActive() && !WaitClick && !WaitAnimator() && !VideoPlayer.IsPlaying())
 			{
 				// AdvMain.Clear();
 				WaitSeFinish();

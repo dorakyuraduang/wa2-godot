@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\godot_cs\\wa2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AA164B62-F1FF-4B87-83DF-75A7CA7C25BF}|wa2.csproj|d:\\godot_cs\\wa2\\script\\wa2video.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA164B62-F1FF-4B87-83DF-75A7CA7C25BF}|wa2.csproj|solutionrelative:script\\wa2video.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Wa2Video.cs",
+              "DocumentMoniker": "D:\\godot_cs\\wa2\\script\\Wa2Video.cs",
+              "RelativeDocumentMoniker": "script\\Wa2Video.cs",
+              "ToolTip": "D:\\godot_cs\\wa2\\script\\Wa2Video.cs",
+              "RelativeToolTip": "script\\Wa2Video.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T08:13:17.185Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

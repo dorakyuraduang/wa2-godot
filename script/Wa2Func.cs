@@ -234,6 +234,9 @@ public class Wa2Func
 		if (args[0].CmdType == CmdType.STR_VAR)
 		{
 			_engine.AdvMain.CurName = args[0].Get();
+			// if(args[0].IntValue>0){
+			// 	_engine.WirtSysFlag(args[0].IntValue,1);
+			// }
 		}
 		else
 		{
@@ -258,9 +261,8 @@ public class Wa2Func
 
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Id = args[1].Get();
-			_engine.GameSav.BgInfo.No = args[2].Get();
-			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.GameSav.TimeMode, args[2].Get());
+			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(),  args[2].Get(),_engine.GameSav.TimeMode);
+			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else
 		{
@@ -330,9 +332,8 @@ public class Wa2Func
 		Texture2D CeacheTexture = _engine.BgTexture.GetCurTexture();
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Id = args[1].Get();
-			_engine.GameSav.BgInfo.No = args[2].Get();
-			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.GameSav.TimeMode, args[2].Get());
+			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(),  args[2].Get(),_engine.GameSav.TimeMode);
+			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else
 		{
@@ -358,7 +359,8 @@ public class Wa2Func
 
 		if (args[1].Get() >= 0)
 		{
-			NextTexture = Wa2Resource.GetCgImage(args[1].Get(), args[2].Get());
+			_engine.GameSav.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
+			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else
 		{
@@ -642,7 +644,10 @@ public class Wa2Func
 	}
 	public void SetMovie(List<Wa2Var> args)
 	{
-
+		_engine.WirtSysFlag(args[0].IntValue, 1);
+		_engine.VideoPlayer.Call("set_movie", Wa2Resource.ResPath + "movie/" + args[0].Get() + "0.mp4");
+		_engine.VideoPlayer.Play();
+		_engine.VideoPlayer.Show();
 	}
 	public void Wait(List<Wa2Var> args)
 	{
@@ -668,8 +673,8 @@ public class Wa2Func
 	}
 	public void SetGameFlag(List<Wa2Var> args)
 	{
-		GD.Print("flag",args[0].Get());
-		_engine.WirtSysFlag(args[0].Get(),args[1].Get());
+		GD.Print("flag", args[0].Get());
+		_engine.WirtSysFlag(args[0].Get(), args[1].Get());
 	}
 	public void LogOut(List<Wa2Var> args)
 	{
@@ -798,9 +803,8 @@ public class Wa2Func
 		}
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Id = args[1].Get();
-			_engine.GameSav.BgInfo.No = args[2].Get();
-			NextTexture = Wa2Resource.GetBgImage(args[1].Get(), _engine.GameSav.TimeMode, args[2].Get());
+			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(),  args[2].Get(),_engine.GameSav.TimeMode);
+			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else
 		{
@@ -884,7 +888,7 @@ public class Wa2Func
 	public void SLoad(List<Wa2Var> args)
 	{
 		_engine.Reset();
-		_engine.Script.LoadScript(args[0].Get(),(uint)args[1].Get());
+		_engine.Script.LoadScript(args[0].Get(), (uint)args[1].Get());
 
 	}
 	public void SCall(List<Wa2Var> args)

@@ -7,14 +7,13 @@
 [ext_resource type="Script" uid="uid://ch3fjcpjwskoj" path="res://script/Wa2Image.cs" id="4_jqvt3"]
 [ext_resource type="Script" uid="uid://bplbwgh74r3w5" path="res://script/Wa2UiMgr.cs" id="4_p6nqb"]
 [ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="5_3be8l"]
-[ext_resource type="Texture2D" uid="uid://csqgy3fwbshlt" path="res://assets/grp/T0000.png" id="5_4c57u"]
 [ext_resource type="PackedScene" uid="uid://b6u3qm7g3fnoj" path="res://scene/as/title_menu.tscn" id="5_d5jo3"]
 [ext_resource type="PackedScene" uid="uid://bxa3gtl880ece" path="res://scene/LoadSaveMenu.tscn" id="9_kek77"]
+[ext_resource type="Script" uid="uid://bh0600rsr4o0e" path="res://script/wa2_video.gd" id="10_4c57u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tw2vm"]
 resource_local_to_scene = true
 shader = ExtResource("5_3be8l")
-shader_parameter/cur_texture = ExtResource("5_4c57u")
 shader_parameter/cur_scale = Vector2(1, 1)
 shader_parameter/cur_offset = Vector2(0, 0)
 shader_parameter/next_scale = Vector2(1, 1)
@@ -155,8 +154,9 @@ shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
 
-[node name="EngineMain" type="Node" node_paths=PackedStringArray("CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
+[node name="EngineMain" type="Node" node_paths=PackedStringArray("VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
 script = ExtResource("1_wdeo5")
+VideoPlayer = NodePath("VideoStreamPlayer")
 CharGroup = NodePath("SubViewportContainer/SubViewport/CharGroup")
 SubViewport = NodePath("SubViewportContainer")
 Viewport = NodePath("SubViewportContainer/SubViewport")
@@ -358,3 +358,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+expand = true
+script = ExtResource("10_4c57u")

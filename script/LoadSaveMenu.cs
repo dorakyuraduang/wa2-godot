@@ -48,7 +48,7 @@ public partial class LoadSaveMenu : Control
   {
     if (_mode == DataMode.Save)
     {
-      _engine.GameSav.SaveData(_pageNum * 10 + _selectIdx);
+      _engine.GameSav.SaveData(_selectIdx);
 
     }
     ShowTipMessage();

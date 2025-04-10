@@ -27,8 +27,7 @@ public struct BgInfo
 {
 	public Vector2 Scale;
 	public Vector2 Offset;
-	public int Id;
-	public int No;
+	public string Path;
 	public int Frame;
 	public int V0;
 	public int V1;
@@ -89,16 +88,16 @@ public class Wa2GameSav
 	{
 
 		args.Clear();
-		GameFlags=new int[0x1d];
+		GameFlags = new int[0x1d];
 		GloFloats = new float[26];
 		GloInts = new int[26];
 		JumpEntrys.Clear();
 		CharItems.Clear();
 		SelectItems.Clear();
-		BgmInfo=new();
-		BgInfo=new();
-		FirstSentence="";
-		CharName="";
+		BgmInfo = new();
+		BgInfo = new();
+		FirstSentence = "";
+		CharName = "";
 
 	}
 	public Wa2GameSav(Wa2EngineMain e)
@@ -222,8 +221,7 @@ public class Wa2GameSav
 		file.Store32((uint)TimeMode);
 		file.Store32((uint)Label);
 		file.Store32((uint)Weather);
-		file.Store32((uint)BgInfo.Id);
-		file.Store32((uint)BgInfo.No);
+		file.StoreBuffer([.. Encoding.Unicode.GetBytes(BgInfo.Path).Concat(new byte[32]).Take(32)]);
 		file.Store32((uint)BgInfo.Scale.X);
 		file.Store32((uint)BgInfo.Scale.Y);
 		file.Store32((uint)BgInfo.Offset.X);
@@ -241,12 +239,12 @@ public class Wa2GameSav
 	}
 	public void LoadData(int idx)
 	{
-		GD.Print("位置",idx);
+		GD.Print("位置", idx);
 		_engine.Reset();
 		Reset();
 		FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
 		file.Seek(0x1b000 + 32);
-		ScriptName = file.GetBuffer(8).GetStringFromUtf8().Replace("\0","");
+		ScriptName = file.GetBuffer(8).GetStringFromUtf8().Replace("\0", "");
 		FirstSentence = Encoding.Unicode.GetString(file.GetBuffer(256));
 		CharName = Encoding.Unicode.GetString(file.GetBuffer(16));
 		_engine.Script.LoadScript(ScriptName);
@@ -289,7 +287,7 @@ public class Wa2GameSav
 
 		}
 		int ArgsCount = (int)file.Get32();
-		GD.Print("args数量:",ArgsCount);
+		GD.Print("args数量:", ArgsCount);
 		for (int i = 0; i < ArgsCount; i++)
 		{
 			args.Add(new());
@@ -299,9 +297,9 @@ public class Wa2GameSav
 			args[i].IntValue = (int)file.Get32();
 			args[i].FloatValue = file.GetFloat();
 		}
-		
+
 		int charCount = (int)file.Get32();
-		GD.Print("角色数",charCount);
+		GD.Print("角色数", charCount);
 		for (int i = 0; i < charCount; i++)
 		{
 
@@ -335,8 +333,7 @@ public class Wa2GameSav
 		TimeMode = (int)file.Get32();
 		Label = (int)file.Get32();
 		Weather = (int)file.Get32();
-		BgInfo.Id = (int)file.Get32();
-		BgInfo.No = (int)file.Get32();
+		BgInfo.Path = Encoding.Unicode.GetString(file.GetBuffer(32)).Replace("\0", "");
 		BgInfo.Scale.X = (int)file.Get32();
 		BgInfo.Scale.Y = (int)file.Get32();
 		BgInfo.Offset.X = (int)file.Get32();
@@ -350,8 +347,8 @@ public class Wa2GameSav
 		BgmInfo.Id = (int)file.Get32();
 		BgmInfo.Loop = (int)file.Get32();
 		BgmInfo.Volume = (int)file.Get32();
-		_engine.AdvMain.CurText = FirstSentence.Replace("\0", "");
-		_engine.AdvMain.CurName = CharName.Replace("\0", "");
+		_engine.AdvMain.TextLabel.Text = FirstSentence.Replace("\0", "");
+		_engine.AdvMain.NameLabel.Text = CharName.Replace("\0", "");
 		_engine.UpdateChar(0f);
 		if (selectCount > 0)
 		{
@@ -361,13 +358,17 @@ public class Wa2GameSav
 		}
 		else
 		{
-			_engine.WaitClick=true;
+			_engine.WaitClick = true;
 
 		}
-
-		_engine.AdvMain.AdvShow(0.0f);
+		_engine.AdvMain.Modulate = new Color(1, 1, 1, 1);
+		_engine.AdvMain.State = Wa2AdvMain.AdvState.WAIT_CLICK;
+		_engine.AdvMain.TextLabel.VisibleRatio=1;
+		_engine.AdvMain.NameLabel.VisibleRatio=1;
+		_engine.AdvMain.UpdateText();
 		_engine.SoundMgr.PlayBgm(BgmInfo.Id, BgmInfo.Loop != 0, BgmInfo.Volume);
-		_engine.BgTexture.SetCurTexture(Wa2Resource.GetBgImage(BgInfo.Id, TimeMode, BgInfo.No));
+		GD.Print(BgInfo.Path);
+		_engine.BgTexture.SetCurTexture(Wa2Resource.GetTgaImage(BgInfo.Path));
 		_engine.BgTexture.SetCurOffset(BgInfo.Offset);
 		_engine.BgTexture.SetCurScale(BgInfo.Scale);
 		file.Close();
