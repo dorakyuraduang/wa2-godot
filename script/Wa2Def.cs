@@ -60,7 +60,7 @@ public static class Wa2Def
 //new EncoderReplacementFallback(strUniRepChr), new DecoderReplacementFallback(strUniRepChr)
 		// GD.Print("长度",Encoding.GetEncoding("shift_jis").GetString(buffer).Length);
 		string str = Wa2EngineMain.Engine.Wa2Encoding.GetString(buffer).Replace("\n", "").Replace("\r", "");
-		GD.Print(str);
+		// GD.Print(str);
 		for (int i = 0; i < str.Length; i++)
 		{
 			FontMap.TryAdd(str[i], i);

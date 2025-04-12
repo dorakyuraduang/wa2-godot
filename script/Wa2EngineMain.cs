@@ -264,9 +264,9 @@ public partial class Wa2EngineMain : Control
 				if (!TextTimer.IsDone())
 				{
 					TextTimer.Done();
-					GD.Print("process", TextTimer.GetProgress());
+					// GD.Print("process", TextTimer.GetProgress());
 					AdvMain.Update(0);
-					GD.Print("TextTimer");
+					// GD.Print("TextTimer");
 				}
 				if (!AutoTimer.IsDone())
 				{
@@ -392,7 +392,7 @@ public partial class Wa2EngineMain : Control
 			// SkipCheck();
 			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !Skipping && !AdvMain.SelectMessageContainer.Visible && !WaitClick)
 			{
-				GD.Print("flag");
+				// GD.Print("flag");
 				bool flag = true;
 				for (int i = 0; i < Animators.Count; i++)
 				{
@@ -511,7 +511,7 @@ public partial class Wa2EngineMain : Control
 		for (int i = 0; i < Animators.Count; i++)
 		{
 			Animators[i].Timer.Update(delta);
-			GD.Print(Animators[i].Timer.GetProgress());
+			// GD.Print(Animators[i].Timer.GetProgress());
 			if (Animators[i].IsActive())
 			{
 

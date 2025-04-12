@@ -19,7 +19,7 @@ public partial class DataSlot : Wa2Button
   [Export]
   public TextureRect Month;
   [Export]
-  public Label FirstSentenceLabel;
+  public Wa2Label FirstSentenceLabel;
   public void Update(int idx)
   {
     IdxLabel.Text = string.Format("{0:D2}", idx + 1);

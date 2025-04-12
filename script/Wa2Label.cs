@@ -4,7 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Unicode;
-
+// [Tool]
+[GlobalClass]
 public partial class Wa2Label : Node2D
 {
 	[Export]
@@ -26,8 +27,11 @@ public partial class Wa2Label : Node2D
 	[Export]
 	public int Rect2Size = 32;
 	[Export]
-	public int LineSpacin=8;
-
+	public int LineSpacin = 8;
+	[Export]
+	public string EllipsisChar = "…";
+	[Export]
+	public int MaxChar = 999;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -53,7 +57,7 @@ public partial class Wa2Label : Node2D
 				drawPos.X++;
 			}
 		}
-		return drawPos * new Vector2(FontSize, FontSize+LineSpacin)+Position;
+		return drawPos * new Vector2(FontSize, FontSize + LineSpacin) + Position;
 
 	}
 	public override void _Draw()
@@ -63,9 +67,17 @@ public partial class Wa2Label : Node2D
 		{
 			return;
 		}
-
-		int end = (int)(VisibleRatio * Text.Length);
-		string str = Text.Substr(0, end);
+		string text;
+		if (Text.Length >=MaxChar)
+		{
+			text = Text[..MaxChar] + EllipsisChar;
+		}
+		else
+		{
+			text = Text;
+		}
+		int end = (int)(VisibleRatio * text.Length);
+		string str = text.Substr(0, end);
 		for (int i = 0; i < str.Length; i++)
 		{
 			char ch = str[i];
@@ -93,7 +105,7 @@ public partial class Wa2Label : Node2D
 				{
 					int x = pos % 80;
 					int y = pos / 80;
-					Rect2 rect = new(drawPos * new Vector2(FontSize, FontSize+LineSpacin), new Vector2(FontSize, FontSize));
+					Rect2 rect = new(drawPos * new Vector2(FontSize, FontSize + LineSpacin), new Vector2(FontSize, FontSize));
 					Rect2 srcRect = new(new Vector2(x, y) * Rect1Size + new Vector2(Rect1Size - Rect2Size, Rect1Size - Rect2Size) / 2, new Vector2(Rect2Size, Rect2Size));
 					if (Shadow)
 					{

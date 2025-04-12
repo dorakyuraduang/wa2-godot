@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://vhl58c04l614"]
+[gd_scene load_steps=16 format=3 uid="uid://vhl58c04l614"]
 
 [ext_resource type="Script" uid="uid://dstvmh6b1vjdi" path="res://script/DataSlot.cs" id="1_pudf4"]
 [ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="2_k5oa6"]
@@ -6,7 +6,9 @@
 [ext_resource type="FontFile" uid="uid://13ow1d25naon" path="res://assets/fonts/number.tres" id="3_8eqka"]
 [ext_resource type="Texture2D" uid="uid://dwuhirbqoetti" path="res://assets/grp/sys_01016.png" id="4_qg7dv"]
 [ext_resource type="Texture2D" uid="uid://dai73h84v2ui3" path="res://assets/grp/sys_01015.png" id="5_d6xoc"]
-[ext_resource type="FontFile" uid="uid://dg4n23b2hume7" path="res://assets/fonts/jp.tres" id="6_fyfrv"]
+[ext_resource type="Script" uid="uid://qsw3xkgywsql" path="res://script/Wa2Label.cs" id="7_smn8n"]
+[ext_resource type="Texture2D" uid="uid://cmgdubqht36c6" path="res://assets/fonts/cn/本体80.png" id="8_7aix8"]
+[ext_resource type="Texture2D" uid="uid://kphqvd0w7amu" path="res://assets/fonts/cn/袋影80.png" id="8_xnv3s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6o85h"]
 atlas = ExtResource("2_yye6e")
@@ -32,11 +34,6 @@ region = Rect2(0, 0, 40, 24)
 
 [sub_resource type="LabelSettings" id="LabelSettings_k5oa6"]
 font = ExtResource("3_8eqka")
-
-[sub_resource type="LabelSettings" id="LabelSettings_smn8n"]
-font = ExtResource("6_fyfrv")
-font_size = 12
-shadow_size = 0
 
 [node name="DataSlot" type="TextureButton" node_paths=PackedStringArray("NoData", "ExistData", "SaveTexture", "IdxLabel", "DateLabel", "Category", "DayLabel", "Month", "FirstSentenceLabel")]
 custom_minimum_size = Vector2(632, 96)
@@ -123,17 +120,17 @@ offset_bottom = 39.0
 text = "11"
 label_settings = SubResource("LabelSettings_k5oa6")
 
-[node name="FirstSentence" type="Label" parent="."]
-clip_contents = true
+[node name="FirstSentence" type="Node2D" parent="."]
+position = Vector2(198, 44)
+script = ExtResource("7_smn8n")
+VisibleRatio = 1.0
+FontTexture = ExtResource("8_7aix8")
+ShadowTexture = ExtResource("8_xnv3s")
+FontSize = 20
+MaxChar = 13
+metadata/_custom_type_script = "uid://qsw3xkgywsql"
+
+[node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 198.0
-offset_top = 44.0
-offset_right = 455.0
-offset_bottom = 70.0
-text = "，空，剿痩暁。
-厰積…空，空…意魯積厰痩意惑逢行"
-label_settings = SubResource("LabelSettings_smn8n")
-clip_text = true
-text_overrun_behavior = 3
-visible_characters = 11
-visible_ratio = 0.48
+offset_right = 40.0
+offset_bottom = 23.0

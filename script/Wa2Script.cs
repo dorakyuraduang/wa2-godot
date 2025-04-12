@@ -513,8 +513,8 @@ public class Wa2Script
 			case 8:
 				{
 					b.Set(a.Get() == b.Get() ? 1 : 0);
-					GD.Print(a.Get());
-					GD.Print(b.Get());
+					// GD.Print(a.Get());
+					// GD.Print(b.Get());
 				}
 				break;
 			case 9:

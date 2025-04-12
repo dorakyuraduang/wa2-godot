@@ -317,7 +317,7 @@ public class Wa2GameSav
 
 			SelectItems.Add(new SelectItem()
 			{
-				Text = Encoding.Unicode.GetString(file.GetBuffer(64)),
+				Text = Encoding.Unicode.GetString(file.GetBuffer(64)).Replace("\0", ""),
 				V1 = (int)file.Get32(),
 				V2 = (int)file.Get32(),
 				V3 = (int)file.Get32()

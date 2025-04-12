@@ -184,8 +184,13 @@ public partial class Wa2AdvMain : Control
 	}
 	public void TextStart(float delay = 0f)
 	{
-		GD.Print(TextLabel.Text.Length / _engine.Prefs.TextSpeed);
-		_engine.TextTimer.Start(TextLabel.Text.Length / _engine.Prefs.TextSpeed, delay);
+		
+		if (TextLabel.Text != "")
+		{
+			// GD.Print(TextLabel.Text.Length / _engine.Prefs.TextSpeed);
+			_engine.TextTimer.Start(TextLabel.Text.Length / _engine.Prefs.TextSpeed, delay);
+		}
+
 	}
 	public void ShowText(string text, string name, bool fade = true)
 	{
