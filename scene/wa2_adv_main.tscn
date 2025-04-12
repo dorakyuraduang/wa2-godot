@@ -1332,6 +1332,7 @@ texture = SubResource("AtlasTexture_847gf")
 expand_mode = 1
 
 [node name="SelectMessage" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5

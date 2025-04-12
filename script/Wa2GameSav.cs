@@ -119,7 +119,7 @@ public class Wa2GameSav
 	{
 		for (int i = 0; i < CharItems.Count; i++)
 		{
-			if (CharItems[i].id == item.id|| CharItems[i].pos == item.pos)
+			if (CharItems[i].id == item.id || CharItems[i].pos == item.pos)
 			{
 				CharItems.RemoveAt(i);
 				break;
@@ -222,10 +222,10 @@ public class Wa2GameSav
 		file.Store32((uint)Label);
 		file.Store32((uint)Weather);
 		file.StoreBuffer([.. Encoding.Unicode.GetBytes(BgInfo.Path).Concat(new byte[32]).Take(32)]);
-		file.Store32((uint)BgInfo.Scale.X);
-		file.Store32((uint)BgInfo.Scale.Y);
-		file.Store32((uint)BgInfo.Offset.X);
-		file.Store32((uint)BgInfo.Offset.Y);
+		file.StoreFloat(BgInfo.Scale.X);
+		file.StoreFloat(BgInfo.Scale.Y);
+		file.StoreFloat(BgInfo.Offset.X);
+		file.StoreFloat(BgInfo.Offset.Y);
 		file.Store32((uint)BgInfo.Frame);
 		file.Store32((uint)BgInfo.V0);
 		file.Store32((uint)BgInfo.V1);
@@ -334,10 +334,12 @@ public class Wa2GameSav
 		Label = (int)file.Get32();
 		Weather = (int)file.Get32();
 		BgInfo.Path = Encoding.Unicode.GetString(file.GetBuffer(32)).Replace("\0", "");
-		BgInfo.Scale.X = (int)file.Get32();
-		BgInfo.Scale.Y = (int)file.Get32();
-		BgInfo.Offset.X = (int)file.Get32();
-		BgInfo.Offset.Y = (int)file.Get32();
+
+
+		BgInfo.Scale.X = file.GetFloat();
+		BgInfo.Scale.Y =file.GetFloat();
+		BgInfo.Offset.X =file.GetFloat();
+		BgInfo.Offset.Y =file.GetFloat();
 		BgInfo.Frame = (int)file.Get32();
 		BgInfo.V0 = (int)file.Get32();
 		BgInfo.V1 = (int)file.Get32();
@@ -361,7 +363,7 @@ public class Wa2GameSav
 
 		}
 		// _engine.AdvMain.Modulate = new Color(1, 1, 1, 1);
-		_engine.AdvMain.ShowText(FirstSentence,CharName,false);
+		_engine.AdvMain.ShowText(FirstSentence, CharName, false);
 		// _engine.AdvMain.State = Wa2AdvMain.AdvState.WAIT_CLICK;
 		// _engine.AdvMain.TextLabel.VisibleRatio = 1;
 		// _engine.AdvMain.NameLabel.VisibleRatio = 1;
@@ -369,8 +371,9 @@ public class Wa2GameSav
 		_engine.SoundMgr.PlayBgm(BgmInfo.Id, BgmInfo.Loop != 0, BgmInfo.Volume);
 		GD.Print(BgInfo.Path);
 		_engine.BgTexture.SetCurTexture(Wa2Resource.GetTgaImage(BgInfo.Path));
-		_engine.BgTexture.SetCurOffset(BgInfo.Offset);
+
 		_engine.BgTexture.SetCurScale(BgInfo.Scale);
+		_engine.BgTexture.SetCurOffset(BgInfo.Offset);
 		file.Close();
 	}
 }

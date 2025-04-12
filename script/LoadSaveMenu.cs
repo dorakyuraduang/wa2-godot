@@ -51,6 +51,10 @@ public partial class LoadSaveMenu : Control
       _engine.GameSav.SaveData(_selectIdx);
 
     }
+    if(_mode==DataMode.Load && _engine.State==Wa2EngineMain.GameState.TITLE)
+    {
+      _engine.SoundMgr.StopBgm();
+    }
     ShowTipMessage();
     ConfirmMessage.Hide();
   }
@@ -71,7 +75,7 @@ public partial class LoadSaveMenu : Control
       Tabs.GetChild<Wa2Button>(i).ButtonDown += () =>
       {
         _pageNum = idx;
-    
+
         UpdatePage();
       };
     }
@@ -110,7 +114,7 @@ public partial class LoadSaveMenu : Control
     else if (_mode == DataMode.Load)
     {
       TipLabel.Text = "存档读取成功";
-      
+
       if (_engine.State == Wa2EngineMain.GameState.TITLE)
       {
         await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);

@@ -108,7 +108,6 @@ public class Wa2ImageAnimator : Wa2Animator
 		Image.Show();
 		Timer = new Wa2Timer();
 		Timer.Start(time);
-		GD.Print("timer",Timer);
 		Type = AnimType.FEAD;
 		Image.SetBlend(0f);
 		if (Image.GetMaskTexture() == null)
@@ -124,7 +123,7 @@ public class Wa2ImageAnimator : Wa2Animator
 	public override void Update()
 	{
 		base.Update();
-		GD.Print("类型",Timer);
+		// GD.Print("类型",Timer);
 		if (Type == AnimType.FEAD)
 		{
 			Image.SetBlend(Timer.GetProgress());

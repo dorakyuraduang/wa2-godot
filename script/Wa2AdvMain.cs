@@ -73,6 +73,7 @@ public partial class Wa2AdvMain : Control
 		// GD.Print("索引",_engine.Script.args[^2].IntValue);
 		_engine.GameSav.args[^1].Set(idx);
 		_engine.GameSav.SelectItems.Clear();
+		SelectMessageContainer.Hide();
 		// _engine.Script.Wait = false;
 	}
 	// public void AdvShow(float time = 0.25f)

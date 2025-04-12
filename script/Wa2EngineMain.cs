@@ -94,6 +94,7 @@ public partial class Wa2EngineMain : Control
 	}
 	public void ShowSelectMessage()
 	{
+		AdvMain.SelectMessageContainer.Show();
 		for (int i = 0; i < 3; i++)
 		{
 			SelectMessage btn = AdvMain.SelectMessageContainer.GetChild<SelectMessage>(i);
@@ -275,7 +276,7 @@ public partial class Wa2EngineMain : Control
 			}
 			return;
 		}
-		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && GameSav.SelectItems.Count == 0 && (WaitClick || Skipping))
+		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || Skipping))
 		{
 			if (AdvMain.Visible)
 			{
@@ -326,6 +327,7 @@ public partial class Wa2EngineMain : Control
 	{
 		// Script.Wait = false;
 		// WaitClick = false;
+		Backlogs.Clear();
 		ClickedInWait = false;
 		WaitTimer.DeActive();
 		AutoTimer.DeActive();
@@ -336,6 +338,7 @@ public partial class Wa2EngineMain : Control
 		AutoMode=false;
 		SkipMode=false;
 		SoundMgr.StopAll();
+		AdvMain.SelectMessageContainer.Hide();
 		// GameSav.Reset();
 	}
 	// public void OnVideoFinished()
@@ -345,6 +348,7 @@ public partial class Wa2EngineMain : Control
 	// }
 	public void StartScript(string name, uint pos = 0)
 	{
+		SoundMgr.StopBgm();
 		Reset();
 		GameSav.Reset();
 
@@ -386,7 +390,7 @@ public partial class Wa2EngineMain : Control
 			// UpdateAnimators((float)delta);
 			// AdvMain.Update();
 			// SkipCheck();
-			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !Skipping && GameSav.SelectItems.Count == 0 && !WaitClick)
+			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !Skipping && !AdvMain.SelectMessageContainer.Visible && !WaitClick)
 			{
 				GD.Print("flag");
 				bool flag = true;
