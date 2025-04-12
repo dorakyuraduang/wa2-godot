@@ -1,8 +1,76 @@
 using Godot;
 using System;
 using System.Threading;
-
 public class Wa2Animator
+{
+	public bool Wait = true;
+	public Wa2Timer Timer;
+	public bool IsActive()
+	{
+		return !Timer.IsDone();
+	}
+	public virtual void Update()
+	{
+		if (Timer == null || !Timer.IsStart())
+		{
+			return;
+		}
+	}
+	public virtual void Finish()
+	{
+		Timer.Done();
+		Update();
+	}
+}
+public class Wa2AdvAnimator : Wa2Animator
+{
+	public Wa2AdvMain Adv;
+	public AnimType Type;
+	public enum AnimType
+	{
+		FEAD_IN,
+		FEAD_OUT
+	}
+	public Wa2AdvAnimator(Wa2AdvMain adv)
+	{
+		Adv = adv;
+		Wa2EngineMain.Engine.Animators.Add(this);
+		
+	}
+	public void InitFade(float time, bool fadeIn)
+	{
+		Timer=new Wa2Timer();
+		Timer.Start(time);
+		if (fadeIn)
+		{
+			Type = AnimType.FEAD_IN;
+		}
+		else
+		{
+			Type = AnimType.FEAD_OUT;
+		}
+	}
+	public override void Update()
+	{
+		base.Update();
+		
+		if (Type == AnimType.FEAD_IN)
+		{
+			Adv.Modulate = new Color(1, 1, 1, MathF.Min(Timer.GetProgress(), 1f));
+			Adv.Visible = true;
+
+		}
+		if (Type == AnimType.FEAD_OUT)
+		{
+			Adv.Modulate = new Color(1, 1, 1, MathF.Max(0, 1.0f - Timer.GetProgress()));
+			if (Timer.IsDone())
+			{
+				Adv.Visible = false;
+			}
+		}
+	}
+}
+public class Wa2ImageAnimator : Wa2Animator
 {
 	public enum AnimType
 	{
@@ -11,27 +79,16 @@ public class Wa2Animator
 		HIDE,
 		SHOW
 	}
-	public bool Wait = true;
-	public Wa2Timer Timer;
-	// public Texture2D CacheTexture;
 	public AnimType Type;
 	public Wa2Image Image;
-	// public Wa2Image MaskTexure;
 	public Texture2D CurTexture;
 	public Vector2 MoveDistance;
 	public Vector2 StartOffset;
-	public Wa2Animator(Wa2Image image)
+	public Wa2ImageAnimator(Wa2Image image)
 	{
 		Image = image;
-		// BodyTexure = bodyTexure;
-		// MaskTexure = maskTexure;
 		Wa2EngineMain.Engine.Animators.Add(this);
 	}
-	// public void InitScale(float x,float y,float time){
-	// 	Timer = new Wa2Timer();
-	// 	BodyTexure.SetImageScale(new Vector2(x,y));
-	// 	Timer.Start(time);
-	// }
 	public void InitMove(float time, int x = 0, int y = 0)
 	{
 		Type = AnimType.MOVE;
@@ -46,20 +103,12 @@ public class Wa2Animator
 		Timer = new Wa2Timer();
 		Timer.Start(time);
 	}
-	public void InitShow(float time)
-	{
-		Type = AnimType.SHOW;
-		Image.Hide();
-		Timer = new Wa2Timer();
-		Timer.Start(time);
-	}
 	public void InitFade(float time, int ox = 0)
 	{
-		// BodyTexure.Hide();
-		// MaskTexure.Show();
 		Image.Show();
 		Timer = new Wa2Timer();
 		Timer.Start(time);
+		GD.Print("timer",Timer);
 		Type = AnimType.FEAD;
 		Image.SetBlend(0f);
 		if (Image.GetMaskTexture() == null)
@@ -70,28 +119,14 @@ public class Wa2Animator
 		{
 			(Image.Material as ShaderMaterial).SetShaderParameter("fead_weight", 1.0);
 		}
-
-		// SetBg2Image(texture);
-		// NextOffset = new Vector2(x, y);
-		// NextScale = new Vector2(scaleX, scaleY);
-		// SetBg2Offset(NextOffset);
-		// SetBg2Scale(NextScale);
+		
 	}
-	public void Update()
+	public override void Update()
 	{
-		// if (!IsActive()){
-		// 	return;
-		// }
-		if (Type == AnimType.SHOW)
-		{
-			if (Timer.GetProgress() >= 1f)
-			{
-			Image.Show();
-			}
-		}
+		base.Update();
+		GD.Print("类型",Timer);
 		if (Type == AnimType.FEAD)
 		{
-			// GD.Print(Timer.GetProgress());
 			Image.SetBlend(Timer.GetProgress());
 			if (Timer.GetProgress() >= 1f)
 			{
@@ -99,58 +134,29 @@ public class Wa2Animator
 				Image.SetMaskTexture(null);
 				Image.SetNextTexture(null);
 				Image.SetBlend(0.0f);
-				// Image.SetCurOffset(Image.GetNextOffset());
-				// Image.SetCurScale(Image.GetNextScale());
-				// MaskTexure.Hide();
-				// BodyTexure.Show();
-				// MaskTexure.SetCurTexture(null);
-				// MaskTexure.SetMaskTexture(null);
-				// MaskTexure.SetNextTexture(null);
-				// MaskTexure.SetOffset(Vector2.Zero);
-				// MaskTexure.SetImageScale(Vector2.Zero);
-
 			}
 		}
 		if (Type == AnimType.MOVE)
 		{
 			Image.SetCurOffset(Timer.GetProgress() * MoveDistance + StartOffset);
-			if (Timer.GetProgress() >= 1f)
-			{
-				// Image.SetCurOffset(MoveDistance + StartOffset);
-				// MaskTexure.Hide();
-				// BodyTexure.Show();
-				// MaskTexure.SetCurTexture(null);
-				// MaskTexure.SetMaskTexture(null);
-				// MaskTexure.SetNextTexture(null);
-			}
 		}
 		if (Type == AnimType.HIDE)
 		{
 			if (Timer.GetProgress() >= 1f)
 			{
-				// Image.Hide();
 				Image.SetCurTexture(null);
 				Image.SetMaskTexture(null);
 				Image.SetNextTexture(null);
-				// if (Image.Name == "MaskImage")
-				// {
-				// 	Wa2EngineMain.Engine.SubViewport.Show();
-				// }
 			}
 		}
-
+		
 	}
-	public void Finish()
+	public override void Finish()
 	{
 		Timer.Done();
 		if (Type != AnimType.MOVE)
 		{
 			Update();
 		}
-
-	}
-	public bool IsActive()
-	{
-		return Timer.IsActive();
 	}
 }

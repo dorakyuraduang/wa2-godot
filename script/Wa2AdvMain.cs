@@ -23,30 +23,28 @@ public partial class Wa2AdvMain : Control
 	public Wa2Label TextLabel;
 	[Export]
 	public AnimatedSprite2D WaitSprite;
-	public double PressedTime = 0.0f;
-	public bool IsPressed = false;
+
 	private Wa2EngineMain _engine;
 	public string CurText = "";
 	public string CurName = "";
 	public enum AdvState
 	{
 		NONE,
-		SHOW_MESSAGE,
-		SHOW_TEXT,
-		WAIT_CLICK,
-		HIDE_MESSAGE
+		SHOW_ADV,
+		HIDE_ADV
 	}
 	public AdvState State;
-	public bool Active { private set; get; }
+	// public bool Active;
 	public void Init(Wa2EngineMain e)
 	{
 		_engine = e;
-		Active = false;
+		Visible = false;
 		Modulate = new Color(1, 1, 1, 0);
 		LoadButton.ButtonDown += OnLoadButtonDown;
 		SaveButton.ButtonDown += OnSaveButtonDown;
 		AutoButton.ButtonDown += OnAutoButtonDown;
 		SkipButton.ButtonDown += OnSkipButtonDown;
+		OffButton.ButtonDown += OnOffButtonDown;
 		for (int i = 0; i < SelectMessageContainer.GetChildCount(); i++)
 		{
 			int idx = i;
@@ -56,6 +54,10 @@ public partial class Wa2AdvMain : Control
 	public void OnAutoButtonDown()
 	{
 		_engine.AutoMode = !_engine.AutoMode;
+		if (_engine.AutoMode)
+		{
+			_engine.AutoModeStart();
+		}
 	}
 	public void OnSkipButtonDown()
 	{
@@ -71,122 +73,156 @@ public partial class Wa2AdvMain : Control
 		// GD.Print("索引",_engine.Script.args[^2].IntValue);
 		_engine.GameSav.args[^1].Set(idx);
 		_engine.GameSav.SelectItems.Clear();
-		_engine.Script.Wait = false;
+		// _engine.Script.Wait = false;
 	}
-	public void AdvShow(float time = 0.25f)
-	{
-		// if(Active){
-		// 	return;
-		// }
-		UpdateText();
-		State = AdvState.SHOW_MESSAGE;
-		_engine.WaitTimer.Start(time);
-	}
-	public void AdvHide(float time = 0.25f)
-	{
-		Active = false;
-		State = AdvState.HIDE_MESSAGE;
-		_engine.WaitTimer.Start(time);
-	}
-	public override void _GuiInput(InputEvent @event)
-	{
-		if (@event is InputEventScreenTouch && @event.IsPressed())
-		{
-			IsPressed = true;
-		}
-		else
-		{
-			IsPressed = false;
-		}
-		if (!IsPressed)
-		{
-			PressedTime = 0.0;
-		}
-		if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
-		{
-			_engine.ClickAdv();
-		}
-	}
-	public void Update()
-	{
-		if (State == AdvState.SHOW_MESSAGE)
-		{
+	// public void AdvShow(float time = 0.25f)
+	// {
+	// 	// if(Active){
+	// 	// 	return;
+	// 	// }
+	// 	// UpdateText();
+	// 	State = AdvState.SHOW_ADV;
+	// 	_engine.WaitTimer.Start(time);
+	// }
+	// public void AdvHide(float time = 0.25f)
+	// {
+	// 	Active = false;
+	// 	State = AdvState.HIDE_ADV;
+	// 	_engine.WaitTimer.Start(time);
+	// }
+	// public override void _GuiInput(InputEvent @event)
+	// {
 
-			Modulate = new Color(1, 1, 1, _engine.WaitTimer.GetProgress());
-			if (_engine.WaitTimer.GetProgress() >= 1f)
+	// }
+	public void OnOffButtonDown()
+	{
+		if (_engine.WaitClick)
+		{
+			_engine.AdvMain.Hide();
+		}
+
+	}
+	public void Update(float delta)
+	{
+		if (_engine.TextTimer.IsActive())
+		{
+			_engine.TextTimer.Update(delta);
+			if (_engine.TextTimer.IsStart())
 			{
-				Modulate = new Color(1, 1, 1, 1);
-				Active = true;
-				AdvShowText();
+				NameLabel.VisibleRatio = 1f;
 			}
-		}
-		if (State == AdvState.SHOW_TEXT)
-		{
-			TextLabel.VisibleRatio = _engine.WaitTimer.GetProgress();
-
-			if (_engine.WaitTimer.GetProgress() >= 1f)
+			TextLabel.VisibleRatio = _engine.TextTimer.GetProgress();
+			if (_engine.TextTimer.IsDone())
 			{
 				TextLabel.VisibleRatio = 1F;
-				State = AdvState.WAIT_CLICK;
 				WaitSprite.Position = TextLabel.GetEndPosition();
-			}
-			UpdateText();
-		}
-		if (State == AdvState.HIDE_MESSAGE)
-		{
-			Modulate = new Color(1, 1, 1, 1 - _engine.WaitTimer.GetProgress());
-			if (_engine.WaitTimer.GetProgress() >= 1f)
-			{
-				Modulate = new Color(1, 1, 1, 0);
-				State = AdvState.NONE;
+
 			}
 		}
-
-
-
-	}
-	public void UpdateText()
-	{
-		NameLabel.Update();
-		TextLabel.Update();
-		if (State == AdvState.WAIT_CLICK)
+		if (_engine.WaitClick && !_engine.TextTimer.IsActive() && !_engine.Skipping && !_engine.SkipMode && !_engine.AutoMode)
 		{
 			WaitSprite.Show();
 		}
 		else
 		{
 			WaitSprite.Hide();
-
 		}
+		// if (_engine.WaitClick && !_engine.TextTimer.IsActive())
+		// {
+		// 	WaitSprite.Show();
+		// }
+		// else
+		// {
+		// 	WaitSprite.Hide();
+		// }
+		// UpdateText();
 	}
+	// public void UpdateText()
+	// {
+	// 	NameLabel.Update();
+	// 	TextLabel.Update();
+	// }
 	public void Clear()
 	{
-		State = AdvState.NONE;
 		TextLabel.VisibleRatio = 0f;
 		NameLabel.VisibleRatio = 0f;
 		NameLabel.Text = "";
 		TextLabel.Text = "";
+		// WaitSprite.Hide();
 	}
-	public void AdvShowText()
+	public void AdvShow(bool fade = true)
 	{
-		State = AdvState.SHOW_TEXT;
-		NameLabel.VisibleRatio = 1f;
-		TextLabel.Text = CurText;
-		NameLabel.Text = CurName;
+		TextLabel.VisibleRatio = 0f;
+		NameLabel.VisibleRatio = 0f;
+		if (!Visible || Modulate.A < 1)
+		{
+			if (fade)
+			{
+				AdvFade(0.2f, true);
+			}
+			else
+			{
+				Visible = true;
+				Modulate = new Color(1, 1, 1, 1);
+			}
+		}
+		// AdvFade(time, true);
+		// _engine.WaitTimer.Start(time);
+	}
+	public void AdvHide(float time = 0.2f)
+	{
+		AdvFade(time, false);
+		// _engine.WaitTimer.Start(time);
+	}
+	public void AdvFade(float time, bool fadein)
+	{
+
+		Wa2AdvAnimator animator = new(this);
+		animator.InitFade(time, fadein);
+
+	}
+	public void TextStart(float delay = 0f)
+	{
+		GD.Print(TextLabel.Text.Length / _engine.Prefs.TextSpeed);
+		_engine.TextTimer.Start(TextLabel.Text.Length / _engine.Prefs.TextSpeed, delay);
+	}
+	public void ShowText(string text, string name, bool fade = true)
+	{
+
+		TextLabel.Text = text;
+		NameLabel.Text = name;
+		AdvShow(fade);
+		if (!_engine.Skipping && fade)
+		{
+			TextStart(0.2f);
+		}
+		else
+		{
+			TextLabel.VisibleRatio = 1f;
+			NameLabel.VisibleRatio = 1f;
+			WaitSprite.Position = TextLabel.GetEndPosition();
+			WaitSprite.Show();
+		}
+
+		// _engine.Script.ParseCmd();
+		// GD.Print("AdvShowText");
+	}
+	public void ClearText()
+	{
+		TextLabel.Text = "";
+		NameLabel.Text = "";
 		TextLabel.VisibleRatio = 0;
-		_engine.WaitTimer.Start((float)CurText.Length / (float)_engine.Prefs.TextSpeed);
-		_engine.Script.ParseCmd();
-		GD.Print("AdvShowText");
+		// WaitSprite.Hide();
 	}
-	public void Finish()
-	{
-		_engine.WaitTimer.Done();
-		Update();
-	}
+	// public void Finish()
+	// {
+	// 	_engine.WaitTimer.Done();
+	// }
 	public void OnSaveButtonDown()
 	{
-		if (_engine.WaitTimer.IsActive() || _engine.WaitAnimator() || (!_engine.WaitClick && !_engine.Script.Wait) || _engine.VideoPlayer.IsPlaying())
+		if (_engine.WaitTimer.IsActive() || _engine.WaitAnimator() || _engine.VideoPlayer.IsPlaying() || _engine.WaitTimer.IsActive())
 		{
+
 			// GD.Print("等待中");
 			return;
 		}

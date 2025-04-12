@@ -154,7 +154,13 @@ shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
 
-[node name="EngineMain" type="Node" node_paths=PackedStringArray("VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
+[node name="EngineMain" type="Control" node_paths=PackedStringArray("VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_wdeo5")
 VideoPlayer = NodePath("VideoStreamPlayer")
 CharGroup = NodePath("SubViewportContainer/SubViewport/CharGroup")
@@ -171,6 +177,7 @@ script = ExtResource("2_w3y5b")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." node_paths=PackedStringArray("BgTexure", "CharGroup", "RenderTexture")]
 custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -318,6 +325,7 @@ script = ExtResource("4_jqvt3")
 
 [node name="MaskImage" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_536a2")
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -327,7 +335,7 @@ mouse_filter = 2
 script = ExtResource("4_jqvt3")
 
 [node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("AdvMain", "TitleMenu", "LoadSaveMenu")]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -346,12 +354,14 @@ layout_mode = 1
 [node name="AdvMain" parent="Wa2UiMgr" instance=ExtResource("3_ww1q6")]
 visible = false
 layout_mode = 1
+mouse_filter = 2
 
 [node name="LoadSaveMenu" parent="Wa2UiMgr" instance=ExtResource("9_kek77")]
 layout_mode = 1
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 visible = false
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

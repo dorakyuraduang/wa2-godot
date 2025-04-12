@@ -2,12 +2,15 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-// using System.IO;
-
 using System.Text;
-using System.Threading.Tasks;
-public partial class Wa2EngineMain : Node
+public class BacklogEntry
+{
+
+	public string name;
+	public string text;
+	public string voice;
+}
+public partial class Wa2EngineMain : Control
 {
 	public enum GameState
 	{
@@ -24,13 +27,17 @@ public partial class Wa2EngineMain : Node
 	// public int CurSelect=0;
 
 	// public int[] GameFlags = new int[1024];
-	public List<String> Texts = new();
-	public bool SkipMode =false;
+	public List<string> Texts = new();
+	public List<BacklogEntry> Backlogs=new();
+	public bool SkipMode = false;
 	public int ReplayMode;
-	public bool AutoMode=false;
+	public bool AutoMode = false;
 	public int WaitSeChannel;
+	public bool ClickedInWait;
 	public static Wa2EngineMain Engine;
 	public Wa2Var SelectVar;
+	public double PressedTime = 0.0f;
+	public bool IsPressed = false;
 	public int Year;
 	public int Month;
 	public int Day;
@@ -41,6 +48,7 @@ public partial class Wa2EngineMain : Node
 	public Wa2Prefs Prefs;
 	public int Label;
 	public bool Skipping = false;
+
 	[Export]
 	public VideoStreamPlayer VideoPlayer;
 	[Export]
@@ -62,7 +70,10 @@ public partial class Wa2EngineMain : Node
 	public Wa2Image MaskTexture;
 	public GameState State = GameState.NONE;
 	public Wa2Timer WaitTimer = new();
-	public Wa2Timer SeWaitTimer = new();
+	public Wa2Timer TextTimer = new();
+	public Wa2Timer AutoTimer = new();
+	public bool LineHasRead = true;
+	// public Wa2Timer SeWaitTimer = new();
 	public float FrameTime { private set; get; } = 1.0f / 60;
 	public Wa2Script Script;
 	public Wa2Func Func;
@@ -90,7 +101,7 @@ public partial class Wa2EngineMain : Node
 			{
 
 				btn.TextLabel.Text = GameSav.SelectItems[i].Text;
-				btn.TextLabel.Update();
+				// btn.TextLabel.Update();
 				btn.Show();
 			}
 			else
@@ -106,7 +117,7 @@ public partial class Wa2EngineMain : Node
 		{
 			// GD.Print("id:", value.id, "pos:", value.pos);
 			Wa2Image image = Chars[value.pos];
-			Wa2Animator animator1 = new(image);
+			Wa2ImageAnimator animator1 = new(image);
 			image.SetNextTexture(Wa2Resource.GetChrImage(value.id, value.no));
 			animator1.InitFade(time);
 			posList.Add(value.pos);
@@ -118,7 +129,7 @@ public partial class Wa2EngineMain : Node
 				continue;
 			}
 			Wa2Image image = Chars[i];
-			Wa2Animator animator2 = new(image);
+			Wa2ImageAnimator animator2 = new(image);
 			// image.SetCurTexture(image.GetNextTexture());
 			image.SetNextTexture(null);
 			animator2.InitFade(time);
@@ -207,7 +218,7 @@ public partial class Wa2EngineMain : Node
 		Wa2Resource.LoadPak("char.pak");
 		Wa2Resource.LoadPak("VOICE.PAK");
 		Wa2Resource.LoadPak("SE.PAK");
-		VideoPlayer.Finished += OnVideoFinished;
+		// VideoPlayer.Finished += OnVideoFinished;
 		AdvMain.Init(this);
 		Chars = new Wa2Image[Wa2Def.CharPos.Length];
 		for (int i = 0; i < Wa2Def.CharPos.Length; i++)
@@ -227,52 +238,111 @@ public partial class Wa2EngineMain : Node
 	}
 	public void ClickAdv()
 	{
-		if (Skipping)
+		if (WaitTimer.IsActive() || TextTimer.IsActive())
 		{
+			if (!ClickedInWait)
+			{
+				ClickedInWait = true;
+			}
+			if (Skipping || ClickedInWait)
+			{
+				if (VideoPlayer.IsPlaying())
+				{
+					if (Skipping)
+					{
+						return;
+					}
+					VideoPlayer.Stream = null;
+					VideoPlayer.Hide();
+				}
+				AnimatorsFinish();
+				if (!WaitTimer.IsDone())
+				{
+					WaitTimer.Done();
+				}
+				if (!TextTimer.IsDone())
+				{
+					TextTimer.Done();
+					GD.Print("process", TextTimer.GetProgress());
+					AdvMain.Update(0);
+					GD.Print("TextTimer");
+				}
+				if (!AutoTimer.IsDone())
+				{
+					AutoTimer.Done();
+				}
+				ClickedInWait = false;
+			}
 			return;
 		}
-		if(SkipMode){
-			StopSkip();
-			return;
-		}
-		if (AdvMain.State == Wa2AdvMain.AdvState.SHOW_TEXT)
+		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && GameSav.SelectItems.Count == 0 && (WaitClick || Skipping))
 		{
-			AdvMain.Finish();
-			return;
+			if (AdvMain.Visible)
+			{
+				AnimatorsFinish();
+				Script.ParseCmd();
+				if (SkipMode && !LineHasRead)
+				{
+					StopSkip();
+				}
+			}else{
+				AdvMain.Show();
+			}
+
 		}
-		if (WaitTimer.IsActive())
-		{
-			return;
-		}
-		if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
-		{
-			WaitClick = false;
-			WaitTimer.Done();
-			// AdvMain.Clear();
-			Script.ParseCmd();
-			GD.Print("点击");
-		}
-		if (VideoPlayer.IsPlaying())
-		{
-			VideoPlayer.StreamPosition = VideoPlayer.GetStreamLength();
-		}
+		// if (Skipping)
+		// {
+		// 	return;
+		// }
+		// if (SkipMode)
+		// {
+		// 	StopSkip();
+		// 	return;
+		// }
+		// if (AdvMain.State == Wa2AdvMain.AdvState.SHOW_TEXT)
+		// {
+		// 	AdvMain.Finish();
+		// 	return;
+		// }
+		// if (WaitTimer.IsActive())
+		// {
+		// 	return;
+		// }
+		// if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
+		// {
+		// 	WaitClick = false;
+		// 	WaitTimer.Done();
+		// 	// AdvMain.Clear();
+		// 	Script.ParseCmd();
+		// 	GD.Print("点击");
+		// }
+		// if (VideoPlayer.IsPlaying())
+		// {
+		// 	VideoPlayer.StreamPosition = VideoPlayer.GetStreamLength();
+		// }
 
 	}
 	public void Reset()
 	{
-		Script.Wait = false;
-		WaitClick = false;
-		WaitTimer.Done();
+		// Script.Wait = false;
+		// WaitClick = false;
+		ClickedInWait = false;
+		WaitTimer.DeActive();
+		AutoTimer.DeActive();
+		TextTimer.DeActive();
 		AdvMain.Clear();
 		WaitSeFinish();
 		Skipping = false;
+		AutoMode=false;
+		SkipMode=false;
+		SoundMgr.StopAll();
 		// GameSav.Reset();
 	}
-	public void OnVideoFinished()
-	{
-		VideoPlayer.Stream = null;
-		VideoPlayer.Hide();
-	}
+	// public void OnVideoFinished()
+	// {
+	// 	VideoPlayer.Stream = null;
+	// 	VideoPlayer.Hide();
+	// }
 	public void StartScript(string name, uint pos = 0)
 	{
 		Reset();
@@ -283,16 +353,17 @@ public partial class Wa2EngineMain : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void InputKeyHandling()
 	{
-		if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain)
+		if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain && State != GameState.GAME)
 		{
 			StopSkip();
 			return;
 		}
 		// GD.Print("pressed:",AdvMain.IsPressed);
-		if(AdvMain.IsPressed){
-			AdvMain.PressedTime+=GetProcessDeltaTime();
+		if (IsPressed)
+		{
+			PressedTime += GetProcessDeltaTime();
 		}
-		if (Input.IsActionPressed("Skip") || AdvMain.PressedTime >= 0.5)
+		if (Input.IsActionPressed("Skip") || PressedTime >= 0.5)
 		{
 			Skipping = true;
 		}
@@ -310,18 +381,89 @@ public partial class Wa2EngineMain : Node
 		else if (State == GameState.GAME)
 		{
 			InputKeyHandling();
-			WaitTimer.Update((float)delta);
-			UpdateAnimators((float)delta);
-			AdvMain.Update();
-			SkipCheck();
-			if (!WaitTimer.IsActive() && !WaitClick && !WaitAnimator() && !VideoPlayer.IsPlaying())
+			UpdateFrame(delta);
+			// WaitTimer.Update((float)delta);
+			// UpdateAnimators((float)delta);
+			// AdvMain.Update();
+			// SkipCheck();
+			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !Skipping && GameSav.SelectItems.Count == 0 && !WaitClick)
 			{
-				// AdvMain.Clear();
-				WaitSeFinish();
-				Script.ParseCmd();
-				
+				GD.Print("flag");
+				bool flag = true;
+				for (int i = 0; i < Animators.Count; i++)
+				{
+					if (Animators[i].IsActive())
+					{
+						flag = false;
+					}
+				}
+				if (flag)
+				{
+					Script.ParseCmd();
+				}
 			}
 		}
+	}
+	public void AutoModeStart()
+	{
+		StopSkip();
+		if (SoundMgr.GetVoiceRemainingTime() > 0)
+		{
+			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime() + 2.0f);
+		}
+		else
+		{
+			AutoTimer.Start(1.0f);
+		}
+	}
+	public void UpdateFrame(double delta)
+	{
+		if (Skipping || SkipMode)
+		{
+			ClickAdv();
+		}
+		UpdateTimer(delta);
+		AdvMain.Update((float)delta);
+
+	}
+	public void UpdateTimer(double delta)
+	{
+		if (WaitTimer.IsActive())
+		{
+			if (!WaitTimer.IsDone())
+			{
+				WaitTimer.Update((float)delta);
+			}
+			if (WaitTimer.IsDone())
+			{
+				WaitTimer.DeActive();
+				Script.ParseCmd();
+			}
+		}
+		if (TextTimer.IsActive() && TextTimer.IsDone())
+		{
+			TextTimer.DeActive();
+			if (AutoMode)
+			{
+				AutoModeStart();
+			}
+		}
+		if (AutoTimer.IsActive() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.Visible)
+		{
+			if (!AutoTimer.IsDone() && AutoMode)
+			{
+				AutoTimer.Update((float)delta);
+			}
+			else
+			{
+				AutoTimer.DeActive();
+				if (AutoMode)
+				{
+					ClickAdv();
+				}
+			}
+		}
+		UpdateAnimators((float)delta);
 	}
 	public void WaitSeFinish()
 	{
@@ -336,20 +478,20 @@ public partial class Wa2EngineMain : Node
 			}
 		}
 	}
-	public void SkipCheck()
-	{
-		if (Skipping || SkipMode)
-		{
-			if (WaitTimer.IsActive())
-			{
-				WaitTimer.Done();
-			}
-			AdvMain.Finish();
-			AnimatorsFinish();
-			WaitSeFinish();
-			WaitClick = false;
-		}
-	}
+	// public void SkipCheck()
+	// {
+	// 	if (Skipping || SkipMode)
+	// 	{
+	// 		if (WaitTimer.IsActive())
+	// 		{
+	// 			WaitTimer.Done();
+	// 		}
+	// 		AdvMain.Finish();
+	// 		AnimatorsFinish();
+	// 		WaitSeFinish();
+	// 		WaitClick = false;
+	// 	}
+	// }
 	public void AnimatorsFinish()
 	{
 		for (int i = 0; i < Animators.Count; i++)
@@ -361,11 +503,15 @@ public partial class Wa2EngineMain : Node
 	}
 	public void UpdateAnimators(float delta)
 	{
+		// GD.Print( Animators.Count);
 		for (int i = 0; i < Animators.Count; i++)
 		{
 			Animators[i].Timer.Update(delta);
+			GD.Print(Animators[i].Timer.GetProgress());
 			if (Animators[i].IsActive())
 			{
+
+				// Animators[i].Timer.Update(delta);
 				Animators[i].Update();
 			}
 			else
@@ -422,9 +568,46 @@ public partial class Wa2EngineMain : Node
 			}
 		}
 	}
-	public void UpdateBg()
+	public override void _GuiInput(InputEvent @event)
 	{
+		switch (State)
+		{
+			case GameState.TITLE:
+				break;
+			case GameState.GAME:
+				if (@event is InputEventScreenTouch && @event.IsPressed())
+				{
+					IsPressed = true;
+				}
+				else
+				{
+					IsPressed = false;
+				}
+				if (!IsPressed)
+				{
+					PressedTime = 0.0;
+				}
+				if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
+				{
+					bool flag = true;
+					if (SkipMode)
+					{
+						StopSkip();
+						flag = false;
+					}
+					// if (_engine.AutoMode)
+					// {
+					// 	_engine.AutoMode = false;
+					// 	_engine.StopSkip();
+					// }
+					if (flag)
+					{
+						ClickAdv();
+					}
 
+				}
+				break;
+		}
 	}
 }
 

@@ -3,5 +3,5 @@ using System;
 
 public class Wa2Prefs
 {
-	public int TextSpeed=40;
+	public float TextSpeed=40;
 }

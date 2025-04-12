@@ -119,11 +119,12 @@ public partial class TitleMenu : Control
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	// public override void _Process(double delta)
+	// {
+	// }
 	public override void _GuiInput(InputEvent @event)
 	{
+		
 		if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
 		{
 			if (AnimationPlayer.CurrentAnimation != "close")
