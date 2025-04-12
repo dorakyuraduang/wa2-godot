@@ -723,7 +723,7 @@ public class Wa2Func
 	{
 		_engine.ShowSelectMessage();
 		_engine.SelectVar = args[0];
-		_engine.Script.Wait = true;
+		// _engine.Script.Wait = true;
 	}
 	public void S(List<Wa2Var> args)
 	{
