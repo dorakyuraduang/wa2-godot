@@ -28,7 +28,7 @@ public partial class Wa2EngineMain : Control
 
 	// public int[] GameFlags = new int[1024];
 	public List<string> Texts = new();
-	public List<BacklogEntry> Backlogs=new();
+	public List<BacklogEntry> Backlogs = new();
 	public bool SkipMode = false;
 	public int ReplayMode;
 	public bool AutoMode = false;
@@ -94,6 +94,9 @@ public partial class Wa2EngineMain : Control
 	}
 	public void ShowSelectMessage()
 	{
+		GD.Print("和纱本气度:", GameSav.GameFlags[5]);
+		GD.Print("和纱浮气度:", GameSav.GameFlags[6]);
+		GD.Print("雪菜好意度:", GameSav.GameFlags[7]);
 		AdvMain.SelectMessageContainer.Show();
 		for (int i = 0; i < 3; i++)
 		{
@@ -102,6 +105,15 @@ public partial class Wa2EngineMain : Control
 			{
 
 				btn.TextLabel.Text = GameSav.SelectItems[i].Text;
+				if (GameSav.SelectItems[i].V2 == 0)
+				{
+					btn.Active();
+				}
+				else
+				{
+
+					btn.DeActive();
+				}
 				// btn.TextLabel.Update();
 				btn.Show();
 			}
@@ -116,12 +128,21 @@ public partial class Wa2EngineMain : Control
 		List<int> posList = new();
 		foreach (CharItem value in GameSav.CharItems)
 		{
-			// GD.Print("id:", value.id, "pos:", value.pos);
 			Wa2Image image = Chars[value.pos];
-			Wa2ImageAnimator animator1 = new(image);
-			image.SetNextTexture(Wa2Resource.GetChrImage(value.id, value.no));
-			animator1.InitFade(time);
+			if (time > 0)
+			{
+				Wa2ImageAnimator animator1 = new(image);
+				image.SetNextTexture(Wa2Resource.GetChrImage(value.id, value.no));
+				animator1.InitFade(time);
+				
+			}
+			else
+			{
+				GD.Print("设置角色", value.id, value.no);
+				image.SetCurTexture(Wa2Resource.GetChrImage(value.id, value.no));
+			}
 			posList.Add(value.pos);
+
 		}
 		for (int i = 0; i < Chars.Length; i++)
 		{
@@ -130,34 +151,20 @@ public partial class Wa2EngineMain : Control
 				continue;
 			}
 			Wa2Image image = Chars[i];
-			Wa2ImageAnimator animator2 = new(image);
-			// image.SetCurTexture(image.GetNextTexture());
-			image.SetNextTexture(null);
-			animator2.InitFade(time);
+			if (time > 0)
+			{
+				Wa2ImageAnimator animator2 = new(image);
+				image.SetNextTexture(null);
+				animator2.InitFade(time);
+			}
+			else
+			{
+				image.SetCurTexture(null);
+				image.SetNextTexture(null);
+			}
+
 		}
 	}
-	// public void RemoveChar(int chr)
-	// {
-	// 	CharDic.Remove(chr);
-	// }
-	// public void AddChar(int id, int no, int pos, bool show = true)
-	// {
-	// 	foreach (int k in CharDic.Keys)
-	// 	{
-	// 		if (CharDic[k].pos == pos && CharDic[k].id != id)
-	// 		{
-	// 			CharDic.Remove(k);
-	// 		}
-	// 	}
-	// 	if (!CharDic.ContainsKey(id))
-	// 	{
-	// 		CharDic[id] = new Wa2Char();
-	// 	}
-	// 	CharDic[id].pos = pos;
-	// 	CharDic[id].id = id;
-	// 	CharDic[id].no = no;
-	// 	CharDic[id].show = show;
-	// }
 	public int ReadSysFlag(int idx)
 	{
 		SysSav.Seek((ulong)idx * 4);
@@ -286,7 +293,9 @@ public partial class Wa2EngineMain : Control
 				{
 					StopSkip();
 				}
-			}else{
+			}
+			else
+			{
 				AdvMain.Show();
 			}
 
@@ -335,8 +344,8 @@ public partial class Wa2EngineMain : Control
 		AdvMain.Clear();
 		WaitSeFinish();
 		Skipping = false;
-		AutoMode=false;
-		SkipMode=false;
+		AutoMode = false;
+		SkipMode = false;
 		SoundMgr.StopAll();
 		AdvMain.SelectMessageContainer.Hide();
 		// GameSav.Reset();

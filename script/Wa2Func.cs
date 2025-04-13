@@ -344,7 +344,7 @@ public class Wa2Func
 		animator3.InitFade(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
 		_engine.UpdateChar(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
 
-		GD.Print("更新背景和角色");
+		// GD.Print("更新背景和角色");
 
 	}
 	public void V(List<Wa2Var> args)

@@ -40,16 +40,44 @@ public class Wa2Var
 	}
 	public void Set(dynamic value)
 	{
-		if (value is int)
+		if (CmdType == CmdType.GLOBAL_VAR)
 		{
-			ValType = ValueType.INT;
-			IntValue = value;
+			if (IntValue == 6)
+			{
+				GD.Print("浮气度位置", Wa2EngineMain.Engine.GameSav.ScriptPos);
+			}
+			Wa2EngineMain.Engine.GameSav.GameFlags[IntValue] = value;
+
 		}
-		else if (value is float)
+		if (CmdType == CmdType.LOCAL_VAR)
 		{
-			ValType = ValueType.FLOAT;
-			FloatValue = value;
+			if (!(value is int))
+			{
+
+			}
+			if (IntValue >= 26)
+			{
+				Wa2EngineMain.Engine.GameSav.GloFloats[IntValue % 26] = value;
+			}
+			else
+			{
+				Wa2EngineMain.Engine.GameSav.GloInts[IntValue] = value;
+			}
 		}
+		if (CmdType == CmdType.VAR)
+		{
+			if (value is int)
+			{
+				ValType = ValueType.INT;
+				IntValue = value;
+			}
+			else if (value is float)
+			{
+				ValType = ValueType.FLOAT;
+				FloatValue = value;
+			}
+		}
+
 	}
 	public dynamic Get()
 	{
@@ -132,20 +160,20 @@ public class Wa2Script
 	}
 	public void LoadScript(string name, uint pos = 0)
 	{
-		
+
 		_points.Clear();
 		// _engine.GloFlags=new int[255];
 		// _engine.GameSav.Reset();
 		_engine.GameSav.JumpEntrys.Clear();
-		_engine.GameSav.GloFloats=new float[26];
-		_engine.GameSav.GloInts=new int[26];
+		_engine.GameSav.GloFloats = new float[26];
+		_engine.GameSav.GloInts = new int[26];
 		_engine.GameSav.ScriptName = name;
 		Wa2EngineMain.Engine.Texts.Clear();
 		_engine.GameSav.args.Clear();
 		_bnrbuffer = null;
 		LoadBnr(name);
 		_engine.GameSav.ScriptPos = _points[pos];
-		
+
 		// GD.Print(_engine.GameSav.ScriptPos);
 	}
 	public void LoadBnr(string name)
@@ -177,7 +205,7 @@ public class Wa2Script
 		uint flag = ReadU32();
 		GD.Print(_engine.GameSav.ScriptPos);
 		GD.Print(_engine.GameSav.ScriptName);
-		GD.Print("指令:",flag);
+		GD.Print("指令:", flag);
 		switch (flag)
 		{
 			case 0:
@@ -227,7 +255,7 @@ public class Wa2Script
 					_engine.GameSav.JumpEntrys.Add(new());
 				}
 				_engine.GameSav.JumpEntrys[^1].Type = 6;
-				_engine.GameSav.JumpEntrys[^1].Pos=ReadU32();
+				_engine.GameSav.JumpEntrys[^1].Pos = ReadU32();
 				break;
 			case 7:
 
@@ -248,14 +276,14 @@ public class Wa2Script
 			case 9:
 				break;
 			case 0xa:
-				// if (JumpPos < 0)
-				// {
-				// }
-				// else
-				// {
+			// if (JumpPos < 0)
+			// {
+			// }
+			// else
+			// {
 
-				// }
-				// break;
+			// }
+			// break;
 			case 11:
 				// if (JumpPos < 0)
 				// {
@@ -426,6 +454,8 @@ public class Wa2Script
 	// }
 	public void ParseCalc()
 	{
+		// GD.Print("脚本名", Wa2EngineMain.Engine.GameSav.ScriptName);
+		// GD.Print("位置", Wa2EngineMain.Engine.GameSav.ScriptPos);
 		uint v1 = ReadU32();
 		if (v1 > 0x1e)
 		{
@@ -445,32 +475,32 @@ public class Wa2Script
 				_engine.GameSav.args.RemoveAt(_engine.GameSav.args.Count - 1);
 			}
 		}
-		// if (v1 >= 0x17)
-		// {
-		// 	_engine.GameSav.args.Clear();
-		// }
 		;
+		if (v1 >= 8 && v1 <= 0x16 && _engine.GameSav.args.Count > 0)
+		{
+			_engine.GameSav.args.RemoveAt(_engine.GameSav.args.Count - 1);
+		}
 		switch (v1)
 		{
 
 			case 0:
-				if (b.CmdType == CmdType.GLOBAL_VAR)
-				{
-					GD.Print("全局变量,索引:", b.IntValue, "值:", a.Get());
-					_engine.GameSav.GameFlags[b.IntValue] = a.Get();
-				}
-				else if (b.CmdType == CmdType.LOCAL_VAR)
-				{
-					GD.Print("局部变量,索引:", b.IntValue, "值:", a.Get());
-					if (b.IntValue >= 26)
-					{
-						_engine.GameSav.GloFloats[b.IntValue % 26] = a.Get();
-					}
-					else
-					{
-						_engine.GameSav.GloInts[b.IntValue] = a.Get();
-					}
-				}
+				b.Set(a.Get());
+				// if (b.CmdType == CmdType.GLOBAL_VAR)
+				// {
+				// 	_engine.GameSav.GameFlags[b.IntValue] = a.Get();
+				// }
+				// else if (b.CmdType == CmdType.LOCAL_VAR)
+				// {
+				// 	GD.Print("局部变量,索引:", b.IntValue, "值:", a.Get());
+				// 	if (b.IntValue >= 26)
+				// 	{
+				// 		_engine.GameSav.GloFloats[b.IntValue % 26] = a.Get();
+				// 	}
+				// 	else
+				// 	{
+				// 		_engine.GameSav.GloInts[b.IntValue] = a.Get();
+				// 	}
+				// }
 				break;
 			case 1:
 				{
@@ -512,77 +542,101 @@ public class Wa2Script
 				}
 			case 8:
 				{
-					b.Set(a.Get() == b.Get() ? 1 : 0);
-					// GD.Print(a.Get());
-					// GD.Print(b.Get());
+					PushInt(5, 3, a.Get() == b.Get() ? 1 : 0);
 				}
 				break;
 			case 9:
 				{
-					b.Set(a.Get() < b.Get() ? 1 : 0);
+					PushInt(5, 3, b.Get() < a.Get() ? 1 : 0);
 				}
 				break;
 			case 0xa:
 				{
-					b.Set(b.Get() > a.Get() ? 1 : 0);
+					PushInt(5, 3, b.Get() > a.Get() ? 1 : 0);
 				}
 				break;
 			case 0xb:
 				{
-					b.Set(b.Get() <= a.Get() ? 1 : 0);
+					PushInt(5, 3, b.Get() <= a.Get() ? 1 : 0);
 				}
 				break;
 			case 0xc:
 				{
-					b.Set(b.Get() >= a.Get() ? 1 : 0);
+					PushInt(5, 3, b.Get() >= a.Get() ? 1 : 0);
 				}
 				break;
 			case 0xd:
 				{
-					b.Set((b.Get() == 0 || a.Get() == 0) ? 0 : 1);
+					PushInt(5, 3, (b.Get() == 0 || a.Get() == 0) ? 0 : 1);
 				}
 				break;
 			case 0xe:
 				{
-					b.Set(b.Get()!=0 || a.Get()!=0 ? 1 : 0);
+					PushInt(5, 3, b.Get() != 0 || a.Get() != 0 ? 1 : 0);
 				}
 				break;
 			case 0xf:
 				{
-					b.Set(b.Get() != a.Get() ? 1 : 0);
+					PushInt(5, 3, b.Get() != a.Get() ? 1 : 0);
 				}
 				break;
 			case 0x10:
 				{
-					b.Set(a.Get() + b.Get());
+					if (a.ValType != ValueType.FLOAT && b.ValType != ValueType.FLOAT)
+					{
+						PushInt(5, 3, a.Get() + b.Get());
+					}
+					else
+					{
+						PushFloat(5, 4, a.Get() + b.Get());
+					}
 					break;
 				}
 			case 0x11:
 				{
-
-					b.Set(b.Get() - a.Get());
+					if (a.ValType != ValueType.FLOAT && b.ValType != ValueType.FLOAT)
+					{
+						PushInt(5, 3, a.Get() - b.Get());
+					}
+					else
+					{
+						PushFloat(5, 4, a.Get() - b.Get());
+					}
 					break;
 				}
 			case 0x12:
 				{
-
-					b.Set(b.Get() * a.Get());
+					if (a.ValType != ValueType.FLOAT && b.ValType != ValueType.FLOAT)
+					{
+						PushInt(5, 3, b.Get() * a.Get());
+					}
+					else
+					{
+						PushFloat(5, 4, b.Get() * a.Get());
+					}
 					break;
 				}
 			case 0x13:
 				{
-					b.Set(b.Get() / a.Get());
+					if (a.ValType != ValueType.FLOAT && b.ValType != ValueType.FLOAT)
+					{
+						PushInt(5, 3, b.Get() / a.Get());
+					}
+					else
+					{
+						PushFloat(5, 4, b.Get() / a.Get());
+					}
 					break;
 				}
 			case 0x14:
 				{
 
-					b.Set(b.Get() % a.Get());
+					PushInt(5, 3, b.Get() % a.Get());
 					break;
 				}
 			case 0x15:
 				{
-					b.Set(b.Get() & a.Get());
+					PushInt(5, 3, b.Get() & a.Get());
 					if (_engine.GameSav.args.Count == 0)
 					{
 						GD.Print("错误位置");
@@ -591,7 +645,7 @@ public class Wa2Script
 				}
 			case 0x16:
 				{
-					b.Set(b.Get() | a.Get());
+					PushInt(5, 3, b.Get() | a.Get());
 					break;
 				}
 			case 0x17:

@@ -3,18 +3,38 @@ using System;
 
 public partial class SelectMessage : Wa2Button
 {
-	[Export]
-	public Wa2Label TextLabel;
+  [Export]
+  public Wa2Label TextLabel;
   public override void _Ready()
   {
     MouseEntered += OnMouseEntered;
-		MouseExited+=OnMouseExited;
+    MouseExited += OnMouseExited;
   }
-	public void OnMouseEntered(){
-		Modulate=new Color(2.0f,2.0f,2.0f,1.0f);
-	}
+  public void OnMouseEntered()
+  {
+    if (Disabled)
+    {
+      return;
+    }
+    Modulate = new Color(2.0f, 2.0f, 2.0f, 1.0f);
+  }
 
-	public void OnMouseExited(){
-		Modulate=new Color(1.0f,1.0f,1.0f,1.0f);
-	}
+  public void OnMouseExited()
+  {
+    if (Disabled)
+    {
+      return;
+    }
+    Modulate = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+  }
+  public void DeActive()
+  {
+    TextLabel.Color=new Color(0.5f,0.5f,0.5f,1.0f);
+    Disabled = true;
+  }
+  public void Active()
+  {
+    TextLabel.Color=new Color(1.0f,1.0f,1.0f,1.0f);
+    Disabled = false;
+  }
 }

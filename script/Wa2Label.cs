@@ -8,6 +8,7 @@ using System.Text.Unicode;
 [GlobalClass]
 public partial class Wa2Label : Node2D
 {
+	
 	[Export]
 	public Color Color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 	[Export]

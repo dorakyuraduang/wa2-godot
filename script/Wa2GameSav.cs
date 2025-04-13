@@ -349,9 +349,6 @@ public class Wa2GameSav
 		BgmInfo.Id = (int)file.Get32();
 		BgmInfo.Loop = (int)file.Get32();
 		BgmInfo.Volume = (int)file.Get32();
-		// _engine.AdvMain.TextLabel.Text = FirstSentence.Replace("\0", "");
-		// _engine.AdvMain.NameLabel.Text = CharName.Replace("\0", "");
-		_engine.UpdateChar(0f);
 		if (selectCount > 0)
 		{
 			_engine.ShowSelectMessage();
@@ -362,18 +359,12 @@ public class Wa2GameSav
 			_engine.WaitClick = true;
 
 		}
-		// _engine.AdvMain.Modulate = new Color(1, 1, 1, 1);
 		_engine.AdvMain.ShowText(FirstSentence, CharName, false);
-		// _engine.AdvMain.State = Wa2AdvMain.AdvState.WAIT_CLICK;
-		// _engine.AdvMain.TextLabel.VisibleRatio = 1;
-		// _engine.AdvMain.NameLabel.VisibleRatio = 1;
-		// _engine.AdvMain.UpdateText();
 		_engine.SoundMgr.PlayBgm(BgmInfo.Id, BgmInfo.Loop != 0, BgmInfo.Volume);
-		GD.Print(BgInfo.Path);
 		_engine.BgTexture.SetCurTexture(Wa2Resource.GetTgaImage(BgInfo.Path));
-
 		_engine.BgTexture.SetCurScale(BgInfo.Scale);
 		_engine.BgTexture.SetCurOffset(BgInfo.Offset);
+		_engine.UpdateChar(0f);
 		file.Close();
 	}
 }
