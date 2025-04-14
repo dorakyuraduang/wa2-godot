@@ -408,7 +408,7 @@ public partial class Wa2EngineMain : Control
 		{
 			State = GameState.OP;
 		}
-		if (GameState.OP == State)
+		else if (GameState.OP == State)
 		{
 			UiMgr.OpenTitleMenu();
 		}
@@ -417,6 +417,7 @@ public partial class Wa2EngineMain : Control
 	{
 		VideoPlayer.Stream = null;
 		VideoPlayer.Hide();
+		WaitTimer.DeActive();
 	}
 	public void StartScript(string name, uint pos = 0)
 	{
@@ -683,7 +684,7 @@ public partial class Wa2EngineMain : Control
 					if (VideoPlayer.IsPlaying())
 					{
 						HideVideo();
-						WaitTimer.DeActive();
+						// WaitTimer.DeActive();
 						if (GameState.LOGO == State)
 						{
 							State = GameState.OP;
