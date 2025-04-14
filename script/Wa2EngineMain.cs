@@ -246,6 +246,7 @@ public partial class Wa2EngineMain : Control
 		{
 			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.Write);
 			SysSav.StoreBuffer(new byte[0x26A000]);
+			SysSav.Close();
 		}
 		SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.ReadWrite);
 		// if (SysSav.GetLength() < 0x26A000)
