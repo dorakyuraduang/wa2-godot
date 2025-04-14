@@ -15,7 +15,7 @@ public partial class Wa2SoundMgr : Node
 		_bgmAudio.Stream = null;
 		for (int i = 0; i < MAX_SE_CHANNELS; i++)
 		{
-			_seAudios[i].Stream=null;
+			_seAudios[i].Stream = null;
 		}
 	}
 	public float GetVoiceRemainingTime()
@@ -41,6 +41,7 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void PlayBgm(int id, bool loopFlag = true, int volume = 255)
 	{
+		Wa2EngineMain.Engine.WirtSysFlag(100 + id, 1);
 		_bgmAudio.PlayStream(Wa2Resource.GetBgmStream(id, false), loopFlag, 0, volume / 255.0f);
 		_bgmAudio.SetLoopStream(Wa2Resource.GetBgmStream(id, true));
 	}
