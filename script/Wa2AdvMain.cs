@@ -4,6 +4,12 @@ using System;
 public partial class Wa2AdvMain : Control
 {
 	[Export]
+	public TextureRect IsReadTexture;
+		[Export]
+	public TextureRect AutoModeTexture;
+		[Export]
+	public TextureRect SkipModeTexture;
+	[Export]
 	public Wa2Button SaveButton;
 	[Export]
 	public Wa2Button LoadButton;
@@ -62,6 +68,8 @@ public partial class Wa2AdvMain : Control
 	public void OnSkipButtonDown()
 	{
 		_engine.SkipMode = !_engine.SkipMode;
+		_engine.StopAutoMode();
+		
 	}
 	public void OnSelectMessageButtonDown(int idx)
 	{
@@ -132,6 +140,9 @@ public partial class Wa2AdvMain : Control
 		{
 			WaitSprite.Hide();
 		}
+		AutoModeTexture.Visible=_engine.AutoMode;
+		SkipModeTexture.Visible=_engine.SkipMode;
+		IsReadTexture.Visible=_engine.HasReadMessage;
 		// if (_engine.WaitClick && !_engine.TextTimer.IsActive())
 		// {
 		// 	WaitSprite.Show();
@@ -213,7 +224,15 @@ public partial class Wa2AdvMain : Control
 			WaitSprite.Position = TextLabel.GetEndPosition();
 			WaitSprite.Show();
 		}
-
+		if (_engine.GetReadMessage(_engine.GameSav.CurMessageIdx))
+		{
+			_engine.HasReadMessage=true;
+		}
+		else
+		{
+			_engine.HasReadMessage=false;
+			_engine.SetReadMessage(_engine.GameSav.CurMessageIdx);
+		}
 		// _engine.Script.ParseCmd();
 		// GD.Print("AdvShowText");
 	}

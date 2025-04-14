@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Text;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 public class FileEntry
 {
 	public uint Crypted { get; set; }
@@ -180,183 +179,165 @@ public class Wa2Resource
 			}
 		}
 	}
-	public static byte[] LoadFileBuffer(string path)
-	{
-		path = path.ToLower();
-		FileEntry entry = FileDic.GetValueOrDefault(path);
-		if (entry == null)
-		{
-			return null;
-		}
-		FileAccess file = FileAccess.Open(ResPath + entry.PkgPath, FileAccess.ModeFlags.Read);
-		file.Seek((ulong)entry.Offset);
-		byte[] buffer;
-		if (entry.Crypted == 0)
-		{
-			buffer = file.GetBuffer((int)entry.Size);
-			file.Close();
-			return buffer;
-		}
-		else
-		{
-			byte flag, byte1 , byte2 ;
-			
-			byte[] arr = new byte[0x1000];
-			for (int i = 0; i < 0xfee; i++)
-			{
-				arr[i] = 0x20;
-			}
-			uint arr_r, arr_w = 0xfee;
-			uint counter;
-			uint insize = 0, outsize = 0;
-			uint inlim = file.Get32();
-			uint outlim = file.Get32();
-			byte[] readBuffer=file.GetBuffer(inlim);
-			file.Close();
-			buffer = new byte[outlim];
-			while (true )
-			{
-				if (insize>=inlim){
-					return buffer;
-				}
-				flag = readBuffer[insize++];
-				for (int j = 0; j < 8; j++)
-				{
-					if (insize >= inlim || outsize >= outlim)
-					{
-						return buffer;
-					}
-					byte1 = readBuffer[insize++];
-					if ((flag & 1)==0)
-					{
-						byte2 = readBuffer[insize++];
-						arr_r = (uint)(byte1 | (byte2 & 0xF0) << 4);
-						counter = (uint)(byte2 & 0xF) + 3;
-						while (counter > 0)
-						{
-							byte1 = arr[arr_r++ & 0xfff];
-							arr[arr_w++ & 0xfff] = byte1;
-							buffer[outsize++] = byte1;
-							counter--;
-						}
-					}
-					else
-					{
-						arr[arr_w++ & 0xfff] = byte1;
-						buffer[outsize++] = byte1;
-					}
-					flag >>= 1;
-				}
-			}
-			// byte[] arr = new byte[0x1000];
+public static byte[] LoadFileBuffer(string path)
+{
+    path = path.ToLower();
+    FileEntry entry = FileDic.GetValueOrDefault(path);
+    if (entry == null)
+    {
+        return null;
+    }
 
-			// uint insize = 0;
-			// uint outsize = 0;
-			// uint arrw = 0xfee;
-			// buffer = new byte[outceil];
-			// while (insize < inceil && outsize < outceil)
-			// {
-			// 	byte flag = file.Get8();
-			// 	insize++;
-			// 	for (int j = 0; j < 8; j++)
-			// 	{
-			// 		if (insize >= inceil || outsize >= outceil)
-			// 		{
-			// 			break;
-			// 		}
-			// 		byte b1 = file.Get8();
-			// 		insize++;
-			// 		if ((flag & 1) == 0)
-			// 		{
-			// 			byte b2 = file.Get8();
-			// 			insize++;
-			// 			uint arrr = b1 | (uint)(b2 & 0xf0) << 4;
-			// 			uint counter = (uint)(b2 & 0xf) + 3;
-			// 			while (counter > 0)
-			// 			{
-			// 				b1 = arr[arrr & 0xfff];
-			// 				arr[arrw & 0xFFF] = b1;
-			// 				buffer[outsize] = b1;
-			// 				arrr++;
-			// 				arrw++;
-			// 				outsize++;
-			// 				counter--;
-			// 			}
-			// 		}
-			// 		else
-			// 		{
-			// 			arr[arrw & 0xfff] = b1;
-			// 			buffer[outsize] = b1;
-			// 			arrw++;
-			// 			outsize++;
-			// 		}
-			// 		flag >>= 1;
-			// 	}
-			// }
-			// return buffer;
-		}
-	}
+    string fullPath = System.IO.Path.Combine(ProjectSettings.GlobalizePath(ResPath), entry.PkgPath);
+
+    using (System.IO.FileStream fs = new System.IO.FileStream(fullPath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+    using (System.IO.BinaryReader reader = new System.IO.BinaryReader(fs))
+    {
+        fs.Seek(entry.Offset, System.IO.SeekOrigin.Begin);
+
+        if (entry.Crypted == 0)
+        {
+            return reader.ReadBytes((int)entry.Size);
+        }
+        else
+        {
+            // 解压缩流程
+            byte[] arr = new byte[0x1000];
+            for (int i = 0; i < 0xFEE; i++)
+            {
+                arr[i] = 0x20;
+            }
+
+            uint arr_w = 0xFEE;
+            uint insize = 0, outsize = 0;
+
+            uint inlim = reader.ReadUInt32();
+            uint outlim = reader.ReadUInt32();
+
+            byte[] readBuffer = reader.ReadBytes((int)inlim);
+            byte[] buffer = new byte[outlim];
+
+            while (true)
+            {
+                if (insize >= inlim)
+                {
+                    return buffer;
+                }
+
+                byte flag = readBuffer[insize++];
+
+                for (int j = 0; j < 8; j++)
+                {
+                    if (insize >= inlim || outsize >= outlim)
+                    {
+                        return buffer;
+                    }
+
+                    byte byte1 = readBuffer[insize++];
+
+                    if ((flag & 1) == 0)
+                    {
+                        byte byte2 = readBuffer[insize++];
+                        uint arr_r = (uint)(byte1 | (byte2 & 0xF0) << 4);
+                        uint counter = (uint)(byte2 & 0xF) + 3;
+
+                        while (counter-- > 0)
+                        {
+                            byte b = arr[arr_r++ & 0xFFF];
+                            arr[arr_w++ & 0xFFF] = b;
+                            buffer[outsize++] = b;
+                        }
+                    }
+                    else
+                    {
+                        arr[arr_w++ & 0xFFF] = byte1;
+                        buffer[outsize++] = byte1;
+                    }
+
+                    flag >>= 1;
+                }
+            }
+        }
+    }
+}
 	public static void LoadPak(string path)
 	{
-		FileAccess file = FileAccess.Open(ResPath + path, FileAccess.ModeFlags.Read);
+    string fullPath = System.IO.Path.Combine(ProjectSettings.GlobalizePath(ResPath), path);
+		GD.Print(ProjectSettings.GlobalizePath(ResPath));
+		GD.Print(path);
+    using (System.IO.FileStream fs = new System.IO.FileStream(fullPath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+    using (System.IO.BinaryReader reader = new System.IO.BinaryReader(fs))
+    {
+        uint magic = reader.ReadUInt32();
 
-		uint magic = file.Get32();
-		if (magic == 0x5041434B)
-		{
-			file.Get64();
-			uint nentry = file.Get32();
+        if (magic == 0x5041434B) // 'PACK'
+        {
+            reader.ReadUInt64(); // skip 8 bytes
+            uint nentry = reader.ReadUInt32();
 
-			for (int i = 0; i < nentry; i++)
-			{
-				file.Seek((ulong)(16 + i * 44));
-				uint crypted = file.Get32();
-				string fileName = Encoding.GetEncoding("shift_jis").GetString(file.GetBuffer(24)).ToLower().Replace("\0", "");
-				file.Get64();
-				uint offset = file.Get32();
-				uint size = file.Get32();
-				FileEntry entry = new()
-				{
-					PkgPath = path,
-					Offset = offset,
-					Size = size,
-					Crypted = crypted,
-					FileName = fileName
-				};
-				FileDic[fileName] = entry;
-			}
-		}
-		else if (magic == 0x0043414c)
-		{
-			uint nentry = file.Get32();
+            for (int i = 0; i < nentry; i++)
+            {
+                fs.Seek(16 + i * 44, System.IO.SeekOrigin.Begin);
 
-			for (int i = 0; i < nentry; i++)
-			{
-				file.Seek((ulong)(8 + i * 40));
-				byte[] tempBuffer = file.GetBuffer(32);
-				for (int j = 0; j < tempBuffer.Length; j++)
-				{
-					if (tempBuffer[j] != 0)
-					{
-						tempBuffer[j] = (byte)(~tempBuffer[j] & 0xff);
-					}
-				}
-				string fileName = Encoding.GetEncoding("shift_jis").GetString(tempBuffer).ToLower().Replace("\0", "");
-				uint size = file.Get32();
-				uint offset = file.Get32();
-				FileEntry entry = new()
-				{
-					PkgPath = path,
-					Offset = offset,
-					Size = size,
-					Crypted = 0,
-					FileName = fileName
-				};
+                uint crypted = reader.ReadUInt32();
 
-				FileDic[fileName] = entry;
-				// GD.Print(fileName);
-			}
-		}
-		// PakDir[path] = file;
+                byte[] nameBuffer = reader.ReadBytes(24);
+                string fileName = Encoding.GetEncoding("shift_jis")
+                    .GetString(nameBuffer).ToLower().Replace("\0", "");
+
+                reader.ReadUInt64(); // skip 8 bytes
+
+                uint offset = reader.ReadUInt32();
+                uint size = reader.ReadUInt32();
+
+                FileEntry entry = new()
+                {
+                    PkgPath = path,
+                    Offset = offset,
+                    Size = size,
+                    Crypted = crypted,
+                    FileName = fileName
+                };
+
+                FileDic[fileName] = entry;
+            }
+        }
+        else if (magic == 0x0043414C) // 'LAC\x00'
+        {
+            uint nentry = reader.ReadUInt32();
+
+            for (int i = 0; i < nentry; i++)
+            {
+                fs.Seek(8 + i * 40, System.IO.SeekOrigin.Begin);
+
+                byte[] nameBuffer = reader.ReadBytes(32);
+                for (int j = 0; j < nameBuffer.Length; j++)
+                {
+                    if (nameBuffer[j] != 0)
+                    {
+                        nameBuffer[j] = (byte)(~nameBuffer[j] & 0xFF);
+                    }
+                }
+
+                string fileName = Encoding.GetEncoding("shift_jis")
+                    .GetString(nameBuffer).ToLower().Replace("\0", "");
+
+                uint size = reader.ReadUInt32();
+                uint offset = reader.ReadUInt32();
+
+                FileEntry entry = new()
+                {
+                    PkgPath = path,
+                    Offset = offset,
+                    Size = size,
+                    Crypted = 0,
+                    FileName = fileName
+                };
+
+                FileDic[fileName] = entry;
+            }
+        }
+    }
 	}
 
 	// 	var nentry=file.get_32()

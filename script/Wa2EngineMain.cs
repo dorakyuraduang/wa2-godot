@@ -34,10 +34,12 @@ public partial class Wa2EngineMain : Control
 	public bool AutoMode = false;
 	public int WaitSeChannel;
 	public bool ClickedInWait;
+	public int CurMessageIdx;
 	public static Wa2EngineMain Engine;
 	public Wa2Var SelectVar;
 	public double PressedTime = 0.0f;
 	public bool IsPressed = false;
+	public int ScriptIdx;
 	public int Year;
 	public int Month;
 	public int Day;
@@ -72,7 +74,8 @@ public partial class Wa2EngineMain : Control
 	public Wa2Timer WaitTimer = new();
 	public Wa2Timer TextTimer = new();
 	public Wa2Timer AutoTimer = new();
-	public bool LineHasRead = true;
+	public bool HasReadMessage=false;
+	// public bool MessageHasRead = true;
 	// public Wa2Timer SeWaitTimer = new();
 	public float FrameTime { private set; get; } = 1.0f / 60;
 	public Wa2Script Script;
@@ -134,7 +137,7 @@ public partial class Wa2EngineMain : Control
 				Wa2ImageAnimator animator1 = new(image);
 				image.SetNextTexture(Wa2Resource.GetChrImage(value.id, value.no));
 				animator1.InitFade(time);
-				
+
 			}
 			else
 			{
@@ -167,13 +170,51 @@ public partial class Wa2EngineMain : Control
 	}
 	public int ReadSysFlag(int idx)
 	{
-		SysSav.Seek((ulong)idx * 4);
+
+		SysSav.Seek((ulong)idx * 4 + 0x268480);
 		return (int)SysSav.Get32();
 	}
 	public void WirtSysFlag(int idx, int value)
 	{
-		SysSav.Seek((ulong)idx * 4);
+		SysSav.Seek((ulong)idx * 4 + 0x268480);
 		SysSav.Store32((uint)value);
+	}
+	public void SetReadMessage(int idx)
+	{
+		if (idx >= 4096)
+		{
+			return;
+		}
+		int byteIndex = idx / 8;
+		if (byteIndex > 512)
+		{
+			return;
+		}
+		SysSav.Seek((ulong)(ScriptIdx * 512 + byteIndex));
+		byte r = SysSav.Get8();
+		int bitOffset = idx % 8;
+		byte mask = (byte)(0xFF >> (7));
+		r &= (byte)~(mask << (8 - bitOffset - 1));
+		r |= (byte)((1 & mask) << (8 - bitOffset - 1));
+		SysSav.Seek((ulong)(ScriptIdx * 512 + byteIndex));
+		SysSav.Store8(r);
+	}
+	public bool GetReadMessage(int idx)
+	{
+		if (idx >= 4096)
+		{
+			return false;
+		}
+		int byteIndex = idx / 8;
+		if (byteIndex > 512)
+		{
+			return false;
+		}
+		int bitOffset = idx % 8;
+		byte mask = (byte)(0xFF >> 7);
+		SysSav.Seek((ulong)(ScriptIdx * 512 + byteIndex));
+		byte value = (byte)((SysSav.Get8() >> (8 - bitOffset - 1)) & mask);
+		return value == 1;
 	}
 	public override void _ExitTree()
 	{
@@ -200,12 +241,18 @@ public partial class Wa2EngineMain : Control
 		}
 		if (!FileAccess.FileExists("user://sys.sav"))
 		{
-			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.WriteRead);
-			SysSav.StoreBuffer(new byte[0x4000]);
+			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.ReadWrite);
+			SysSav.StoreBuffer(new byte[0x26A000]);
 		}
 		else
 		{
-			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.WriteRead);
+			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.ReadWrite);
+			// if (SysSav.GetLength() < 0x26A000)
+			// {
+			// 	SysSav.Seek(SysSav.GetLength() - 1);
+			// 	SysSav.StoreBuffer(new byte[0x26A000 - SysSav.GetLength()]);
+			// }
+
 		}
 		Prefs = new Wa2Prefs();
 		Func = new Wa2Func(this);
@@ -214,12 +261,12 @@ public partial class Wa2EngineMain : Control
 		Wa2Encoding = new();
 		Wa2Def.LoadFontMap();
 		Wa2Resource.LoadPak("BGM.PAK");
-		Wa2Resource.LoadPak("/IC/BGM.PAK");
-		Wa2Resource.LoadPak("/IC/bak.pak");
-		Wa2Resource.LoadPak("/IC/grp.pak");
-		Wa2Resource.LoadPak("/IC/char.pak");
-		Wa2Resource.LoadPak("/IC/VOICE.PAK");
-		Wa2Resource.LoadPak("/IC/SE.PAK");
+		Wa2Resource.LoadPak("IC/BGM.PAK");
+		Wa2Resource.LoadPak("IC/bak.pak");
+		Wa2Resource.LoadPak("IC/grp.pak");
+		Wa2Resource.LoadPak("IC/char.pak");
+		Wa2Resource.LoadPak("IC/VOICE.PAK");
+		Wa2Resource.LoadPak("IC/SE.PAK");
 		Wa2Resource.LoadPak("bak.pak");
 		Wa2Resource.LoadPak("ck-gal.pak");
 		Wa2Resource.LoadPak("grp.pak");
@@ -289,7 +336,7 @@ public partial class Wa2EngineMain : Control
 			{
 				AnimatorsFinish();
 				Script.ParseCmd();
-				if (SkipMode && !LineHasRead)
+				if (SkipMode && !HasReadMessage)
 				{
 					StopSkip();
 				}
@@ -336,6 +383,7 @@ public partial class Wa2EngineMain : Control
 	{
 		// Script.Wait = false;
 		// WaitClick = false;
+		HasReadMessage=false;
 		Backlogs.Clear();
 		ClickedInWait = false;
 		WaitTimer.DeActive();
@@ -344,8 +392,8 @@ public partial class Wa2EngineMain : Control
 		AdvMain.Clear();
 		WaitSeFinish();
 		Skipping = false;
-		AutoMode = false;
-		SkipMode = false;
+		// AutoMode = false;
+		// SkipMode = false;
 		SoundMgr.StopAll();
 		AdvMain.SelectMessageContainer.Hide();
 		// GameSav.Reset();
@@ -422,7 +470,7 @@ public partial class Wa2EngineMain : Control
 		StopSkip();
 		if (SoundMgr.GetVoiceRemainingTime() > 0)
 		{
-			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime() + 2.0f);
+			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime() + 1.0f);
 		}
 		else
 		{
@@ -621,6 +669,13 @@ public partial class Wa2EngineMain : Control
 				}
 				break;
 		}
+	}
+	public void StopAutoMode()
+	{
+
+		AutoMode = false;
+		AutoTimer.DeActive();
+
 	}
 }
 

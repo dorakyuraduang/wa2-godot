@@ -160,7 +160,7 @@ public class Wa2Script
 	}
 	public void LoadScript(string name, uint pos = 0)
 	{
-
+		 _engine.ScriptIdx=Array.IndexOf(Wa2Def.ScriptList,name);
 		_points.Clear();
 		// _engine.GloFlags=new int[255];
 		// _engine.GameSav.Reset();
@@ -400,6 +400,7 @@ public class Wa2Script
 					break;
 			}
 		}
+		// _engine.SysSav.ScriptReadPos[_engine.GameSav.ScriptName] = _engine.GameSav.ScriptPos;
 	}
 	public void PushInt(int type1, int type2, int v)
 	{
@@ -582,7 +583,7 @@ public class Wa2Script
 				break;
 			case 0x10:
 				{
-					if (a.ValType != ValueType.FLOAT && b.ValType != ValueType.FLOAT)
+					if (a.Get() is int  && b.Get() is int)
 					{
 						PushInt(5, 3, a.Get() + b.Get());
 					}
@@ -594,7 +595,7 @@ public class Wa2Script
 				}
 			case 0x11:
 				{
-					if (a.ValType != ValueType.FLOAT && b.ValType != ValueType.FLOAT)
+					if (a.Get() is int  && b.Get() is int)
 					{
 						PushInt(5, 3, a.Get() - b.Get());
 					}
@@ -606,7 +607,7 @@ public class Wa2Script
 				}
 			case 0x12:
 				{
-					if (a.ValType != ValueType.FLOAT && b.ValType != ValueType.FLOAT)
+					if (a.Get() is int  && b.Get() is int)
 					{
 						PushInt(5, 3, b.Get() * a.Get());
 					}
@@ -618,7 +619,7 @@ public class Wa2Script
 				}
 			case 0x13:
 				{
-					if (a.ValType != ValueType.FLOAT && b.ValType != ValueType.FLOAT)
+					if (a.Get() is int  && b.Get() is int)
 					{
 						PushInt(5, 3, b.Get() / a.Get());
 					}

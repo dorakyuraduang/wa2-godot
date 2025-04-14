@@ -21,6 +21,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c887e"]
 resource_local_to_scene = true
@@ -32,6 +33,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lekix"]
 resource_local_to_scene = true
@@ -43,6 +45,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rx1yr"]
 resource_local_to_scene = true
@@ -54,6 +57,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m30m8"]
 resource_local_to_scene = true
@@ -65,6 +69,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xteud"]
 resource_local_to_scene = true
@@ -76,6 +81,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0t8w5"]
 resource_local_to_scene = true
@@ -87,6 +93,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0havl"]
 resource_local_to_scene = true
@@ -98,6 +105,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8cquq"]
 resource_local_to_scene = true
@@ -109,6 +117,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hdu5d"]
 resource_local_to_scene = true
@@ -120,6 +129,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8skep"]
 resource_local_to_scene = true
@@ -131,6 +141,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ogly6"]
 resource_local_to_scene = true
@@ -142,6 +153,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_536a2"]
 resource_local_to_scene = true
@@ -153,6 +165,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/top = true
 
 [node name="EngineMain" type="Control" node_paths=PackedStringArray("VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
 layout_mode = 3

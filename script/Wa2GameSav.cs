@@ -83,6 +83,7 @@ public class Wa2GameSav
 	public string FirstSentence;
 	public string CharName;
 	private Wa2EngineMain _engine;
+	public int CurMessageIdx;
 	public List<CharItem> CharItems = new();
 	public void Reset()
 	{
@@ -235,6 +236,7 @@ public class Wa2GameSav
 		file.Store32((uint)BgmInfo.Id);
 		file.Store32((uint)BgmInfo.Loop);
 		file.Store32((uint)BgmInfo.Volume);
+		file.Store32((uint)CurMessageIdx);
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -349,6 +351,7 @@ public class Wa2GameSav
 		BgmInfo.Id = (int)file.Get32();
 		BgmInfo.Loop = (int)file.Get32();
 		BgmInfo.Volume = (int)file.Get32();
+		CurMessageIdx= (int)file.Get32();
 		if (selectCount > 0)
 		{
 			_engine.ShowSelectMessage();

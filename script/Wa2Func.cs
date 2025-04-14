@@ -171,16 +171,19 @@ public class Wa2Func
 	{
 		_engine.GameSav.FirstSentence = args[0].Get();
 
-		_engine.AdvMain.ShowText(_engine.GameSav.FirstSentence,_engine.GameSav.CharName);
-		_engine.WaitClick=true;
-		
+		_engine.AdvMain.ShowText(_engine.GameSav.FirstSentence, _engine.GameSav.CharName);
+		_engine.WaitClick = true;
+		_engine.GameSav.CurMessageIdx = args[1].Get();
+
+
+
 		// _engine.WaitClick=true;
 
 
 	}
 	public void EndMessage(List<Wa2Var> args)
 	{
-		_engine.WaitClick=false;
+		_engine.WaitClick = false;
 		_engine.AdvMain.WaitSprite.Hide();
 		// _engine.AdvMain.Clear();
 	}
@@ -255,11 +258,11 @@ public class Wa2Func
 		}
 		_engine.AnimatorsFinish();
 		Texture2D NextTexture;
-		Texture2D CeacheTexture =ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
+		Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
 
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(),  args[2].Get(),_engine.GameSav.TimeMode);
+			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.GameSav.TimeMode);
 			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else
@@ -330,7 +333,7 @@ public class Wa2Func
 		Texture2D CeacheTexture = _engine.BgTexture.GetCurTexture();
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(),  args[2].Get(),_engine.GameSav.TimeMode);
+			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.GameSav.TimeMode);
 			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else
@@ -639,7 +642,7 @@ public class Wa2Func
 	public void SetMovie(List<Wa2Var> args)
 	{
 		_engine.WirtSysFlag(args[0].IntValue, 1);
-		GD.Print("视频",Wa2Resource.ResPath + "movie/" + args[0].Get() + "0.mp4");
+		GD.Print("视频", Wa2Resource.ResPath + "movie/" + args[0].Get() + "0.mp4");
 		_engine.VideoPlayer.Call("set_movie", Wa2Resource.ResPath + "movie/" + args[0].Get() + "0.mp4");
 		_engine.WaitTimer.Start((float)_engine.VideoPlayer.GetStreamLength());
 		_engine.VideoPlayer.Play();
@@ -689,7 +692,15 @@ public class Wa2Func
 		_engine.GameSav.Calender.Year = args[0].Get();
 		_engine.GameSav.Calender.Month = args[1].Get();
 		_engine.GameSav.Calender.Day = args[2].Get();
-		_engine.GameSav.Calender.DayOfWeek = (int)new DateTime(args[0].Get(), args[1].Get(), args[2].Get()).DayOfWeek;
+		if (_engine.GameSav.Calender.Year == 2013 && _engine.GameSav.Calender.Month == 2 && _engine.GameSav.Calender.Day == 29)
+		{
+			_engine.GameSav.Calender.DayOfWeek = 5;
+		}
+		else
+		{
+			_engine.GameSav.Calender.DayOfWeek = (int)new DateTime(args[0].Get(), args[1].Get(), args[2].Get()).DayOfWeek;
+		}
+
 		// uint hour=args[3];
 		// GD.Print("设置日期" + year + "年" + month + "月" + day + "日");
 	}
@@ -742,7 +753,7 @@ public class Wa2Func
 	}
 	public void WSZ(List<Wa2Var> args)
 	{
-
+		GD.Print("等待移动结束");
 	}
 	public void StopSZR(List<Wa2Var> args)
 	{
@@ -792,14 +803,14 @@ public class Wa2Func
 	{
 		_engine.AnimatorsFinish();
 		Texture2D NextTexture;
-		Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());;
+		Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()); ;
 		if (args[3].Get() > 0)
 		{
 			_engine.GameSav.BgInfo.Frame = args[3].Get();
 		}
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(),  args[2].Get(),_engine.GameSav.TimeMode);
+			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.GameSav.TimeMode);
 			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else
@@ -834,7 +845,32 @@ public class Wa2Func
 	}
 	public void V2(List<Wa2Var> args)
 	{
+		Texture2D NextTexture;
 
+		if (args[1].Get() >= 0)
+		{
+			_engine.GameSav.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
+			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
+		}
+		else
+		{
+			NextTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
+		}
+		_engine.GameSav.BgInfo.Offset = new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
+		_engine.GameSav.BgInfo.Scale = new Vector2(args[7].Get(), args[8].Get());
+		_engine.MaskTexture.SetNextOffset(_engine.GameSav.BgInfo.Offset);
+		_engine.MaskTexture.SetNextScale(_engine.GameSav.BgInfo.Scale);
+		_engine.BgTexture.SetCurOffset(_engine.GameSav.BgInfo.Offset);
+		_engine.BgTexture.SetCurScale(_engine.GameSav.BgInfo.Scale);
+		_engine.MaskTexture.SetCurTexture(ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()));
+		_engine.MaskTexture.SetNextTexture(NextTexture);
+		_engine.MaskTexture.SetMaskTexture(null);
+		Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
+		Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
+		animator1.InitFade(args[3].Get() * _engine.FrameTime);
+		animator2.InitHide(args[3].Get() * _engine.FrameTime);
+		ClearChar(args[3].Get() * _engine.FrameTime);
+		_engine.BgTexture.SetCurTexture(NextTexture);
 	}
 	public void H2(List<Wa2Var> args)
 	{
