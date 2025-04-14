@@ -111,8 +111,8 @@ public partial class TitleMenu : Control
 		Show();
 		AnimationPlayer.Play("RESET");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		AnimationPlayer.Play("logo");
-		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+		// AnimationPlayer.Play("logo");
+		// await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
 		AnimationPlayer.Play("open");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
 		_engine.SoundMgr.PlayBgm(31);

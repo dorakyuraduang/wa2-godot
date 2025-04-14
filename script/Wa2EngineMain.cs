@@ -14,9 +14,11 @@ public partial class Wa2EngineMain : Control
 {
 	public enum GameState
 	{
-		NONE,
+		LOGO,
+		OP,
+		TITLE,
 		GAME,
-		TITLE
+
 	}
 	// [Export]
 	// public int Mode;
@@ -70,11 +72,12 @@ public partial class Wa2EngineMain : Control
 	public Wa2Image BgTexture;
 	[Export]
 	public Wa2Image MaskTexture;
-	public GameState State = GameState.NONE;
+	public bool HasPlayMovie = false;
+	public GameState State = GameState.LOGO;
 	public Wa2Timer WaitTimer = new();
 	public Wa2Timer TextTimer = new();
 	public Wa2Timer AutoTimer = new();
-	public bool HasReadMessage=false;
+	public bool HasReadMessage = false;
 	// public bool MessageHasRead = true;
 	// public Wa2Timer SeWaitTimer = new();
 	public float FrameTime { private set; get; } = 1.0f / 60;
@@ -287,6 +290,7 @@ public partial class Wa2EngineMain : Control
 			// GD.Print(Chars[i].GetNextOffset());
 			// CharGroup.AddChild(Chars[i]);
 		}
+		VideoPlayer.Finished += OnVideoFinished;
 
 		// GD.Print(Time.GetTicksMsec());
 		// GetTree().ChangeSceneToFile("res://scene/as/title_menu.tscn");
@@ -303,12 +307,11 @@ public partial class Wa2EngineMain : Control
 			{
 				if (VideoPlayer.IsPlaying())
 				{
-					if (Skipping)
+					if (Skipping || !HasPlayMovie)
 					{
 						return;
 					}
-					VideoPlayer.Stream = null;
-					VideoPlayer.Hide();
+					HideVideo();
 				}
 				AnimatorsFinish();
 				if (!WaitTimer.IsDone())
@@ -383,7 +386,7 @@ public partial class Wa2EngineMain : Control
 	{
 		// Script.Wait = false;
 		// WaitClick = false;
-		HasReadMessage=false;
+		HasReadMessage = false;
 		Backlogs.Clear();
 		ClickedInWait = false;
 		WaitTimer.DeActive();
@@ -398,11 +401,23 @@ public partial class Wa2EngineMain : Control
 		AdvMain.SelectMessageContainer.Hide();
 		// GameSav.Reset();
 	}
-	// public void OnVideoFinished()
-	// {
-	// 	VideoPlayer.Stream = null;
-	// 	VideoPlayer.Hide();
-	// }
+	public void OnVideoFinished()
+	{
+		HideVideo();
+		if (GameState.LOGO == State)
+		{
+			State = GameState.OP;
+		}
+		if (GameState.OP == State)
+		{
+			UiMgr.OpenTitleMenu();
+		}
+	}
+	public void HideVideo()
+	{
+		VideoPlayer.Stream = null;
+		VideoPlayer.Hide();
+	}
 	public void StartScript(string name, uint pos = 0)
 	{
 		SoundMgr.StopBgm();
@@ -435,9 +450,35 @@ public partial class Wa2EngineMain : Control
 	}
 	public override void _Process(double delta)
 	{
-		if (State == GameState.NONE)
+		if (State == GameState.LOGO)
 		{
-			UiMgr.OpenTitleMenu();
+			if (!WaitTimer.IsActive())
+			{
+				PlayMovie("mv00");
+			}
+		}
+		else if (State == GameState.OP)
+		{
+			if (!WaitTimer.IsActive())
+			{
+				if (ReadSysFlag(210) == 1)
+				{
+					PlayMovie("mv10");
+				}
+				else if (ReadSysFlag(220) == 1)
+				{
+					PlayMovie("mv10");
+				}
+				else if (ReadSysFlag(202) == 1)
+				{
+					PlayMovie("mv02");
+				}
+				else
+				{
+					UiMgr.OpenTitleMenu();
+				}
+
+			}
 		}
 		else if (State == GameState.GAME)
 		{
@@ -635,6 +676,25 @@ public partial class Wa2EngineMain : Control
 		{
 			case GameState.TITLE:
 				break;
+			case GameState.LOGO:
+			case GameState.OP:
+				if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
+				{
+					if (VideoPlayer.IsPlaying())
+					{
+						HideVideo();
+						WaitTimer.DeActive();
+						if (GameState.LOGO == State)
+						{
+							State = GameState.OP;
+						}
+						else if (GameState.OP == State)
+						{
+							UiMgr.OpenTitleMenu();
+						}
+					}
+				}
+				break;
 			case GameState.GAME:
 				if (@event is InputEventScreenTouch && @event.IsPressed())
 				{
@@ -676,6 +736,13 @@ public partial class Wa2EngineMain : Control
 		AutoMode = false;
 		AutoTimer.DeActive();
 
+	}
+	public void PlayMovie(string name)
+	{
+		VideoPlayer.Call("set_movie", Wa2Resource.ResPath + "movie/" + name + "0.mp4");
+		WaitTimer.Start((float)VideoPlayer.GetStreamLength());
+		VideoPlayer.Play();
+		VideoPlayer.Show();
 	}
 }
 

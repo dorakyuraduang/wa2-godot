@@ -641,12 +641,20 @@ public class Wa2Func
 	}
 	public void SetMovie(List<Wa2Var> args)
 	{
-		_engine.WirtSysFlag(args[0].IntValue, 1);
+		GD.Print("视频编号:", args[1].Get());
+		if (_engine.ReadSysFlag(args[1].Get())==1)
+		{
+			_engine.HasPlayMovie=true;
+		}
+		else
+		{
+			_engine.HasPlayMovie=false;
+			_engine.WirtSysFlag(args[1].Get(), 1);
+		}
+
 		GD.Print("视频", Wa2Resource.ResPath + "movie/" + args[0].Get() + "0.mp4");
-		_engine.VideoPlayer.Call("set_movie", Wa2Resource.ResPath + "movie/" + args[0].Get() + "0.mp4");
-		_engine.WaitTimer.Start((float)_engine.VideoPlayer.GetStreamLength());
-		_engine.VideoPlayer.Play();
-		_engine.VideoPlayer.Show();
+		_engine.PlayMovie(args[0].Get());
+
 	}
 	public void Wait(List<Wa2Var> args)
 	{
