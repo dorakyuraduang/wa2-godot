@@ -255,11 +255,11 @@ public partial class Wa2EngineMain : Control
 		// 	SysSav.StoreBuffer(new byte[0x26A000 - SysSav.GetLength()]);
 		// }
 
-	Prefs = new Wa2Prefs();
-	Func = new Wa2Func(this);
-	Script = new Wa2Script(Func);
-	Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-		Wa2Encoding = new ();
+		Prefs = new Wa2Prefs();
+		Func = new Wa2Func(this);
+		Script = new Wa2Script(Func);
+		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+		Wa2Encoding = new();
 		Wa2Def.LoadFontMap();
 		Wa2Resource.LoadPak("BGM.PAK");
 		Wa2Resource.LoadPak("IC/BGM.PAK");
@@ -276,472 +276,480 @@ public partial class Wa2EngineMain : Control
 		Wa2Resource.LoadPak("SE.PAK");
 		// VideoPlayer.Finished += OnVideoFinished;
 		AdvMain.Init(this);
-	Chars = new Wa2Image[Wa2Def.CharPos.Length];
-		for (int i = 0; i<Wa2Def.CharPos.Length; i++)
+		Chars = new Wa2Image[Wa2Def.CharPos.Length];
+		for (int i = 0; i < Wa2Def.CharPos.Length; i++)
 		{
 			// Chars[i]=new Wa2Image();
 			Chars[i] = CharGroup.GetChild(i) as Wa2Image;
 			Chars[i].Size = new Vector2(1280, 720);
-	Chars[i].SetCurOffset(new Vector2(Wa2Def.CharPos[i], 0));
+			Chars[i].SetCurOffset(new Vector2(Wa2Def.CharPos[i], 0));
 			Chars[i].SetNextOffset(new Vector2(Wa2Def.CharPos[i], 0));
 			// GD.Print(Chars[i].GetCurOffset());
 			// GD.Print(Chars[i].GetNextOffset());
 			// CharGroup.AddChild(Chars[i]);
 		}
-VideoPlayer.Finished += OnVideoFinished;
+		VideoPlayer.Finished += OnVideoFinished;
 
 		// GD.Print(Time.GetTicksMsec());
 		// GetTree().ChangeSceneToFile("res://scene/as/title_menu.tscn");
 	}
 	public void ClickAdv()
-{
-	if (WaitTimer.IsActive() || TextTimer.IsActive())
 	{
-		if (!ClickedInWait)
+		if (WaitTimer.IsActive() || TextTimer.IsActive())
 		{
-			ClickedInWait = true;
-		}
-		if (Skipping || ClickedInWait)
-		{
-			if (VideoPlayer.IsPlaying())
+			if (!ClickedInWait)
 			{
-				if (Skipping || !HasPlayMovie)
+				ClickedInWait = true;
+			}
+			if (Skipping || ClickedInWait)
+			{
+				if (VideoPlayer.IsPlaying())
 				{
-					return;
+					if (Skipping || !HasPlayMovie)
+					{
+						return;
+					}
+					HideVideo();
 				}
-				HideVideo();
+				AnimatorsFinish();
+				if (!WaitTimer.IsDone())
+				{
+					WaitTimer.Done();
+				}
+				if (!TextTimer.IsDone())
+				{
+					TextTimer.Done();
+					// GD.Print("process", TextTimer.GetProgress());
+					AdvMain.Update(0);
+					// GD.Print("TextTimer");
+				}
+				if (!AutoTimer.IsDone())
+				{
+					AutoTimer.Done();
+				}
+				ClickedInWait = false;
 			}
-			AnimatorsFinish();
-			if (!WaitTimer.IsDone())
-			{
-				WaitTimer.Done();
-			}
-			if (!TextTimer.IsDone())
-			{
-				TextTimer.Done();
-				// GD.Print("process", TextTimer.GetProgress());
-				AdvMain.Update(0);
-				// GD.Print("TextTimer");
-			}
-			if (!AutoTimer.IsDone())
-			{
-				AutoTimer.Done();
-			}
-			ClickedInWait = false;
+			return;
 		}
-		return;
-	}
-	if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || Skipping))
-	{
-		if (AdvMain.Visible)
+		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || Skipping))
 		{
-			AnimatorsFinish();
-			Script.ParseCmd();
-			if (SkipMode && !HasReadMessage)
+			if (AdvMain.Visible)
 			{
-				StopSkip();
-			}
-		}
-		else
-		{
-			AdvMain.Show();
-		}
-
-	}
-	// if (Skipping)
-	// {
-	// 	return;
-	// }
-	// if (SkipMode)
-	// {
-	// 	StopSkip();
-	// 	return;
-	// }
-	// if (AdvMain.State == Wa2AdvMain.AdvState.SHOW_TEXT)
-	// {
-	// 	AdvMain.Finish();
-	// 	return;
-	// }
-	// if (WaitTimer.IsActive())
-	// {
-	// 	return;
-	// }
-	// if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
-	// {
-	// 	WaitClick = false;
-	// 	WaitTimer.Done();
-	// 	// AdvMain.Clear();
-	// 	Script.ParseCmd();
-	// 	GD.Print("点击");
-	// }
-	// if (VideoPlayer.IsPlaying())
-	// {
-	// 	VideoPlayer.StreamPosition = VideoPlayer.GetStreamLength();
-	// }
-
-}
-public void Reset()
-{
-	// Script.Wait = false;
-	// WaitClick = false;
-	HasReadMessage = false;
-	Backlogs.Clear();
-	ClickedInWait = false;
-	WaitTimer.DeActive();
-	AutoTimer.DeActive();
-	TextTimer.DeActive();
-	AdvMain.Clear();
-	WaitSeFinish();
-	Skipping = false;
-	// AutoMode = false;
-	// SkipMode = false;
-	SoundMgr.StopAll();
-	AdvMain.SelectMessageContainer.Hide();
-	// GameSav.Reset();
-}
-public void OnVideoFinished()
-{
-	HideVideo();
-	if (GameState.LOGO == State)
-	{
-		State = GameState.OP;
-	}
-	else if (GameState.OP == State)
-	{
-		UiMgr.OpenTitleMenu();
-	}
-}
-public void HideVideo()
-{
-	VideoPlayer.Stream = null;
-	VideoPlayer.Hide();
-	WaitTimer.DeActive();
-}
-public void StartScript(string name, uint pos = 0)
-{
-	SoundMgr.StopBgm();
-	Reset();
-	GameSav.Reset();
-
-	Script.LoadScript(name, pos);
-}
-// Called every frame. 'delta' is the elapsed time since the previous frame.
-public void InputKeyHandling()
-{
-	if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain && State != GameState.GAME)
-	{
-		StopSkip();
-		return;
-	}
-	// GD.Print("pressed:",AdvMain.IsPressed);
-	if (IsPressed)
-	{
-		PressedTime += GetProcessDeltaTime();
-	}
-	if (Input.IsActionPressed("Skip") || PressedTime >= 0.5)
-	{
-		Skipping = true;
-	}
-	else
-	{
-		Skipping = false;
-	}
-}
-public override void _Process(double delta)
-{
-	if (State == GameState.LOGO)
-	{
-		if (!WaitTimer.IsActive())
-		{
-			PlayMovie("mv00");
-		}
-	}
-	else if (State == GameState.OP)
-	{
-		if (!WaitTimer.IsActive())
-		{
-			if (ReadSysFlag(210) == 1)
-			{
-				PlayMovie("mv10");
-			}
-			else if (ReadSysFlag(220) == 1)
-			{
-				PlayMovie("mv10");
-			}
-			else if (ReadSysFlag(202) == 1)
-			{
-				PlayMovie("mv02");
+				AnimatorsFinish();
+				Script.ParseCmd();
+				if (SkipMode && !HasReadMessage)
+				{
+					StopSkip();
+				}
 			}
 			else
 			{
-				UiMgr.OpenTitleMenu();
+				AdvMain.Show();
 			}
 
 		}
+		// if (Skipping)
+		// {
+		// 	return;
+		// }
+		// if (SkipMode)
+		// {
+		// 	StopSkip();
+		// 	return;
+		// }
+		// if (AdvMain.State == Wa2AdvMain.AdvState.SHOW_TEXT)
+		// {
+		// 	AdvMain.Finish();
+		// 	return;
+		// }
+		// if (WaitTimer.IsActive())
+		// {
+		// 	return;
+		// }
+		// if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
+		// {
+		// 	WaitClick = false;
+		// 	WaitTimer.Done();
+		// 	// AdvMain.Clear();
+		// 	Script.ParseCmd();
+		// 	GD.Print("点击");
+		// }
+		// if (VideoPlayer.IsPlaying())
+		// {
+		// 	VideoPlayer.StreamPosition = VideoPlayer.GetStreamLength();
+		// }
+
 	}
-	else if (State == GameState.GAME)
+	public void Reset()
 	{
-		InputKeyHandling();
-		UpdateFrame(delta);
-		// WaitTimer.Update((float)delta);
-		// UpdateAnimators((float)delta);
-		// AdvMain.Update();
-		// SkipCheck();
-		if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !Skipping && !AdvMain.SelectMessageContainer.Visible && !WaitClick)
+		// Script.Wait = false;
+		// WaitClick = false;
+		HasReadMessage = false;
+		Backlogs.Clear();
+		ClickedInWait = false;
+		WaitTimer.DeActive();
+		AutoTimer.DeActive();
+		TextTimer.DeActive();
+		AdvMain.Clear();
+		WaitSeFinish();
+		Skipping = false;
+		// AutoMode = false;
+		// SkipMode = false;
+		SoundMgr.StopAll();
+		AdvMain.SelectMessageContainer.Hide();
+		// GameSav.Reset();
+	}
+	public void OnVideoFinished()
+	{
+		HideVideo();
+		if (GameState.LOGO == State)
 		{
-			// GD.Print("flag");
-			bool flag = true;
-			for (int i = 0; i < Animators.Count; i++)
+			State = GameState.OP;
+		}
+		else if (GameState.OP == State)
+		{
+			UiMgr.OpenTitleMenu();
+		}
+	}
+	public void HideVideo()
+	{
+		VideoPlayer.Stream = null;
+		VideoPlayer.Hide();
+		WaitTimer.DeActive();
+	}
+	public void StartScript(string name, uint pos = 0)
+	{
+		SoundMgr.StopBgm();
+		Reset();
+		GameSav.Reset();
+
+		Script.LoadScript(name, pos);
+	}
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public void InputKeyHandling()
+	{
+		if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain && State != GameState.GAME)
+		{
+			StopSkip();
+			return;
+		}
+		// GD.Print("pressed:",AdvMain.IsPressed);
+		if (IsPressed)
+		{
+			PressedTime += GetProcessDeltaTime();
+		}
+		if (Input.IsActionPressed("Skip") || PressedTime >= 0.5)
+		{
+			Skipping = true;
+		}
+		else
+		{
+			Skipping = false;
+		}
+	}
+	public override void _Process(double delta)
+	{
+		if (State == GameState.LOGO)
+		{
+			if (!WaitTimer.IsActive())
 			{
-				if (Animators[i].IsActive())
+				PlayMovie("mv00");
+			}
+		}
+		else if (State == GameState.OP)
+		{
+			if (!WaitTimer.IsActive())
+			{
+				if (ReadSysFlag(210) == 1)
 				{
-					flag = false;
+					PlayMovie("mv10");
+				}
+				else if (ReadSysFlag(220) == 1)
+				{
+					PlayMovie("mv10");
+				}
+				else if (ReadSysFlag(202) == 1)
+				{
+					PlayMovie("mv02");
+				}
+				else
+				{
+					UiMgr.OpenTitleMenu();
+				}
+
+			}
+		}
+		else if (State == GameState.GAME)
+		{
+			InputKeyHandling();
+			UpdateFrame(delta);
+			// WaitTimer.Update((float)delta);
+			// UpdateAnimators((float)delta);
+			// AdvMain.Update();
+			// SkipCheck();
+			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !Skipping && !AdvMain.SelectMessageContainer.Visible && !WaitClick)
+			{
+				// GD.Print("flag");
+				bool flag = true;
+				for (int i = 0; i < Animators.Count; i++)
+				{
+					if (Animators[i].IsActive())
+					{
+						flag = false;
+					}
+				}
+				if (flag)
+				{
+					Script.ParseCmd();
 				}
 			}
-			if (flag)
+		}
+	}
+	public void AutoModeStart()
+	{
+		StopSkip();
+		if (SoundMgr.GetVoiceRemainingTime() > 0)
+		{
+			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime() + 1.0f);
+		}
+		else
+		{
+			AutoTimer.Start(1.0f);
+		}
+	}
+	public void UpdateFrame(double delta)
+	{
+		if (Skipping || SkipMode)
+		{
+			ClickAdv();
+		}
+		UpdateTimer(delta);
+		AdvMain.Update((float)delta);
+
+	}
+	public void UpdateTimer(double delta)
+	{
+		if (WaitTimer.IsActive())
+		{
+			if (!WaitTimer.IsDone())
 			{
+				WaitTimer.Update((float)delta);
+			}
+			if (WaitTimer.IsDone())
+			{
+				WaitTimer.DeActive();
 				Script.ParseCmd();
 			}
 		}
-	}
-}
-public void AutoModeStart()
-{
-	StopSkip();
-	if (SoundMgr.GetVoiceRemainingTime() > 0)
-	{
-		AutoTimer.Start(SoundMgr.GetVoiceRemainingTime() + 1.0f);
-	}
-	else
-	{
-		AutoTimer.Start(1.0f);
-	}
-}
-public void UpdateFrame(double delta)
-{
-	if (Skipping || SkipMode)
-	{
-		ClickAdv();
-	}
-	UpdateTimer(delta);
-	AdvMain.Update((float)delta);
-
-}
-public void UpdateTimer(double delta)
-{
-	if (WaitTimer.IsActive())
-	{
-		if (!WaitTimer.IsDone())
+		if (TextTimer.IsActive() && TextTimer.IsDone())
 		{
-			WaitTimer.Update((float)delta);
-		}
-		if (WaitTimer.IsDone())
-		{
-			WaitTimer.DeActive();
-			Script.ParseCmd();
-		}
-	}
-	if (TextTimer.IsActive() && TextTimer.IsDone())
-	{
-		TextTimer.DeActive();
-		if (AutoMode)
-		{
-			AutoModeStart();
-		}
-	}
-	if (AutoTimer.IsActive() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.Visible)
-	{
-		if (!AutoTimer.IsDone() && AutoMode)
-		{
-			AutoTimer.Update((float)delta);
-		}
-		else
-		{
-			AutoTimer.DeActive();
+			TextTimer.DeActive();
 			if (AutoMode)
 			{
-				ClickAdv();
+				AutoModeStart();
+			}
+		}
+		if (AutoTimer.IsActive() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.Visible)
+		{
+			if (!AutoTimer.IsDone() && AutoMode)
+			{
+				AutoTimer.Update((float)delta);
+			}
+			else
+			{
+				AutoTimer.DeActive();
+				if (AutoMode)
+				{
+					ClickAdv();
+				}
+			}
+		}
+		UpdateAnimators((float)delta);
+	}
+	public void WaitSeFinish()
+	{
+		if (WaitSe)
+		{
+			WaitSe = false;
+			if (WaitSeChannel >= 0)
+			{
+
+				SoundMgr.StopSe(WaitSeChannel);
+				WaitSeChannel = -1;
 			}
 		}
 	}
-	UpdateAnimators((float)delta);
-}
-public void WaitSeFinish()
-{
-	if (WaitSe)
+	// public void SkipCheck()
+	// {
+	// 	if (Skipping || SkipMode)
+	// 	{
+	// 		if (WaitTimer.IsActive())
+	// 		{
+	// 			WaitTimer.Done();
+	// 		}
+	// 		AdvMain.Finish();
+	// 		AnimatorsFinish();
+	// 		WaitSeFinish();
+	// 		WaitClick = false;
+	// 	}
+	// }
+	public void AnimatorsFinish()
 	{
-		WaitSe = false;
-		if (WaitSeChannel >= 0)
-		{
-
-			SoundMgr.StopSe(WaitSeChannel);
-			WaitSeChannel = -1;
-		}
-	}
-}
-// public void SkipCheck()
-// {
-// 	if (Skipping || SkipMode)
-// 	{
-// 		if (WaitTimer.IsActive())
-// 		{
-// 			WaitTimer.Done();
-// 		}
-// 		AdvMain.Finish();
-// 		AnimatorsFinish();
-// 		WaitSeFinish();
-// 		WaitClick = false;
-// 	}
-// }
-public void AnimatorsFinish()
-{
-	for (int i = 0; i < Animators.Count; i++)
-	{
-		Animators[i].Finish();
-		Animators.RemoveAt(i);
-		i--;
-	}
-}
-public void UpdateAnimators(float delta)
-{
-	// GD.Print( Animators.Count);
-	for (int i = 0; i < Animators.Count; i++)
-	{
-		Animators[i].Timer.Update(delta);
-		// GD.Print(Animators[i].Timer.GetProgress());
-		if (Animators[i].IsActive())
-		{
-
-			// Animators[i].Timer.Update(delta);
-			Animators[i].Update();
-		}
-		else
+		for (int i = 0; i < Animators.Count; i++)
 		{
 			Animators[i].Finish();
 			Animators.RemoveAt(i);
 			i--;
 		}
 	}
-}
-public bool WaitAnimator()
-{
-	for (int i = 0; i < Animators.Count; i++)
+	public void UpdateAnimators(float delta)
 	{
-		if (Animators[i].IsActive() && Animators[i].Wait)
+		// GD.Print( Animators.Count);
+		for (int i = 0; i < Animators.Count; i++)
 		{
-			return true;
-		}
-	}
-	return false;
-}
-public void LoadSav(int idx)
-{
-	FileAccess file = FileAccess.Open(string.Format("user://{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
-	if (file == null)
-	{
-		return;
-	}
-	file.Seek(0x110a0);
-	byte[] buffer = file.GetBuffer(2317 * 4);
-	for (int i = 0; i < 8; i++)
-	{
-		int charShow = BitConverter.ToInt32(buffer, 48 + i * 4);
-		if (charShow > 0)
-		{
-			int u1 = BitConverter.ToInt32(buffer, 100 + i * 4);
-			int u2 = BitConverter.ToInt32(buffer, 72 + i * 4);
-			if (u2 > 0)
+			Animators[i].Timer.Update(delta);
+			// GD.Print(Animators[i].Timer.GetProgress());
+			if (Animators[i].IsActive())
 			{
-				int no = BitConverter.ToInt32(buffer, 64 + i * 4);
-				int pos = BitConverter.ToInt32(buffer, 84 + i * 4);
-				int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
-				int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
-				int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
+
+				// Animators[i].Timer.Update(delta);
+				Animators[i].Update();
 			}
 			else
 			{
-				int pos = BitConverter.ToInt32(buffer, 76 + i * 4);
-				int no = BitConverter.ToInt32(buffer, 64 + i * 4);
-				int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
-				int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
-				int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
+				Animators[i].Finish();
+				Animators.RemoveAt(i);
+				i--;
 			}
 		}
 	}
-}
-public override void _GuiInput(InputEvent @event)
-{
-	switch (State)
+	public bool WaitAnimator()
 	{
-		case GameState.TITLE:
-			break;
-		case GameState.LOGO:
-		case GameState.OP:
-			if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
+		for (int i = 0; i < Animators.Count; i++)
+		{
+			if (Animators[i].IsActive() && Animators[i].Wait)
 			{
-				if (VideoPlayer.IsPlaying())
-				{
-					HideVideo();
-					// WaitTimer.DeActive();
-					if (GameState.LOGO == State)
-					{
-						State = GameState.OP;
-					}
-					else if (GameState.OP == State)
-					{
-						UiMgr.OpenTitleMenu();
-					}
-				}
+				return true;
 			}
-			break;
-		case GameState.GAME:
-			if (@event is InputEventScreenTouch && @event.IsPressed())
-			{
-				IsPressed = true;
-			}
-			else
-			{
-				IsPressed = false;
-			}
-			if (!IsPressed)
-			{
-				PressedTime = 0.0;
-			}
-			if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
-			{
-				bool flag = true;
-				if (SkipMode)
-				{
-					StopSkip();
-					flag = false;
-				}
-				// if (_engine.AutoMode)
-				// {
-				// 	_engine.AutoMode = false;
-				// 	_engine.StopSkip();
-				// }
-				if (flag)
-				{
-					ClickAdv();
-				}
-
-			}
-			break;
+		}
+		return false;
 	}
-}
-public void StopAutoMode()
-{
+	public void LoadSav(int idx)
+	{
+		FileAccess file = FileAccess.Open(string.Format("user://{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
+		if (file == null)
+		{
+			return;
+		}
+		file.Seek(0x110a0);
+		byte[] buffer = file.GetBuffer(2317 * 4);
+		for (int i = 0; i < 8; i++)
+		{
+			int charShow = BitConverter.ToInt32(buffer, 48 + i * 4);
+			if (charShow > 0)
+			{
+				int u1 = BitConverter.ToInt32(buffer, 100 + i * 4);
+				int u2 = BitConverter.ToInt32(buffer, 72 + i * 4);
+				if (u2 > 0)
+				{
+					int no = BitConverter.ToInt32(buffer, 64 + i * 4);
+					int pos = BitConverter.ToInt32(buffer, 84 + i * 4);
+					int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
+					int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
+					int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
+				}
+				else
+				{
+					int pos = BitConverter.ToInt32(buffer, 76 + i * 4);
+					int no = BitConverter.ToInt32(buffer, 64 + i * 4);
+					int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
+					int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
+					int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
+				}
+			}
+		}
+	}
+	public override void _GuiInput(InputEvent @event)
+	{
+		switch (State)
+		{
+			case GameState.TITLE:
+				break;
+			case GameState.LOGO:
+			case GameState.OP:
+				if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
+				{
+					if (VideoPlayer.IsPlaying())
+					{
+						HideVideo();
+						// WaitTimer.DeActive();
+						if (GameState.LOGO == State)
+						{
+							State = GameState.OP;
+						}
+						else if (GameState.OP == State)
+						{
+							UiMgr.OpenTitleMenu();
+						}
+					}
+				}
+				break;
+			case GameState.GAME:
+				if (@event is InputEventScreenTouch && @event.IsPressed())
+				{
+					IsPressed = true;
+				}
+				else
+				{
+					IsPressed = false;
+				}
+				if (!IsPressed)
+				{
+					PressedTime = 0.0;
+				}
+				if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
+				{
+					bool flag = true;
+					if (SkipMode)
+					{
+						StopSkip();
+						flag = false;
+					}
+					// if (_engine.AutoMode)
+					// {
+					// 	_engine.AutoMode = false;
+					// 	_engine.StopSkip();
+					// }
+					if (flag)
+					{
+						ClickAdv();
+					}
 
-	AutoMode = false;
-	AutoTimer.DeActive();
+				}
+				break;
+		}
+	}
+	public void StopAutoMode()
+	{
 
-}
-public void PlayMovie(string name)
-{
-	VideoPlayer.Call("set_movie", Wa2Resource.ResPath + "movie/" + name + "0.mp4");
-	WaitTimer.Start((float)VideoPlayer.GetStreamLength());
-	VideoPlayer.Play();
-	VideoPlayer.Show();
-}
+		AutoMode = false;
+		AutoTimer.DeActive();
+
+	}
+	public void PlayMovie(string name)
+	{
+		if (!FileAccess.FileExists(Wa2Resource.ResPath + "movie/" + name + "0.mp4"))
+		{
+			OnVideoFinished();
+		}
+		else
+		{
+			VideoPlayer.Call("set_movie", Wa2Resource.ResPath + "movie/" + name + "0.mp4");
+			WaitTimer.Start((float)VideoPlayer.GetStreamLength());
+			VideoPlayer.Play();
+			VideoPlayer.Show();
+		}
+
+	}
 }
 

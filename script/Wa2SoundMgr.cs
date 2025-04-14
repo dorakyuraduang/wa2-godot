@@ -36,6 +36,7 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void PlayVoice(int label, int id, int chr)
 	{
+
 		_voiceAudio.PlayStream(Wa2Resource.GetVoiceStream(label, id, chr), true, 0, 1);
 	}
 	public void PlayBgm(int id, bool loopFlag = true, int volume = 255)
