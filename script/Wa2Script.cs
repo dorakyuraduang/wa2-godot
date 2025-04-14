@@ -42,10 +42,10 @@ public class Wa2Var
 	{
 		if (CmdType == CmdType.GLOBAL_VAR)
 		{
-			if (IntValue == 6)
-			{
-				GD.Print("浮气度位置", Wa2EngineMain.Engine.GameSav.ScriptPos);
-			}
+			// if (IntValue == 6)
+			// {
+			// 	GD.Print("浮气度位置", Wa2EngineMain.Engine.GameSav.ScriptPos);
+			// }
 			Wa2EngineMain.Engine.GameSav.GameFlags[IntValue] = value;
 
 		}
@@ -53,7 +53,12 @@ public class Wa2Var
 		{
 			if (!(value is int))
 			{
-
+				GD.Print("浮点");
+				GD.Print(Wa2EngineMain.Engine.GameSav.ScriptPos);
+			}
+			else
+			{
+				GD.Print("整数");
 			}
 			if (IntValue >= 26)
 			{
@@ -160,7 +165,7 @@ public class Wa2Script
 	}
 	public void LoadScript(string name, uint pos = 0)
 	{
-		 _engine.ScriptIdx=Array.IndexOf(Wa2Def.ScriptList,name);
+		_engine.ScriptIdx = Array.IndexOf(Wa2Def.ScriptList, name);
 		_points.Clear();
 		// _engine.GloFlags=new int[255];
 		// _engine.GameSav.Reset();
@@ -203,9 +208,9 @@ public class Wa2Script
 	public void ParseGloVar()
 	{
 		uint flag = ReadU32();
-		GD.Print(_engine.GameSav.ScriptPos);
-		GD.Print(_engine.GameSav.ScriptName);
-		GD.Print("指令:", flag);
+		// GD.Print(_engine.GameSav.ScriptPos);
+		// GD.Print(_engine.GameSav.ScriptName);
+		// GD.Print("指令:", flag);
 		switch (flag)
 		{
 			case 0:
@@ -505,25 +510,23 @@ public class Wa2Script
 				break;
 			case 1:
 				{
-
-					b.Set(a.Get() + b.Get());
-
+					b.Set((int)(a.Get() + b.Get()));
 				}
 				break;
 			case 2:
 				{
-					b.Set(b.Get() - a.Get());
+					b.Set((int)(a.Get() + b.Get()));
 					break;
 				}
 
 			case 3:
 				{
-					b.Set(b.Get() * a.Get());
+					b.Set((int)(a.Get() + b.Get()));
 					break;
 				}
 			case 4:
 				{
-					b.Set(b.Get() / a.Get());
+					b.Set((int)(a.Get() + b.Get()));
 					break;
 				}
 			case 5:
@@ -583,7 +586,7 @@ public class Wa2Script
 				break;
 			case 0x10:
 				{
-					if (a.Get() is int  && b.Get() is int)
+					if (a.Get() is int && b.Get() is int)
 					{
 						PushInt(5, 3, a.Get() + b.Get());
 					}
@@ -595,7 +598,7 @@ public class Wa2Script
 				}
 			case 0x11:
 				{
-					if (a.Get() is int  && b.Get() is int)
+					if (a.Get() is int && b.Get() is int)
 					{
 						PushInt(5, 3, a.Get() - b.Get());
 					}
@@ -607,7 +610,7 @@ public class Wa2Script
 				}
 			case 0x12:
 				{
-					if (a.Get() is int  && b.Get() is int)
+					if (a.Get() is int && b.Get() is int)
 					{
 						PushInt(5, 3, b.Get() * a.Get());
 					}
@@ -619,7 +622,7 @@ public class Wa2Script
 				}
 			case 0x13:
 				{
-					if (a.Get() is int  && b.Get() is int)
+					if (a.Get() is int && b.Get() is int)
 					{
 						PushInt(5, 3, b.Get() / a.Get());
 					}
@@ -637,11 +640,19 @@ public class Wa2Script
 				}
 			case 0x15:
 				{
-					PushInt(5, 3, b.Get() & a.Get());
-					if (_engine.GameSav.args.Count == 0)
+					if (a.Get() is int && b.Get() is int)
 					{
-						GD.Print("错误位置");
+						PushInt(5, 3, b.Get() & a.Get());
 					}
+					else
+					{
+						GD.Print("错误位置",_engine.GameSav.ScriptPos);
+					}
+
+					// if (_engine.GameSav.args.Count == 0)
+					// {
+					// 	GD.Print("错误位置");
+					// }
 					break;
 				}
 			case 0x16:

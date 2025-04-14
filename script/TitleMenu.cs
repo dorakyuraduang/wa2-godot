@@ -40,8 +40,8 @@ public partial class TitleMenu : Control
 		QuitButton.ButtonDown += OnQuitButtonDown;
 		ICButton.ButtonDown += OnIcButtonDown;
 		CcButton.ButtonDown += OnCCButtonDown;
-		As1Button.ButtonDown += OnAs1ButtonDown;
-		As2Button.ButtonDown += OnAs2ButtonDown;
+		// As1Button.ButtonDown += OnAs1ButtonDown;
+		// As2Button.ButtonDown += OnAs2ButtonDown;
 		CodeaButton.ButtonDown += OnCodeaButtonDown;
 		LoadtButton.ButtonDown+=OnLoadButtonDown;
 
@@ -73,24 +73,24 @@ public partial class TitleMenu : Control
 		_engine.StartScript("1001");
 		_engine.UiMgr.OpenGame();
 	}
-	public async void OnAs1ButtonDown()
-	{
-		_engine.SoundMgr.StopBgm();
-		AnimationPlayer.Play("close");
-		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_engine.StartScript("6001");
-		_engine.UiMgr.OpenGame();
+	// public async void OnAs1ButtonDown()
+	// {
+	// 	_engine.SoundMgr.StopBgm();
+	// 	AnimationPlayer.Play("close");
+	// 	await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+	// 	_engine.StartScript("6001");
+	// 	_engine.UiMgr.OpenGame();
 
-	}
-	public async void OnAs2ButtonDown()
-	{
-		_engine.SoundMgr.StopBgm();
-		AnimationPlayer.Play("close");
-		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		_engine.StartScript("6101");
-		_engine.UiMgr.OpenGame();
+	// }
+	// public async void OnAs2ButtonDown()
+	// {
+	// 	_engine.SoundMgr.StopBgm();
+	// 	AnimationPlayer.Play("close");
+	// 	await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+	// 	_engine.StartScript("6101");
+	// 	_engine.UiMgr.OpenGame();
 
-	}
+	// }
 	public void OnQuitButtonDown()
 	{
 		GetTree().Quit();

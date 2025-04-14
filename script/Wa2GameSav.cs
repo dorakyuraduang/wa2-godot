@@ -155,7 +155,7 @@ public class Wa2GameSav
 		file.Store32((uint)SystemTime.Second);
 		file.Store32((uint)SystemTime.Millisecond);
 		file.StoreBuffer(image.GetData());
-		file.StoreBuffer([.. Encoding.Unicode.GetBytes(ScriptName).Concat(new byte[8]).Take(8)]);
+		file.StoreBuffer([.. Encoding.ASCII.GetBytes(ScriptName).Concat(new byte[8]).Take(8)]);
 		file.StoreBuffer([.. Encoding.Unicode.GetBytes(FirstSentence).Concat(new byte[256]).Take(256)]);
 		file.StoreBuffer([.. Encoding.Unicode.GetBytes(CharName).Concat(new byte[16]).Take(16)]);
 		file.Store32(ScriptPos);
@@ -246,7 +246,7 @@ public class Wa2GameSav
 		Reset();
 		FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
 		file.Seek(0x1b000 + 32);
-		ScriptName = file.GetBuffer(8).GetStringFromUtf8().Replace("\0", "");
+		ScriptName = file.GetBuffer(8).GetStringFromAscii().Replace("\0", "");
 		FirstSentence = Encoding.Unicode.GetString(file.GetBuffer(256)).Replace("\0", "");
 		CharName = Encoding.Unicode.GetString(file.GetBuffer(16)).Replace("\0", "");
 		_engine.Script.LoadScript(ScriptName);
@@ -313,7 +313,7 @@ public class Wa2GameSav
 			});
 		}
 		int selectCount = (int)file.Get32();
-		GD.Print("选项数量:", selectCount);
+		// GD.Print("选项数量:", selectCount);
 		for (int i = 0; i < selectCount; i++)
 		{
 

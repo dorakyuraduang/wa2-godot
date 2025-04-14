@@ -1,8 +1,7 @@
-[gd_scene load_steps=51 format=3 uid="uid://b6u3qm7g3fnoj"]
+[gd_scene load_steps=46 format=3 uid="uid://b6u3qm7g3fnoj"]
 
 [ext_resource type="Script" uid="uid://od6jw6rx7c56" path="res://script/TitleMenu.cs" id="1_le5pv"]
 [ext_resource type="Shader" uid="uid://cdg2vfcimljql" path="res://shader/game.gdshader" id="2_n4ci5"]
-[ext_resource type="Texture2D" uid="uid://6njxooeuq2e7" path="res://assets/grp/AQUAPLUS.tga" id="3_m4rux"]
 [ext_resource type="Texture2D" uid="uid://b2l2ae7pgpkg0" path="res://assets/grp/T0011.png" id="4_ptj1n"]
 [ext_resource type="Texture2D" uid="uid://mo7h0usloxai" path="res://assets/grp/T0020.png" id="5_ptj1n"]
 [ext_resource type="PackedScene" uid="uid://bkg3mbvjllejg" path="res://scene/menu_button.tscn" id="6_qxj8v"]
@@ -15,7 +14,6 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4rxvu"]
 shader = ExtResource("2_n4ci5")
-shader_parameter/bg1_texture = ExtResource("3_m4rux")
 shader_parameter/chars_priority = false
 shader_parameter/bg1_scale = Vector2(1, 1)
 shader_parameter/bg1_offset = Vector2(0, 0)
@@ -47,20 +45,6 @@ load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ct
 [sub_resource type="AtlasTexture" id="AtlasTexture_f2uut"]
 atlas = SubResource("CompressedTexture2D_ptj1n")
 region = Rect2(0, 280, 320, 40)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ti5lm"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_osct2"]
-atlas = SubResource("CompressedTexture2D_ti5lm")
-region = Rect2(0, 640, 320, 40)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ehh8g"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dywql"]
-atlas = SubResource("CompressedTexture2D_ehh8g")
-region = Rect2(0, 680, 320, 40)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ico1t"]
 load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
@@ -125,6 +109,9 @@ region = Rect2(320, 160, 320, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_yml00"]
 atlas = ExtResource("8_u5ylh")
 region = Rect2(0, 0, 288, 40)
+
+[sub_resource type="Resource" id="Resource_s6o5p"]
+metadata/__load_path__ = "res://assets/grp/AQUAPLUS.tga"
 
 [sub_resource type="Animation" id="Animation_plad3"]
 length = 0.001
@@ -258,7 +245,7 @@ tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_m4rux")]
+"values": [SubResource("Resource_s6o5p")]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
@@ -420,46 +407,6 @@ tracks/3/keys = {
 "args": [],
 "method": &"restart"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_po4he"]
-resource_name = "logo"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:material:shader_parameter/bg2_alpha")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [1.0, 0.0, 0.0, 1.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:material:shader_parameter/bg1_texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("3_m4rux")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect2:color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_swoom"]
@@ -662,7 +609,6 @@ tracks/15/keys = {
 _data = {
 &"RESET": SubResource("Animation_plad3"),
 &"close": SubResource("Animation_lsq3n"),
-&"logo": SubResource("Animation_po4he"),
 &"open": SubResource("Animation_swoom")
 }
 
@@ -692,7 +638,7 @@ scale_over_velocity_min = 32.0
 scale_over_velocity_max = 128.0
 scale_over_velocity_curve = SubResource("CurveTexture_nst6c")
 
-[node name="TitleMenu" type="Control" node_paths=PackedStringArray("MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "As1Button", "As2Button", "StartBackButton")]
+[node name="TitleMenu" type="Control" node_paths=PackedStringArray("MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -710,8 +656,6 @@ QuitButton = NodePath("TitleMenu/Quit")
 ICButton = NodePath("InitalStart/Ic")
 CcButton = NodePath("InitalStart/Cc")
 CodeaButton = NodePath("InitalStart/Coda")
-As1Button = NodePath("InitalStart/As1")
-As2Button = NodePath("InitalStart/As2")
 StartBackButton = NodePath("InitalStart/StartBack")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -773,24 +717,6 @@ layout_mode = 0
 offset_top = 80.0
 offset_bottom = 120.0
 texture_normal = SubResource("AtlasTexture_f2uut")
-ClickStream = ExtResource("7_xo8l8")
-
-[node name="As1" parent="InitalStart" instance=ExtResource("6_qxj8v")]
-visible = false
-layout_mode = 0
-offset_top = 120.0
-offset_right = 320.0
-offset_bottom = 160.0
-texture_normal = SubResource("AtlasTexture_osct2")
-ClickStream = ExtResource("7_xo8l8")
-
-[node name="As2" parent="InitalStart" instance=ExtResource("6_qxj8v")]
-visible = false
-layout_mode = 0
-offset_top = 160.0
-offset_right = 320.0
-offset_bottom = 200.0
-texture_normal = SubResource("AtlasTexture_dywql")
 ClickStream = ExtResource("7_xo8l8")
 
 [node name="StartBack" parent="InitalStart" instance=ExtResource("6_qxj8v")]
@@ -894,8 +820,6 @@ color = Color(0, 0, 0, 0)
 [connection signal="button_down" from="InitalStart/Ic" to="." method="_on_ic_button_down"]
 [connection signal="button_down" from="InitalStart/Cc" to="." method="_on_cc_button_down"]
 [connection signal="button_down" from="InitalStart/Coda" to="." method="_on_coda_button_down"]
-[connection signal="button_down" from="InitalStart/As1" to="." method="_on_as_1_button_down"]
-[connection signal="button_down" from="InitalStart/As2" to="." method="_on_start_2_button_down"]
 [connection signal="button_down" from="InitalStart/StartBack" to="." method="_on_start_back_button_down"]
 [connection signal="button_down" from="TitleMenu/Start" to="." method="_on_start_button_down"]
 [connection signal="button_down" from="TitleMenu/Load" to="." method="_on_load_button_down"]

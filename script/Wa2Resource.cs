@@ -42,7 +42,7 @@ public class Wa2Resource
 	// }
 	public static AudioStream LoadWavSound(string path)
 	{
-		GD.Print(path);
+		// GD.Print(path);
 		byte[] buffer = LoadFileBuffer(path);
 		if (buffer == null)
 		{
