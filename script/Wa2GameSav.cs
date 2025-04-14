@@ -13,6 +13,7 @@ public struct Calender
 public struct BgmInfo
 {
 	public int Id;
+	public int Idx;
 	public int Loop;
 	public int Volume;
 }

@@ -357,6 +357,7 @@ public class Wa2Func
 		if (args[1].Get() >= 0)
 		{
 			_engine.GameSav.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
+			_engine.SetCgFlag(args[1].Get()*10+args[2].Get());
 			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else
@@ -858,6 +859,7 @@ public class Wa2Func
 		if (args[1].Get() >= 0)
 		{
 			_engine.GameSav.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
+			_engine.SetCgFlag(args[1].Get()*10+args[2].Get());
 			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else

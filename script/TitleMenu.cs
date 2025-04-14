@@ -25,12 +25,15 @@ public partial class TitleMenu : Control
 	[Export]
 	public Wa2Button CodeaButton;
 	[Export]
-	public Wa2Button As1Button;
-	[Export]
-	public Wa2Button As2Button;
-	[Export]
 	public Wa2Button StartBackButton;
+	[Export]
+	public Wa2Button SpecialBackButton;
+	[Export]
+	public Wa2Button SpecialButton;
+	[Export]
+	public Control Special;
 	private Wa2EngineMain _engine;
+
 
 	public override void _Ready()
 	{
@@ -40,14 +43,22 @@ public partial class TitleMenu : Control
 		QuitButton.ButtonDown += OnQuitButtonDown;
 		ICButton.ButtonDown += OnIcButtonDown;
 		CcButton.ButtonDown += OnCCButtonDown;
+		SpecialButton.ButtonDown += OnSpecialButtonDown;
+		SpecialBackButton.ButtonDown += OnSpecialBackButtonDown;
 		// As1Button.ButtonDown += OnAs1ButtonDown;
 		// As2Button.ButtonDown += OnAs2ButtonDown;
 		CodeaButton.ButtonDown += OnCodeaButtonDown;
-		LoadtButton.ButtonDown+=OnLoadButtonDown;
+		LoadtButton.ButtonDown += OnLoadButtonDown;
 
 	}
-	public void OnLoadButtonDown(){
+	public void OnLoadButtonDown()
+	{
 		_engine.UiMgr.OpenLoadMenu();
+	}
+	public void OnSpecialButtonDown()
+	{
+		MenuBttons.Hide();
+		Special.Show();
 	}
 	public async void OnCodeaButtonDown()
 	{
@@ -100,6 +111,11 @@ public partial class TitleMenu : Control
 		MenuBttons.Show();
 		InitalStart.Hide();
 	}
+	public void OnSpecialBackButtonDown()
+	{
+		MenuBttons.Show();
+		Special.Hide();
+	}
 	public void OnStartButtonDown()
 	{
 		MenuBttons.Hide();
@@ -124,7 +140,7 @@ public partial class TitleMenu : Control
 	// }
 	public override void _GuiInput(InputEvent @event)
 	{
-		
+
 		if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
 		{
 			if (AnimationPlayer.CurrentAnimation != "close")

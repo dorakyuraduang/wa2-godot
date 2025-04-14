@@ -171,6 +171,16 @@ public partial class Wa2EngineMain : Control
 
 		}
 	}
+	public byte GetCgFlag(int idx)
+	{
+		SysSav.Seek((ulong)idx + 0x80000);
+		return SysSav.Get8();
+	}
+	public void SetCgFlag(int idx)
+	{
+		SysSav.Seek((ulong)idx + 0x80000);
+		SysSav.Store8(1);
+	}
 	public int ReadSysFlag(int idx)
 	{
 

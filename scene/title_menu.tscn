@@ -1,11 +1,11 @@
-[gd_scene load_steps=46 format=3 uid="uid://b6u3qm7g3fnoj"]
+[gd_scene load_steps=38 format=3 uid="uid://b6u3qm7g3fnoj"]
 
 [ext_resource type="Script" uid="uid://od6jw6rx7c56" path="res://script/TitleMenu.cs" id="1_le5pv"]
 [ext_resource type="Shader" uid="uid://cdg2vfcimljql" path="res://shader/game.gdshader" id="2_n4ci5"]
 [ext_resource type="Texture2D" uid="uid://b2l2ae7pgpkg0" path="res://assets/grp/T0011.png" id="4_ptj1n"]
 [ext_resource type="Texture2D" uid="uid://mo7h0usloxai" path="res://assets/grp/T0020.png" id="5_ptj1n"]
 [ext_resource type="PackedScene" uid="uid://bkg3mbvjllejg" path="res://scene/menu_button.tscn" id="6_qxj8v"]
-[ext_resource type="Texture2D" uid="uid://bspm6r0uclfff" path="res://assets/grp/T0100.tga" id="7_sohma"]
+[ext_resource type="Texture2D" uid="uid://ie5kj05huamt" path="res://assets/grp/T0100.png" id="7_s6o5p"]
 [ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="7_xo8l8"]
 [ext_resource type="Texture2D" uid="uid://bf3q7r17wdc2t" path="res://assets/grp/T0201.tga" id="8_u5ylh"]
 [ext_resource type="Texture2D" uid="uid://bu8yilf0bmwmn" path="res://assets/grp/T0000.tga" id="9_fn04i"]
@@ -25,90 +25,69 @@ shader_parameter/amp_strength = 0.0
 shader_parameter/bg2_alpha = 1.0
 shader_parameter/time = 0.0
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_usn7s"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_1k54k"]
-atlas = SubResource("CompressedTexture2D_usn7s")
+atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 200, 320, 40)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fa746"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_lepnx"]
-atlas = SubResource("CompressedTexture2D_fa746")
+atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 240, 320, 40)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ptj1n"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_f2uut"]
-atlas = SubResource("CompressedTexture2D_ptj1n")
+atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 280, 320, 40)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ico1t"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_qseaf"]
-atlas = SubResource("CompressedTexture2D_ico1t")
+atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 320, 320, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y7jcp"]
-atlas = ExtResource("7_sohma")
+atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 0, 320, 40)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_n1k3p"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j56w6"]
-atlas = SubResource("CompressedTexture2D_n1k3p")
-region = Rect2(320, 0, 320, 40)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ia53l"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_khyse"]
-atlas = SubResource("CompressedTexture2D_ia53l")
+atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 40, 320, 40)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8vivm"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b7r5i"]
-atlas = SubResource("CompressedTexture2D_8vivm")
-region = Rect2(320, 40, 320, 40)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ms0au"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_71ye6"]
-atlas = SubResource("CompressedTexture2D_ms0au")
+atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 80, 320, 40)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_m01h6"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pmpbt"]
-atlas = SubResource("CompressedTexture2D_m01h6")
-region = Rect2(320, 80, 320, 40)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qww8l"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
+[sub_resource type="AtlasTexture" id="AtlasTexture_eg327"]
+atlas = ExtResource("7_s6o5p")
+region = Rect2(0, 120, 320, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_prpdi"]
-atlas = SubResource("CompressedTexture2D_qww8l")
+atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 160, 320, 40)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_utwsh"]
-load_path = "res://.godot/imported/T0100.tga-0c8ea3dd4bc13e904453e4f39583a9ba.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ochr"]
-atlas = SubResource("CompressedTexture2D_utwsh")
-region = Rect2(320, 160, 320, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yml00"]
 atlas = ExtResource("8_u5ylh")
 region = Rect2(0, 0, 288, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6o5p"]
+atlas = ExtResource("7_s6o5p")
+region = Rect2(0, 360, 320, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kx5k3"]
+atlas = ExtResource("7_s6o5p")
+region = Rect2(0, 400, 320, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1lsa"]
+atlas = ExtResource("7_s6o5p")
+region = Rect2(0, 440, 320, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ne2i"]
+atlas = ExtResource("7_s6o5p")
+region = Rect2(0, 480, 320, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2868n"]
+atlas = ExtResource("7_s6o5p")
+region = Rect2(0, 520, 320, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txsne"]
+atlas = ExtResource("7_s6o5p")
+region = Rect2(0, 320, 320, 40)
 
 [sub_resource type="Resource" id="Resource_s6o5p"]
 metadata/__load_path__ = "res://assets/grp/AQUAPLUS.tga"
@@ -354,6 +333,42 @@ tracks/19/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("TitleMenu/Special:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("TitleMenu/Special:mouse_filter")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/22/type = "value"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("Special:visible")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_lsq3n"]
@@ -604,6 +619,30 @@ tracks/15/keys = {
 "update": 1,
 "values": [2, 0]
 }
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("TitleMenu/Special:modulate")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(1.9, 2.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("TitleMenu/Special:mouse_filter")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a6br7"]
 _data = {
@@ -638,7 +677,7 @@ scale_over_velocity_min = 32.0
 scale_over_velocity_max = 128.0
 scale_over_velocity_curve = SubResource("CurveTexture_nst6c")
 
-[node name="TitleMenu" type="Control" node_paths=PackedStringArray("MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton")]
+[node name="TitleMenu" type="Control" node_paths=PackedStringArray("MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton", "SpecialBackButton", "SpecialButton", "Special")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -657,6 +696,9 @@ ICButton = NodePath("InitalStart/Ic")
 CcButton = NodePath("InitalStart/Cc")
 CodeaButton = NodePath("InitalStart/Coda")
 StartBackButton = NodePath("InitalStart/StartBack")
+SpecialBackButton = NodePath("Special/MenuButton6")
+SpecialButton = NodePath("TitleMenu/Special")
+Special = NodePath("Special")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_4rxvu")
@@ -749,7 +791,9 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 mouse_filter = 2
 texture_normal = SubResource("AtlasTexture_y7jcp")
-texture_pressed = SubResource("AtlasTexture_j56w6")
+texture_pressed = SubResource("AtlasTexture_y7jcp")
+texture_hover = SubResource("AtlasTexture_y7jcp")
+texture_disabled = SubResource("AtlasTexture_y7jcp")
 ClickStream = ExtResource("10_fma1i")
 
 [node name="Load" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
@@ -760,7 +804,10 @@ offset_right = 320.0
 offset_bottom = 80.0
 mouse_filter = 2
 texture_normal = SubResource("AtlasTexture_khyse")
-texture_pressed = SubResource("AtlasTexture_b7r5i")
+texture_pressed = SubResource("AtlasTexture_khyse")
+texture_hover = SubResource("AtlasTexture_khyse")
+texture_disabled = SubResource("AtlasTexture_khyse")
+texture_focused = SubResource("AtlasTexture_khyse")
 ClickStream = ExtResource("10_fma1i")
 
 [node name="Options" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
@@ -771,7 +818,19 @@ offset_right = 320.0
 offset_bottom = 120.0
 mouse_filter = 2
 texture_normal = SubResource("AtlasTexture_71ye6")
-texture_pressed = SubResource("AtlasTexture_pmpbt")
+texture_pressed = SubResource("AtlasTexture_71ye6")
+texture_hover = SubResource("AtlasTexture_71ye6")
+texture_disabled = SubResource("AtlasTexture_71ye6")
+ClickStream = ExtResource("10_fma1i")
+
+[node name="Special" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = 120.0
+offset_right = 320.0
+offset_bottom = 160.0
+mouse_filter = 2
+texture_normal = SubResource("AtlasTexture_eg327")
 ClickStream = ExtResource("10_fma1i")
 
 [node name="Quit" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
@@ -782,7 +841,10 @@ offset_right = 320.0
 offset_bottom = 200.0
 mouse_filter = 2
 texture_normal = SubResource("AtlasTexture_prpdi")
-texture_pressed = SubResource("AtlasTexture_4ochr")
+texture_pressed = SubResource("AtlasTexture_prpdi")
+texture_hover = SubResource("AtlasTexture_prpdi")
+texture_disabled = SubResource("AtlasTexture_prpdi")
+texture_focused = SubResource("AtlasTexture_prpdi")
 ClickStream = ExtResource("10_fma1i")
 
 [node name="TextureRect3" type="TextureRect" parent="TitleMenu"]
@@ -793,6 +855,57 @@ offset_top = 232.0
 offset_right = 304.0
 offset_bottom = 272.0
 texture = SubResource("AtlasTexture_yml00")
+
+[node name="Special" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(320, 240)
+anchors_preset = 0
+offset_left = 480.0
+offset_top = 390.0
+offset_right = 480.0
+offset_bottom = 390.0
+scale = Vector2(1.25, 1.25)
+pivot_offset = Vector2(160, 120)
+
+[node name="MenuButton" parent="Special" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+texture_normal = SubResource("AtlasTexture_s6o5p")
+ClickStream = ExtResource("10_fma1i")
+
+[node name="MenuButton2" parent="Special" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+offset_top = 40.0
+offset_bottom = 80.0
+texture_normal = SubResource("AtlasTexture_kx5k3")
+ClickStream = ExtResource("10_fma1i")
+
+[node name="MenuButton3" parent="Special" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+offset_top = 80.0
+offset_bottom = 120.0
+texture_normal = SubResource("AtlasTexture_y1lsa")
+ClickStream = ExtResource("10_fma1i")
+
+[node name="MenuButton4" parent="Special" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+offset_top = 120.0
+offset_bottom = 160.0
+texture_normal = SubResource("AtlasTexture_4ne2i")
+ClickStream = ExtResource("10_fma1i")
+
+[node name="MenuButton5" parent="Special" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+offset_top = 160.0
+offset_bottom = 200.0
+texture_normal = SubResource("AtlasTexture_2868n")
+ClickStream = ExtResource("10_fma1i")
+
+[node name="MenuButton6" parent="Special" instance=ExtResource("6_qxj8v")]
+layout_mode = 0
+offset_top = 200.0
+offset_bottom = 240.0
+texture_normal = SubResource("AtlasTexture_txsne")
+ClickStream = ExtResource("7_xo8l8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
