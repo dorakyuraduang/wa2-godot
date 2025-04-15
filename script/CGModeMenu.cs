@@ -58,7 +58,7 @@ public partial class CGModeMenu : Control
         }
       };
     }
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 14; i++)
     {
       int idx = i;
       Tabs.GetChild<Wa2Button>(i).ButtonDown += () =>

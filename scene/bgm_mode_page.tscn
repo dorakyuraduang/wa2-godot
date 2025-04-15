@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://dtsd6751gtrrt"]
+[gd_scene load_steps=3 format=3 uid="uid://dtsd6751gtrrt"]
+
+[ext_resource type="Texture2D" uid="uid://ykaqwp4o8kgx" path="res://assets/grp/sys_09000.png" id="1_kr5qj"]
+[ext_resource type="PackedScene" uid="uid://b27eh550h0leb" path="res://scene/bgm_player.tscn" id="2_1n0lj"]
 
 [node name="BgmModePage" type="Control"]
 layout_mode = 3
@@ -7,3 +10,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -56.0
+offset_right = 640.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_kr5qj")
+
+[node name="BgmPlayer" parent="." instance=ExtResource("2_1n0lj")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -34.0
+offset_right = 280.0
+offset_bottom = -6.0
+grow_vertical = 0
