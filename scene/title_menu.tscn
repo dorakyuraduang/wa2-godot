@@ -677,7 +677,7 @@ scale_over_velocity_min = 32.0
 scale_over_velocity_max = 128.0
 scale_over_velocity_curve = SubResource("CurveTexture_nst6c")
 
-[node name="TitleMenu" type="Control" node_paths=PackedStringArray("MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton", "SpecialBackButton", "SpecialButton", "Special")]
+[node name="TitleMenu" type="Control" node_paths=PackedStringArray("CgModeButton", "BgmModeButton", "MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton", "SpecialBackButton", "SpecialButton", "Special")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -685,6 +685,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_le5pv")
+CgModeButton = NodePath("Special/CgMode")
+BgmModeButton = NodePath("Special/BgmMode")
 MenuBttons = NodePath("TitleMenu")
 InitalStart = NodePath("InitalStart")
 AnimationPlayer = NodePath("AnimationPlayer")
@@ -872,7 +874,7 @@ layout_mode = 0
 texture_normal = SubResource("AtlasTexture_s6o5p")
 ClickStream = ExtResource("10_fma1i")
 
-[node name="MenuButton2" parent="Special" instance=ExtResource("6_qxj8v")]
+[node name="CgMode" parent="Special" instance=ExtResource("6_qxj8v")]
 layout_mode = 0
 offset_top = 40.0
 offset_bottom = 80.0
@@ -886,7 +888,7 @@ offset_bottom = 120.0
 texture_normal = SubResource("AtlasTexture_y1lsa")
 ClickStream = ExtResource("10_fma1i")
 
-[node name="MenuButton4" parent="Special" instance=ExtResource("6_qxj8v")]
+[node name="BgmMode" parent="Special" instance=ExtResource("6_qxj8v")]
 layout_mode = 0
 offset_top = 120.0
 offset_bottom = 160.0

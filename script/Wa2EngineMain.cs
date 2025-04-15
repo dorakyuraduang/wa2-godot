@@ -311,7 +311,7 @@ public partial class Wa2EngineMain : Control
 			{
 				ClickedInWait = true;
 			}
-			if (Skipping || ClickedInWait)
+			if (Skipping || ClickedInWait || SkipMode)
 			{
 				if (VideoPlayer.IsPlaying())
 				{
@@ -341,7 +341,7 @@ public partial class Wa2EngineMain : Control
 			}
 			return;
 		}
-		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || Skipping))
+		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || Skipping || SkipMode))
 		{
 			if (AdvMain.Visible)
 			{

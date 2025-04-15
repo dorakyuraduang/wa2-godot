@@ -11,6 +11,8 @@ public partial class Wa2UiMgr : Control
 	public TitleMenu TitleMenu;
 	[Export]
 	public LoadSaveMenu LoadSaveMenu;
+	[Export]
+	public CGModeMenu CGModeMenu;
 	private Wa2EngineMain _engine;
 	public override void _Ready()
 	{
@@ -41,6 +43,10 @@ public partial class Wa2UiMgr : Control
 	{
 		LoadSaveMenu.Open(DataMode.Save);
 		UiQueue.Push(LoadSaveMenu);
+	}
+	public void OpenCGModeMenu(){
+		CGModeMenu.Open();
+		UiQueue.Push(CGModeMenu);
 	}
 	public void OpenLoadMenu()
 	{

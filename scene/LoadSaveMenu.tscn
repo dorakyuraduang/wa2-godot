@@ -1,9 +1,9 @@
-[gd_scene load_steps=78 format=3 uid="uid://bxa3gtl880ece"]
+[gd_scene load_steps=79 format=3 uid="uid://bxa3gtl880ece"]
 
-[ext_resource type="Texture2D" uid="uid://cy5jrp4jpngky" path="res://assets/grp/sys_05012.tga" id="1_fpsiy"]
 [ext_resource type="Script" uid="uid://dbkyiayv0e7wj" path="res://script/LoadSaveMenu.cs" id="1_l5c20"]
-[ext_resource type="Texture2D" uid="uid://dfvs633fxj3ov" path="res://assets/grp/sys_09000.tga" id="3_6yasr"]
+[ext_resource type="Texture2D" uid="uid://kjst0j70oly0" path="res://assets/grp/sys_04010.png" id="2_4g5eb"]
 [ext_resource type="Texture2D" uid="uid://k20quccu5fx" path="res://assets/grp/sys_01000.png" id="3_l5c20"]
+[ext_resource type="Texture2D" uid="uid://ykaqwp4o8kgx" path="res://assets/grp/sys_09000.png" id="4_4g5eb"]
 [ext_resource type="Texture2D" uid="uid://qv6t25tic016" path="res://assets/grp/sys_09100.tga" id="4_8mjx4"]
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="6_damy8"]
 [ext_resource type="Texture2D" uid="uid://fry7muu30vjg" path="res://assets/grp/sys_00110.tga" id="7_i0eel"]
@@ -18,6 +18,7 @@
 [ext_resource type="FontFile" uid="uid://bqnr5jmcejvam" path="res://assets/fonts/fzzyjt.ttf" id="16_q83v8"]
 [ext_resource type="Texture2D" uid="uid://dr0gcwfsp0q0n" path="res://assets/grp/sys_00101.png" id="17_8afw7"]
 [ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="18_4g5eb"]
+[ext_resource type="PackedScene" uid="uid://b27eh550h0leb" path="res://scene/bgm_player.tscn" id="19_kslka"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pvxw4"]
 atlas = ExtResource("4_8mjx4")
@@ -232,137 +233,137 @@ _data = {
 atlas = ExtResource("9_n1sq5")
 region = Rect2(0, 64, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fomwf"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5f1n6"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7wynx"]
-atlas = SubResource("CompressedTexture2D_fomwf")
+atlas = SubResource("CompressedTexture2D_5f1n6")
 region = Rect2(0, 0, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dk2q3"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_un0t8"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k1gnd"]
-atlas = SubResource("CompressedTexture2D_dk2q3")
+atlas = SubResource("CompressedTexture2D_un0t8")
 region = Rect2(64, 64, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h5rnl"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_da6sy"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qafel"]
-atlas = SubResource("CompressedTexture2D_h5rnl")
+atlas = SubResource("CompressedTexture2D_da6sy")
 region = Rect2(64, 0, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jwejl"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_frk7u"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ldp26"]
-atlas = SubResource("CompressedTexture2D_jwejl")
+atlas = SubResource("CompressedTexture2D_frk7u")
 region = Rect2(128, 64, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6573c"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sg3rf"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hmefc"]
-atlas = SubResource("CompressedTexture2D_6573c")
+atlas = SubResource("CompressedTexture2D_sg3rf")
 region = Rect2(128, 0, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_o0kcw"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q6x7i"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmv6t"]
-atlas = SubResource("CompressedTexture2D_o0kcw")
+atlas = SubResource("CompressedTexture2D_q6x7i")
 region = Rect2(192, 64, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_40d0s"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8a4vh"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dro5t"]
-atlas = SubResource("CompressedTexture2D_40d0s")
+atlas = SubResource("CompressedTexture2D_8a4vh")
 region = Rect2(192, 0, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gfdma"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_15x3y"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5jl54"]
-atlas = SubResource("CompressedTexture2D_gfdma")
+atlas = SubResource("CompressedTexture2D_15x3y")
 region = Rect2(256, 64, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s6k2g"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_twfk1"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rfyqj"]
-atlas = SubResource("CompressedTexture2D_s6k2g")
+atlas = SubResource("CompressedTexture2D_twfk1")
 region = Rect2(256, 0, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kq0fp"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f6ty3"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i74tr"]
-atlas = SubResource("CompressedTexture2D_kq0fp")
+atlas = SubResource("CompressedTexture2D_f6ty3")
 region = Rect2(320, 64, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_trmkg"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kbqik"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x7t5y"]
-atlas = SubResource("CompressedTexture2D_trmkg")
+atlas = SubResource("CompressedTexture2D_kbqik")
 region = Rect2(320, 0, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_68o17"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rfjtn"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5daxh"]
-atlas = SubResource("CompressedTexture2D_68o17")
+atlas = SubResource("CompressedTexture2D_rfjtn")
 region = Rect2(384, 64, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k3h34"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kqdnl"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_klssu"]
-atlas = SubResource("CompressedTexture2D_k3h34")
+atlas = SubResource("CompressedTexture2D_kqdnl")
 region = Rect2(384, 0, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0tp4h"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j5da2"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ibw41"]
-atlas = SubResource("CompressedTexture2D_0tp4h")
+atlas = SubResource("CompressedTexture2D_j5da2")
 region = Rect2(448, 64, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4m2ys"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vyb77"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_au8rm"]
-atlas = SubResource("CompressedTexture2D_4m2ys")
+atlas = SubResource("CompressedTexture2D_vyb77")
 region = Rect2(448, 0, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8j4tt"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q8kxt"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_18jol"]
-atlas = SubResource("CompressedTexture2D_8j4tt")
+atlas = SubResource("CompressedTexture2D_q8kxt")
 region = Rect2(512, 64, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lptds"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sdsku"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lyr6n"]
-atlas = SubResource("CompressedTexture2D_lptds")
+atlas = SubResource("CompressedTexture2D_sdsku")
 region = Rect2(512, 0, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0i10m"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_opn2u"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ld5hw"]
-atlas = SubResource("CompressedTexture2D_0i10m")
+atlas = SubResource("CompressedTexture2D_opn2u")
 region = Rect2(576, 64, 64, 32)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uxx42"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uklr1"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q1n1u"]
-atlas = SubResource("CompressedTexture2D_uxx42")
+atlas = SubResource("CompressedTexture2D_uklr1")
 region = Rect2(576, 0, 64, 32)
 
 [sub_resource type="LabelSettings" id="LabelSettings_3rr5g"]
@@ -448,7 +449,7 @@ color = Color(0, 0, 0, 0.564706)
 layout_mode = 0
 offset_right = 304.0
 offset_bottom = 168.0
-texture = ExtResource("1_fpsiy")
+texture = ExtResource("2_4g5eb")
 
 [node name="PageTop" type="TextureRect" parent="."]
 layout_mode = 0
@@ -468,7 +469,7 @@ offset_top = -56.0
 offset_right = 640.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("3_6yasr")
+texture = ExtResource("4_4g5eb")
 
 [node name="ExitButton" type="TextureButton" parent="."]
 layout_mode = 1
@@ -801,3 +802,14 @@ texture_focused = SubResource("AtlasTexture_kslka")
 script = ExtResource("6_damy8")
 ClickStream = ExtResource("12_xqhj0")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="BgmPlayer" parent="." instance=ExtResource("19_kslka")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -34.0
+offset_right = 280.0
+offset_bottom = -6.0
+grow_vertical = 0

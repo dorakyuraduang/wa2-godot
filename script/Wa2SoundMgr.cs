@@ -9,10 +9,11 @@ public partial class Wa2SoundMgr : Node
 	private AudioStreamPlayer _sysSeAudio = new();
 	private Wa2Audio _voiceAudio = new();
 	private Wa2Audio[] _seAudios;
+	  public int BgmId{private set;get;}
 	public void StopAll()
 	{
 		_voiceAudio.Stream = null;
-		_bgmAudio.Stream = null;
+		StopBgm();
 		for (int i = 0; i < MAX_SE_CHANNELS; i++)
 		{
 			_seAudios[i].Stream = null;
@@ -41,6 +42,7 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void PlayBgm(int id, bool loopFlag = true, int volume = 255)
 	{
+		BgmId=id;
 		Wa2EngineMain.Engine.WirtSysFlag(100 + id, 1);
 		_bgmAudio.PlayStream(Wa2Resource.GetBgmStream(id, false), loopFlag, 0, volume / 255.0f);
 		_bgmAudio.SetLoopStream(Wa2Resource.GetBgmStream(id, true));
@@ -48,6 +50,7 @@ public partial class Wa2SoundMgr : Node
 	public void StopBgm(float time = 0.0f)
 	{
 		_bgmAudio.StopStream(time);
+		BgmId=-1;
 	}
 	public float GetVoiceTime()
 	{
@@ -73,6 +76,7 @@ public partial class Wa2SoundMgr : Node
 	public override void _Ready()
 	{
 		Instance = this;
+		_bgmAudio.Bus="BGM";
 		_sysSeAudio.Stream = new AudioStreamPolyphonic();
 		_bgmAudio.Name = "BgmAudio";
 		_sysSeAudio.Name = "SysSeAudio";

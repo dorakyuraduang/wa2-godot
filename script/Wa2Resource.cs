@@ -52,6 +52,9 @@ public class Wa2Resource
 		return wavStream;
 
 	}
+	public static Texture2D GetTvImage(int id){
+		return GetTgaImage(string.Format("tv{0:D6}.tga", id));
+	}
 	public static Texture2D GetMaskImage(int id)
 	{
 		return GetBmpImage(string.Format("f0{0:D3}.bmp", id));
@@ -83,6 +86,13 @@ public class Wa2Resource
 	public static ImageTexture GetCgImage(int id, int no)
 	{
 		string path = string.Format("v{0:D5}{1:D1}.tga", id, no);
+		// GD.Print(path);
+		return GetTgaImage(path);
+
+	}
+		public static ImageTexture GetCgImage(int id)
+	{
+		string path = string.Format("v{0:D6}.tga", id);
 		// GD.Print(path);
 		return GetTgaImage(path);
 

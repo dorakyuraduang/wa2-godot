@@ -5,6 +5,10 @@ using Godot;
 public partial class TitleMenu : Control
 {
 	[Export]
+	public Wa2Button CgModeButton;
+	[Export]
+	public Wa2Button BgmModeButton;
+	[Export]
 	public Control MenuBttons;
 	[Export]
 	public Control InitalStart;
@@ -49,7 +53,11 @@ public partial class TitleMenu : Control
 		// As2Button.ButtonDown += OnAs2ButtonDown;
 		CodeaButton.ButtonDown += OnCodeaButtonDown;
 		LoadtButton.ButtonDown += OnLoadButtonDown;
+		CgModeButton.ButtonDown+=OnCgModeButtonDown;
 
+	}
+	public void OnCgModeButtonDown(){
+		_engine.UiMgr.OpenCGModeMenu();
 	}
 	public void OnLoadButtonDown()
 	{

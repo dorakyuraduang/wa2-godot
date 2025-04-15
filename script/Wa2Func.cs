@@ -495,6 +495,7 @@ public class Wa2Func
 		_engine.GameSav.BgmInfo.Id = args[0].Get();
 		_engine.GameSav.BgmInfo.Loop = args[2].Get();
 		_engine.GameSav.BgmInfo.Volume = args[3].Get();
+		// GD.Print( args[1].Get());
 		_engine.SoundMgr.PlayBgm(args[0].Get(), args[2].Get() != 0, args[3].Get());
 	}
 	public void MS(List<Wa2Var> args)
@@ -643,6 +644,7 @@ public class Wa2Func
 	public void SetMovie(List<Wa2Var> args)
 	{
 		GD.Print("视频编号:", args[1].Get());
+		_engine.SoundMgr.StopAll();
 		if (_engine.ReadSysFlag(args[1].Get())==1)
 		{
 			_engine.HasPlayMovie=true;
