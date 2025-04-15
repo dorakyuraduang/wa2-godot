@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 public partial class CGModeMenu : BasePage
 {
-
+  [Export]
   public HBoxContainer Tabs;
   [Export]
   public GridContainer CGSlots;
