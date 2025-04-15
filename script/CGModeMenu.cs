@@ -1,13 +1,8 @@
 using System.Collections.Generic;
 using Godot;
-public partial class CGModeMenu : Control
+public partial class CGModeMenu : BasePage
 {
-  [Export]
-  public AnimationPlayer AnimationPlayer;
-  [Export]
-  public Wa2Button ExitBtn;
-  public Wa2EngineMain _engine;
-  [Export]
+
   public HBoxContainer Tabs;
   [Export]
   public GridContainer CGSlots;
@@ -16,26 +11,22 @@ public partial class CGModeMenu : Control
 
   public List<int> CurCgList = new();
   public int _pageNum;
-  public void Open()
+  public override void Open()
   {
     _engine.SoundMgr.PlayBgm(41);
-    AnimationPlayer.Play("open");
+    base.Open();
     Tabs.GetChild<Wa2Button>(_pageNum).GrabFocus();
     UpdatePage();
   }
-  public async void Close()
+  public  override void Close()
   {
     AnimationPlayer.Play("close");
     _engine.SoundMgr.PlayBgm(31);
-    await ToSignal(AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
-    _engine.UiMgr.ReturnScene();
     
   }
   public override void _Ready()
   {
-    
-    _engine = Wa2EngineMain.Engine;
-    ExitBtn.ButtonDown += OnExitBtnDown;
+    base._Ready();
     for (int i = 0; i < 12; i++)
     {
       int idx = i;
@@ -68,10 +59,6 @@ public partial class CGModeMenu : Control
         UpdatePage();
       };
     }
-  }
-  public void OnExitBtnDown()
-  {
-    Close();
   }
   public void UpdatePage()
 

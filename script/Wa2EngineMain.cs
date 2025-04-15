@@ -129,6 +129,14 @@ public partial class Wa2EngineMain : Control
 			}
 		}
 	}
+	public void SetBgmFlag(int id)
+	{
+		WirtSysFlag(100 + id, 1);
+	}
+	public int GetBgmFlag(int id)
+	{
+		return ReadSysFlag(100 + id);
+	}
 	public void UpdateChar(float time)
 	{
 		List<int> posList = new();

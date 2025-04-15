@@ -1,274 +1,135 @@
-[gd_scene load_steps=53 format=3 uid="uid://cki7gfbvw3rgc"]
+[gd_scene load_steps=42 format=3 uid="uid://djqgqhlm8ewbt"]
 
 [ext_resource type="Script" uid="uid://34crv7qrvoy8" path="res://script/CGModeMenu.cs" id="1_5nscl"]
-[ext_resource type="Texture2D" uid="uid://ykaqwp4o8kgx" path="res://assets/grp/sys_09000.png" id="1_tqaow"]
-[ext_resource type="Texture2D" uid="uid://qv6t25tic016" path="res://assets/grp/sys_09100.tga" id="2_6xc2i"]
+[ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_mkt11"]
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="3_bkry4"]
 [ext_resource type="AudioStream" uid="uid://clwoheb3ixdy1" path="res://assets/se/SE_9211.WAV" id="4_fnnbw"]
-[ext_resource type="AudioStream" uid="uid://c4ucnxq7r28er" path="res://assets/se/SE_9213.WAV" id="5_56ygf"]
-[ext_resource type="Texture2D" uid="uid://gtc82e1odpcn" path="res://assets/grp/sys_05000.png" id="6_fnnbw"]
-[ext_resource type="Texture2D" uid="uid://kjst0j70oly0" path="res://assets/grp/sys_04010.png" id="7_56ygf"]
 [ext_resource type="Texture2D" uid="uid://dmg5k1lqmn5m2" path="res://assets/grp/sys_05201.png" id="8_x6mkq"]
 [ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="9_5nscl"]
 [ext_resource type="Texture2D" uid="uid://dyi6h35oskvpo" path="res://assets/grp/sys_05200.png" id="11_1iyey"]
 [ext_resource type="Texture2D" uid="uid://x5qal0hextgb" path="res://assets/grp/sys_05900.png" id="12_iboml"]
 [ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="13_ltjj8"]
 [ext_resource type="Script" uid="uid://bg3cy4kowkyff" path="res://script/CGViewer.cs" id="14_1aw2s"]
-[ext_resource type="PackedScene" uid="uid://b27eh550h0leb" path="res://scene/bgm_player.tscn" id="15_1aw2s"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x6mkq"]
-atlas = ExtResource("2_6xc2i")
-region = Rect2(0, 0, 56, 24)
+[sub_resource type="ButtonGroup" id="ButtonGroup_o5hfw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5nscl"]
-atlas = ExtResource("2_6xc2i")
-region = Rect2(0, 48, 56, 24)
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_iboml"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iboml"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6dbtj"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(0, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oy8lt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_85nwu"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(0, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_aqtvf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2v00r"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(0, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pnufx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0r03g"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(60, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1qghp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bq0e"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(60, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hfc74"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x8eb"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(120, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ie0bk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdv34"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(120, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2b604"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kn74"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(180, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xmr7y"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4xui"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(180, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wtqyb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3sx0"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(240, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1sxhq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_poaqy"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(240, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5vw00"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5te1"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(300, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kmfcj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hw1i1"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(300, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0ixla"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4o5p"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(360, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7m65x"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_grltm"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(360, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tceig"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q7bn"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(420, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3vqie"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lt0m"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(420, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wejua"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1or1"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(480, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rtle0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_byaq4"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(480, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7sfv1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nneog"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(540, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ur64"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgv7i"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(540, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1iyey"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2uw0f"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(600, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_onnoi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_km4xk"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(600, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ktjds"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_iimpg"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(660, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kweua"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xoud6"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(660, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wx1uk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlojm"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(720, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ebxim"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_y5uuq"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(720, 0, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_j5n4i"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qao1"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(780, 64, 60, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gu1fv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_k2aol"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(780, 0, 60, 32)
 
-[sub_resource type="Animation" id="Animation_1iyey"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_iboml"]
-resource_name = "close"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.05, 1.05)]
-}
-
-[sub_resource type="Animation" id="Animation_5nscl"]
-resource_name = "open"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1.05, 1.05), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.266667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_1iyey"]
-_data = {
-&"RESET": SubResource("Animation_1iyey"),
-&"close": SubResource("Animation_iboml"),
-&"open": SubResource("Animation_5nscl")
-}
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qk3cx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c5rwq"]
 resource_local_to_scene = true
 shader = ExtResource("13_ltjj8")
 shader_parameter/cur_scale = Vector2(1, 1)
@@ -278,27 +139,15 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
-shader_parameter/top = false
+shader_parameter/top = true
 
-[node name="CGModePage" type="Control" node_paths=PackedStringArray("AnimationPlayer", "ExitBtn", "Tabs", "CGSlots", "CGViewer")]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(640, 360)
-mouse_filter = 2
+[node name="CGModeMenu2" node_paths=PackedStringArray("Tabs", "CGSlots", "CGViewer") instance=ExtResource("1_mkt11")]
 script = ExtResource("1_5nscl")
-AnimationPlayer = NodePath("AnimationPlayer")
-ExitBtn = NodePath("ExitButton")
 Tabs = NodePath("PageBtnContainer")
 CGSlots = NodePath("GridContainer")
 CGViewer = NodePath("CgViewer")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
+[node name="TextureRect" type="TextureRect" parent="." index="7"]
 offset_left = 280.0
 offset_top = 75.0
 offset_right = 1280.0
@@ -306,256 +155,210 @@ offset_bottom = 115.0
 mouse_filter = 2
 texture = ExtResource("11_1iyey")
 
-[node name="TextureRect3" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -640.0
-offset_top = -56.0
-offset_right = 640.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("1_tqaow")
-
-[node name="ExitButton" type="TextureButton" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -89.0
-offset_top = -34.0
-offset_right = -33.0
-offset_bottom = -10.0
-grow_horizontal = 0
-grow_vertical = 0
-texture_normal = SubResource("AtlasTexture_x6mkq")
-texture_pressed = SubResource("AtlasTexture_5nscl")
-script = ExtResource("3_bkry4")
-HoverStream = ExtResource("4_fnnbw")
-ClickStream = ExtResource("5_56ygf")
-
-[node name="PageTop" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("6_fnnbw")
-
-[node name="TextureRect2" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 304.0
-offset_bottom = 168.0
-texture = ExtResource("7_56ygf")
-
-[node name="PageBtnContainer" type="HBoxContainer" parent="."]
-layout_mode = 0
+[node name="PageBtnContainer" type="HBoxContainer" parent="." index="8"]
 offset_left = 440.0
 offset_top = 70.0
 offset_right = 1280.0
 offset_bottom = 102.0
 theme_override_constants/separation = 0
 
-[node name="TextureButton" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton" type="TextureButton" parent="PageBtnContainer" index="0"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_iboml")
-texture_pressed = SubResource("AtlasTexture_oy8lt")
-texture_hover = SubResource("AtlasTexture_aqtvf")
-texture_disabled = SubResource("AtlasTexture_aqtvf")
-texture_focused = SubResource("AtlasTexture_oy8lt")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_6dbtj")
+texture_pressed = SubResource("AtlasTexture_85nwu")
+texture_hover = SubResource("AtlasTexture_2v00r")
+texture_disabled = SubResource("AtlasTexture_2v00r")
+texture_focused = SubResource("AtlasTexture_85nwu")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton2" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton2" type="TextureButton" parent="PageBtnContainer" index="1"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_pnufx")
-texture_pressed = SubResource("AtlasTexture_1qghp")
-texture_hover = SubResource("AtlasTexture_pnufx")
-texture_disabled = SubResource("AtlasTexture_pnufx")
-texture_focused = SubResource("AtlasTexture_1qghp")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_0r03g")
+texture_pressed = SubResource("AtlasTexture_2bq0e")
+texture_hover = SubResource("AtlasTexture_0r03g")
+texture_disabled = SubResource("AtlasTexture_0r03g")
+texture_focused = SubResource("AtlasTexture_2bq0e")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton3" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton3" type="TextureButton" parent="PageBtnContainer" index="2"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_hfc74")
-texture_pressed = SubResource("AtlasTexture_ie0bk")
-texture_hover = SubResource("AtlasTexture_hfc74")
-texture_disabled = SubResource("AtlasTexture_hfc74")
-texture_focused = SubResource("AtlasTexture_ie0bk")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_7x8eb")
+texture_pressed = SubResource("AtlasTexture_pdv34")
+texture_hover = SubResource("AtlasTexture_7x8eb")
+texture_disabled = SubResource("AtlasTexture_7x8eb")
+texture_focused = SubResource("AtlasTexture_pdv34")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton4" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton4" type="TextureButton" parent="PageBtnContainer" index="3"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_2b604")
-texture_pressed = SubResource("AtlasTexture_xmr7y")
-texture_hover = SubResource("AtlasTexture_2b604")
-texture_disabled = SubResource("AtlasTexture_2b604")
-texture_focused = SubResource("AtlasTexture_xmr7y")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_6kn74")
+texture_pressed = SubResource("AtlasTexture_l4xui")
+texture_hover = SubResource("AtlasTexture_6kn74")
+texture_disabled = SubResource("AtlasTexture_6kn74")
+texture_focused = SubResource("AtlasTexture_l4xui")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton5" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton5" type="TextureButton" parent="PageBtnContainer" index="4"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_wtqyb")
-texture_pressed = SubResource("AtlasTexture_1sxhq")
-texture_hover = SubResource("AtlasTexture_wtqyb")
-texture_disabled = SubResource("AtlasTexture_wtqyb")
-texture_focused = SubResource("AtlasTexture_1sxhq")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_v3sx0")
+texture_pressed = SubResource("AtlasTexture_poaqy")
+texture_hover = SubResource("AtlasTexture_v3sx0")
+texture_disabled = SubResource("AtlasTexture_v3sx0")
+texture_focused = SubResource("AtlasTexture_poaqy")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton6" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton6" type="TextureButton" parent="PageBtnContainer" index="5"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_5vw00")
-texture_pressed = SubResource("AtlasTexture_kmfcj")
-texture_hover = SubResource("AtlasTexture_5vw00")
-texture_disabled = SubResource("AtlasTexture_5vw00")
-texture_focused = SubResource("AtlasTexture_kmfcj")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_m5te1")
+texture_pressed = SubResource("AtlasTexture_hw1i1")
+texture_hover = SubResource("AtlasTexture_m5te1")
+texture_disabled = SubResource("AtlasTexture_m5te1")
+texture_focused = SubResource("AtlasTexture_hw1i1")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton7" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton7" type="TextureButton" parent="PageBtnContainer" index="6"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_0ixla")
-texture_pressed = SubResource("AtlasTexture_7m65x")
-texture_hover = SubResource("AtlasTexture_0ixla")
-texture_disabled = SubResource("AtlasTexture_0ixla")
-texture_focused = SubResource("AtlasTexture_7m65x")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_o4o5p")
+texture_pressed = SubResource("AtlasTexture_grltm")
+texture_hover = SubResource("AtlasTexture_o4o5p")
+texture_disabled = SubResource("AtlasTexture_o4o5p")
+texture_focused = SubResource("AtlasTexture_grltm")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton8" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton8" type="TextureButton" parent="PageBtnContainer" index="7"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_tceig")
-texture_pressed = SubResource("AtlasTexture_3vqie")
-texture_hover = SubResource("AtlasTexture_tceig")
-texture_disabled = SubResource("AtlasTexture_tceig")
-texture_focused = SubResource("AtlasTexture_3vqie")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_5q7bn")
+texture_pressed = SubResource("AtlasTexture_0lt0m")
+texture_hover = SubResource("AtlasTexture_5q7bn")
+texture_disabled = SubResource("AtlasTexture_5q7bn")
+texture_focused = SubResource("AtlasTexture_0lt0m")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton9" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton9" type="TextureButton" parent="PageBtnContainer" index="8"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_wejua")
-texture_pressed = SubResource("AtlasTexture_rtle0")
-texture_hover = SubResource("AtlasTexture_wejua")
-texture_disabled = SubResource("AtlasTexture_wejua")
-texture_focused = SubResource("AtlasTexture_rtle0")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_i1or1")
+texture_pressed = SubResource("AtlasTexture_byaq4")
+texture_hover = SubResource("AtlasTexture_i1or1")
+texture_disabled = SubResource("AtlasTexture_i1or1")
+texture_focused = SubResource("AtlasTexture_byaq4")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton10" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton10" type="TextureButton" parent="PageBtnContainer" index="9"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_7sfv1")
-texture_pressed = SubResource("AtlasTexture_5ur64")
-texture_hover = SubResource("AtlasTexture_7sfv1")
-texture_disabled = SubResource("AtlasTexture_7sfv1")
-texture_focused = SubResource("AtlasTexture_5ur64")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_nneog")
+texture_pressed = SubResource("AtlasTexture_wgv7i")
+texture_hover = SubResource("AtlasTexture_nneog")
+texture_disabled = SubResource("AtlasTexture_nneog")
+texture_focused = SubResource("AtlasTexture_wgv7i")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton11" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton11" type="TextureButton" parent="PageBtnContainer" index="10"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_1iyey")
-texture_pressed = SubResource("AtlasTexture_onnoi")
-texture_hover = SubResource("AtlasTexture_1iyey")
-texture_disabled = SubResource("AtlasTexture_1iyey")
-texture_focused = SubResource("AtlasTexture_onnoi")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_2uw0f")
+texture_pressed = SubResource("AtlasTexture_km4xk")
+texture_hover = SubResource("AtlasTexture_2uw0f")
+texture_disabled = SubResource("AtlasTexture_2uw0f")
+texture_focused = SubResource("AtlasTexture_km4xk")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton12" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton12" type="TextureButton" parent="PageBtnContainer" index="11"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_ktjds")
-texture_pressed = SubResource("AtlasTexture_kweua")
-texture_hover = SubResource("AtlasTexture_ktjds")
-texture_disabled = SubResource("AtlasTexture_ktjds")
-texture_focused = SubResource("AtlasTexture_kweua")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_iimpg")
+texture_pressed = SubResource("AtlasTexture_xoud6")
+texture_hover = SubResource("AtlasTexture_iimpg")
+texture_disabled = SubResource("AtlasTexture_iimpg")
+texture_focused = SubResource("AtlasTexture_xoud6")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton13" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton13" type="TextureButton" parent="PageBtnContainer" index="12"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_wx1uk")
-texture_pressed = SubResource("AtlasTexture_ebxim")
-texture_hover = SubResource("AtlasTexture_wx1uk")
-texture_disabled = SubResource("AtlasTexture_wx1uk")
-texture_focused = SubResource("AtlasTexture_ebxim")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_nlojm")
+texture_pressed = SubResource("AtlasTexture_y5uuq")
+texture_hover = SubResource("AtlasTexture_nlojm")
+texture_disabled = SubResource("AtlasTexture_nlojm")
+texture_focused = SubResource("AtlasTexture_y5uuq")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="TextureButton14" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton14" type="TextureButton" parent="PageBtnContainer" index="13"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_iboml")
-texture_normal = SubResource("AtlasTexture_j5n4i")
-texture_pressed = SubResource("AtlasTexture_gu1fv")
-texture_hover = SubResource("AtlasTexture_j5n4i")
-texture_disabled = SubResource("AtlasTexture_j5n4i")
-texture_focused = SubResource("AtlasTexture_gu1fv")
+button_group = SubResource("ButtonGroup_o5hfw")
+texture_normal = SubResource("AtlasTexture_2qao1")
+texture_pressed = SubResource("AtlasTexture_k2aol")
+texture_hover = SubResource("AtlasTexture_2qao1")
+texture_disabled = SubResource("AtlasTexture_2qao1")
+texture_focused = SubResource("AtlasTexture_k2aol")
 script = ExtResource("3_bkry4")
 HoverStream = ExtResource("4_fnnbw")
 ClickStream = ExtResource("9_5nscl")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="GridContainer" type="GridContainer" parent="." index="9"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -572,14 +375,14 @@ mouse_filter = 2
 theme_override_constants/h_separation = 0
 columns = 4
 
-[node name="TextureRect4" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect4" type="TextureButton" parent="GridContainer" index="0"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect4"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect4" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -587,14 +390,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect5" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect5" type="TextureButton" parent="GridContainer" index="1"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect5"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect5" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -602,14 +405,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect6" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect6" type="TextureButton" parent="GridContainer" index="2"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect6"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect6" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -617,14 +420,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect7" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect7" type="TextureButton" parent="GridContainer" index="3"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect7"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect7" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -632,14 +435,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect8" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect8" type="TextureButton" parent="GridContainer" index="4"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect8"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect8" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -647,14 +450,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect9" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect9" type="TextureButton" parent="GridContainer" index="5"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect9"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect9" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -662,14 +465,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect10" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect10" type="TextureButton" parent="GridContainer" index="6"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect10"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect10" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -677,14 +480,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect11" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect11" type="TextureButton" parent="GridContainer" index="7"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect11"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect11" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -692,14 +495,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect12" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect12" type="TextureButton" parent="GridContainer" index="8"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect12"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect12" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -707,14 +510,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect13" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect13" type="TextureButton" parent="GridContainer" index="9"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect13"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect13" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -722,14 +525,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect14" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect14" type="TextureButton" parent="GridContainer" index="10"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect14"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect14" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -737,14 +540,14 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="TextureRect15" type="TextureButton" parent="GridContainer"]
+[node name="TextureRect15" type="TextureButton" parent="GridContainer" index="11"]
 custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect15"]
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect15" index="0"]
 custom_minimum_size = Vector2(256, 144)
 layout_mode = 0
 offset_left = 8.0
@@ -752,14 +555,9 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_1iyey")
-}
-
-[node name="CgViewer" type="ColorRect" parent="."]
+[node name="CgViewer" type="ColorRect" parent="." index="10"]
 visible = false
-material = SubResource("ShaderMaterial_qk3cx")
+material = SubResource("ShaderMaterial_c5rwq")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -768,14 +566,3 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("14_1aw2s")
 metadata/_custom_type_script = "uid://ch3fjcpjwskoj"
-
-[node name="BgmPlayer" parent="." instance=ExtResource("15_1aw2s")]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -34.0
-offset_right = 280.0
-offset_bottom = -6.0
-grow_vertical = 0

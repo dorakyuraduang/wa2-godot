@@ -853,9 +853,9 @@ ClickStream = ExtResource("10_fma1i")
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 16.0
-offset_top = 232.0
+offset_top = 200.0
 offset_right = 304.0
-offset_bottom = 272.0
+offset_bottom = 240.0
 texture = SubResource("AtlasTexture_yml00")
 
 [node name="Special" type="Control" parent="."]

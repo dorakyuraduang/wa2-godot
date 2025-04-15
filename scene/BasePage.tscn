@@ -1,12 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://kapchdgi2hc7"]
+[gd_scene load_steps=16 format=3 uid="uid://bopft70o0x3ub"]
 
-[ext_resource type="Texture2D" uid="uid://ykaqwp4o8kgx" path="res://assets/grp/sys_09000.png" id="1_kr5qj"]
-[ext_resource type="Script" uid="uid://k5kx8gpn65af" path="res://script/BgmModeMenu.cs" id="1_lrb3g"]
-[ext_resource type="PackedScene" uid="uid://b27eh550h0leb" path="res://scene/bgm_player.tscn" id="2_1n0lj"]
-[ext_resource type="Texture2D" uid="uid://bvc0w6ue5v2wk" path="res://assets/grp/sys_04000.png" id="3_q7e5h"]
-[ext_resource type="Texture2D" uid="uid://kjst0j70oly0" path="res://assets/grp/sys_04010.png" id="6_dg2fw"]
+[ext_resource type="Texture2D" uid="uid://gtc82e1odpcn" path="res://assets/grp/sys_05000.png" id="1_47v8p"]
+[ext_resource type="Script" uid="uid://k5kx8gpn65af" path="res://script/BgmModeMenu.cs" id="1_q0q6a"]
+[ext_resource type="Texture2D" uid="uid://ykaqwp4o8kgx" path="res://assets/grp/sys_09000.png" id="1_uh34x"]
+[ext_resource type="PackedScene" uid="uid://b27eh550h0leb" path="res://scene/bgm_player.tscn" id="2_w237v"]
+[ext_resource type="Texture2D" uid="uid://qv6t25tic016" path="res://assets/grp/sys_09100.tga" id="3_7o4pd"]
+[ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="4_47v8p"]
+[ext_resource type="AudioStream" uid="uid://clwoheb3ixdy1" path="res://assets/se/SE_9211.WAV" id="5_nac0h"]
+[ext_resource type="AudioStream" uid="uid://c4ucnxq7r28er" path="res://assets/se/SE_9213.WAV" id="6_123d5"]
+[ext_resource type="Texture2D" uid="uid://kjst0j70oly0" path="res://assets/grp/sys_04010.png" id="8_nac0h"]
 
-[sub_resource type="Animation" id="Animation_ddhtu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqrnk"]
+atlas = ExtResource("3_7o4pd")
+region = Rect2(0, 0, 56, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrua7"]
+atlas = ExtResource("3_7o4pd")
+region = Rect2(0, 48, 56, 24)
+
+[sub_resource type="Animation" id="Animation_1iyey"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -23,26 +35,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
+tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
+tracks/2/path = NodePath(".:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -57,7 +69,7 @@ tracks/3/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_lrb3g"]
+[sub_resource type="Animation" id="Animation_iboml"]
 resource_name = "close"
 length = 0.3
 tracks/0/type = "value"
@@ -91,7 +103,7 @@ tracks/2/path = NodePath(".:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.0333333, 0.3),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.05, 1.05)]
@@ -99,7 +111,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("BgmPlayer:show_behind_parent")
+tracks/3/path = NodePath("BgmPlayer:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -109,7 +121,7 @@ tracks/3/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_dg2fw"]
+[sub_resource type="Animation" id="Animation_5nscl"]
 resource_name = "open"
 length = 0.3
 tracks/0/type = "value"
@@ -127,26 +139,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
+tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.266667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -161,14 +173,14 @@ tracks/3/keys = {
 "values": [true]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_wvpmc"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1iyey"]
 _data = {
-&"RESET": SubResource("Animation_ddhtu"),
-&"close": SubResource("Animation_lrb3g"),
-&"open": SubResource("Animation_dg2fw")
+&"RESET": SubResource("Animation_1iyey"),
+&"close": SubResource("Animation_iboml"),
+&"open": SubResource("Animation_5nscl")
 }
 
-[node name="BgmModePage" type="Control" node_paths=PackedStringArray("AnimationPlayer")]
+[node name="BasePage" type="Control" node_paths=PackedStringArray("ExitBtn", "AnimationPlayer")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -178,15 +190,33 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(640, 360)
 mouse_filter = 2
-script = ExtResource("1_lrb3g")
+script = ExtResource("1_q0q6a")
+ExitBtn = NodePath("ExitButton")
 AnimationPlayer = NodePath("AnimationPlayer")
 
-[node name="TextureRect2" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.564706)
 
-[node name="TextureRect3" type="TextureRect" parent="."]
+[node name="Logo" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_right = 344.0
+offset_bottom = 168.0
+texture = ExtResource("8_nac0h")
+
+[node name="PageTop" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 40.0
+texture = ExtResource("1_47v8p")
+
+[node name="PageBottom" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -198,9 +228,9 @@ offset_top = -56.0
 offset_right = 640.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("1_kr5qj")
+texture = ExtResource("1_uh34x")
 
-[node name="BgmPlayer" parent="." instance=ExtResource("2_1n0lj")]
+[node name="BgmPlayer" parent="." instance=ExtResource("2_w237v")]
 visible = false
 layout_mode = 1
 anchors_preset = 2
@@ -212,19 +242,26 @@ offset_right = 280.0
 offset_bottom = -6.0
 grow_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_q7e5h")
-
-[node name="TextureRect4" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 304.0
-offset_bottom = 168.0
-texture = ExtResource("6_dg2fw")
+[node name="ExitButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -89.0
+offset_top = -34.0
+offset_right = -33.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = SubResource("AtlasTexture_hqrnk")
+texture_pressed = SubResource("AtlasTexture_nrua7")
+script = ExtResource("4_47v8p")
+HoverStream = ExtResource("5_nac0h")
+ClickStream = ExtResource("6_123d5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_wvpmc")
+&"": SubResource("AnimationLibrary_1iyey")
 }
