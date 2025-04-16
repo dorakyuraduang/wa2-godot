@@ -193,10 +193,14 @@ public class Wa2Func
 	public void SetDemoMode(List<Wa2Var> args) { }
 	public void VI(List<Wa2Var> args)
 	{
-		if (args[0].Get() == 0)
+		// if (args[0].Get() == 0)
+		// {
+		if (args[0].Get() is int && args[0].Get() ==0)
 		{
 			_engine.GameSav.Label = args[1].Get();
 		}
+
+		// }
 		// int v0 = args[0];
 		// int v1 = args[1];
 		// _engine.Label = v1;
@@ -357,7 +361,7 @@ public class Wa2Func
 		if (args[1].Get() >= 0)
 		{
 			_engine.GameSav.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
-			_engine.SetCgFlag(args[1].Get()*10+args[2].Get());
+			_engine.SetCgFlag(args[1].Get() * 10 + args[2].Get());
 			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else
@@ -644,14 +648,15 @@ public class Wa2Func
 	public void SetMovie(List<Wa2Var> args)
 	{
 		GD.Print("视频编号:", args[1].Get());
+		_engine.SkipMode=false;
 		_engine.SoundMgr.StopAll();
-		if (_engine.ReadSysFlag(args[1].Get())==1)
+		if (_engine.ReadSysFlag(args[1].Get()) == 1)
 		{
-			_engine.HasPlayMovie=true;
+			_engine.HasPlayMovie = true;
 		}
 		else
 		{
-			_engine.HasPlayMovie=false;
+			_engine.HasPlayMovie = false;
 			_engine.WirtSysFlag(args[1].Get(), 1);
 		}
 
@@ -683,7 +688,6 @@ public class Wa2Func
 	}
 	public void SetGameFlag(List<Wa2Var> args)
 	{
-		GD.Print("flag", args[0].Get());
 		_engine.WirtSysFlag(args[0].Get(), args[1].Get());
 	}
 	public void LogOut(List<Wa2Var> args)
@@ -744,7 +748,8 @@ public class Wa2Func
 	public void SetSelect(List<Wa2Var> args)
 	{
 		_engine.ShowSelectMessage();
-		_engine.SelectVar = args[0];
+
+		// _engine.SelectVar = args[0];
 		// _engine.Script.Wait = true;
 	}
 	public void S(List<Wa2Var> args)
@@ -861,7 +866,7 @@ public class Wa2Func
 		if (args[1].Get() >= 0)
 		{
 			_engine.GameSav.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
-			_engine.SetCgFlag(args[1].Get()*10+args[2].Get());
+			_engine.SetCgFlag(args[1].Get() * 10 + args[2].Get());
 			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
 		}
 		else
@@ -931,13 +936,14 @@ public class Wa2Func
 	}
 	public void SLoad(List<Wa2Var> args)
 	{
-		_engine.Reset();
+		_engine.Reset(false);
 		_engine.Script.LoadScript(args[0].Get(), (uint)args[1].Get());
 
 	}
 	public void SCall(List<Wa2Var> args)
 	{
-		GD.Print("无用函数");
+		GD.Print("scall:", args[0].Get());
+		// GD.Print("无用函数");
 	}
 	public void call(List<Wa2Var> args)
 	{

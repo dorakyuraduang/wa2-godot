@@ -356,7 +356,7 @@ public class Wa2GameSav
 		if (selectCount > 0)
 		{
 			_engine.ShowSelectMessage();
-			_engine.SelectVar = args[0];
+			// _engine.SelectVar = args[0];
 		}
 		else
 		{

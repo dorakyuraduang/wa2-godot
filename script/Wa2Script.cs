@@ -46,26 +46,34 @@ public class Wa2Var
 			// {
 			// 	GD.Print("浮气度位置", Wa2EngineMain.Engine.GameSav.ScriptPos);
 			// }
+			if (IntValue == 0xe)
+			{
+
+			}
 			Wa2EngineMain.Engine.GameSav.GameFlags[IntValue] = value;
 
 		}
 		if (CmdType == CmdType.LOCAL_VAR)
 		{
-			if (!(value is int))
-			{
-				GD.Print("浮点");
-				GD.Print(Wa2EngineMain.Engine.GameSav.ScriptPos);
-			}
-			else
-			{
-				GD.Print("整数");
-			}
+			// if (!(value is int))
+			// {
+			// 	GD.Print("浮点");
+			// 	GD.Print(Wa2EngineMain.Engine.GameSav.ScriptPos);
+			// }
+			// else
+			// {
+			// 	GD.Print("整数");
+			// }
 			if (IntValue >= 26)
 			{
 				Wa2EngineMain.Engine.GameSav.GloFloats[IntValue % 26] = value;
 			}
 			else
 			{
+				if (IntValue == 0xc)
+				{
+					GD.Print("千晶flag:", value);
+				}
 				Wa2EngineMain.Engine.GameSav.GloInts[IntValue] = value;
 			}
 		}
@@ -92,6 +100,7 @@ public class Wa2Var
 		}
 		if (ValType == ValueType.INT)
 		{
+
 			return IntValue;
 		}
 		if (CmdType == CmdType.STR_VAR)
@@ -167,7 +176,6 @@ public class Wa2Script
 	{
 		_engine.ScriptIdx = Array.IndexOf(Wa2Def.ScriptList, name);
 		_points.Clear();
-		// _engine.GloFlags=new int[255];
 		// _engine.GameSav.Reset();
 		_engine.GameSav.JumpEntrys.Clear();
 		_engine.GameSav.GloFloats = new float[26];
@@ -211,6 +219,16 @@ public class Wa2Script
 		// GD.Print(_engine.GameSav.ScriptPos);
 		// GD.Print(_engine.GameSav.ScriptName);
 		// GD.Print("指令:", flag);
+		GD.Print("和纱本气度:",_engine.GameSav.GameFlags[5]);
+		GD.Print("和纱浮气度:", _engine.GameSav.GameFlags[6]);
+		GD.Print("雪菜好意度:", _engine.GameSav.GameFlags[7]);
+    GD.Print("FLG_雪菜好意度",_engine.GameSav.GameFlags[7]);
+		GD.Print("FLG_小春好意度",_engine.GameSav.GameFlags[8]);
+		GD.Print("FLG_千晶好意度",_engine.GameSav.GameFlags[9]);
+		GD.Print("FLG_麻理好意度",_engine.GameSav.GameFlags[10]);
+		GD.Print("FLG_小春ルート消滅",_engine.GameSav.GameFlags[11]);
+		GD.Print("FLG_千晶ルート消滅",_engine.GameSav.GameFlags[12]);
+		GD.Print("FLG_麻理ルート消滅",_engine.GameSav.GameFlags[13]);
 		switch (flag)
 		{
 			case 0:
@@ -230,18 +248,27 @@ public class Wa2Script
 				if (_engine.GameSav.JumpEntrys[^1].Flag == 1)
 				{
 					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
+					_engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
 				}
-				_engine.GameSav.JumpEntrys[^1].Type = 3;
-				_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
+				else
+				{
+					_engine.GameSav.JumpEntrys[^1].Type = 3;
+					_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
+					
+				}
+
 				_engine.GameSav.args.Clear();
 				break;
 			case 4:
-				if (_engine.GameSav.JumpEntrys[^1].Flag != 0)
+				if (_engine.GameSav.JumpEntrys[^1].Flag == 0)
 				{
-					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
+					return;
 				}
-				_engine.GameSav.args.Clear();
+				_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
 				_engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
+
+				_engine.GameSav.args.Clear();
+
 				break;
 			case 5:
 				if (_engine.GameSav.JumpEntrys.Count < 15)
@@ -314,10 +341,13 @@ public class Wa2Script
 				if (pos1 != 0)
 				{
 					_engine.GameSav.ScriptPos = pos1;
+
 				}
 				else
 				{
 					_engine.GameSav.ScriptPos = pos2;
+					_engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
+
 				}
 				// _engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
 				// }
@@ -336,6 +366,7 @@ public class Wa2Script
 				else
 				{
 					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[2];
+					_engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
 				}
 				// _engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
 				break;
@@ -646,7 +677,7 @@ public class Wa2Script
 					}
 					else
 					{
-						GD.Print("错误位置",_engine.GameSav.ScriptPos);
+						GD.Print("错误位置", _engine.GameSav.ScriptPos);
 					}
 
 					// if (_engine.GameSav.args.Count == 0)

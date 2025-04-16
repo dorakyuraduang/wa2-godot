@@ -323,7 +323,7 @@ public partial class Wa2EngineMain : Control
 			{
 				if (VideoPlayer.IsPlaying())
 				{
-					if (Skipping || !HasPlayMovie)
+					if (Skipping || SkipMode|| !HasPlayMovie)
 					{
 						return;
 					}
@@ -398,19 +398,21 @@ public partial class Wa2EngineMain : Control
 		// }
 
 	}
-	public void Reset()
+	public void Reset(bool stop=true)
 	{
 		// Script.Wait = false;
 		// WaitClick = false;
-		HasReadMessage = false;
+		// HasReadMessage = false;
 		Backlogs.Clear();
 		ClickedInWait = false;
 		WaitTimer.DeActive();
-		AutoTimer.DeActive();
+		
 		TextTimer.DeActive();
 		AdvMain.Clear();
 		WaitSeFinish();
-		Skipping = false;
+		if(stop){
+			AutoTimer.DeActive();
+		}
 		// AutoMode = false;
 		// SkipMode = false;
 		SoundMgr.StopAll();
@@ -478,11 +480,11 @@ public partial class Wa2EngineMain : Control
 		{
 			if (!WaitTimer.IsActive())
 			{
-				if (ReadSysFlag(210) == 1)
+				if (ReadSysFlag(220) == 1)
 				{
-					PlayMovie("mv10");
+					PlayMovie("mv20");
 				}
-				else if (ReadSysFlag(220) == 1)
+				else if (ReadSysFlag(210) == 1)
 				{
 					PlayMovie("mv10");
 				}

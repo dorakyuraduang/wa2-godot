@@ -134,7 +134,7 @@ public class Wa2Resource
 		// ulong start = Time.GetTicksMsec();
 		path = path.ToLower();
 		byte[] buffer = LoadFileBuffer(path);
-		GD.Print(path);
+		// GD.Print(path);
 
 
 		if (buffer == null)
@@ -273,8 +273,8 @@ public static byte[] LoadFileBuffer(string path)
 	public static void LoadPak(string path)
 	{
     string fullPath = System.IO.Path.Combine(ProjectSettings.GlobalizePath(ResPath), path);
-		GD.Print(ProjectSettings.GlobalizePath(ResPath));
-		GD.Print(path);
+		// GD.Print(ProjectSettings.GlobalizePath(ResPath));
+		// GD.Print(path);
     using (System.IO.FileStream fs = new System.IO.FileStream(fullPath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
     using (System.IO.BinaryReader reader = new System.IO.BinaryReader(fs))
     {

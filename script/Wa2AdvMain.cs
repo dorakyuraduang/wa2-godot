@@ -83,9 +83,9 @@ public partial class Wa2AdvMain : Control
 		_engine.GameSav.SelectItems.Clear();
 		SelectMessageContainer.Hide();
 		_engine.WaitClick=false;
-		GD.Print("和纱本气度:",_engine.GameSav.GameFlags[5]);
-		GD.Print("和纱浮气度:", _engine.GameSav.GameFlags[6]);
-		GD.Print("雪菜好意度:", _engine.GameSav.GameFlags[7]);
+		// GD.Print("和纱本气度:",_engine.GameSav.GameFlags[5]);
+		// GD.Print("和纱浮气度:", _engine.GameSav.GameFlags[6]);
+		// GD.Print("雪菜好意度:", _engine.GameSav.GameFlags[7]);
 		// _engine.Script.Wait = false;
 	}
 	// public void AdvShow(float time = 0.25f)

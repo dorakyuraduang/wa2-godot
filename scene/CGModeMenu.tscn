@@ -148,6 +148,7 @@ CGSlots = NodePath("GridContainer")
 CGViewer = NodePath("CgViewer")
 
 [node name="TextureRect" type="TextureRect" parent="." index="7"]
+layout_mode = 0
 offset_left = 280.0
 offset_top = 75.0
 offset_right = 1280.0
@@ -156,6 +157,7 @@ mouse_filter = 2
 texture = ExtResource("11_1iyey")
 
 [node name="PageBtnContainer" type="HBoxContainer" parent="." index="8"]
+layout_mode = 0
 offset_left = 440.0
 offset_top = 70.0
 offset_right = 1280.0
