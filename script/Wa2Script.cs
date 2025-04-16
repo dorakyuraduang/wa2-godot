@@ -199,10 +199,18 @@ public class Wa2Script
 		}
 
 	}
-	public void LoadText(string name)
+	public static void LoadText(string name)
 	{
 		byte[] buffer = Wa2Resource.LoadFileBuffer(name + ".txt");
 		string strs = Wa2EngineMain.Engine.Wa2Encoding.GetString(buffer);
+
+		// TODO: TTF全局控制
+		bool UseTTF = true;
+		if (UseTTF)
+		{
+			strs = Wa2Decode.ReplaceWithJsonMap(strs);
+		}
+
 		Wa2EngineMain.Engine.Texts = [.. strs.Split(',')];
 	}
 	public void ParseGloVar()
