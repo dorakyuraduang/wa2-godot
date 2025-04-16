@@ -174,7 +174,7 @@ public partial class Wa2Label : Node2D
 		ParseRubyText();
 		// 在_Ready或其他方法中加载字体
 		if (UseTTF && CustomFont == null) {
-			CustomFont = GD.Load<FontFile>("res://assets/fonts/fzzy.ttf");
+			CustomFont = GD.Load<FontFile>("res://assets/fonts/fzzyjt.ttf");
 		}
 	}
 
