@@ -80,6 +80,7 @@ public partial class Wa2AdvMain : Control
 		}
 		// GD.Print("索引",_engine.Script.args[^2].IntValue);
 		_engine.GameSav.args[^1].Set(idx);
+		// _engine.GameSav.args.RemoveAt(_engine.GameSav.args.Count-1);
 		_engine.GameSav.SelectItems.Clear();
 		SelectMessageContainer.Hide();
 		_engine.WaitClick=false;

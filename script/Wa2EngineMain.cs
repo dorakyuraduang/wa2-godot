@@ -252,7 +252,7 @@ public partial class Wa2EngineMain : Control
 			// if (!OS.HasFeature("android.permission.MANAGE_EXTERNAL_STORAGE"))
 			// {
 			OS.RequestPermissions();
-			while (!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE")) ;
+			while (!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") && (!OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE") || !OS.GetGrantedPermissions().Contains("android.permission.WRITE_EXTERNAL_STORAGE"))) ;
 			// await ToSignal(GetTree(), SceneTree.SignalName.OnRequestPermissionsResult);
 			// }
 		}
@@ -323,7 +323,7 @@ public partial class Wa2EngineMain : Control
 			{
 				if (VideoPlayer.IsPlaying())
 				{
-					if (Skipping || SkipMode|| !HasPlayMovie)
+					if (Skipping || SkipMode || !HasPlayMovie)
 					{
 						return;
 					}
@@ -398,7 +398,7 @@ public partial class Wa2EngineMain : Control
 		// }
 
 	}
-	public void Reset(bool stop=true)
+	public void Reset(bool stop = true)
 	{
 		// Script.Wait = false;
 		// WaitClick = false;
@@ -406,11 +406,12 @@ public partial class Wa2EngineMain : Control
 		Backlogs.Clear();
 		ClickedInWait = false;
 		WaitTimer.DeActive();
-		
+
 		TextTimer.DeActive();
 		AdvMain.Clear();
 		WaitSeFinish();
-		if(stop){
+		if (stop)
+		{
 			AutoTimer.DeActive();
 		}
 		// AutoMode = false;

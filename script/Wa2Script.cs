@@ -70,10 +70,6 @@ public class Wa2Var
 			}
 			else
 			{
-				if (IntValue == 0xc)
-				{
-					GD.Print("千晶flag:", value);
-				}
 				Wa2EngineMain.Engine.GameSav.GloInts[IntValue] = value;
 			}
 		}
@@ -227,16 +223,16 @@ public class Wa2Script
 		// GD.Print(_engine.GameSav.ScriptPos);
 		// GD.Print(_engine.GameSav.ScriptName);
 		// GD.Print("指令:", flag);
-		GD.Print("和纱本气度:",_engine.GameSav.GameFlags[5]);
+		GD.Print("和纱本气度:", _engine.GameSav.GameFlags[5]);
 		GD.Print("和纱浮气度:", _engine.GameSav.GameFlags[6]);
 		GD.Print("雪菜好意度:", _engine.GameSav.GameFlags[7]);
-    GD.Print("FLG_雪菜好意度",_engine.GameSav.GameFlags[7]);
-		GD.Print("FLG_小春好意度",_engine.GameSav.GameFlags[8]);
-		GD.Print("FLG_千晶好意度",_engine.GameSav.GameFlags[9]);
-		GD.Print("FLG_麻理好意度",_engine.GameSav.GameFlags[10]);
-		GD.Print("FLG_小春ルート消滅",_engine.GameSav.GameFlags[11]);
-		GD.Print("FLG_千晶ルート消滅",_engine.GameSav.GameFlags[12]);
-		GD.Print("FLG_麻理ルート消滅",_engine.GameSav.GameFlags[13]);
+		GD.Print("FLG_雪菜好意度", _engine.GameSav.GameFlags[7]);
+		GD.Print("FLG_小春好意度", _engine.GameSav.GameFlags[8]);
+		GD.Print("FLG_千晶好意度", _engine.GameSav.GameFlags[9]);
+		GD.Print("FLG_麻理好意度", _engine.GameSav.GameFlags[10]);
+		GD.Print("FLG_小春ルート消滅", _engine.GameSav.GameFlags[11]);
+		GD.Print("FLG_千晶ルート消滅", _engine.GameSav.GameFlags[12]);
+		GD.Print("FLG_麻理ルート消滅", _engine.GameSav.GameFlags[13]);
 		switch (flag)
 		{
 			case 0:
@@ -262,7 +258,7 @@ public class Wa2Script
 				{
 					_engine.GameSav.JumpEntrys[^1].Type = 3;
 					_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
-					
+
 				}
 
 				_engine.GameSav.args.Clear();
@@ -312,7 +308,9 @@ public class Wa2Script
 				_engine.GameSav.JumpEntrys[^1].Pos = ReadU32();
 				break;
 			case 8:
+				//打印
 				break;
+			//打印
 			case 9:
 				break;
 			case 0xa:
@@ -744,7 +742,20 @@ public class Wa2Script
 		_engine.GameSav.ScriptPos += 4;
 		return r;
 	}
+	public void FindNextCmd()
+	{
 
+		for (int i = (int)_engine.GameSav.ScriptPos; i < _bnrbuffer.Length - 4; i += 4)
+		{
+			int v1 = BitConverter.ToInt32(_bnrbuffer, i);
+			int v2 = BitConverter.ToInt32(_bnrbuffer, i + 4);
+			if (v1 == 6 && v2 == 0xe)
+			{
+				_engine.GameSav.ScriptPos = (uint)i;
+				return;
+			}
+		}
+	}
 	public float ReadF32()
 	{
 		float r = BitConverter.ToSingle(_bnrbuffer, (int)_engine.GameSav.ScriptPos);

@@ -737,6 +737,9 @@ public class Wa2Func
 	}
 	public void SetSelectMess(List<Wa2Var> args)
 	{
+		//text
+		//alpha
+		//disable
 		_engine.GameSav.SelectItems.Add(new SelectItem
 		{
 			Text = args[0].Get(),
