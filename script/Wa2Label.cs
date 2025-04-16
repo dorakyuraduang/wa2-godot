@@ -123,6 +123,8 @@ public partial class Wa2Label : Node2D
 	public float RubyWidthRatio = 0.75f; // Ruby文字整体宽度相对于原文本的比例
 
 	[Export]
+	public bool UseTTF = true; // 是否使用TTF字体
+	[Export]
 	public FontFile CustomFont; // 在Inspector中设置TTF字体
 	[Export]
 	public int TTFFontSize = 26; // TTF字体大小
@@ -171,8 +173,9 @@ public partial class Wa2Label : Node2D
 		// 确保初始文本被正确解析
 		ParseRubyText();
 		// 在_Ready或其他方法中加载字体
-		CustomFont = GD.Load<FontFile>("res://assets/fonts/fzzy.ttf");
-		// CustomFont = null;
+		if (UseTTF && CustomFont == null) {
+			CustomFont = GD.Load<FontFile>("res://assets/fonts/fzzy.ttf");
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
