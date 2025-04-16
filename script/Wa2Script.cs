@@ -552,18 +552,18 @@ public class Wa2Script
 				break;
 			case 2:
 				{
-					b.Set((int)(a.Get() + b.Get()));
+					b.Set((int)( b.Get()-a.Get()));
 					break;
 				}
 
 			case 3:
 				{
-					b.Set((int)(a.Get() + b.Get()));
+					b.Set((int)(a.Get() * b.Get()));
 					break;
 				}
 			case 4:
 				{
-					b.Set((int)(a.Get() + b.Get()));
+					b.Set((int)(b.Get() / a.Get()));
 					break;
 				}
 			case 5:
@@ -637,11 +637,11 @@ public class Wa2Script
 				{
 					if (a.Get() is int && b.Get() is int)
 					{
-						PushInt(5, 3, a.Get() - b.Get());
+						PushInt(5, 3, b.Get() - a.Get());
 					}
 					else
 					{
-						PushFloat(5, 4, a.Get() - b.Get());
+						PushFloat(5, 4, b.Get() - a.Get());
 					}
 					break;
 				}
@@ -711,7 +711,7 @@ public class Wa2Script
 				break;
 			case 0x1B:
 				{
-					b.ValType = (ValueType)a.Get();
+					b.ValType=a.Get();
 					// if (a.GetType() == typeof(int))
 					// {
 					// 	_engine.GameSav.args.Add((int)b);
