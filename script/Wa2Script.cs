@@ -711,7 +711,7 @@ public class Wa2Script
 				break;
 			case 0x1B:
 				{
-					b.ValType=a.Get();
+					b.ValType=(ValueType)a.Get();
 					// if (a.GetType() == typeof(int))
 					// {
 					// 	_engine.GameSav.args.Add((int)b);
