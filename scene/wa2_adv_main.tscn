@@ -1155,14 +1155,12 @@ position = Vector2(188, 496)
 script = ExtResource("4_cjs8f")
 FontTexture = ExtResource("5_5s8hw")
 ShadowTexture = ExtResource("6_cwlbo")
-Shadow = true
 
 [node name="TextLabel" type="Node2D" parent="."]
 position = Vector2(240, 540)
 script = ExtResource("4_cjs8f")
 FontTexture = ExtResource("5_5s8hw")
 ShadowTexture = ExtResource("6_cwlbo")
-Shadow = true
 
 [node name="AwaitSprite" type="AnimatedSprite2D" parent="."]
 visible = false

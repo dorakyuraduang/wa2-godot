@@ -209,11 +209,11 @@ public class Wa2Script
 		string strs = Wa2EngineMain.Engine.Wa2Encoding.GetString(buffer);
 
 		// TODO: TTF全局控制
-		bool UseTTF = true;
-		if (UseTTF)
-		{
-			strs = Wa2Decode.ReplaceWithJsonMap(strs);
-		}
+		// bool UseTTF = true;
+		// if (UseTTF)
+		// {
+		// 	strs = Wa2Decode.ReplaceWithJsonMap(strs);
+		// }
 
 		Wa2EngineMain.Engine.Texts = [.. strs.Split(',')];
 	}

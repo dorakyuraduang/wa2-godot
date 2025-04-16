@@ -92,9 +92,6 @@ offset_bottom = 36.0
 text = "2012 04/1 20:49"
 label_settings = SubResource("LabelSettings_8eqka")
 
-[node name="Wa2Text" type="Node2D" parent="."]
-position = Vector2(188, 46)
-
 [node name="Category" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 376.0
@@ -126,6 +123,7 @@ script = ExtResource("7_smn8n")
 VisibleRatio = 1.0
 FontTexture = ExtResource("8_7aix8")
 ShadowTexture = ExtResource("8_xnv3s")
+Shadow = false
 FontSize = 20
 MaxChar = 13
 TTFFontSize = 20

@@ -252,7 +252,7 @@ public partial class Wa2EngineMain : Control
 			// if (!OS.HasFeature("android.permission.MANAGE_EXTERNAL_STORAGE"))
 			// {
 			OS.RequestPermissions();
-			while (!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") && (!OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE") || !OS.GetGrantedPermissions().Contains("android.permission.WRITE_EXTERNAL_STORAGE"))) ;
+			while (!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") && (!OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE"))) ;
 			// await ToSignal(GetTree(), SceneTree.SignalName.OnRequestPermissionsResult);
 			// }
 		}
