@@ -217,6 +217,10 @@ public partial class Wa2Label : Node2D
 	{
 		// 字符宽度
 		float charWidth = CustomFont.GetCharSize(ch, (int)fontSize).X;
+
+		// 坐标整数化避免渲染模糊
+		position.X = Mathf.Round(position.X);
+		position.Y = Mathf.Round(position.Y);
 		
 		// 绘制阴影
 		if (Shadow && shadowSize > 0)
