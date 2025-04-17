@@ -79,7 +79,7 @@ public partial class Wa2Decode : Resource
 		}
 		_resultCache[input] = result;
 
-		GD.Print($"当前缓存大小: {_resultCache.Count}");
+		// GD.Print($"当前缓存大小: {_resultCache.Count}");
 		// GD.Print($"替换结果: {result}");
 		return result;
 	}
