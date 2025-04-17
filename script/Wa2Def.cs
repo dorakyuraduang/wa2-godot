@@ -402,6 +402,7 @@ public static class Wa2Def
 		{26,"mhh"},
 		{27,"ueh"},
 		{28,"yos"},
+		{29,"tan"},
 		{30,"ham"},
 		{31,"mat"},
 		{32,"kiz"},

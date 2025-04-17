@@ -223,16 +223,17 @@ public class Wa2Script
 		// GD.Print(_engine.GameSav.ScriptPos);
 		// GD.Print(_engine.GameSav.ScriptName);
 		// GD.Print("指令:", flag);
-		GD.Print("和纱本气度:", _engine.GameSav.GameFlags[5]);
-		GD.Print("和纱浮气度:", _engine.GameSav.GameFlags[6]);
-		GD.Print("雪菜好意度:", _engine.GameSav.GameFlags[7]);
-		GD.Print("FLG_雪菜好意度", _engine.GameSav.GameFlags[7]);
-		GD.Print("FLG_小春好意度", _engine.GameSav.GameFlags[8]);
-		GD.Print("FLG_千晶好意度", _engine.GameSav.GameFlags[9]);
-		GD.Print("FLG_麻理好意度", _engine.GameSav.GameFlags[10]);
-		GD.Print("FLG_小春ルート消滅", _engine.GameSav.GameFlags[11]);
-		GD.Print("FLG_千晶ルート消滅", _engine.GameSav.GameFlags[12]);
-		GD.Print("FLG_麻理ルート消滅", _engine.GameSav.GameFlags[13]);
+		// GD.Print("和纱本气度:", _engine.GameSav.GameFlags[5]);
+		// GD.Print("和纱浮气度:", _engine.GameSav.GameFlags[6]);
+		// GD.Print("雪菜好意度:", _engine.GameSav.GameFlags[7]);
+		// GD.Print("FLG_雪菜好意度", _engine.GameSav.GameFlags[7]);
+		// GD.Print("FLG_小春好意度", _engine.GameSav.GameFlags[8]);
+		// GD.Print("FLG_千晶好意度", _engine.GameSav.GameFlags[9]);
+		// GD.Print("FLG_麻理好意度", _engine.GameSav.GameFlags[10]);
+		// GD.Print("FLG_小春ルート消滅", _engine.GameSav.GameFlags[11]);
+		// GD.Print("FLG_千晶ルート消滅", _engine.GameSav.GameFlags[12]);
+		// GD.Print("FLG_麻理ルート消滅", _engine.GameSav.GameFlags[13]);
+		// GD.Print("jump_flag:", flag);
 		switch (flag)
 		{
 			case 0:
@@ -252,7 +253,7 @@ public class Wa2Script
 				if (_engine.GameSav.JumpEntrys[^1].Flag == 1)
 				{
 					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
-					_engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
+					// _engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
 				}
 				else
 				{
@@ -260,19 +261,16 @@ public class Wa2Script
 					_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
 
 				}
-
-				_engine.GameSav.args.Clear();
+				// _engine.GameSav.args.Clear();
 				break;
 			case 4:
 				if (_engine.GameSav.JumpEntrys[^1].Flag == 0)
 				{
-					return;
+					break;
 				}
 				_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
-				_engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
-
-				_engine.GameSav.args.Clear();
-
+				// _engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
+				// _engine.GameSav.args.Clear();
 				break;
 			case 5:
 				if (_engine.GameSav.JumpEntrys.Count < 15)
@@ -299,6 +297,7 @@ public class Wa2Script
 				{
 					_engine.GameSav.JumpEntrys.Add(new());
 				}
+				_engine.GameSav.JumpEntrys[^1].Type = 7;
 				_engine.GameSav.JumpEntrys[^1].Count = ReadU32();
 				for (int i = 0; i < _engine.GameSav.JumpEntrys[^1].Count; i++)
 				{
@@ -308,32 +307,45 @@ public class Wa2Script
 				_engine.GameSav.JumpEntrys[^1].Pos = ReadU32();
 				break;
 			case 8:
-				//打印
-				break;
-			//打印
 			case 9:
 				break;
 			case 0xa:
-			// if (JumpPos < 0)
-			// {
-			// }
-			// else
-			// {
+				for (int i = _engine.GameSav.JumpEntrys.Count - 1; i >= 0; i--)
+				{
+					uint type = _engine.GameSav.JumpEntrys[i].Type;
 
-			// }
-			// break;
+					if (type == 5 || type == 6 || type == 7)
+					{
+						break;
+					}
+					_engine.GameSav.JumpEntrys.RemoveAt(i);
+				}
+				break;
 			case 11:
-				// if (JumpPos < 0)
-				// {
+				for (int i = _engine.GameSav.JumpEntrys.Count - 1; i >= 0; i--)
+				{
+					uint type = _engine.GameSav.JumpEntrys[i].Type;
 
-				// }
-				// else
-				// {
+					if (type == 5)
+					{
+						_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[i].PosArr[2];
+						break;
+					}
+					else if (type == 6)
+					{
+						_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[i].PosArr[0];
+						break;
 
-				// }
+					}
+					else
+					{
+						_engine.GameSav.JumpEntrys.RemoveAt(i);
+					}
+
+				}
 				break;
 			case 12:
-				ReadU32();
+				_engine.GameSav.ScriptPos = ReadU32();
 				break;
 			case 13:
 
@@ -342,62 +354,69 @@ public class Wa2Script
 				uint pos2 = _engine.GameSav.JumpEntrys[^1].Pos;
 				if (_engine.GameSav.JumpEntrys[^1].Flag == 1)
 				{
-					return;
+					break;
 				}
 				if (pos1 != 0)
 				{
 					_engine.GameSav.ScriptPos = pos1;
-
 				}
 				else
 				{
 					_engine.GameSav.ScriptPos = pos2;
-					_engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
-
 				}
-				// _engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
-				// }
-				// else if (pos2 > 0)
-				// {
-
-				// 	_engine.GameSav.ScriptPos = pos2;
-				_engine.GameSav.args.Clear();
+				// _engine.GameSav.args.Clear();
 				break;
 			case 14:
+				//debug
+				// if (_engine.TestMode)
+				// {
+				// 	_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
+				// 	break;
+				// }
+
 				_engine.GameSav.JumpEntrys[^1].Flag = _engine.GameSav.args[^1].Get();
 				if (_engine.GameSav.JumpEntrys[^1].Flag == 0)
 				{
-					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[0];
+					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
 				}
 				else
 				{
 					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[2];
-					_engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
 				}
-				// _engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
+				// _engine.GameSav.args.Clear();
 				break;
 			case 15:
+				_engine.GameSav.JumpEntrys[^1].Flag = _engine.GameSav.args[^1].Get();
+				if (_engine.GameSav.JumpEntrys[^1].Flag != 0)
+				{
+					break;
+				}
+				else
+				{
+					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
+				}
+
 				break;
 			case 16:
 				_engine.GameSav.JumpEntrys[^1].Flag = _engine.GameSav.args[^1].Get();
 				if (_engine.GameSav.JumpEntrys[^1].Type != 7)
 				{
-					return;
+					break;
 				}
 				for (int i = 0; i < _engine.GameSav.JumpEntrys[^1].Count; i++)
 				{
 					if (_engine.GameSav.JumpEntrys[^1].FlagArr[i] == _engine.GameSav.JumpEntrys[^1].Flag)
 					{
 						_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[i];
-						_engine.GameSav.args.Clear();
-						return;
+						// _engine.GameSav.args.Clear();
+						break;
 					}
 				}
 				_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
-				_engine.GameSav.args.Clear();
+				// _engine.GameSav.args.Clear();
 				break;
-
 		}
+		_engine.GameSav.args.Clear();
 	}
 	public void ParseCmd()
 	{
@@ -405,21 +424,23 @@ public class Wa2Script
 		if (_engine.GameSav.ScriptPos < _bnrbuffer.Length)
 		{
 			int cmd = (int)ReadU32();
+			bool flag = false;
 			// GD.Print("位置",_engine.GameSav.ScriptPos);
 			switch (cmd)
 			{
 				case 0:
 					ParseGloVar();
-					ParseCmd();
+					flag = true;
 					break;
 				case 1:
 				case 2:
 				case 3:
 					PushInt(cmd, -1, (int)ReadU32());
-					ParseCmd();
+					flag = true;
 					break;
 				case 4:
 					CallFunc();
+					// flag = true;
 					break;
 				case 5:
 					int type = (int)ReadU32();
@@ -431,15 +452,33 @@ public class Wa2Script
 					{
 						PushInt(cmd, type, (int)ReadU32());
 					}
-					ParseCmd();
+					flag = true;
 					break;
 				case 6:
 					ParseCalc();
-					ParseCmd();
+					flag = true;
 					break;
 
 				default:
 					break;
+			}
+			if (_engine.GameSav.JumpEntrys.Count > 0 && _engine.GameSav.JumpEntrys[^1].Type - 2 <= 5)
+			{
+				for (int i = _engine.GameSav.JumpEntrys.Count - 1; i >= 0; i--)
+				{
+					var entry = _engine.GameSav.JumpEntrys[i];
+					if (entry.Pos != _engine.GameSav.ScriptPos)
+					{
+						break;
+
+					}
+					_engine.GameSav.JumpEntrys.RemoveAt(i);
+				}
+			}
+
+			if (flag)
+			{
+				ParseCmd();
 			}
 		}
 		// _engine.SysSav.ScriptReadPos[_engine.GameSav.ScriptName] = _engine.GameSav.ScriptPos;
@@ -552,7 +591,7 @@ public class Wa2Script
 				break;
 			case 2:
 				{
-					b.Set((int)( b.Get()-a.Get()));
+					b.Set((int)(b.Get() - a.Get()));
 					break;
 				}
 
@@ -598,6 +637,7 @@ public class Wa2Script
 				break;
 			case 0xb:
 				{
+
 					PushInt(5, 3, b.Get() <= a.Get() ? 1 : 0);
 				}
 				break;
@@ -711,7 +751,7 @@ public class Wa2Script
 				break;
 			case 0x1B:
 				{
-					b.ValType=(ValueType)a.Get();
+					b.ValType = (ValueType)a.Get();
 					// if (a.GetType() == typeof(int))
 					// {
 					// 	_engine.GameSav.args.Add((int)b);

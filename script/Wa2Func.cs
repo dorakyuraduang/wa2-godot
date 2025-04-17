@@ -170,7 +170,6 @@ public class Wa2Func
 	public void SetMessageE(List<Wa2Var> args)
 	{
 		_engine.GameSav.FirstSentence = args[0].Get();
-
 		_engine.AdvMain.ShowText(_engine.GameSav.FirstSentence, _engine.GameSav.CharName);
 		_engine.WaitClick = true;
 		_engine.GameSav.CurMessageIdx = args[1].Get();
@@ -195,7 +194,7 @@ public class Wa2Func
 	{
 		// if (args[0].Get() == 0)
 		// {
-		if (args[0].Get() is int && args[0].Get() ==0)
+		if (args[0].Get() is int && args[0].Get() == 0)
 		{
 			_engine.GameSav.Label = args[1].Get();
 		}
@@ -579,7 +578,10 @@ public class Wa2Func
 	}
 	public void LoadBmp(List<Wa2Var> args)
 	{
-		GD.Print(args[1].Get());
+		TextureRect texture = new();
+		texture.Texture = Wa2Resource.LoadTgaImage(args[1].Get());
+		_engine.BmpList.Add(texture);
+		_engine.Viewport.AddChild(texture);
 	}
 	public void LoadBmpAnime(List<Wa2Var> args)
 	{
@@ -595,6 +597,10 @@ public class Wa2Func
 	}
 	public void ReleaseBmp(List<Wa2Var> args)
 	{
+		foreach(TextureRect item in _engine.BmpList){
+			item.QueueFree();
+		}
+		_engine.BmpList.Clear();
 		GD.Print("释放位图");
 	}
 	public void WaitBmpAnime(List<Wa2Var> args)
@@ -648,7 +654,7 @@ public class Wa2Func
 	public void SetMovie(List<Wa2Var> args)
 	{
 		GD.Print("视频编号:", args[1].Get());
-		_engine.SkipMode=false;
+		_engine.SkipMode = false;
 		_engine.SoundMgr.StopAll();
 		if (_engine.ReadSysFlag(args[1].Get()) == 1)
 		{
@@ -671,11 +677,14 @@ public class Wa2Func
 	}
 	public void StartTimer(List<Wa2Var> args)
 	{
-
+		_engine.Timer = Time.GetTicksMsec();
 	}
 	public void WaitTimer(List<Wa2Var> args)
 	{
-		_engine.WaitTimer.Start(args[0].Get() * 0.0001f);
+		if (Time.GetTicksMsec() < _engine.Timer + args[0].Get())
+		{
+			_engine.WaitTimer.Start(_engine.Timer + args[0].Get() - Time.GetTicksMsec());
+		}
 		args.Clear();
 	}
 	public void GoTitle(List<Wa2Var> args)
@@ -684,7 +693,7 @@ public class Wa2Func
 	}
 	public void GetGameFlag(List<Wa2Var> args)
 	{
-		args[^1].Set(_engine.ReadSysFlag(args[0].Get()));
+		_engine.Script.PushInt(5, 3, _engine.ReadSysFlag(args[0].Get()));
 	}
 	public void SetGameFlag(List<Wa2Var> args)
 	{
@@ -721,7 +730,7 @@ public class Wa2Func
 	}
 	public void GetTimer(List<Wa2Var> args)
 	{
-
+		_engine.Script.PushInt(5, 3, (int)(Time.GetTicksMsec() - _engine.Timer));
 	}
 	public void GetSkip(List<Wa2Var> args)
 	{
@@ -966,11 +975,16 @@ public class Wa2Func
 	}
 	public void _int(List<Wa2Var> args)
 	{
+		var v = args[^1].Get();
+		args.RemoveAt(args.Count - 1);
+		_engine.Script.PushInt(5, 3, (int)v);
 
 	}
 	public void _float(List<Wa2Var> args)
 	{
-
+		var v = args[^1].Get();
+		args.RemoveAt(args.Count - 1);
+		_engine.Script.PushFloat(5, 4, (float)v);
 	}
 	public void Rand(List<Wa2Var> args)
 	{
@@ -978,27 +992,39 @@ public class Wa2Func
 	}
 	public void Sin(List<Wa2Var> args)
 	{
-		args[^1].Set(Mathf.Sin(args[0].Get()));
+		var v = args[^1].Get();
+		args.RemoveAt(args.Count - 1);
+		_engine.Script.PushFloat(5, 4, MathF.Sin(v));
 	}
 	public void Cos(List<Wa2Var> args)
 	{
-
+		var v = args[^1].Get();
+		args.RemoveAt(args.Count - 1);
+		_engine.Script.PushFloat(5, 4, MathF.Cos(v));
 	}
 	public void Tan(List<Wa2Var> args)
 	{
-
+		var v = args[^1].Get();
+		args.RemoveAt(args.Count - 1);
+		_engine.Script.PushFloat(5, 4, MathF.Tan(v));
 	}
 	public void Asin(List<Wa2Var> args)
 	{
-
+		var v = args[^1].Get();
+		args.RemoveAt(args.Count - 1);
+		_engine.Script.PushFloat(5, 4, MathF.Asin(v));
 	}
 	public void Acos(List<Wa2Var> args)
 	{
-
+		var v = args[^1].Get();
+		args.RemoveAt(args.Count - 1);
+		_engine.Script.PushFloat(5, 4, MathF.Acos(v));
 	}
 	public void Atan(List<Wa2Var> args)
 	{
-
+		var v = args[^1].Get();
+		args.RemoveAt(args.Count - 1);
+		_engine.Script.PushFloat(5, 4, MathF.Atan(v));
 	}
 	public void Atan2(List<Wa2Var> args)
 	{
@@ -1006,11 +1032,15 @@ public class Wa2Func
 	}
 	public void Pow(List<Wa2Var> args)
 	{
-
+		// var v=args[^1].Get();
+		// args.RemoveAt(args.Count-1);
+		// _engine.Script.PushFloat(5, 4,MathF.Pow(v));
 	}
 	public void Sqrt(List<Wa2Var> args)
 	{
-
+		var v = args[^1].Get();
+		args.RemoveAt(args.Count - 1);
+		_engine.Script.PushFloat(5, 4, MathF.Sqrt(v));
 	}
 	public void TimeGetTime(List<Wa2Var> args)
 	{

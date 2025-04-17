@@ -5,9 +5,9 @@ public partial class Wa2AdvMain : Control
 {
 	[Export]
 	public TextureRect IsReadTexture;
-		[Export]
+	[Export]
 	public TextureRect AutoModeTexture;
-		[Export]
+	[Export]
 	public TextureRect SkipModeTexture;
 	[Export]
 	public Wa2Button SaveButton;
@@ -29,7 +29,10 @@ public partial class Wa2AdvMain : Control
 	public Wa2Label TextLabel;
 	[Export]
 	public AnimatedSprite2D WaitSprite;
-
+	[Export]
+	public Control DebugUi;
+		[Export]
+	public bool Debug;
 	private Wa2EngineMain _engine;
 	public string CurText = "";
 	public string CurName = "";
@@ -69,7 +72,7 @@ public partial class Wa2AdvMain : Control
 	{
 		_engine.SkipMode = !_engine.SkipMode;
 		_engine.StopAutoMode();
-		
+
 	}
 	public void OnSelectMessageButtonDown(int idx)
 	{
@@ -83,7 +86,7 @@ public partial class Wa2AdvMain : Control
 		// _engine.GameSav.args.RemoveAt(_engine.GameSav.args.Count-1);
 		_engine.GameSav.SelectItems.Clear();
 		SelectMessageContainer.Hide();
-		_engine.WaitClick=false;
+		_engine.WaitClick = false;
 		// GD.Print("和纱本气度:",_engine.GameSav.GameFlags[5]);
 		// GD.Print("和纱浮气度:", _engine.GameSav.GameFlags[6]);
 		// GD.Print("雪菜好意度:", _engine.GameSav.GameFlags[7]);
@@ -141,9 +144,9 @@ public partial class Wa2AdvMain : Control
 		{
 			WaitSprite.Hide();
 		}
-		AutoModeTexture.Visible=_engine.AutoMode;
-		SkipModeTexture.Visible=_engine.SkipMode;
-		IsReadTexture.Visible=_engine.HasReadMessage;
+		AutoModeTexture.Visible = _engine.AutoMode;
+		SkipModeTexture.Visible = _engine.SkipMode;
+		IsReadTexture.Visible = _engine.HasReadMessage;
 		// if (_engine.WaitClick && !_engine.TextTimer.IsActive())
 		// {
 		// 	WaitSprite.Show();
@@ -200,7 +203,7 @@ public partial class Wa2AdvMain : Control
 	}
 	public void TextStart(float delay = 0f)
 	{
-		
+
 		if (TextLabel.Text != "")
 		{
 			// GD.Print(TextLabel.Text.Length / _engine.Prefs.TextSpeed);
@@ -227,11 +230,11 @@ public partial class Wa2AdvMain : Control
 		}
 		if (_engine.GetReadMessage(_engine.GameSav.CurMessageIdx))
 		{
-			_engine.HasReadMessage=true;
+			_engine.HasReadMessage = true;
 		}
 		else
 		{
-			_engine.HasReadMessage=false;
+			_engine.HasReadMessage = false;
 			_engine.SetReadMessage(_engine.GameSav.CurMessageIdx);
 		}
 		// _engine.Script.ParseCmd();
@@ -262,4 +265,21 @@ public partial class Wa2AdvMain : Control
 	{
 		_engine.UiMgr.OpenLoadMenu();
 	}
+	public override void _Process(double delta)
+	{
+		if (Debug && _engine.State==Wa2EngineMain.GameState.GAME && _engine.GameSav.GameFlags!=null)
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				DebugUi.GetChild<HBoxContainer>(i).GetChild<Label>(1).Text = _engine.GameSav.GameFlags[5 + i].ToString();
+			}
+
+		}
+
+	}
+	public override void _Ready()
+	{
+		DebugUi.Visible = Debug;
+	}
+
 }

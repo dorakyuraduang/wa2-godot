@@ -1,4 +1,4 @@
-[gd_scene load_steps=175 format=3 uid="uid://8iltc13k4sm1"]
+[gd_scene load_steps=178 format=3 uid="uid://8iltc13k4sm1"]
 
 [ext_resource type="Script" uid="uid://b5kx876bryffm" path="res://script/Wa2AdvMain.cs" id="1_mc03i"]
 [ext_resource type="Texture2D" uid="uid://dxdw1w7apeaqj" path="res://assets/grp/sys_00001.png" id="2_n2b20"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="9_pe64g"]
 [ext_resource type="Texture2D" uid="uid://cl7qv3whydsvd" path="res://assets/grp/sys_00010.png" id="11_pr5sd"]
 [ext_resource type="Texture2D" uid="uid://dl8c41uirpqks" path="res://assets/grp/sys_00011.png" id="13_y4c0q"]
+[ext_resource type="FontFile" uid="uid://bqnr5jmcejvam" path="res://assets/fonts/fzzyjt.ttf" id="14_y4c0q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pr5sd"]
 atlas = ExtResource("7_pe64g")
@@ -1093,7 +1094,16 @@ region = Rect2(248, 64, 32, 32)
 atlas = ExtResource("13_y4c0q")
 region = Rect2(288, 64, 32, 32)
 
-[node name="AdvMain" type="Control" node_paths=PackedStringArray("IsReadTexture", "AutoModeTexture", "SkipModeTexture", "SaveButton", "LoadButton", "OptionButton", "AutoButton", "SkipButton", "OffButton", "SelectMessageContainer", "NameLabel", "TextLabel", "WaitSprite")]
+[sub_resource type="FontVariation" id="FontVariation_xxmlq"]
+base_font = ExtResource("14_y4c0q")
+
+[sub_resource type="Theme" id="Theme_8akmd"]
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 1
+Label/font_sizes/font_size = 20
+Label/fonts/font = SubResource("FontVariation_xxmlq")
+
+[node name="AdvMain" type="Control" node_paths=PackedStringArray("IsReadTexture", "AutoModeTexture", "SkipModeTexture", "SaveButton", "LoadButton", "OptionButton", "AutoButton", "SkipButton", "OffButton", "SelectMessageContainer", "NameLabel", "TextLabel", "WaitSprite", "DebugUi")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1114,6 +1124,8 @@ SelectMessageContainer = NodePath("SelectMessage")
 NameLabel = NodePath("NameLabel")
 TextLabel = NodePath("TextLabel")
 WaitSprite = NodePath("AwaitSprite")
+DebugUi = NodePath("DeBugBox")
+Debug = true
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0.627451)
@@ -1376,3 +1388,124 @@ offset_left = 80.0
 offset_right = 120.0
 offset_bottom = 40.0
 texture = SubResource("AtlasTexture_ybr61")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -223.0
+offset_bottom = 286.0
+grow_horizontal = 0
+color = Color(0, 0, 0, 0.4)
+
+[node name="DeBugBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -188.0
+offset_top = 16.0
+offset_right = -22.0
+offset_bottom = 282.0
+grow_horizontal = 0
+theme = SubResource("Theme_8akmd")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DeBugBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeBugBox/HBoxContainer"]
+layout_mode = 2
+text = "和纱本气度:"
+
+[node name="Label2" type="Label" parent="DeBugBox/HBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="DeBugBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeBugBox/HBoxContainer2"]
+layout_mode = 2
+text = "和纱浮气度:"
+
+[node name="Label2" type="Label" parent="DeBugBox/HBoxContainer2"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="DeBugBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeBugBox/HBoxContainer3"]
+layout_mode = 2
+text = "雪菜好意度:"
+
+[node name="Label2" type="Label" parent="DeBugBox/HBoxContainer3"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="DeBugBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeBugBox/HBoxContainer4"]
+layout_mode = 2
+text = "小春好意度:"
+
+[node name="Label2" type="Label" parent="DeBugBox/HBoxContainer4"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="DeBugBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeBugBox/HBoxContainer5"]
+layout_mode = 2
+text = "千晶好意度:"
+
+[node name="Label2" type="Label" parent="DeBugBox/HBoxContainer5"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="DeBugBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeBugBox/HBoxContainer6"]
+layout_mode = 2
+text = "麻理好意度:"
+
+[node name="Label2" type="Label" parent="DeBugBox/HBoxContainer6"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="DeBugBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeBugBox/HBoxContainer7"]
+layout_mode = 2
+text = "小春ルート消滅:"
+
+[node name="Label2" type="Label" parent="DeBugBox/HBoxContainer7"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="DeBugBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeBugBox/HBoxContainer8"]
+layout_mode = 2
+text = "千晶ルート消滅:"
+
+[node name="Label2" type="Label" parent="DeBugBox/HBoxContainer8"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="DeBugBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeBugBox/HBoxContainer9"]
+layout_mode = 2
+text = "麻理ルート消滅:"
+
+[node name="Label2" type="Label" parent="DeBugBox/HBoxContainer9"]
+layout_mode = 2
+text = "0"

@@ -31,6 +31,7 @@ public partial class Wa2EngineMain : Control
 	// public int[] GameFlags = new int[1024];
 	public List<string> Texts = new();
 	public List<BacklogEntry> Backlogs = new();
+	public bool TestMode=true;
 	public bool SkipMode = false;
 	public int ReplayMode;
 	public bool AutoMode = false;
@@ -46,6 +47,7 @@ public partial class Wa2EngineMain : Control
 	public int Month;
 	public int Day;
 	public int TimeMode;
+	public ulong Timer;
 	public List<Wa2Animator> Animators { private set; get; } = new();
 	public bool WaitClick = false;
 	public bool WaitSe = false;
@@ -85,6 +87,7 @@ public partial class Wa2EngineMain : Control
 	public Wa2Func Func;
 	public Wa2Encoding Wa2Encoding;
 	public FileAccess SysSav;
+	public List<TextureRect> BmpList=new();
 	public Wa2EngineMain()
 	{
 		if (Engine == null)
@@ -100,9 +103,9 @@ public partial class Wa2EngineMain : Control
 	}
 	public void ShowSelectMessage()
 	{
-		GD.Print("和纱本气度:", GameSav.GameFlags[5]);
-		GD.Print("和纱浮气度:", GameSav.GameFlags[6]);
-		GD.Print("雪菜好意度:", GameSav.GameFlags[7]);
+		// GD.Print("和纱本气度:", GameSav.GameFlags[5]);
+		// GD.Print("和纱浮气度:", GameSav.GameFlags[6]);
+		// GD.Print("雪菜好意度:", GameSav.GameFlags[7]);
 		AdvMain.SelectMessageContainer.Show();
 		for (int i = 0; i < 3; i++)
 		{
@@ -111,7 +114,7 @@ public partial class Wa2EngineMain : Control
 			{
 
 				btn.TextLabel.Text = GameSav.SelectItems[i].Text;
-				if (GameSav.SelectItems[i].V2 == 0)
+				if (GameSav.SelectItems[i].V2 == ReadSysFlag(GameSav.SelectItems[i].V1))
 				{
 					btn.Active();
 				}
@@ -413,6 +416,7 @@ public partial class Wa2EngineMain : Control
 		if (stop)
 		{
 			AutoTimer.DeActive();
+			StopSkip();
 		}
 		// AutoMode = false;
 		// SkipMode = false;
@@ -441,9 +445,8 @@ public partial class Wa2EngineMain : Control
 	public void StartScript(string name, uint pos = 0)
 	{
 		SoundMgr.StopBgm();
-		Reset();
+		Reset(true);
 		GameSav.Reset();
-
 		Script.LoadScript(name, pos);
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
