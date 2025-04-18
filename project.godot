@@ -47,3 +47,10 @@ Skip={
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+
+[shader_globals]
+
+fb={
+"type": "vec3",
+"value": Vector3(0.5, 0.5, 0.5)
+}

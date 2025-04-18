@@ -562,6 +562,8 @@ public class Wa2Script
 		{
 			_engine.GameSav.args.RemoveAt(_engine.GameSav.args.Count - 1);
 		}
+		// GD.Print(a.Get());
+		// GD.Print(b.Get());
 		switch (v1)
 		{
 
@@ -723,6 +725,7 @@ public class Wa2Script
 					}
 					else
 					{
+						PushInt(5, 3,0);
 						GD.Print("错误位置", _engine.GameSav.ScriptPos);
 					}
 

@@ -20,6 +20,10 @@ public partial class Wa2EngineMain : Control
 		GAME,
 
 	}
+	[Export]
+	public Control BmpContainer;
+	[Export]
+	public AnimatorMgr AnimatorMgr;
 	// [Export]
 	// public int Mode;
 	// [Export]
@@ -31,7 +35,7 @@ public partial class Wa2EngineMain : Control
 	// public int[] GameFlags = new int[1024];
 	public List<string> Texts = new();
 	public List<BacklogEntry> Backlogs = new();
-	public bool TestMode=true;
+	public bool TestMode = true;
 	public bool SkipMode = false;
 	public int ReplayMode;
 	public bool AutoMode = false;
@@ -47,7 +51,7 @@ public partial class Wa2EngineMain : Control
 	public int Month;
 	public int Day;
 	public int TimeMode;
-	public ulong Timer;
+	public int Timer;
 	public List<Wa2Animator> Animators { private set; get; } = new();
 	public bool WaitClick = false;
 	public bool WaitSe = false;
@@ -79,6 +83,7 @@ public partial class Wa2EngineMain : Control
 	public Wa2Timer WaitTimer = new();
 	public Wa2Timer TextTimer = new();
 	public Wa2Timer AutoTimer = new();
+
 	public bool HasReadMessage = false;
 	// public bool MessageHasRead = true;
 	// public Wa2Timer SeWaitTimer = new();
@@ -87,7 +92,7 @@ public partial class Wa2EngineMain : Control
 	public Wa2Func Func;
 	public Wa2Encoding Wa2Encoding;
 	public FileAccess SysSav;
-	public List<TextureRect> BmpList=new();
+	public Dictionary<int, Sprite2D> BmpDict = new();
 	public Wa2EngineMain()
 	{
 		if (Engine == null)
@@ -187,10 +192,10 @@ public partial class Wa2EngineMain : Control
 		SysSav.Seek((ulong)idx + 0x80000);
 		return SysSav.Get8();
 	}
-	public void SetCgFlag(int idx)
+	public void SetCgFlag(int idx, byte value)
 	{
 		SysSav.Seek((ulong)idx + 0x80000);
-		SysSav.Store8(1);
+		SysSav.Store8(value);
 	}
 	public int ReadSysFlag(int idx)
 	{
@@ -473,6 +478,7 @@ public partial class Wa2EngineMain : Control
 	}
 	public override void _Process(double delta)
 	{
+
 		if (State == GameState.LOGO)
 		{
 			if (!WaitTimer.IsActive())
@@ -526,6 +532,13 @@ public partial class Wa2EngineMain : Control
 				{
 					Script.ParseCmd();
 				}
+			}
+		}
+		foreach (Sprite2D tex in BmpContainer.GetChildren())
+		{
+			if (!tex.Visible)
+			{
+				tex.Show();
 			}
 		}
 	}

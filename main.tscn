@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=27 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
+[ext_resource type="Script" uid="uid://i2txg74b6v3t" path="res://script/AnimatorMgr.cs" id="2_ycdy4"]
 [ext_resource type="Script" uid="uid://7o38nrw6moms" path="res://script/Wa2Viewport.cs" id="3_0aff7"]
 [ext_resource type="PackedScene" uid="uid://8iltc13k4sm1" path="res://scene/wa2_adv_main.tscn" id="3_ww1q6"]
 [ext_resource type="Script" uid="uid://ch3fjcpjwskoj" path="res://script/Wa2Image.cs" id="4_jqvt3"]
@@ -169,7 +170,7 @@ shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
 shader_parameter/top = true
 
-[node name="EngineMain" type="Control" node_paths=PackedStringArray("VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
+[node name="EngineMain" type="Control" node_paths=PackedStringArray("BmpContainer", "AnimatorMgr", "VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -177,6 +178,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wdeo5")
+BmpContainer = NodePath("SubViewportContainer/SubViewport/BmpContainer")
+AnimatorMgr = NodePath("AnimatorMgr")
 VideoPlayer = NodePath("VideoStreamPlayer")
 CharGroup = NodePath("SubViewportContainer/SubViewport/CharGroup")
 SubViewport = NodePath("SubViewportContainer")
@@ -186,6 +189,10 @@ UiMgr = NodePath("Wa2UiMgr")
 SoundMgr = NodePath("SoundMgr")
 BgTexture = NodePath("SubViewportContainer/SubViewport/Bg")
 MaskTexture = NodePath("MaskImage")
+
+[node name="AnimatorMgr" type="Node" parent="."]
+script = ExtResource("2_ycdy4")
+metadata/_custom_type_script = "uid://i2txg74b6v3t"
 
 [node name="SoundMgr" type="Node" parent="."]
 script = ExtResource("2_w3y5b")
@@ -199,7 +206,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-stretch = true
 script = ExtResource("3_0aff7")
 BgTexure = NodePath("SubViewport/Bg")
 CharGroup = NodePath("SubViewport/CharGroup")
@@ -338,6 +344,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_jqvt3")
 
+[node name="BmpContainer" type="Control" parent="SubViewportContainer/SubViewport"]
+layout_mode = 3
+anchors_preset = 0
+
 [node name="MaskImage" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_536a2")
 layout_mode = 1
@@ -383,7 +393,6 @@ layout_mode = 1
 layout_mode = 1
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

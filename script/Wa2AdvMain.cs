@@ -3,6 +3,7 @@ using System;
 
 public partial class Wa2AdvMain : Control
 {
+
 	[Export]
 	public TextureRect IsReadTexture;
 	[Export]
@@ -29,10 +30,10 @@ public partial class Wa2AdvMain : Control
 	public Wa2Label TextLabel;
 	[Export]
 	public AnimatedSprite2D WaitSprite;
-	[Export]
-	public Control DebugUi;
-		[Export]
-	public bool Debug;
+	// [Export]
+	// public Control DebugUi;
+	// 	[Export]
+	// public bool Debug;
 	private Wa2EngineMain _engine;
 	public string CurText = "";
 	public string CurName = "";
@@ -265,21 +266,21 @@ public partial class Wa2AdvMain : Control
 	{
 		_engine.UiMgr.OpenLoadMenu();
 	}
-	public override void _Process(double delta)
-	{
-		if (Debug && _engine.State==Wa2EngineMain.GameState.GAME && _engine.GameSav.GameFlags!=null)
-		{
-			for (int i = 0; i < 9; i++)
-			{
-				DebugUi.GetChild<HBoxContainer>(i).GetChild<Label>(1).Text = _engine.GameSav.GameFlags[5 + i].ToString();
-			}
+	// public override void _Process(double delta)
+	// {
+	// 	if (Debug && _engine.State==Wa2EngineMain.GameState.GAME && _engine.GameSav.GameFlags!=null)
+	// 	{
+	// 		for (int i = 0; i < 9; i++)
+	// 		{
+	// 			DebugUi.GetChild<HBoxContainer>(i).GetChild<Label>(1).Text = _engine.GameSav.GameFlags[5 + i].ToString();
+	// 		}
 
-		}
+	// 	}
 
-	}
-	public override void _Ready()
-	{
-		DebugUi.Visible = Debug;
-	}
+	// }
+	// public override void _Ready()
+	// {
+	// 	DebugUi.Visible = Debug;
+	// }
 
 }

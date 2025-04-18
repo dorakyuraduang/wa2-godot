@@ -23,6 +23,7 @@ uniform bool top=false;
 		//}
 		//return res;
 //}
+
 vec4 get_color(sampler2D input_texture,vec2 uv,vec2 scale,vec2 offset){
 	vec2 texture_size=vec2(textureSize(input_texture,0));
 	if(texture_size==vec2(4,4)){
@@ -62,5 +63,4 @@ void fragment() {
 	}else{
 		COLOR=mix(cur_color,next_color,final);
 	}
-
 }
