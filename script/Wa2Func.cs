@@ -182,6 +182,8 @@ public class Wa2Func
 			Text = _engine.GameSav.FirstSentence,
 			VoiceInfo = _engine.VoiceInfo
 		});
+		GD.Print(_engine.VoiceInfo
+		);
 		_engine.VoiceInfo = null;
 	}
 	public void EndMessage(List<Wa2Var> args)
@@ -221,15 +223,15 @@ public class Wa2Func
 	}
 	public void VV(List<Wa2Var> args)
 	{
+		_engine.VoiceInfo = new()
+		{
+			Id = args[4].Get(),
+			Chr = args[0].Get(),
+			Label = _engine.GameSav.Label,
+			Volume = args[1].Get()
+		};
 		if (!_engine.Skipping && !_engine.SkipMode)
 		{
-			_engine.VoiceInfo = new()
-			{
-				Id = args[4].Get(),
-				Chr = args[0].Get(),
-				Label = _engine.GameSav.Label,
-				Volume = args[1].Get()
-			};
 			_engine.SoundMgr.PlayVoice(_engine.GameSav.Label, args[4].Get(), args[0].Get(), args[1].Get());
 		}
 	}

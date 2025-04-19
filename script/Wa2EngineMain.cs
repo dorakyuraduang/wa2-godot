@@ -269,6 +269,10 @@ public partial class Wa2EngineMain : Control
 					break;
 				}
 			}
+			// if (Wa2Resource.ResPath == "")
+			// {
+			// Wa2Resource.ResPath = OS.GetSystemDir(OS.SystemDir.Documents)+"Wa2Res/";
+			// }
 			OS.RequestPermissions();
 			while (!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") && (!OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE"))) ;
 			// await ToSignal(GetTree(), SceneTree.SignalName.OnRequestPermissionsResult);
@@ -466,6 +470,7 @@ public partial class Wa2EngineMain : Control
 	}
 	public void AddhBackLog(BacklogEntry e)
 	{
+		GD.Print(Backlogs.Count);
 		if (Backlogs.Count > 50)
 		{
 			Backlogs.RemoveAt(0);

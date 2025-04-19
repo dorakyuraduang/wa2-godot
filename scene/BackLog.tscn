@@ -1,12 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://85d6c6lepals"]
+[gd_scene load_steps=13 format=3 uid="uid://85d6c6lepals"]
 
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_4a45v"]
 [ext_resource type="Script" uid="uid://donmnudefokyw" path="res://script/BackLogMenu.cs" id="2_g6p1y"]
 [ext_resource type="Texture2D" uid="uid://b5l32uwggpucn" path="res://assets/grp/sys_00032.tga" id="2_vw6ks"]
 [ext_resource type="Texture2D" uid="uid://cgnie27dykapw" path="res://assets/grp/sys_00033.png" id="3_vw6ks"]
+[ext_resource type="PackedScene" uid="uid://b77hx1i001s2f" path="res://scene/back_log_item.tscn" id="5_hirb6"]
+[ext_resource type="Texture2D" uid="uid://daj7v6ntkuj5e" path="res://assets/grp/sys_00030.png" id="6_x7cua"]
 
-[node name="BackLog" instance=ExtResource("1_4a45v")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc868"]
+atlas = ExtResource("6_x7cua")
+region = Rect2(0, 592, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1yem"]
+atlas = ExtResource("6_x7cua")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_207pf"]
+atlas = ExtResource("6_x7cua")
+region = Rect2(0, 48, 32, 544)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gwiod"]
+texture = SubResource("AtlasTexture_207pf")
+axis_stretch_horizontal = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7cua"]
+atlas = ExtResource("6_x7cua")
+region = Rect2(64, 48, 16, 88)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oc868"]
+texture = SubResource("AtlasTexture_x7cua")
+texture_margin_left = 32.0
+texture_margin_bottom = 96.0
+region_rect = Rect2(-4, -4, 16, 96)
+
+[node name="BackLog" node_paths=PackedStringArray("BackLogItems", "ScrollBar") instance=ExtResource("1_4a45v")]
 script = ExtResource("2_g6p1y")
+BackLogItems = NodePath("VBoxContainer")
+ScrollBar = NodePath("VScrollBar")
 
 [node name="NinePatchRect" type="TextureRect" parent="." index="1"]
 layout_mode = 1
@@ -24,3 +54,49 @@ visible = false
 
 [node name="PageTop" parent="." index="3"]
 texture = ExtResource("2_vw6ks")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="8"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -332.0
+offset_right = 420.0
+offset_bottom = 320.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackLogItem" parent="VBoxContainer" index="0" instance=ExtResource("5_hirb6")]
+layout_mode = 2
+
+[node name="BackLogItem2" parent="VBoxContainer" index="1" instance=ExtResource("5_hirb6")]
+layout_mode = 2
+
+[node name="BackLogItem3" parent="VBoxContainer" index="2" instance=ExtResource("5_hirb6")]
+layout_mode = 2
+
+[node name="BackLogItem4" parent="VBoxContainer" index="3" instance=ExtResource("5_hirb6")]
+layout_mode = 2
+
+[node name="VScrollBar" type="VScrollBar" parent="." index="9"]
+layout_mode = 0
+offset_left = 1028.0
+offset_top = 29.0
+offset_right = 1060.0
+offset_bottom = 675.0
+theme_override_icons/increment = SubResource("AtlasTexture_oc868")
+theme_override_icons/increment_highlight = SubResource("AtlasTexture_oc868")
+theme_override_icons/increment_pressed = SubResource("AtlasTexture_oc868")
+theme_override_icons/decrement = SubResource("AtlasTexture_b1yem")
+theme_override_icons/decrement_highlight = SubResource("AtlasTexture_b1yem")
+theme_override_icons/decrement_pressed = SubResource("AtlasTexture_b1yem")
+theme_override_styles/scroll = SubResource("StyleBoxTexture_gwiod")
+theme_override_styles/scroll_focus = SubResource("StyleBoxTexture_gwiod")
+theme_override_styles/grabber = SubResource("StyleBoxTexture_oc868")
+theme_override_styles/grabber_highlight = SubResource("StyleBoxTexture_oc868")
+theme_override_styles/grabber_pressed = SubResource("StyleBoxTexture_oc868")
+max_value = 1.0
+step = 1.0
