@@ -409,7 +409,7 @@ public class Wa2Func
 		float r = (int)args[1].Get() / 255f;
 		float g = (int)args[2].Get() / 255f;
 		float b = (int)args[3].Get() / 255f;
-	RenderingServer.GlobalShaderParameterSet("fb",new Vector3(r,g,b));
+		RenderingServer.GlobalShaderParameterSet("fb", new Vector3(r, g, b));
 		// GD.Print(new Vector3(r,g,b));
 		// GD.Print(RenderingServer.GlobalShaderParameterGetList());
 		// RenderingServer.setgl
@@ -604,27 +604,29 @@ public class Wa2Func
 		if ((args[1].Get() as string).EndsWith(".tga"))
 		{
 			texture.Texture = Wa2Resource.LoadTgaImage(args[1].Get());
-		}else{
+		}
+		else
+		{
 			texture.Texture = Wa2Resource.LoadBmpImage(args[1].Get());
 		}
 		ShaderMaterial material = new();
-		texture.Material=material;
+		texture.Material = material;
 		// texture.PivotOffset = texture.Texture.GetSize() / 2;
 		// texture.Modulate = new Color(1, 1, 1, 0);
 		// texture.Material = new CanvasItemMaterial();
-		texture.Hide();
+		// texture.Hide();
 		texture.Centered = false;
 
 		// texture.UseParentMaterial=true;
 		texture.ZIndex = args[2].Get();
 		// (texture.Material as CanvasItemMaterial).BlendMode=CanvasItemMaterial.BlendModeEnum.Add;
 		_engine.BmpDict[args[0].Get()] = texture;
-		_engine.BmpContainer.AddChild(texture);
+		_engine.BmpContainer.CallDeferred("add_child", texture);
 		for (int i = 0; i < args.Count; i++)
 		{
 			GD.Print("loadbmp" + i + ":", args[i].Get());
 		}
-				_engine.Script.ParseCmd();
+		// _engine.Script.ParseCmd();
 	}
 	public void LoadBmpAnime(List<Wa2Var> args)
 	{
@@ -646,6 +648,7 @@ public class Wa2Func
 	{
 		if (_engine.BmpDict.ContainsKey(args[0].Get()))
 		{
+			_engine.BmpDict[args[0].Get()].Hide();
 			_engine.BmpDict[args[0].Get()].QueueFree();
 			_engine.BmpDict.Remove(args[0].Get());
 		}
@@ -715,8 +718,8 @@ public class Wa2Func
 			(_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1, a);
 		}
 		// tex.Visible=true;
-		_engine.Script.ParseCmd();
-		
+		// _engine.Script.ParseCmd();
+
 	}
 	public void SetBmpRevParam(List<Wa2Var> args)
 	{
@@ -754,9 +757,12 @@ public class Wa2Func
 		// GD.Print("bmp缩放:",_engine.GameSav.args[0].Get());
 		tex.Scale = new Vector2(_engine.GameSav.args[3].Get() / tex.Texture.GetSize().X, args[4].Get() / tex.Texture.GetSize().Y);
 		tex.Position = new Vector2(_engine.GameSav.args[1].Get(), args[2].Get());
-		if(!tex.Visible){
+		if(!tex.IsVisibleInTree()){
 			_engine.Script.ParseCmd();
 		}
+		// if(!tex.Visible){
+		// 	_engine.Script.ParseCmd();
+		// }
 		// _engine.Script.ParseCmd();
 		// if(args[0].Get()!=0){
 		// 	return;

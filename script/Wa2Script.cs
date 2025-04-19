@@ -439,7 +439,7 @@ public class Wa2Script
 					flag = true;
 					break;
 				case 4:
-					CallFunc();
+					flag=CallFunc();
 					// flag = true;
 					break;
 				case 5:
@@ -503,14 +503,19 @@ public class Wa2Script
 		};
 		_engine.GameSav.args.Add(var);
 	}
-	public void CallFunc()
+	public bool CallFunc()
 	{
 		uint funcIdx = ReadU32();
 		if (_func.FuncDic.TryGetValue(funcIdx, out var func))
 		{
 			// GD.Print(string.Format("{0:X}", funcIdx));
 			func(_engine.GameSav.args);
+			if (funcIdx == 0xb0 || funcIdx == 0xb4 || funcIdx == 0xb9 || funcIdx ==0x9)
+			{
+				return true;
+			}
 		}
+		return false;
 		// if (funcIdx>=0x80){
 		// 	_engine.GameSav.args.Clear();
 		// }	
@@ -725,7 +730,7 @@ public class Wa2Script
 					}
 					else
 					{
-						PushInt(5, 3,0);
+						PushInt(5, 3, 0);
 						GD.Print("错误位置", _engine.GameSav.ScriptPos);
 					}
 

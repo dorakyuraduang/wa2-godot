@@ -254,7 +254,7 @@ public partial class Wa2AdvMain : Control
 	// }
 	public void OnSaveButtonDown()
 	{
-		if (_engine.WaitTimer.IsActive() || _engine.WaitAnimator() || _engine.VideoPlayer.IsPlaying() || _engine.WaitTimer.IsActive())
+		if (!_engine.WaitClick)
 		{
 
 			// GD.Print("等待中");

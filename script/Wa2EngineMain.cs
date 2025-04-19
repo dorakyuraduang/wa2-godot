@@ -478,7 +478,6 @@ public partial class Wa2EngineMain : Control
 	}
 	public override void _Process(double delta)
 	{
-
 		if (State == GameState.LOGO)
 		{
 			if (!WaitTimer.IsActive())
@@ -526,19 +525,13 @@ public partial class Wa2EngineMain : Control
 					if (Animators[i].IsActive())
 					{
 						flag = false;
+						break;
 					}
 				}
 				if (flag)
 				{
 					Script.ParseCmd();
 				}
-			}
-		}
-		foreach (Sprite2D tex in BmpContainer.GetChildren())
-		{
-			if (!tex.Visible)
-			{
-				tex.Show();
 			}
 		}
 	}
