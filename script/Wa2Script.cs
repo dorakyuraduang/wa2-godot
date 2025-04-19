@@ -217,7 +217,7 @@ public class Wa2Script
 
 		Wa2EngineMain.Engine.Texts = [.. strs.Split(',')];
 	}
-	public void ParseGloVar()
+	public void ParseJumpFlag()
 	{
 		uint flag = ReadU32();
 		// GD.Print(_engine.GameSav.ScriptPos);
@@ -429,7 +429,7 @@ public class Wa2Script
 			switch (cmd)
 			{
 				case 0:
-					ParseGloVar();
+					ParseJumpFlag();
 					flag = true;
 					break;
 				case 1:

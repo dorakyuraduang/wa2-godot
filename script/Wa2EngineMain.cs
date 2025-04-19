@@ -2,13 +2,14 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 public class BacklogEntry
 {
 
-	public string name;
-	public string text;
-	public string voice;
+	public string Name;
+	public string Text;
+	public VoiceInfo VoiceInfo;
 }
 public partial class Wa2EngineMain : Control
 {
@@ -46,18 +47,21 @@ public partial class Wa2EngineMain : Control
 	public Wa2Var SelectVar;
 	public double PressedTime = 0.0f;
 	public bool IsPressed = false;
+
 	public int ScriptIdx;
 	public int Year;
 	public int Month;
 	public int Day;
 	public int TimeMode;
-	public int Timer;
+	public int StartTime;
 	public List<Wa2Animator> Animators { private set; get; } = new();
 	public bool WaitClick = false;
 	public bool WaitSe = false;
 	public Wa2Prefs Prefs;
 	public int Label;
 	public bool Skipping = false;
+	public bool DemoMode = false;
+
 
 	[Export]
 	public VideoStreamPlayer VideoPlayer;
@@ -83,7 +87,7 @@ public partial class Wa2EngineMain : Control
 	public Wa2Timer WaitTimer = new();
 	public Wa2Timer TextTimer = new();
 	public Wa2Timer AutoTimer = new();
-
+		public VoiceInfo VoiceInfo=new();
 	public bool HasReadMessage = false;
 	// public bool MessageHasRead = true;
 	// public Wa2Timer SeWaitTimer = new();
@@ -256,7 +260,7 @@ public partial class Wa2EngineMain : Control
 
 		if (OS.GetName() == "Android")
 		{
-			Wa2Resource.ResPath = "/storage/emulated/0/Wa2Res/";
+			Wa2Resource.ResPath =OS.GetEnvironment("EXTERNAL_STORAGE");
 			// if (!OS.HasFeature("android.permission.MANAGE_EXTERNAL_STORAGE"))
 			// {
 			OS.RequestPermissions();
@@ -321,6 +325,9 @@ public partial class Wa2EngineMain : Control
 	}
 	public void ClickAdv()
 	{
+		// if(WaitTime){
+		// 	return;
+		// }
 		if (WaitTimer.IsActive() || TextTimer.IsActive())
 		{
 			if (!ClickedInWait)
@@ -355,9 +362,12 @@ public partial class Wa2EngineMain : Control
 				}
 				ClickedInWait = false;
 			}
+			// if(WaitTime){
+			// 	StartTime=EndTime;
+			// }
 			return;
 		}
-		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || Skipping || SkipMode))
+		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || Skipping || SkipMode || DemoMode))
 		{
 			if (AdvMain.Visible)
 			{
@@ -411,10 +421,11 @@ public partial class Wa2EngineMain : Control
 		// Script.Wait = false;
 		// WaitClick = false;
 		// HasReadMessage = false;
-		Backlogs.Clear();
+		DemoMode = false;
+		AdvMain.SetDemoMode(false);
+		StartTime = (int)Time.GetTicksMsec();
 		ClickedInWait = false;
 		WaitTimer.DeActive();
-
 		TextTimer.DeActive();
 		AdvMain.Clear();
 		WaitSeFinish();
@@ -447,11 +458,18 @@ public partial class Wa2EngineMain : Control
 		VideoPlayer.Hide();
 		WaitTimer.DeActive();
 	}
+	public void AddhBackLog(BacklogEntry e){
+		if(Backlogs.Count>50){
+			Backlogs.RemoveAt(0);
+		}
+		Backlogs.Add(e);
+	}
 	public void StartScript(string name, uint pos = 0)
 	{
 		SoundMgr.StopBgm();
 		Reset(true);
 		GameSav.Reset();
+		Backlogs.Clear();
 		Script.LoadScript(name, pos);
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -549,16 +567,24 @@ public partial class Wa2EngineMain : Control
 	}
 	public void UpdateFrame(double delta)
 	{
+
 		if (Skipping || SkipMode)
 		{
 			ClickAdv();
 		}
 		UpdateTimer(delta);
+		if (DemoMode)
+		{
+			StopAutoMode();
+
+		}
 		AdvMain.Update((float)delta);
 
 	}
 	public void UpdateTimer(double delta)
 	{
+		// GD.Print(EndTime - StartTime);
+
 		if (WaitTimer.IsActive())
 		{
 			if (!WaitTimer.IsDone())

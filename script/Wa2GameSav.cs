@@ -48,6 +48,12 @@ public struct CharItem
 	public int id;
 	public int no;
 }
+public class VoiceInfo{
+	public int Chr;
+	public int Id;
+	public int Label;
+	public int Volume;
+}
 // public struct FirstCmd{
 
 // }
@@ -86,7 +92,7 @@ public class Wa2GameSav
 	private Wa2EngineMain _engine;
 	public int CurMessageIdx;
 	public List<CharItem> CharItems = new();
-	public int StartTime;
+	// public int StartTime;
 	public void Reset()
 	{
 
@@ -101,7 +107,7 @@ public class Wa2GameSav
 		BgInfo = new();
 		FirstSentence = "";
 		CharName = "";
-		StartTime=0;
+		// StartTime=0;
 		
 
 	}
@@ -241,7 +247,6 @@ public class Wa2GameSav
 		file.Store32((uint)BgmInfo.Loop);
 		file.Store32((uint)BgmInfo.Volume);
 		file.Store32((uint)CurMessageIdx);
-		file.Store32((uint)StartTime);
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -357,9 +362,9 @@ public class Wa2GameSav
 		BgmInfo.Loop = (int)file.Get32();
 		BgmInfo.Volume = (int)file.Get32();
 		CurMessageIdx= (int)file.Get32();
-		StartTime = (int)file.Get32();
-		GD.Print(CurMessageIdx);
-		GD.Print(StartTime);
+		// StartTime = (int)file.Get32();
+		// GD.Print(CurMessageIdx);
+		// GD.Print(StartTime);
 		if (selectCount > 0)
 		{
 			_engine.ShowSelectMessage();
@@ -377,6 +382,7 @@ public class Wa2GameSav
 		_engine.BgTexture.SetCurOffset(BgInfo.Offset);
 		_engine.UpdateChar(0f);
 		_engine.HasReadMessage=true;
+		_engine.Backlogs.Clear();
 		file.Close();
 	}
 }

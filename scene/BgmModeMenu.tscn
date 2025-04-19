@@ -1,6 +1,7 @@
-[gd_scene load_steps=82 format=3 uid="uid://kthxdrmqdyyc"]
+[gd_scene load_steps=83 format=3 uid="uid://kthxdrmqdyyc"]
 
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_k3gkk"]
+[ext_resource type="Script" uid="uid://k5kx8gpn65af" path="res://script/BgmModeMenu.cs" id="2_841a6"]
 [ext_resource type="Texture2D" uid="uid://bvc0w6ue5v2wk" path="res://assets/grp/sys_04000.png" id="2_eac0v"]
 [ext_resource type="Texture2D" uid="uid://djlhmcccwcce1" path="res://assets/grp/sys_04100.png" id="2_h4jf4"]
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="3_eac0v"]
@@ -264,6 +265,7 @@ atlas = ExtResource("9_p16cv")
 region = Rect2(0, 64, 48, 60)
 
 [node name="BgmModeMenu" node_paths=PackedStringArray("BgmBtnContainer", "BgmName", "BgmAuthor", "PreBtn", "NextBtn") instance=ExtResource("1_k3gkk")]
+script = ExtResource("2_841a6")
 BgmBtnContainer = NodePath("HBoxContainer")
 BgmName = NodePath("TextureRect/TextureRect")
 BgmAuthor = NodePath("TextureRect/TextureRect2")

@@ -1,21 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://85d6c6lepals"]
+[gd_scene load_steps=5 format=3 uid="uid://85d6c6lepals"]
 
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_4a45v"]
+[ext_resource type="Script" uid="uid://donmnudefokyw" path="res://script/BackLogMenu.cs" id="2_g6p1y"]
 [ext_resource type="Texture2D" uid="uid://b5l32uwggpucn" path="res://assets/grp/sys_00032.tga" id="2_vw6ks"]
 [ext_resource type="Texture2D" uid="uid://cgnie27dykapw" path="res://assets/grp/sys_00033.png" id="3_vw6ks"]
 
 [node name="BackLog" instance=ExtResource("1_4a45v")]
+script = ExtResource("2_g6p1y")
 
-[node name="Logo" parent="." index="1"]
+[node name="NinePatchRect" type="TextureRect" parent="." index="1"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -420.0
+offset_right = 420.0
+offset_bottom = 720.0
+grow_horizontal = 2
+texture = ExtResource("3_vw6ks")
+
+[node name="Logo" parent="." index="2"]
 visible = false
 
-[node name="PageTop" parent="." index="2"]
+[node name="PageTop" parent="." index="3"]
 texture = ExtResource("2_vw6ks")
-
-[node name="NinePatchRect" type="TextureRect" parent="." index="7"]
-layout_mode = 0
-offset_left = 140.0
-offset_top = -4.0
-offset_right = 1090.0
-offset_bottom = 801.0
-texture = ExtResource("3_vw6ks")

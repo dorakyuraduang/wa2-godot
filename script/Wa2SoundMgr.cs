@@ -9,7 +9,11 @@ public partial class Wa2SoundMgr : Node
 	private AudioStreamPlayer _sysSeAudio = new();
 	private Wa2Audio _voiceAudio = new();
 	private Wa2Audio[] _seAudios;
+	private Wa2EngineMain _engine;
 	public int BgmId { private set; get; }
+	public void Init(Wa2EngineMain e){
+		_engine=e;
+	}
 	public void StopAll()
 	{
 		_voiceAudio.Stream = null;
@@ -35,13 +39,16 @@ public partial class Wa2SoundMgr : Node
 		}
 		_seAudios[channel].SetVolume(volume / 255.0f, time);
 	}
-	public void PlayVoice(int label, int id, int chr)
+	public void PlayVoice(int label, int id, int chr,int volume=256)
 	{
-
 		_voiceAudio.PlayStream(Wa2Resource.GetVoiceStream(label, id, chr), true, 0, 1);
+		_voiceAudio.SetVolume(volume / 256.0f,0);
 	}
 	public void PlayBgm(int id, bool loopFlag = true, int volume = 255)
 	{
+		if(id<0){
+			return;
+		}
 		BgmId = id;
 		Wa2EngineMain.Engine.WirtSysFlag(100 + id, 1);
 		_bgmAudio.PlayStream(Wa2Resource.GetBgmStream(id, false), loopFlag, 0, volume / 255.0f);
@@ -50,6 +57,7 @@ public partial class Wa2SoundMgr : Node
 	public void StopBgm(float time = 0.0f)
 	{
 		_bgmAudio.StopStream(time);
+		Wa2EngineMain.Engine.GameSav.BgmInfo.Id=-1;
 		BgmId = -1;
 	}
 	public float GetVoiceTime()

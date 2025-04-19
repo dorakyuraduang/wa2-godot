@@ -4,6 +4,8 @@ using System;
 public partial class Wa2AdvMain : Control
 {
 
+[Export]
+public Wa2Button BackLogButton;
 	[Export]
 	public TextureRect IsReadTexture;
 	[Export]
@@ -55,6 +57,7 @@ public partial class Wa2AdvMain : Control
 		AutoButton.ButtonDown += OnAutoButtonDown;
 		SkipButton.ButtonDown += OnSkipButtonDown;
 		OffButton.ButtonDown += OnOffButtonDown;
+		BackLogButton.ButtonDown+=OnBackLogButtonDown;
 		for (int i = 0; i < SelectMessageContainer.GetChildCount(); i++)
 		{
 			int idx = i;
@@ -68,6 +71,9 @@ public partial class Wa2AdvMain : Control
 		{
 			_engine.AutoModeStart();
 		}
+	}
+	public void OnBackLogButtonDown(){
+		_engine.UiMgr.OpenBackLog();
 	}
 	public void OnSkipButtonDown()
 	{
@@ -120,8 +126,28 @@ public partial class Wa2AdvMain : Control
 		}
 
 	}
+	public void SetDemoMode(bool b){
+		if (b)
+		{
+			LoadButton.Visible = false;
+			SaveButton.Visible = false;
+			AutoButton.Visible = false;
+			OffButton.Visible = false;
+			BackLogButton.Visible=false;
+		}
+		else
+		{
+			LoadButton.Visible = true;
+			SaveButton.Visible = true;
+			AutoButton.Visible = true;
+			OffButton.Visible = true;
+			BackLogButton.Visible=true;
+
+		}
+	}
 	public void Update(float delta)
 	{
+
 		if (_engine.TextTimer.IsActive())
 		{
 			_engine.TextTimer.Update(delta);
@@ -137,7 +163,7 @@ public partial class Wa2AdvMain : Control
 
 			}
 		}
-		if (_engine.WaitClick && !_engine.TextTimer.IsActive() && !_engine.Skipping && !_engine.SkipMode && !_engine.AutoMode)
+		if (_engine.WaitClick && !_engine.TextTimer.IsActive() && !_engine.Skipping && !_engine.SkipMode && !_engine.AutoMode && !_engine.DemoMode)
 		{
 			WaitSprite.Show();
 		}

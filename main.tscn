@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=28 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://bh0600rsr4o0e" path="res://script/wa2_video.gd" id="10_4c57u"]
 [ext_resource type="PackedScene" uid="uid://djqgqhlm8ewbt" path="res://scene/CGModeMenu.tscn" id="10_efxa6"]
 [ext_resource type="PackedScene" uid="uid://kthxdrmqdyyc" path="res://scene/BgmModeMenu.tscn" id="11_dg77c"]
+[ext_resource type="PackedScene" uid="uid://85d6c6lepals" path="res://scene/BackLog.tscn" id="13_w48qg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tw2vm"]
 resource_local_to_scene = true
@@ -359,7 +360,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_jqvt3")
 
-[node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("BgmModeMenu", "AdvMain", "TitleMenu", "LoadSaveMenu", "CGModeMenu")]
+[node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("BgmModeMenu", "AdvMain", "TitleMenu", "LoadSaveMenu", "CGModeMenu", "BackLogMenu")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -372,7 +373,8 @@ BgmModeMenu = NodePath("BgmModeMenu")
 AdvMain = NodePath("AdvMain")
 TitleMenu = NodePath("TitleMenu")
 LoadSaveMenu = NodePath("LoadSaveMenu")
-CGModeMenu = NodePath("CGModePage")
+CGModeMenu = NodePath("CGModeMenu")
+BackLogMenu = NodePath("BackLogMenu")
 
 [node name="TitleMenu" parent="Wa2UiMgr" instance=ExtResource("5_d5jo3")]
 visible = false
@@ -386,10 +388,13 @@ mouse_filter = 2
 [node name="LoadSaveMenu" parent="Wa2UiMgr" instance=ExtResource("9_kek77")]
 layout_mode = 1
 
-[node name="CGModePage" parent="Wa2UiMgr" instance=ExtResource("10_efxa6")]
+[node name="CGModeMenu" parent="Wa2UiMgr" instance=ExtResource("10_efxa6")]
 layout_mode = 1
 
 [node name="BgmModeMenu" parent="Wa2UiMgr" instance=ExtResource("11_dg77c")]
+layout_mode = 1
+
+[node name="BackLogMenu" parent="Wa2UiMgr" instance=ExtResource("13_w48qg")]
 layout_mode = 1
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]

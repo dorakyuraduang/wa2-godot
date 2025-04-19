@@ -162,38 +162,48 @@ public class Wa2Func
 	public void printEx2(List<Wa2Var> args) { }
 	public void SetMessage(List<Wa2Var> args)
 	{
-		GD.Print("设置等待点击标签样式");
+		SetMessageEx(args[0].Get(), args[1].Get());
 
 	}
 	public void SetMessageE(List<Wa2Var> args)
 	{
-		_engine.GameSav.FirstSentence = args[0].Get();
+		SetMessageEx(args[0].Get(), args[1].Get());
+		// _engine.WaitClick=true;
+	}
+	public void SetMessageEx(string text, int idx)
+	{
+		_engine.GameSav.FirstSentence = text;
 		_engine.AdvMain.ShowText(_engine.GameSav.FirstSentence, _engine.GameSav.CharName);
 		_engine.WaitClick = true;
-		_engine.GameSav.CurMessageIdx = args[1].Get();
-
-
-
-		// _engine.WaitClick=true;
-
-
+		_engine.GameSav.CurMessageIdx = idx;
+		_engine.AddhBackLog(new BacklogEntry()
+		{
+			Name = _engine.GameSav.CharName,
+			Text = _engine.GameSav.FirstSentence,
+			VoiceInfo = _engine.VoiceInfo
+		});
+		_engine.VoiceInfo = null;
 	}
 	public void EndMessage(List<Wa2Var> args)
 	{
+
+
+		// _engine.VoiceInfo = null;
 		_engine.WaitClick = false;
 		_engine.AdvMain.WaitSprite.Hide();
 		// _engine.AdvMain.Clear();
 	}
 	public void SetMessage2(List<Wa2Var> args)
 	{
-		_engine.GameSav.FirstSentence = args[0].Get();
-		_engine.AdvMain.ShowText(_engine.GameSav.FirstSentence, _engine.GameSav.CharName);
-		_engine.WaitClick = true;
-		_engine.GameSav.CurMessageIdx = args[1].Get();
+		SetMessageEx(args[0].Get(), args[1].Get());
 	}
 	public void WaitMessage2(List<Wa2Var> args) { }
 	public void K(List<Wa2Var> args) { }
-	public void SetDemoMode(List<Wa2Var> args) { }
+	public void SetDemoMode(List<Wa2Var> args)
+	{
+		_engine.DemoMode = args[0].Get() > 0;
+		_engine.AdvMain.SetDemoMode(_engine.DemoMode);
+	}
 	public void VI(List<Wa2Var> args)
 	{
 		// if (args[0].Get() == 0)
@@ -213,9 +223,15 @@ public class Wa2Func
 	{
 		if (!_engine.Skipping && !_engine.SkipMode)
 		{
-			_engine.SoundMgr.PlayVoice(_engine.GameSav.Label, args[4].Get(), args[0].Get());
+			_engine.VoiceInfo = new()
+			{
+				Id = args[4].Get(),
+				Chr = args[0].Get(),
+				Label = _engine.GameSav.Label,
+				Volume = args[1].Get()
+			};
+			_engine.SoundMgr.PlayVoice(_engine.GameSav.Label, args[4].Get(), args[0].Get(), args[1].Get());
 		}
-
 	}
 	public void VX(List<Wa2Var> args)
 	{
@@ -757,7 +773,8 @@ public class Wa2Func
 		// GD.Print("bmp缩放:",_engine.GameSav.args[0].Get());
 		tex.Scale = new Vector2(_engine.GameSav.args[3].Get() / tex.Texture.GetSize().X, args[4].Get() / tex.Texture.GetSize().Y);
 		tex.Position = new Vector2(_engine.GameSav.args[1].Get(), args[2].Get());
-		if(!tex.IsVisibleInTree()){
+		if (!tex.IsVisibleInTree())
+		{
 			_engine.Script.ParseCmd();
 		}
 		// if(!tex.Visible){
@@ -815,13 +832,19 @@ public class Wa2Func
 	}
 	public void StartTimer(List<Wa2Var> args)
 	{
-		_engine.Timer = (int)Time.GetTicksMsec();
+		_engine.StartTime = (int)Time.GetTicksMsec();
 	}
 	public void WaitTimer(List<Wa2Var> args)
 	{
-		if (Time.GetTicksMsec() < (ulong)(_engine.Timer + args[0].Get()))
+
+		// _engine.EndTime = _engine.StartTime + (int)args[0].Get();
+		// if (_engine.Skipping && _engine.SkipMode)
+		// {
+		// 	_engine.StartTime = _engine.EndTime;
+		// }
+		if (Time.GetTicksMsec() < (ulong)(_engine.StartTime + args[0].Get()))
 		{
-			_engine.WaitTimer.Start((_engine.Timer + args[0].Get() - (int)Time.GetTicksMsec()) * 0.001f);
+			_engine.WaitTimer.Start((_engine.StartTime + args[0].Get() - (int)Time.GetTicksMsec()) * 0.001f);
 		}
 		args.Clear();
 	}
@@ -869,7 +892,7 @@ public class Wa2Func
 	}
 	public void GetTimer(List<Wa2Var> args)
 	{
-		_engine.Script.PushInt(5, 3, (int)Time.GetTicksMsec() - _engine.Timer);
+		_engine.Script.PushInt(5, 3, (int)Time.GetTicksMsec() - _engine.StartTime);
 	}
 	public void GetSkip(List<Wa2Var> args)
 	{

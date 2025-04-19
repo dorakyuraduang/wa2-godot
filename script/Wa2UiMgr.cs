@@ -15,6 +15,8 @@ public partial class Wa2UiMgr : Control
 	public LoadSaveMenu LoadSaveMenu;
 	[Export]
 	public CGModeMenu CGModeMenu;
+	[Export]
+	public BackLogMenu BackLogMenu;
 	private Wa2EngineMain _engine;
 	public override void _Ready()
 	{
@@ -27,13 +29,19 @@ public partial class Wa2UiMgr : Control
 	// public override void _Process(double delta)
 	// {
 	// }
+	public void OpenBackLog()
+	{
+		BackLogMenu.Open();
+		UiQueue.Push(BackLogMenu);
+	}
 	public void OpenGame()
 	{
 		_engine.SubViewport.Show();
 		_engine.State = Wa2EngineMain.GameState.GAME;
 		JumpScene(AdvMain);
 	}
-	public void ReturnScene(){
+	public void ReturnScene()
+	{
 		if (UiQueue.Count > 0)
 		{
 			Control ui = UiQueue.Pop();
@@ -45,11 +53,13 @@ public partial class Wa2UiMgr : Control
 		LoadSaveMenu.Open(DataMode.Save);
 		UiQueue.Push(LoadSaveMenu);
 	}
-	public void OpenCGModeMenu(){
+	public void OpenCGModeMenu()
+	{
 		CGModeMenu.Open();
 		UiQueue.Push(CGModeMenu);
 	}
-	public void OpenBgmModeMenu(){
+	public void OpenBgmModeMenu()
+	{
 		BgmModeMenu.Open();
 		UiQueue.Push(BgmModeMenu);
 	}
