@@ -87,7 +87,7 @@ public partial class Wa2EngineMain : Control
 	public Wa2Timer WaitTimer = new();
 	public Wa2Timer TextTimer = new();
 	public Wa2Timer AutoTimer = new();
-		public VoiceInfo VoiceInfo=new();
+	public VoiceInfo VoiceInfo = new();
 	public bool HasReadMessage = false;
 	// public bool MessageHasRead = true;
 	// public Wa2Timer SeWaitTimer = new();
@@ -260,9 +260,15 @@ public partial class Wa2EngineMain : Control
 
 		if (OS.GetName() == "Android")
 		{
-			Wa2Resource.ResPath =OS.GetEnvironment("EXTERNAL_STORAGE");
-			// if (!OS.HasFeature("android.permission.MANAGE_EXTERNAL_STORAGE"))
-			// {
+
+			for (int i = 0; i < 100; i++)
+			{
+				if (System.IO.Directory.Exists(string.Format("/storage/emulated/{0}/Wa2Res/", i)))
+				{
+					Wa2Resource.ResPath = string.Format("/storage/emulated/{0}/Wa2Res/", i);
+					break;
+				}
+			}
 			OS.RequestPermissions();
 			while (!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") && (!OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE"))) ;
 			// await ToSignal(GetTree(), SceneTree.SignalName.OnRequestPermissionsResult);
@@ -458,8 +464,10 @@ public partial class Wa2EngineMain : Control
 		VideoPlayer.Hide();
 		WaitTimer.DeActive();
 	}
-	public void AddhBackLog(BacklogEntry e){
-		if(Backlogs.Count>50){
+	public void AddhBackLog(BacklogEntry e)
+	{
+		if (Backlogs.Count > 50)
+		{
 			Backlogs.RemoveAt(0);
 		}
 		Backlogs.Add(e);
