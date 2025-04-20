@@ -84,7 +84,7 @@ public partial class Wa2AdvMain : Control
 	public void OnSkipButtonDown()
 	{
 		_engine.StopAutoMode();
-		if (!_engine.CanSkip())
+		if (!_engine.HasReadMessage)
 		{
 			_engine.SkipMode = false;
 		}
