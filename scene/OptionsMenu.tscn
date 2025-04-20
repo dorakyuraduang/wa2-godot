@@ -1,0 +1,523 @@
+[gd_scene load_steps=34 format=3 uid="uid://du2ied53oeq1x"]
+
+[ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_rxglr"]
+[ext_resource type="Script" uid="uid://dmtoyob7b1fd4" path="res://script/OptionsMenu.cs" id="2_kvry6"]
+[ext_resource type="Texture2D" uid="uid://cs88wy18tqrie" path="res://assets/grp/sys_03100.png" id="3_jifwb"]
+[ext_resource type="Texture2D" uid="uid://cxcac7l55fsxn" path="res://assets/grp/sys_03101.png" id="4_li33v"]
+[ext_resource type="Texture2D" uid="uid://bncns7kx0uwam" path="res://assets/grp/sys_03201.png" id="5_kvry6"]
+[ext_resource type="Texture2D" uid="uid://cwovt81xtj7yv" path="res://assets/grp/sys_03102.png" id="5_x3o0d"]
+[ext_resource type="Texture2D" uid="uid://b6o6i1jp01in" path="res://assets/grp/sys_03010.png" id="6_p84jc"]
+[ext_resource type="Texture2D" uid="uid://c5e2xfl7niho" path="res://assets/grp/sys_03011.png" id="7_m5qo3"]
+[ext_resource type="Texture2D" uid="uid://d3cfeqhjrsfdk" path="res://assets/grp/sys_03221.png" id="8_jifwb"]
+[ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="8_ojnhc"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_kvry6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p84jc"]
+atlas = ExtResource("5_kvry6")
+region = Rect2(456, 77, 128, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5qo3"]
+atlas = ExtResource("5_kvry6")
+region = Rect2(584, 78, 128, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojnhc"]
+atlas = ExtResource("5_kvry6")
+region = Rect2(712, 78, 128, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0w33h"]
+atlas = ExtResource("5_kvry6")
+region = Rect2(840, 78, 128, 36)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_jifwb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jifwb"]
+atlas = ExtResource("5_kvry6")
+region = Rect2(456, 116, 256, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li33v"]
+atlas = ExtResource("5_kvry6")
+region = Rect2(711, 116, 256, 38)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_li33v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvry6"]
+atlas = ExtResource("5_kvry6")
+region = Rect2(458, 222, 256, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3o0d"]
+atlas = ExtResource("5_kvry6")
+region = Rect2(714, 222, 252, 36)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_x3o0d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xsla"]
+atlas = ExtResource("8_jifwb")
+region = Rect2(456, 14, 256, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ox32"]
+atlas = ExtResource("8_jifwb")
+region = Rect2(712, 14, 256, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8egv"]
+atlas = ExtResource("6_p84jc")
+region = Rect2(0, 0, 756, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujiwv"]
+atlas = ExtResource("6_p84jc")
+region = Rect2(0, 48, 756, 48)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_p84jc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2m61"]
+atlas = ExtResource("7_m5qo3")
+region = Rect2(0, 64, 192, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cracp"]
+atlas = ExtResource("7_m5qo3")
+region = Rect2(0, 0, 192, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72mhw"]
+atlas = ExtResource("7_m5qo3")
+region = Rect2(192, 64, 192, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1iqsg"]
+atlas = ExtResource("7_m5qo3")
+region = Rect2(192, 0, 192, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61p5j"]
+atlas = ExtResource("7_m5qo3")
+region = Rect2(384, 64, 192, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1d1b7"]
+atlas = ExtResource("7_m5qo3")
+region = Rect2(384, 0, 192, 32)
+
+[node name="OptionsMenu" node_paths=PackedStringArray("MsgWaitBtnList", "MsgCutOptinAllBtn", "MsgCutOptinReadBtn", "WaitFastBtn", "WaitNormalBtn", "OptionButtonList", "PageList") instance=ExtResource("1_rxglr")]
+script = ExtResource("2_kvry6")
+MsgWaitBtnList = NodePath("PageList/Option1/MsgWait")
+MsgCutOptinAllBtn = NodePath("PageList/Option1/MsgCutOptin/MsgCutOptinAll")
+MsgCutOptinReadBtn = NodePath("PageList/Option1/MsgCutOptin/MsgCutOptinRead")
+WaitFastBtn = NodePath("PageList/Option1/Wait/WaitFast")
+WaitNormalBtn = NodePath("PageList/Option1/Wait/WaitNormal")
+OptionButtonList = NodePath("OptionList")
+PageList = NodePath("PageList")
+
+[node name="PageList" type="Control" parent="." index="7"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Option1" type="TextureRect" parent="PageList" index="0"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 1152.0
+offset_bottom = 592.0
+texture = ExtResource("3_jifwb")
+
+[node name="MsgWait" type="HBoxContainer" parent="PageList/Option1" index="0"]
+layout_mode = 0
+offset_left = 455.0
+offset_top = 77.0
+offset_right = 966.0
+offset_bottom = 117.0
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option1/MsgWait" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_kvry6")
+texture_pressed = SubResource("AtlasTexture_p84jc")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option1/MsgWait" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_kvry6")
+texture_pressed = SubResource("AtlasTexture_m5qo3")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button3" type="TextureButton" parent="PageList/Option1/MsgWait" index="2"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_kvry6")
+texture_pressed = SubResource("AtlasTexture_ojnhc")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button4" type="TextureButton" parent="PageList/Option1/MsgWait" index="3"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_kvry6")
+texture_pressed = SubResource("AtlasTexture_0w33h")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="MsgCutOptin" type="HBoxContainer" parent="PageList/Option1" index="1"]
+layout_mode = 0
+offset_left = 455.0
+offset_top = 116.0
+offset_right = 967.0
+offset_bottom = 156.0
+theme_override_constants/separation = 0
+
+[node name="MsgCutOptinAll" type="TextureButton" parent="PageList/Option1/MsgCutOptin" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_jifwb")
+texture_pressed = SubResource("AtlasTexture_jifwb")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="MsgCutOptinRead" type="TextureButton" parent="PageList/Option1/MsgCutOptin" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_jifwb")
+texture_pressed = SubResource("AtlasTexture_li33v")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wait" type="HBoxContainer" parent="PageList/Option1" index="2"]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 222.0
+offset_right = 846.0
+offset_bottom = 262.0
+theme_override_constants/separation = 0
+
+[node name="WaitFast" type="TextureButton" parent="PageList/Option1/Wait" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_li33v")
+texture_pressed = SubResource("AtlasTexture_kvry6")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="WaitNormal" type="TextureButton" parent="PageList/Option1/Wait" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_li33v")
+texture_pressed = SubResource("AtlasTexture_x3o0d")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Option2" type="TextureRect" parent="PageList" index="1"]
+visible = false
+layout_mode = 0
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 1152.0
+offset_bottom = 592.0
+texture = ExtResource("4_li33v")
+
+[node name="Option3" type="TextureRect" parent="PageList" index="2"]
+visible = false
+layout_mode = 0
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 1152.0
+offset_bottom = 592.0
+texture = ExtResource("5_x3o0d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PageList/Option3" index="0"]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 15.0
+offset_right = 972.0
+offset_bottom = 453.0
+theme_override_constants/separation = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PageList/Option3/VBoxContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_7xsla")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_2ox32")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PageList/Option3/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer2" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_7xsla")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer2" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_2ox32")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PageList/Option3/VBoxContainer" index="2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer3" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_7xsla")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer3" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_2ox32")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PageList/Option3/VBoxContainer" index="3"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer4" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_7xsla")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer4" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_2ox32")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="PageList/Option3/VBoxContainer" index="4"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer5" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_7xsla")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer5" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_2ox32")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="PageList/Option3/VBoxContainer" index="5"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer6" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_7xsla")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer6" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_2ox32")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="PageList/Option3/VBoxContainer" index="6"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer7" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_7xsla")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer7" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_2ox32")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="PageList/Option3/VBoxContainer" index="7"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer8" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_7xsla")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer8" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_2ox32")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="PageList/Option3/VBoxContainer" index="8"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer9" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_7xsla")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer9" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_2ox32")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="PageList/Option3/VBoxContainer" index="9"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer10" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_7xsla")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option3/VBoxContainer/HBoxContainer10" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_x3o0d")
+texture_pressed = SubResource("AtlasTexture_2ox32")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect3" type="TextureRect" parent="." index="8"]
+layout_mode = 0
+offset_left = 528.0
+offset_top = 96.0
+offset_right = 1284.0
+offset_bottom = 144.0
+texture = SubResource("AtlasTexture_p8egv")
+
+[node name="TextureRect2" type="TextureRect" parent="." index="9"]
+layout_mode = 0
+offset_left = 528.0
+offset_top = 96.0
+offset_right = 1284.0
+offset_bottom = 144.0
+texture = SubResource("AtlasTexture_ujiwv")
+
+[node name="OptionList" type="HBoxContainer" parent="." index="10"]
+layout_mode = 0
+offset_left = 688.0
+offset_top = 104.0
+offset_right = 888.0
+offset_bottom = 136.0
+theme_override_constants/separation = 0
+
+[node name="Wa2Button" type="TextureButton" parent="OptionList" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_p84jc")
+texture_normal = SubResource("AtlasTexture_c2m61")
+texture_pressed = SubResource("AtlasTexture_cracp")
+texture_hover = SubResource("AtlasTexture_c2m61")
+texture_disabled = SubResource("AtlasTexture_c2m61")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="OptionList" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_p84jc")
+texture_normal = SubResource("AtlasTexture_72mhw")
+texture_pressed = SubResource("AtlasTexture_1iqsg")
+texture_hover = SubResource("AtlasTexture_72mhw")
+texture_disabled = SubResource("AtlasTexture_72mhw")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button3" type="TextureButton" parent="OptionList" index="2"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_p84jc")
+texture_normal = SubResource("AtlasTexture_61p5j")
+texture_pressed = SubResource("AtlasTexture_1d1b7")
+texture_hover = SubResource("AtlasTexture_61p5j")
+texture_disabled = SubResource("AtlasTexture_61p5j")
+script = ExtResource("8_ojnhc")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"

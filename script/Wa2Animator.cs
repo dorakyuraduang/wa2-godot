@@ -35,11 +35,11 @@ public class Wa2AdvAnimator : Wa2Animator
 	{
 		Adv = adv;
 		Wa2EngineMain.Engine.Animators.Add(this);
-		
+
 	}
 	public void InitFade(float time, bool fadeIn)
 	{
-		Timer=new Wa2Timer();
+		Timer = new Wa2Timer();
 		Timer.Start(time);
 		if (fadeIn)
 		{
@@ -53,7 +53,7 @@ public class Wa2AdvAnimator : Wa2Animator
 	public override void Update()
 	{
 		base.Update();
-		
+
 		if (Type == AnimType.FEAD_IN)
 		{
 			Adv.Modulate = new Color(1, 1, 1, MathF.Min(Timer.GetProgress(), 1f));
@@ -118,7 +118,7 @@ public class Wa2ImageAnimator : Wa2Animator
 		{
 			(Image.Material as ShaderMaterial).SetShaderParameter("fead_weight", 1.0);
 		}
-		
+
 	}
 	public override void Update()
 	{
@@ -138,6 +138,10 @@ public class Wa2ImageAnimator : Wa2Animator
 		if (Type == AnimType.MOVE)
 		{
 			Image.SetCurOffset(Timer.GetProgress() * MoveDistance + StartOffset);
+			if (Timer.GetProgress() >= 1f && Wait)
+			{
+				Image.SetCurOffset(MoveDistance + StartOffset);
+			}
 		}
 		if (Type == AnimType.HIDE)
 		{
@@ -148,12 +152,12 @@ public class Wa2ImageAnimator : Wa2Animator
 				Image.SetNextTexture(null);
 			}
 		}
-		
+
 	}
 	public override void Finish()
 	{
 		Timer.Done();
-		if (Type != AnimType.MOVE)
+		if (Wait)
 		{
 			Update();
 		}

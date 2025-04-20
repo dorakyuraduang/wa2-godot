@@ -180,7 +180,7 @@ _data = {
 &"open": SubResource("Animation_5nscl")
 }
 
-[node name="BasePage" type="Control" node_paths=PackedStringArray("ExitBtn", "AnimationPlayer")]
+[node name="BasePage" type="Control" node_paths=PackedStringArray("BgmPlayer", "ExitBtn", "AnimationPlayer")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -191,6 +191,7 @@ grow_vertical = 2
 pivot_offset = Vector2(640, 360)
 mouse_filter = 2
 script = ExtResource("1_q0q6a")
+BgmPlayer = NodePath("BgmPlayer")
 ExitBtn = NodePath("ExitButton")
 AnimationPlayer = NodePath("AnimationPlayer")
 

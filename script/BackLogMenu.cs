@@ -12,10 +12,12 @@ public partial class BackLogMenu : BasePage
     Modulate = new Color(1, 1, 1, 1);
     Scale = new Vector2(1, 1);
     ScrollBar.ValueChanged += OnScrollBarValChanged;
+    
   }
   public override void Open()
   {
     Show();
+    BgmPlayer.Show();
     _engine.AdvMain.Hide();
     ScrollBar.MaxValue = Math.Max(0, _engine.Backlogs.Count - 4);
     ScrollBar.Value = ScrollBar.MaxValue;
@@ -24,6 +26,7 @@ public partial class BackLogMenu : BasePage
   public override void Close()
   {
     Hide();
+    BgmPlayer.Hide();
     _engine.UiMgr.ReturnScene();
     _engine.AdvMain.Show();
   }

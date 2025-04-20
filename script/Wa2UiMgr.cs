@@ -6,6 +6,8 @@ public partial class Wa2UiMgr : Control
 {
 	public Stack<Control> UiQueue = new();
 	[Export]
+	public OptionsMenu OptionsMenu;
+	[Export]
 	public BgmModeMenu BgmModeMenu;
 	[Export]
 	public Wa2AdvMain AdvMain;
@@ -47,6 +49,10 @@ public partial class Wa2UiMgr : Control
 			Control ui = UiQueue.Pop();
 			ui.Hide();
 		}
+	}
+	public void OpenOptionsMenu(){
+		OptionsMenu.Open();
+		UiQueue.Push(OptionsMenu);
 	}
 	public void OpenSaveMenu()
 	{

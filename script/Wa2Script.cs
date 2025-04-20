@@ -182,7 +182,7 @@ public class Wa2Script
 		_bnrbuffer = null;
 		LoadBnr(name);
 		_engine.GameSav.ScriptPos = _points[pos];
-
+		_engine.HasReadMessage = _engine.GetReadMessage(0);
 		// GD.Print(_engine.GameSav.ScriptPos);
 	}
 	public void LoadBnr(string name)
@@ -217,7 +217,7 @@ public class Wa2Script
 
 		Wa2EngineMain.Engine.Texts = [.. strs.Split(',')];
 	}
-	public void ParseJumpFlag()
+	public bool ParseJumpFlag()
 	{
 		uint flag = ReadU32();
 		// GD.Print(_engine.GameSav.ScriptPos);
@@ -239,7 +239,7 @@ public class Wa2Script
 			case 0:
 				break;
 			case 1:
-				break;
+				return false;
 			case 2:
 				if (_engine.GameSav.JumpEntrys.Count < 15)
 				{
@@ -417,20 +417,18 @@ public class Wa2Script
 				break;
 		}
 		_engine.GameSav.args.Clear();
+		return true;
 	}
 	public void ParseCmd()
 	{
-		// GD.Print(_engine.GameSav.ScriptPos);
-		if (_engine.GameSav.ScriptPos < _bnrbuffer.Length)
+		bool flag = true;
+		while (flag && _engine.GameSav.ScriptPos < _bnrbuffer.Length)
 		{
 			int cmd = (int)ReadU32();
-			bool flag = false;
-			// GD.Print("位置",_engine.GameSav.ScriptPos);
 			switch (cmd)
 			{
 				case 0:
-					ParseJumpFlag();
-					flag = true;
+					flag = ParseJumpFlag();
 					break;
 				case 1:
 				case 2:
@@ -439,7 +437,8 @@ public class Wa2Script
 					flag = true;
 					break;
 				case 4:
-					flag=CallFunc();
+					flag = CallFunc();
+					// GD.Print(flag);
 					// flag = true;
 					break;
 				case 5:
@@ -470,18 +469,11 @@ public class Wa2Script
 					if (entry.Pos != _engine.GameSav.ScriptPos)
 					{
 						break;
-
 					}
 					_engine.GameSav.JumpEntrys.RemoveAt(i);
 				}
 			}
-
-			if (flag)
-			{
-				ParseCmd();
-			}
 		}
-		// _engine.SysSav.ScriptReadPos[_engine.GameSav.ScriptName] = _engine.GameSav.ScriptPos;
 	}
 	public void PushInt(int type1, int type2, int v)
 	{
@@ -506,16 +498,12 @@ public class Wa2Script
 	public bool CallFunc()
 	{
 		uint funcIdx = ReadU32();
+		// GD.Print(string.Format("调用函数{0:X}", funcIdx));
 		if (_func.FuncDic.TryGetValue(funcIdx, out var func))
 		{
-			// GD.Print(string.Format("{0:X}", funcIdx));
-			func(_engine.GameSav.args);
-			if (funcIdx == 0xb0 || funcIdx == 0xb4 || funcIdx == 0xb9 || funcIdx ==0x9)
-			{
-				return true;
-			}
+			return func(_engine.GameSav.args);
 		}
-		return false;
+		return true;
 		// if (funcIdx>=0x80){
 		// 	_engine.GameSav.args.Clear();
 		// }	
@@ -753,6 +741,7 @@ public class Wa2Script
 				break;
 			case 0x19:
 				a.Set(a.Get() + 1);
+				// GD.Print(a.Get());
 				break;
 			case 0x1A:
 				a.Set(a.Get() - 1);

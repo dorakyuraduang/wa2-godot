@@ -16,8 +16,8 @@ public partial class BackLogItem : Control
   }
   public void SetInfo(BacklogEntry e)
   {
-    GD.Print(e.Name);
-    GD.Print(e.Text);
+    // GD.Print(e.Name);
+    // GD.Print(e.Text);
     NmaeLabel.Text = e.Name;
     TextLabel.Text = e.Text;
     VoiceInfo = e.VoiceInfo;

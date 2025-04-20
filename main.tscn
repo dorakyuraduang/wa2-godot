@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=29 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://djqgqhlm8ewbt" path="res://scene/CGModeMenu.tscn" id="10_efxa6"]
 [ext_resource type="PackedScene" uid="uid://kthxdrmqdyyc" path="res://scene/BgmModeMenu.tscn" id="11_dg77c"]
 [ext_resource type="PackedScene" uid="uid://85d6c6lepals" path="res://scene/BackLog.tscn" id="13_w48qg"]
+[ext_resource type="PackedScene" uid="uid://du2ied53oeq1x" path="res://scene/OptionsMenu.tscn" id="14_vivmo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tw2vm"]
 resource_local_to_scene = true
@@ -360,7 +361,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_jqvt3")
 
-[node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("BgmModeMenu", "AdvMain", "TitleMenu", "LoadSaveMenu", "CGModeMenu", "BackLogMenu")]
+[node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("OptionsMenu", "BgmModeMenu", "AdvMain", "TitleMenu", "LoadSaveMenu", "CGModeMenu", "BackLogMenu")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -369,6 +370,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_p6nqb")
+OptionsMenu = NodePath("OptionsMenu")
 BgmModeMenu = NodePath("BgmModeMenu")
 AdvMain = NodePath("AdvMain")
 TitleMenu = NodePath("TitleMenu")
@@ -395,6 +397,9 @@ layout_mode = 1
 layout_mode = 1
 
 [node name="BackLogMenu" parent="Wa2UiMgr" instance=ExtResource("13_w48qg")]
+layout_mode = 1
+
+[node name="OptionsMenu" parent="Wa2UiMgr" instance=ExtResource("14_vivmo")]
 layout_mode = 1
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]

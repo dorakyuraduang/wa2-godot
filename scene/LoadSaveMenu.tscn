@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://bxa3gtl880ece"]
+[gd_scene load_steps=81 format=3 uid="uid://bxa3gtl880ece"]
 
 [ext_resource type="Script" uid="uid://dbkyiayv0e7wj" path="res://script/LoadSaveMenu.cs" id="1_l5c20"]
 [ext_resource type="Texture2D" uid="uid://kjst0j70oly0" path="res://assets/grp/sys_04010.png" id="2_4g5eb"]
@@ -8,9 +8,9 @@
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="6_damy8"]
 [ext_resource type="Texture2D" uid="uid://fry7muu30vjg" path="res://assets/grp/sys_00110.tga" id="7_i0eel"]
 [ext_resource type="AudioStream" uid="uid://clwoheb3ixdy1" path="res://assets/se/SE_9211.WAV" id="7_n1sq5"]
-[ext_resource type="Texture2D" uid="uid://75suq1ohbh2u" path="res://assets/grp/sys_01020.tga" id="7_ngv2f"]
 [ext_resource type="PackedScene" uid="uid://vhl58c04l614" path="res://scene/data_slot.tscn" id="8_21eec"]
 [ext_resource type="AudioStream" uid="uid://c4ucnxq7r28er" path="res://assets/se/SE_9213.WAV" id="8_xqhj0"]
+[ext_resource type="Texture2D" uid="uid://66mg0ihriw0r" path="res://assets/grp/sys_01020.png" id="9_kslka"]
 [ext_resource type="Texture2D" uid="uid://dgr56sk15w3ts" path="res://assets/grp/sys_01021.tga" id="9_n1sq5"]
 [ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="12_xqhj0"]
 [ext_resource type="FontFile" uid="uid://b1vxukmrcfne3" path="res://assets/fonts/cn.tres" id="14_3rr5g"]
@@ -262,6 +262,14 @@ _data = {
 &"close": SubResource("Animation_18w4g"),
 &"open": SubResource("Animation_qdctb")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_un0t8"]
+atlas = ExtResource("9_kslka")
+region = Rect2(0, 48, 840, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_da6sy"]
+atlas = ExtResource("9_kslka")
+region = Rect2(0, 0, 840, 48)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_3rr5g"]
 
@@ -531,14 +539,22 @@ libraries = {
 &"": SubResource("AnimationLibrary_1lri4")
 }
 
+[node name="TextureRect4" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 64.0
+offset_right = 1280.0
+offset_bottom = 112.0
+texture = SubResource("AtlasTexture_un0t8")
+
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 64.0
 offset_right = 1280.0
-offset_bottom = 160.0
+offset_bottom = 112.0
 mouse_filter = 2
-texture = ExtResource("7_ngv2f")
+texture = SubResource("AtlasTexture_da6sy")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 1

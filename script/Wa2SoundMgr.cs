@@ -14,6 +14,9 @@ public partial class Wa2SoundMgr : Node
 	public void Init(Wa2EngineMain e){
 		_engine=e;
 	}
+	public void StopVoice(){
+		_voiceAudio.Stop();
+	}
 	public void StopAll()
 	{
 		_voiceAudio.Stream = null;

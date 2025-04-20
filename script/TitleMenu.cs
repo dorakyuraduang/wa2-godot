@@ -51,11 +51,15 @@ public partial class TitleMenu : Control
 		SpecialBackButton.ButtonDown += OnSpecialBackButtonDown;
 		// As1Button.ButtonDown += OnAs1ButtonDown;
 		// As2Button.ButtonDown += OnAs2ButtonDown;
+		OptionsButton.ButtonDown+=OnOptionsButtonDown;
 		BgmModeButton.ButtonDown+=OnBgmModeButtonDown;
 		CodeaButton.ButtonDown += OnCodeaButtonDown;
 		LoadtButton.ButtonDown += OnLoadButtonDown;
 		CgModeButton.ButtonDown+=OnCgModeButtonDown;
 
+	}
+	public void OnOptionsButtonDown(){
+		_engine.UiMgr.OpenOptionsMenu();
 	}
 	public void OnCgModeButtonDown(){
 		_engine.UiMgr.OpenCGModeMenu();

@@ -63,7 +63,7 @@ public partial class BgmModeMenu : BasePage
     {
       _pageNum = 0;
     }
-     GD.Print(_pageNum);
+    //  GD.Print(_pageNum);
     UpdatePage();
   }
   public void UpdatePage()

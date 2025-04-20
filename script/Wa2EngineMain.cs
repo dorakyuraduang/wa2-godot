@@ -34,6 +34,7 @@ public partial class Wa2EngineMain : Control
 	// public int CurSelect=0;
 
 	// public int[] GameFlags = new int[1024];
+	public int _frame;
 	public List<string> Texts = new();
 	public List<BacklogEntry> Backlogs = new();
 	public bool TestMode = true;
@@ -282,6 +283,8 @@ public partial class Wa2EngineMain : Control
 		{
 			Wa2Resource.ResPath = "res://assets/";
 		}
+		Prefs = new Wa2Prefs();
+		Prefs.Init();
 		if (!FileAccess.FileExists("user://sys.sav"))
 		{
 			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.Write);
@@ -295,7 +298,7 @@ public partial class Wa2EngineMain : Control
 		// 	SysSav.StoreBuffer(new byte[0x26A000 - SysSav.GetLength()]);
 		// }
 
-		Prefs = new Wa2Prefs();
+		
 		Func = new Wa2Func(this);
 		Script = new Wa2Script(Func);
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -344,27 +347,28 @@ public partial class Wa2EngineMain : Control
 			{
 				ClickedInWait = true;
 			}
-			if (Skipping || ClickedInWait || SkipMode)
+			if (CanSkip() || ClickedInWait)
 			{
 				if (VideoPlayer.IsPlaying())
 				{
-					if (Skipping || SkipMode || !HasPlayMovie)
+					if (!HasPlayMovie)
 					{
 						return;
 					}
 					HideVideo();
 				}
-				AnimatorsFinish();
-				if (!WaitTimer.IsDone())
+				if (CanSkip())
 				{
-					WaitTimer.Done();
+					AnimatorsFinish();
+					if (!WaitTimer.IsDone())
+					{
+						WaitTimer.Done();
+					}
 				}
 				if (!TextTimer.IsDone())
 				{
 					TextTimer.Done();
-					// GD.Print("process", TextTimer.GetProgress());
 					AdvMain.Update(0);
-					// GD.Print("TextTimer");
 				}
 				if (!AutoTimer.IsDone())
 				{
@@ -372,21 +376,22 @@ public partial class Wa2EngineMain : Control
 				}
 				ClickedInWait = false;
 			}
-			// if(WaitTime){
-			// 	StartTime=EndTime;
-			// }
 			return;
 		}
-		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || Skipping || SkipMode || DemoMode))
+		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || CanSkip() || DemoMode))
 		{
+			if (WaitAnimator() && !CanSkip())
+			{
+				return;
+			}
+			AnimatorsFinish();
 			if (AdvMain.Visible)
 			{
-				AnimatorsFinish();
-				Script.ParseCmd();
-				if (SkipMode && !HasReadMessage)
+				if (!CanSkip())
 				{
 					StopSkip();
 				}
+				Script.ParseCmd();
 			}
 			else
 			{
@@ -394,43 +399,11 @@ public partial class Wa2EngineMain : Control
 			}
 
 		}
-		// if (Skipping)
-		// {
-		// 	return;
-		// }
-		// if (SkipMode)
-		// {
-		// 	StopSkip();
-		// 	return;
-		// }
-		// if (AdvMain.State == Wa2AdvMain.AdvState.SHOW_TEXT)
-		// {
-		// 	AdvMain.Finish();
-		// 	return;
-		// }
-		// if (WaitTimer.IsActive())
-		// {
-		// 	return;
-		// }
-		// if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
-		// {
-		// 	WaitClick = false;
-		// 	WaitTimer.Done();
-		// 	// AdvMain.Clear();
-		// 	Script.ParseCmd();
-		// 	GD.Print("点击");
-		// }
-		// if (VideoPlayer.IsPlaying())
-		// {
-		// 	VideoPlayer.StreamPosition = VideoPlayer.GetStreamLength();
-		// }
 
 	}
+
 	public void Reset(bool stop = true)
 	{
-		// Script.Wait = false;
-		// WaitClick = false;
-		// HasReadMessage = false;
 		DemoMode = false;
 		AdvMain.SetDemoMode(false);
 		StartTime = (int)Time.GetTicksMsec();
@@ -444,11 +417,8 @@ public partial class Wa2EngineMain : Control
 			AutoTimer.DeActive();
 			StopSkip();
 		}
-		// AutoMode = false;
-		// SkipMode = false;
 		SoundMgr.StopAll();
 		AdvMain.SelectMessageContainer.Hide();
-		// GameSav.Reset();
 	}
 	public void OnVideoFinished()
 	{
@@ -543,28 +513,19 @@ public partial class Wa2EngineMain : Control
 		{
 			InputKeyHandling();
 			UpdateFrame(delta);
-			// WaitTimer.Update((float)delta);
-			// UpdateAnimators((float)delta);
-			// AdvMain.Update();
-			// SkipCheck();
-			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !Skipping && !AdvMain.SelectMessageContainer.Visible && !WaitClick)
+			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (!WaitClick || DemoMode))
 			{
-				// GD.Print("flag");
-				bool flag = true;
-				for (int i = 0; i < Animators.Count; i++)
-				{
-					if (Animators[i].IsActive())
-					{
-						flag = false;
-						break;
-					}
-				}
+				bool flag = !WaitAnimator();
 				if (flag)
 				{
 					Script.ParseCmd();
 				}
 			}
 		}
+	}
+	public bool CanSkip()
+	{
+		return (SkipMode || Skipping) && (HasReadMessage || (int)Prefs.GetConfig("msg_cut_optin") == 1);
 	}
 	public void AutoModeStart()
 	{
@@ -581,7 +542,7 @@ public partial class Wa2EngineMain : Control
 	public void UpdateFrame(double delta)
 	{
 
-		if (Skipping || SkipMode)
+		if (CanSkip())
 		{
 			ClickAdv();
 		}
@@ -648,27 +609,16 @@ public partial class Wa2EngineMain : Control
 			}
 		}
 	}
-	// public void SkipCheck()
-	// {
-	// 	if (Skipping || SkipMode)
-	// 	{
-	// 		if (WaitTimer.IsActive())
-	// 		{
-	// 			WaitTimer.Done();
-	// 		}
-	// 		AdvMain.Finish();
-	// 		AnimatorsFinish();
-	// 		WaitSeFinish();
-	// 		WaitClick = false;
-	// 	}
-	// }
-	public void AnimatorsFinish()
+	public void AnimatorsFinish(bool all = false)
 	{
 		for (int i = 0; i < Animators.Count; i++)
 		{
-			Animators[i].Finish();
-			Animators.RemoveAt(i);
-			i--;
+			if (Animators[i].Wait || all)
+			{
+				Animators[i].Finish();
+				Animators.RemoveAt(i);
+				i--;
+			}
 		}
 	}
 	public void UpdateAnimators(float delta)
@@ -784,11 +734,6 @@ public partial class Wa2EngineMain : Control
 						StopSkip();
 						flag = false;
 					}
-					// if (_engine.AutoMode)
-					// {
-					// 	_engine.AutoMode = false;
-					// 	_engine.StopSkip();
-					// }
 					if (flag)
 					{
 						ClickAdv();

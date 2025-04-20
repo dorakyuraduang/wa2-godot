@@ -4,6 +4,8 @@ using Godot;
 public partial class BasePage : Control
 {
   [Export]
+  public BgmPlayer BgmPlayer;
+  [Export]
   public Wa2Button ExitBtn;
   [Export]
   public AnimationPlayer AnimationPlayer;

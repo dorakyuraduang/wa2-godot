@@ -57,12 +57,16 @@ public Wa2Button BackLogButton;
 		AutoButton.ButtonDown += OnAutoButtonDown;
 		SkipButton.ButtonDown += OnSkipButtonDown;
 		OffButton.ButtonDown += OnOffButtonDown;
+		OptionButton.ButtonDown+=OnOptionButtonDown;
 		BackLogButton.ButtonDown+=OnBackLogButtonDown;
 		for (int i = 0; i < SelectMessageContainer.GetChildCount(); i++)
 		{
 			int idx = i;
 			SelectMessageContainer.GetChild<SelectMessage>(i).ButtonDown += () => OnSelectMessageButtonDown(idx);
 		}
+	}
+	public void OnOptionButtonDown(){
+		_engine.UiMgr.OpenOptionsMenu();
 	}
 	public void OnAutoButtonDown()
 	{
@@ -134,6 +138,7 @@ public Wa2Button BackLogButton;
 			AutoButton.Visible = false;
 			OffButton.Visible = false;
 			BackLogButton.Visible=false;
+			OptionButton.Visible=false;
 		}
 		else
 		{
@@ -142,6 +147,7 @@ public Wa2Button BackLogButton;
 			AutoButton.Visible = true;
 			OffButton.Visible = true;
 			BackLogButton.Visible=true;
+			OptionButton.Visible=true;
 
 		}
 	}
@@ -163,7 +169,7 @@ public Wa2Button BackLogButton;
 
 			}
 		}
-		if (_engine.WaitClick && !_engine.TextTimer.IsActive() && !_engine.Skipping && !_engine.SkipMode && !_engine.AutoMode && !_engine.DemoMode)
+		if (_engine.WaitClick && !_engine.TextTimer.IsActive() && !_engine.CanSkip() && !_engine.AutoMode && !_engine.DemoMode)
 		{
 			WaitSprite.Show();
 		}
@@ -238,13 +244,14 @@ public Wa2Button BackLogButton;
 		}
 
 	}
+
 	public void ShowText(string text, string name, bool fade = true)
 	{
 
 		TextLabel.Text = text;
 		NameLabel.Text = name;
 		AdvShow(fade);
-		if (!_engine.Skipping && fade)
+		if (!_engine.CanSkip() && fade)
 		{
 			TextStart(0.2f);
 		}
