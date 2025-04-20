@@ -4,8 +4,8 @@ using System;
 public partial class Wa2AdvMain : Control
 {
 
-[Export]
-public Wa2Button BackLogButton;
+	[Export]
+	public Wa2Button BackLogButton;
 	[Export]
 	public TextureRect IsReadTexture;
 	[Export]
@@ -57,15 +57,16 @@ public Wa2Button BackLogButton;
 		AutoButton.ButtonDown += OnAutoButtonDown;
 		SkipButton.ButtonDown += OnSkipButtonDown;
 		OffButton.ButtonDown += OnOffButtonDown;
-		OptionButton.ButtonDown+=OnOptionButtonDown;
-		BackLogButton.ButtonDown+=OnBackLogButtonDown;
+		OptionButton.ButtonDown += OnOptionButtonDown;
+		BackLogButton.ButtonDown += OnBackLogButtonDown;
 		for (int i = 0; i < SelectMessageContainer.GetChildCount(); i++)
 		{
 			int idx = i;
 			SelectMessageContainer.GetChild<SelectMessage>(i).ButtonDown += () => OnSelectMessageButtonDown(idx);
 		}
 	}
-	public void OnOptionButtonDown(){
+	public void OnOptionButtonDown()
+	{
 		_engine.UiMgr.OpenOptionsMenu();
 	}
 	public void OnAutoButtonDown()
@@ -76,13 +77,23 @@ public Wa2Button BackLogButton;
 			_engine.AutoModeStart();
 		}
 	}
-	public void OnBackLogButtonDown(){
+	public void OnBackLogButtonDown()
+	{
 		_engine.UiMgr.OpenBackLog();
 	}
 	public void OnSkipButtonDown()
 	{
-		_engine.SkipMode = !_engine.SkipMode;
 		_engine.StopAutoMode();
+		if (!_engine.CanSkip())
+		{
+			_engine.SkipMode = false;
+		}
+		else
+		{
+			_engine.SkipMode = !_engine.SkipMode;
+		}
+
+
 
 	}
 	public void OnSelectMessageButtonDown(int idx)
@@ -130,15 +141,16 @@ public Wa2Button BackLogButton;
 		}
 
 	}
-	public void SetDemoMode(bool b){
+	public void SetDemoMode(bool b)
+	{
 		if (b)
 		{
 			LoadButton.Visible = false;
 			SaveButton.Visible = false;
 			AutoButton.Visible = false;
 			OffButton.Visible = false;
-			BackLogButton.Visible=false;
-			OptionButton.Visible=false;
+			BackLogButton.Visible = false;
+			OptionButton.Visible = false;
 		}
 		else
 		{
@@ -146,8 +158,8 @@ public Wa2Button BackLogButton;
 			SaveButton.Visible = true;
 			AutoButton.Visible = true;
 			OffButton.Visible = true;
-			BackLogButton.Visible=true;
-			OptionButton.Visible=true;
+			BackLogButton.Visible = true;
+			OptionButton.Visible = true;
 
 		}
 	}
