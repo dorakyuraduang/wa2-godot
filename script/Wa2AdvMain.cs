@@ -118,6 +118,8 @@ public partial class Wa2AdvMain : Control
 	{
 		if (_engine.WaitClick)
 		{
+			_engine.StopSkip();
+			_engine.StopAutoMode();
 			_engine.AdvMain.Hide();
 		}
 
