@@ -286,10 +286,8 @@ public partial class Wa2AdvMain : Control
 	// }
 	public void OnSaveButtonDown()
 	{
-		if (!_engine.WaitClick)
+		if (!_engine.WaitClick && !_engine.AdvMain.SelectMessageContainer.Visible)
 		{
-
-			// GD.Print("等待中");
 			return;
 		}
 		_engine.UiMgr.OpenSaveMenu();
