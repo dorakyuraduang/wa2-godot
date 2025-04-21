@@ -92,7 +92,7 @@ public partial class Wa2EngineMain : Control
 	public bool HasReadMessage = false;
 	// public bool MessageHasRead = true;
 	// public Wa2Timer SeWaitTimer = new();
-	public float FrameTime { private set; get; } = 1.0f / 60;
+	public float FrameTime { private set; get; } = 1.0f / (int)ProjectSettings.GetSetting("application/run/max_fps");
 	public Wa2Script Script;
 	public Wa2Func Func;
 	public Wa2Encoding Wa2Encoding;
@@ -165,7 +165,7 @@ public partial class Wa2EngineMain : Control
 			}
 			else
 			{
-				GD.Print("设置角色", value.id, value.no);
+				// GD.Print("设置角色", value.id, value.no);
 				image.SetCurTexture(Wa2Resource.GetChrImage(value.id, value.no));
 			}
 			posList.Add(value.pos);
@@ -257,8 +257,8 @@ public partial class Wa2EngineMain : Control
 
 	public override void _Ready()
 	{
+		GD.Print(FrameTime);
 		GameSav = new(this);
-
 		if (OS.GetName() == "Android")
 		{
 
@@ -284,7 +284,7 @@ public partial class Wa2EngineMain : Control
 			Wa2Resource.ResPath = "res://assets/";
 		}
 		Prefs = new Wa2Prefs();
-		Prefs.Init();
+		Prefs.Init(this);
 		if (!FileAccess.FileExists("user://sys.sav"))
 		{
 			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.Write);
@@ -292,6 +292,7 @@ public partial class Wa2EngineMain : Control
 			SysSav.Close();
 		}
 		SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.ReadWrite);
+		SoundMgr.Init(this);
 		// if (SysSav.GetLength() < 0x26A000)
 		// {
 		// 	SysSav.Seek(SysSav.GetLength() - 1);
@@ -440,7 +441,7 @@ public partial class Wa2EngineMain : Control
 	}
 	public void AddhBackLog(BacklogEntry e)
 	{
-		GD.Print(Backlogs.Count);
+		// GD.Print(Backlogs.Count);
 		if (Backlogs.Count > 50)
 		{
 			Backlogs.RemoveAt(0);
@@ -536,7 +537,7 @@ public partial class Wa2EngineMain : Control
 		}
 		else
 		{
-			AutoTimer.Start(1.0f);
+			AutoTimer.Start(Prefs.GetConfig("auto_max")*FrameTime);
 		}
 	}
 	public void UpdateFrame(double delta)

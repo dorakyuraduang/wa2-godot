@@ -38,7 +38,7 @@ public partial class CGModeMenu : BasePage
         bool flag = false;
         for (int k = 0; k < Wa2Def.CgSlot[idx + _pageNum * 12].Length; k++)
         {
-          GD.Print(_engine.GetCgFlag(Wa2Def.CgSlot[idx + _pageNum * 12][k]));
+          // GD.Print(_engine.GetCgFlag(Wa2Def.CgSlot[idx + _pageNum * 12][k]));
           if (_engine.GetCgFlag(Wa2Def.CgSlot[idx + _pageNum * 12][k]) == 1)
           {
             flag = true;

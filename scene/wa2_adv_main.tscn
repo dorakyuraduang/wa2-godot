@@ -1093,7 +1093,7 @@ region = Rect2(248, 64, 32, 32)
 atlas = ExtResource("13_y4c0q")
 region = Rect2(288, 64, 32, 32)
 
-[node name="AdvMain" type="Control" node_paths=PackedStringArray("BackLogButton", "IsReadTexture", "AutoModeTexture", "SkipModeTexture", "SaveButton", "LoadButton", "OptionButton", "AutoButton", "SkipButton", "OffButton", "SelectMessageContainer", "NameLabel", "TextLabel", "WaitSprite")]
+[node name="AdvMain" type="Control" node_paths=PackedStringArray("BackLogButton", "IsReadTexture", "AutoModeTexture", "SkipModeTexture", "SaveButton", "LoadButton", "OptionButton", "AutoButton", "SkipButton", "OffButton", "SelectMessageContainer", "NameLabel", "TextLabel", "WaitSprite", "Window")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1115,9 +1115,10 @@ SelectMessageContainer = NodePath("SelectMessage")
 NameLabel = NodePath("NameLabel")
 TextLabel = NodePath("TextLabel")
 WaitSprite = NodePath("AwaitSprite")
+Window = NodePath("Window")
 
-[node name="TextureRect2" type="TextureRect" parent="."]
-modulate = Color(1, 1, 1, 0.627451)
+[node name="Window" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.5)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

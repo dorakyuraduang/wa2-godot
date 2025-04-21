@@ -41,9 +41,9 @@ script = ExtResource("2_2tuhy")
 VisibleRatio = 1.0
 FontTexture = ExtResource("3_3ecsp")
 ShadowTexture = ExtResource("4_ktgq3")
-Shadow = true
 
 [node name="TextureRect2" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 80.0
 offset_top = 16.0

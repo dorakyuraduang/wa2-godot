@@ -35,6 +35,7 @@ public partial class LoadSaveMenu : Control
   public GridContainer DataSlots;
   [Export]
   public HBoxContainer Tabs;
+
   public int _pageNum = 0;
   public Wa2EngineMain _engine;
   private DataMode _mode;
@@ -51,7 +52,7 @@ public partial class LoadSaveMenu : Control
       _engine.GameSav.SaveData(_selectIdx);
 
     }
-    if(_mode==DataMode.Load && _engine.State==Wa2EngineMain.GameState.TITLE)
+    if (_mode == DataMode.Load && _engine.State == Wa2EngineMain.GameState.TITLE)
     {
       _engine.SoundMgr.StopBgm();
     }
@@ -85,7 +86,7 @@ public partial class LoadSaveMenu : Control
     _selectIdx = _pageNum * 10 + idx;
     if (_mode == DataMode.Save)
     {
-      if (FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", _selectIdx)))
+      if (FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", _selectIdx)) && _engine.Prefs.GetConfig("yes_no") == 1)
       {
         ShowConfirmMessage();
       }
@@ -95,9 +96,13 @@ public partial class LoadSaveMenu : Control
         ShowTipMessage();
       }
     }
-    else if (_mode == DataMode.Load && FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", _selectIdx)))
+    else if (_mode == DataMode.Load && FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", _selectIdx)) && _engine.Prefs.GetConfig("yes_no") == 1)
     {
       ShowConfirmMessage();
+    }
+    else
+    {
+      ShowTipMessage();
     }
 
   }

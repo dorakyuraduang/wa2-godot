@@ -7,20 +7,113 @@ public class Wa2Prefs
 {
 	public ConfigFile ConfigFile = new();
 	public float TextSpeed = 40;
-	public void Init()
+	public Wa2EngineMain _engine;
+	public void Init(Wa2EngineMain e)
 	{
+		_engine = e;
 		if (!FileAccess.FileExists("user://SYSTEM.ini"))
 		{
 			SetDefault();
-			Save();
-		}else{
+			
+		}
+		else
+		{
 			ConfigFile.Load("user://SYSTEM.ini");
 		}
+		SetVolume(0, GetConfig("all_vol"));
+		SetVolume(1, GetConfig("bgm_vol"));
+		SetVolume(2, GetConfig("se_vol"));
+		SetVolume(3, GetConfig("voice_vol"));
+		_engine.AdvMain.SetWindowAlpha(GetConfig("win_alpha"));
 	}
-	public void SetConfig(string key,int val){
-		ConfigFile.SetValue("DEFAULT", key,val);
+	public void SetWindowAlpha(int alpha)
+	{
+		SetConfig("win_alpha", alpha);
+		_engine.AdvMain.SetWindowAlpha(GetConfig("win_alpha"));
 	}
-	public 	int GetConfig(string key){
+	public void SetConfig(string key, int val)
+	{
+		ConfigFile.SetValue("DEFAULT", key, val);
+	}
+	public void SetVolume(int idx, int val)
+	{
+		if (val == 0)
+		{
+			AudioServer.SetBusVolumeDb(idx, -80);
+		}
+		else
+		{
+			AudioServer.SetBusVolumeDb(idx, Mathf.LinearToDb(val / 256.0f));
+		}
+
+
+		switch (idx)
+		{
+			case 0:
+				// GD.Print(val);
+				SetConfig("all_vol", val);
+				break;
+			case 1:
+				SetConfig("bgm_vol", val);
+				break;
+			case 2:
+				SetConfig("se_vol", val);
+				break;
+			case 3:
+				SetConfig("voice_vol", val);
+				break;
+		}
+
+	}
+	public bool CanPlayCharVoice(int idx)
+	{
+		switch (idx)
+		{
+			case 0:
+			case 3:
+			case 4:
+			case 5:
+				return GetConfig("char_voice" + idx) == 1;
+			case 2:
+				return GetConfig("char_voice1") == 1;
+			case 1:
+				return GetConfig("char_voice2") == 1;
+			case 10:
+				return GetConfig("char_voice6") == 1;
+			case 11:
+				return GetConfig("char_voice7") == 1;
+			case 12:
+			case 13:
+			case 15:
+			case 17:
+			case 18:
+			case 20:
+			case 21:
+			case 27:
+			case 28:
+			case 30:
+			case 31:
+			case 32:
+			case 36:
+				return GetConfig("char_voice8") == 1;
+			case 14:
+			case 16:
+			case 19:
+			case 22:
+			case 23:
+			case 24:
+			case 25:
+			case 26:
+			case 29:
+			case 33:
+			case 34:
+			case 35:
+				return GetConfig("char_voice9") == 1;
+		}
+		return true;
+	}
+	public int GetConfig(string key)
+	{
 		return (int)ConfigFile.GetValue("DEFAULT", key);
 	}
 	public void Save()
@@ -70,5 +163,6 @@ public class Wa2Prefs
 		ConfigFile.SetValue(section, "debug_mouse", -1);
 		ConfigFile.SetValue(section, "window_x", 278);
 		ConfigFile.SetValue(section, "window_y", 235);
+		Save();
 	}
 }

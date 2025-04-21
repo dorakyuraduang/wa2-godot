@@ -24,6 +24,14 @@ public partial class BackLogItem : Control
     if (VoiceInfo != null)
     {
       VoiceBtn.Show();
+      if (!_engine.Prefs.CanPlayCharVoice(VoiceInfo.Chr))
+      {
+        VoiceBtn.Disabled = true;
+      }
+      else
+      {
+        VoiceBtn.Disabled = false;
+      }
     }
     else
     {

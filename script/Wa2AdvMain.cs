@@ -32,6 +32,8 @@ public partial class Wa2AdvMain : Control
 	public Wa2Label TextLabel;
 	[Export]
 	public AnimatedSprite2D WaitSprite;
+	[Export]
+	public TextureRect Window;
 	// [Export]
 	// public Control DebugUi;
 	// 	[Export]
@@ -84,7 +86,7 @@ public partial class Wa2AdvMain : Control
 	public void OnSkipButtonDown()
 	{
 		_engine.StopAutoMode();
-		if (!_engine.HasReadMessage)
+		if (!_engine.HasReadMessage && _engine.Prefs.GetConfig("msg_cut_optin") == 0)
 		{
 			_engine.SkipMode = false;
 		}
@@ -92,9 +94,6 @@ public partial class Wa2AdvMain : Control
 		{
 			_engine.SkipMode = !_engine.SkipMode;
 		}
-
-
-
 	}
 	public void OnSelectMessageButtonDown(int idx)
 	{
@@ -114,25 +113,7 @@ public partial class Wa2AdvMain : Control
 		// GD.Print("雪菜好意度:", _engine.GameSav.GameFlags[7]);
 		// _engine.Script.Wait = false;
 	}
-	// public void AdvShow(float time = 0.25f)
-	// {
-	// 	// if(Active){
-	// 	// 	return;
-	// 	// }
-	// 	// UpdateText();
-	// 	State = AdvState.SHOW_ADV;
-	// 	_engine.WaitTimer.Start(time);
-	// }
-	// public void AdvHide(float time = 0.25f)
-	// {
-	// 	Active = false;
-	// 	State = AdvState.HIDE_ADV;
-	// 	_engine.WaitTimer.Start(time);
-	// }
-	// public override void _GuiInput(InputEvent @event)
-	// {
 
-	// }
 	public void OnOffButtonDown()
 	{
 		if (_engine.WaitClick)
@@ -282,6 +263,10 @@ public partial class Wa2AdvMain : Control
 		{
 			_engine.HasReadMessage = false;
 			_engine.SetReadMessage(_engine.GameSav.CurMessageIdx);
+			if (_engine.Prefs.GetConfig("msg_cut_optin") == 0)
+			{
+				_engine.StopSkip();
+			}
 		}
 		// _engine.Script.ParseCmd();
 		// GD.Print("AdvShowText");
@@ -310,6 +295,9 @@ public partial class Wa2AdvMain : Control
 	public void OnLoadButtonDown()
 	{
 		_engine.UiMgr.OpenLoadMenu();
+	}
+	public void SetWindowAlpha(int alpha){
+		Window.Modulate = new Color(1, 1, 1, alpha / 256f);
 	}
 	// public override void _Process(double delta)
 	// {
