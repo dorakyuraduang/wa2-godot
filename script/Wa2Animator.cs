@@ -44,6 +44,7 @@ public class Wa2AdvAnimator : Wa2Animator
 		if (fadeIn)
 		{
 			Type = AnimType.FEAD_IN;
+			Adv.Show();
 		}
 		else
 		{
@@ -57,7 +58,7 @@ public class Wa2AdvAnimator : Wa2Animator
 		if (Type == AnimType.FEAD_IN)
 		{
 			Adv.Modulate = new Color(1, 1, 1, MathF.Min(Timer.GetProgress(), 1f));
-			Adv.Visible = true;
+			
 
 		}
 		if (Type == AnimType.FEAD_OUT)
@@ -65,7 +66,7 @@ public class Wa2AdvAnimator : Wa2Animator
 			Adv.Modulate = new Color(1, 1, 1, MathF.Max(0, 1.0f - Timer.GetProgress()));
 			if (Timer.IsDone())
 			{
-				Adv.Visible = false;
+				Adv.Hide();
 			}
 		}
 	}

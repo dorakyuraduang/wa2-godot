@@ -299,7 +299,7 @@ public partial class Wa2EngineMain : Control
 		// 	SysSav.StoreBuffer(new byte[0x26A000 - SysSav.GetLength()]);
 		// }
 
-		
+
 		Func = new Wa2Func(this);
 		Script = new Wa2Script(Func);
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -381,26 +381,17 @@ public partial class Wa2EngineMain : Control
 		}
 		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || CanSkip() || DemoMode))
 		{
-			if (WaitAnimator() && !CanSkip())
+			bool WaitAnime = WaitAnimator();
+			if (WaitAnime && !CanSkip())
 			{
 				return;
 			}
-			AnimatorsFinish();
-			if (AdvMain.Visible)
+			if (CanSkip())
 			{
-				if (!CanSkip())
-				{
-					StopSkip();
-				}
-				Script.ParseCmd();
+				AnimatorsFinish();
 			}
-			else
-			{
-				AdvMain.Show();
-			}
-
+			Script.ParseCmd();
 		}
-
 	}
 
 	public void Reset(bool stop = true)
@@ -537,7 +528,7 @@ public partial class Wa2EngineMain : Control
 		}
 		else
 		{
-			AutoTimer.Start(Prefs.GetConfig("auto_max")*FrameTime);
+			AutoTimer.Start(Prefs.GetConfig("auto_max") * FrameTime);
 		}
 	}
 	public void UpdateFrame(double delta)
@@ -551,7 +542,6 @@ public partial class Wa2EngineMain : Control
 		if (DemoMode)
 		{
 			StopAutoMode();
-
 		}
 		AdvMain.Update((float)delta);
 
@@ -730,16 +720,20 @@ public partial class Wa2EngineMain : Control
 				if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
 				{
 					bool flag = true;
-					if (SkipMode)
+					if (SkipMode &&  AdvMain.Visible)
 					{
 						StopSkip();
+						flag = false;
+					}
+					if (!AdvMain.Visible)
+					{
+						AdvMain.Show();
 						flag = false;
 					}
 					if (flag)
 					{
 						ClickAdv();
 					}
-
 				}
 				break;
 		}
