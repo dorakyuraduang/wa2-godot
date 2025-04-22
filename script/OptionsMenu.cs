@@ -137,8 +137,14 @@ public partial class OptionsMenu : BasePage
   }
   public void OnDefaultBtnDown()
   {
+    _engine.UiMgr.OpenConfirm("所有设置返回默认设置。\n确定吗？", "", _engine.Prefs.GetConfig("yes_no") == 1, SetDefault);
+
+  }
+  public void SetDefault()
+  {
     _engine.Prefs.SetDefault();
     UpdateOption();
+    _engine.UiMgr.UIConfirm.Close();
   }
   public void UpdateOption()
   {

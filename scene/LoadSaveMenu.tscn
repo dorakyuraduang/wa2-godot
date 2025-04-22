@@ -1,562 +1,189 @@
-[gd_scene load_steps=81 format=3 uid="uid://bxa3gtl880ece"]
+[gd_scene load_steps=52 format=3 uid="uid://ikxlgfxd3sa7"]
 
 [ext_resource type="Script" uid="uid://dbkyiayv0e7wj" path="res://script/LoadSaveMenu.cs" id="1_l5c20"]
-[ext_resource type="Texture2D" uid="uid://kjst0j70oly0" path="res://assets/grp/sys_04010.png" id="2_4g5eb"]
+[ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_pkuu4"]
 [ext_resource type="Texture2D" uid="uid://k20quccu5fx" path="res://assets/grp/sys_01000.png" id="3_l5c20"]
-[ext_resource type="Texture2D" uid="uid://ykaqwp4o8kgx" path="res://assets/grp/sys_09000.png" id="4_4g5eb"]
-[ext_resource type="Texture2D" uid="uid://qv6t25tic016" path="res://assets/grp/sys_09100.tga" id="4_8mjx4"]
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="6_damy8"]
-[ext_resource type="Texture2D" uid="uid://fry7muu30vjg" path="res://assets/grp/sys_00110.tga" id="7_i0eel"]
 [ext_resource type="AudioStream" uid="uid://clwoheb3ixdy1" path="res://assets/se/SE_9211.WAV" id="7_n1sq5"]
 [ext_resource type="PackedScene" uid="uid://vhl58c04l614" path="res://scene/data_slot.tscn" id="8_21eec"]
-[ext_resource type="AudioStream" uid="uid://c4ucnxq7r28er" path="res://assets/se/SE_9213.WAV" id="8_xqhj0"]
 [ext_resource type="Texture2D" uid="uid://66mg0ihriw0r" path="res://assets/grp/sys_01020.png" id="9_kslka"]
 [ext_resource type="Texture2D" uid="uid://dgr56sk15w3ts" path="res://assets/grp/sys_01021.tga" id="9_n1sq5"]
 [ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="12_xqhj0"]
-[ext_resource type="FontFile" uid="uid://b1vxukmrcfne3" path="res://assets/fonts/cn.tres" id="14_3rr5g"]
-[ext_resource type="Texture2D" uid="uid://drerrl4salxby" path="res://assets/grp/sys_00100.png" id="15_ptr3u"]
-[ext_resource type="FontFile" uid="uid://bqnr5jmcejvam" path="res://assets/fonts/fzzyjt.ttf" id="16_q83v8"]
-[ext_resource type="Texture2D" uid="uid://dr0gcwfsp0q0n" path="res://assets/grp/sys_00101.png" id="17_8afw7"]
-[ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="18_4g5eb"]
-[ext_resource type="PackedScene" uid="uid://b27eh550h0leb" path="res://scene/bgm_player.tscn" id="19_kslka"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pvxw4"]
-atlas = ExtResource("4_8mjx4")
-region = Rect2(0, 0, 56, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_065nf"]
-atlas = ExtResource("4_8mjx4")
-region = Rect2(0, 48, 56, 24)
-
-[sub_resource type="Animation" id="Animation_e8bpg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Mask:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("TipMessage:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ConfirmMessage:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("BgmPlayer:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_18w4g"]
-resource_name = "close"
-length = 0.3
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.05, 1.05)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("BgmPlayer:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_qdctb"]
-resource_name = "open"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1.05, 1.05), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Mask:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("TipMessage:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ConfirmMessage:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("BgmPlayer:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_1lri4"]
-_data = {
-&"RESET": SubResource("Animation_e8bpg"),
-&"close": SubResource("Animation_18w4g"),
-&"open": SubResource("Animation_qdctb")
-}
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_un0t8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0fet"]
 atlas = ExtResource("9_kslka")
 region = Rect2(0, 48, 840, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_da6sy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5niv"]
 atlas = ExtResource("9_kslka")
 region = Rect2(0, 0, 840, 48)
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_3rr5g"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_fcvwr"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ih6vw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_cputl"]
 atlas = ExtResource("9_n1sq5")
 region = Rect2(0, 64, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5f1n6"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7wynx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixhss"]
 atlas = SubResource("CompressedTexture2D_5f1n6")
 region = Rect2(0, 0, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_un0t8"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k1gnd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnmmp"]
 atlas = SubResource("CompressedTexture2D_un0t8")
 region = Rect2(64, 64, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_da6sy"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qafel"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_oornp"]
 atlas = SubResource("CompressedTexture2D_da6sy")
 region = Rect2(64, 0, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_frk7u"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ldp26"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry5k3"]
 atlas = SubResource("CompressedTexture2D_frk7u")
 region = Rect2(128, 64, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sg3rf"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hmefc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gaqio"]
 atlas = SubResource("CompressedTexture2D_sg3rf")
 region = Rect2(128, 0, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q6x7i"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nmv6t"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hpk7"]
 atlas = SubResource("CompressedTexture2D_q6x7i")
 region = Rect2(192, 64, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8a4vh"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dro5t"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlqxe"]
 atlas = SubResource("CompressedTexture2D_8a4vh")
 region = Rect2(192, 0, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_15x3y"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5jl54"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdt6h"]
 atlas = SubResource("CompressedTexture2D_15x3y")
 region = Rect2(256, 64, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_twfk1"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rfyqj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vicu"]
 atlas = SubResource("CompressedTexture2D_twfk1")
 region = Rect2(256, 0, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f6ty3"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i74tr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_holra"]
 atlas = SubResource("CompressedTexture2D_f6ty3")
 region = Rect2(320, 64, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kbqik"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x7t5y"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikqum"]
 atlas = SubResource("CompressedTexture2D_kbqik")
 region = Rect2(320, 0, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rfjtn"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5daxh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7kj0i"]
 atlas = SubResource("CompressedTexture2D_rfjtn")
 region = Rect2(384, 64, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kqdnl"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_klssu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_r21gt"]
 atlas = SubResource("CompressedTexture2D_kqdnl")
 region = Rect2(384, 0, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_j5da2"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ibw41"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltl3s"]
 atlas = SubResource("CompressedTexture2D_j5da2")
 region = Rect2(448, 64, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vyb77"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_au8rm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6upx"]
 atlas = SubResource("CompressedTexture2D_vyb77")
 region = Rect2(448, 0, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q8kxt"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_18jol"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yltgh"]
 atlas = SubResource("CompressedTexture2D_q8kxt")
 region = Rect2(512, 64, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sdsku"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lyr6n"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_72fv4"]
 atlas = SubResource("CompressedTexture2D_sdsku")
 region = Rect2(512, 0, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_opn2u"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ld5hw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3qymf"]
 atlas = SubResource("CompressedTexture2D_opn2u")
 region = Rect2(576, 64, 64, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_uklr1"]
 load_path = "res://.godot/imported/sys_01021.tga-baa69fd7ca7b0c2a0f5abd9f6b7eef56.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_q1n1u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcplq"]
 atlas = SubResource("CompressedTexture2D_uklr1")
 region = Rect2(576, 0, 64, 32)
 
-[sub_resource type="LabelSettings" id="LabelSettings_3rr5g"]
-font = ExtResource("14_3rr5g")
-font_size = 12
-
-[sub_resource type="FontVariation" id="FontVariation_q83v8"]
-base_font = ExtResource("16_q83v8")
-
-[sub_resource type="LabelSettings" id="LabelSettings_ptr3u"]
-font = SubResource("FontVariation_q83v8")
-font_size = 18
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4g5eb"]
-atlas = ExtResource("17_8afw7")
-region = Rect2(0, 0, 160, 40)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kslka"]
-load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fwtsg"]
-atlas = SubResource("CompressedTexture2D_kslka")
-region = Rect2(0, 80, 160, 40)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e727q"]
-load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5f1n6"]
-atlas = SubResource("CompressedTexture2D_e727q")
-region = Rect2(0, 40, 160, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8afw7"]
-atlas = ExtResource("17_8afw7")
-region = Rect2(160, 0, 160, 40)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4g5eb"]
-load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kslka"]
-atlas = SubResource("CompressedTexture2D_4g5eb")
-region = Rect2(160, 80, 160, 40)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fwtsg"]
-load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e727q"]
-atlas = SubResource("CompressedTexture2D_fwtsg")
-region = Rect2(160, 40, 160, 40)
-
-[node name="LoadSaveMenu" type="Control" node_paths=PackedStringArray("ConfirmBtn", "CancelBtn", "ConfirmLabel", "ConfirmMessage", "TipMessage", "AnimationPlayer", "Mask", "TipLabel", "PageTop", "ExitBtn", "DataSlots", "Tabs")]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(640, 360)
+[node name="LoadSaveMenu" node_paths=PackedStringArray("PageTop", "DataSlots", "Tabs") instance=ExtResource("1_pkuu4")]
 script = ExtResource("1_l5c20")
-ConfirmBtn = NodePath("ConfirmMessage/VBoxContainer/Wa2Button")
-CancelBtn = NodePath("ConfirmMessage/VBoxContainer/Wa2Button2")
-ConfirmLabel = NodePath("ConfirmMessage/Label")
-ConfirmMessage = NodePath("ConfirmMessage")
-TipMessage = NodePath("TipMessage")
-AnimationPlayer = NodePath("AnimationPlayer")
-Mask = NodePath("Mask")
-TipLabel = NodePath("TipMessage/Label")
 PageTop = NodePath("PageTop")
-ExitBtn = NodePath("ExitButton")
 DataSlots = NodePath("GridContainer")
 Tabs = NodePath("PageBtnContainer")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.564706)
-
-[node name="TextureRect2" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 304.0
-offset_bottom = 168.0
-texture = ExtResource("2_4g5eb")
-
-[node name="PageTop" type="TextureRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PageTop" parent="." index="2"]
 texture = ExtResource("3_l5c20")
 
-[node name="TextureRect3" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -640.0
-offset_top = -56.0
-offset_right = 640.0
-grow_horizontal = 2
-grow_vertical = 0
-texture = ExtResource("4_4g5eb")
-
-[node name="ExitButton" type="TextureButton" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -89.0
-offset_top = -34.0
-offset_right = -33.0
-offset_bottom = -10.0
-grow_horizontal = 0
-grow_vertical = 0
-texture_normal = SubResource("AtlasTexture_pvxw4")
-texture_pressed = SubResource("AtlasTexture_065nf")
-script = ExtResource("6_damy8")
-HoverStream = ExtResource("7_n1sq5")
-ClickStream = ExtResource("8_xqhj0")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_1lri4")
-}
-
-[node name="TextureRect4" type="TextureRect" parent="."]
+[node name="TextureRect4" type="TextureRect" parent="." index="7"]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 64.0
 offset_right = 1280.0
 offset_bottom = 112.0
-texture = SubResource("AtlasTexture_un0t8")
+texture = SubResource("AtlasTexture_h0fet")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." index="8"]
 layout_mode = 0
 offset_left = 440.0
 offset_top = 64.0
 offset_right = 1280.0
 offset_bottom = 112.0
 mouse_filter = 2
-texture = SubResource("AtlasTexture_da6sy")
+texture = SubResource("AtlasTexture_e5niv")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="GridContainer" type="GridContainer" parent="." index="9"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -573,47 +200,47 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="SaveSlot" parent="GridContainer" instance=ExtResource("8_21eec")]
+[node name="SaveSlot" parent="GridContainer" index="0" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="SaveSlot2" parent="GridContainer" instance=ExtResource("8_21eec")]
+[node name="SaveSlot2" parent="GridContainer" index="1" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="SaveSlot3" parent="GridContainer" instance=ExtResource("8_21eec")]
+[node name="SaveSlot3" parent="GridContainer" index="2" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="SaveSlot4" parent="GridContainer" instance=ExtResource("8_21eec")]
+[node name="SaveSlot4" parent="GridContainer" index="3" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="SaveSlot5" parent="GridContainer" instance=ExtResource("8_21eec")]
+[node name="SaveSlot5" parent="GridContainer" index="4" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="SaveSlot6" parent="GridContainer" instance=ExtResource("8_21eec")]
+[node name="SaveSlot6" parent="GridContainer" index="5" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="SaveSlot7" parent="GridContainer" instance=ExtResource("8_21eec")]
+[node name="SaveSlot7" parent="GridContainer" index="6" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="SaveSlot8" parent="GridContainer" instance=ExtResource("8_21eec")]
+[node name="SaveSlot8" parent="GridContainer" index="7" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="SaveSlot9" parent="GridContainer" instance=ExtResource("8_21eec")]
+[node name="SaveSlot9" parent="GridContainer" index="8" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="SaveSlot10" parent="GridContainer" instance=ExtResource("8_21eec")]
+[node name="SaveSlot10" parent="GridContainer" index="9" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 
-[node name="PageBtnContainer" type="HBoxContainer" parent="."]
+[node name="PageBtnContainer" type="HBoxContainer" parent="." index="10"]
 layout_mode = 0
 offset_left = 624.0
 offset_top = 70.0
@@ -621,248 +248,122 @@ offset_right = 1264.0
 offset_bottom = 102.0
 theme_override_constants/separation = 0
 
-[node name="TextureButton" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton" type="TextureButton" parent="PageBtnContainer" index="0"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_3rr5g")
-texture_normal = SubResource("AtlasTexture_ih6vw")
-texture_pressed = SubResource("AtlasTexture_7wynx")
-texture_focused = SubResource("AtlasTexture_7wynx")
+button_group = SubResource("ButtonGroup_fcvwr")
+texture_normal = SubResource("AtlasTexture_cputl")
+texture_pressed = SubResource("AtlasTexture_ixhss")
+texture_focused = SubResource("AtlasTexture_ixhss")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
 
-[node name="TextureButton2" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton2" type="TextureButton" parent="PageBtnContainer" index="1"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_3rr5g")
-texture_normal = SubResource("AtlasTexture_k1gnd")
-texture_pressed = SubResource("AtlasTexture_qafel")
-texture_focused = SubResource("AtlasTexture_qafel")
+button_group = SubResource("ButtonGroup_fcvwr")
+texture_normal = SubResource("AtlasTexture_qnmmp")
+texture_pressed = SubResource("AtlasTexture_oornp")
+texture_focused = SubResource("AtlasTexture_oornp")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
 
-[node name="TextureButton3" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton3" type="TextureButton" parent="PageBtnContainer" index="2"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_3rr5g")
-texture_normal = SubResource("AtlasTexture_ldp26")
-texture_pressed = SubResource("AtlasTexture_hmefc")
-texture_focused = SubResource("AtlasTexture_hmefc")
+button_group = SubResource("ButtonGroup_fcvwr")
+texture_normal = SubResource("AtlasTexture_ry5k3")
+texture_pressed = SubResource("AtlasTexture_gaqio")
+texture_focused = SubResource("AtlasTexture_gaqio")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
 
-[node name="TextureButton4" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton4" type="TextureButton" parent="PageBtnContainer" index="3"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_3rr5g")
-texture_normal = SubResource("AtlasTexture_nmv6t")
-texture_pressed = SubResource("AtlasTexture_dro5t")
-texture_focused = SubResource("AtlasTexture_dro5t")
+button_group = SubResource("ButtonGroup_fcvwr")
+texture_normal = SubResource("AtlasTexture_5hpk7")
+texture_pressed = SubResource("AtlasTexture_wlqxe")
+texture_focused = SubResource("AtlasTexture_wlqxe")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
 
-[node name="TextureButton5" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton5" type="TextureButton" parent="PageBtnContainer" index="4"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_3rr5g")
-texture_normal = SubResource("AtlasTexture_5jl54")
-texture_pressed = SubResource("AtlasTexture_rfyqj")
-texture_focused = SubResource("AtlasTexture_rfyqj")
+button_group = SubResource("ButtonGroup_fcvwr")
+texture_normal = SubResource("AtlasTexture_kdt6h")
+texture_pressed = SubResource("AtlasTexture_1vicu")
+texture_focused = SubResource("AtlasTexture_1vicu")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
 
-[node name="TextureButton6" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton6" type="TextureButton" parent="PageBtnContainer" index="5"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_3rr5g")
-texture_normal = SubResource("AtlasTexture_i74tr")
-texture_pressed = SubResource("AtlasTexture_x7t5y")
-texture_focused = SubResource("AtlasTexture_x7t5y")
+button_group = SubResource("ButtonGroup_fcvwr")
+texture_normal = SubResource("AtlasTexture_holra")
+texture_pressed = SubResource("AtlasTexture_ikqum")
+texture_focused = SubResource("AtlasTexture_ikqum")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
 
-[node name="TextureButton7" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton7" type="TextureButton" parent="PageBtnContainer" index="6"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_3rr5g")
-texture_normal = SubResource("AtlasTexture_5daxh")
-texture_pressed = SubResource("AtlasTexture_klssu")
-texture_focused = SubResource("AtlasTexture_klssu")
+button_group = SubResource("ButtonGroup_fcvwr")
+texture_normal = SubResource("AtlasTexture_7kj0i")
+texture_pressed = SubResource("AtlasTexture_r21gt")
+texture_focused = SubResource("AtlasTexture_r21gt")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
 
-[node name="TextureButton8" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton8" type="TextureButton" parent="PageBtnContainer" index="7"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_3rr5g")
-texture_normal = SubResource("AtlasTexture_ibw41")
-texture_pressed = SubResource("AtlasTexture_au8rm")
-texture_focused = SubResource("AtlasTexture_au8rm")
+button_group = SubResource("ButtonGroup_fcvwr")
+texture_normal = SubResource("AtlasTexture_ltl3s")
+texture_pressed = SubResource("AtlasTexture_x6upx")
+texture_focused = SubResource("AtlasTexture_x6upx")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
 
-[node name="TextureButton9" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton9" type="TextureButton" parent="PageBtnContainer" index="8"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_3rr5g")
-texture_normal = SubResource("AtlasTexture_18jol")
-texture_pressed = SubResource("AtlasTexture_lyr6n")
-texture_focused = SubResource("AtlasTexture_lyr6n")
+button_group = SubResource("ButtonGroup_fcvwr")
+texture_normal = SubResource("AtlasTexture_yltgh")
+texture_pressed = SubResource("AtlasTexture_72fv4")
+texture_focused = SubResource("AtlasTexture_72fv4")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
 
-[node name="TextureButton10" type="TextureButton" parent="PageBtnContainer"]
+[node name="TextureButton10" type="TextureButton" parent="PageBtnContainer" index="9"]
 layout_mode = 2
 toggle_mode = true
 keep_pressed_outside = true
-button_group = SubResource("ButtonGroup_3rr5g")
-texture_normal = SubResource("AtlasTexture_ld5hw")
-texture_pressed = SubResource("AtlasTexture_q1n1u")
-texture_focused = SubResource("AtlasTexture_q1n1u")
+button_group = SubResource("ButtonGroup_fcvwr")
+texture_normal = SubResource("AtlasTexture_3qymf")
+texture_pressed = SubResource("AtlasTexture_pcplq")
+texture_focused = SubResource("AtlasTexture_pcplq")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
-
-[node name="Mask" type="ColorRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.501961)
-
-[node name="TipMessage" type="TextureRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = -56.0
-offset_right = 240.0
-offset_bottom = 56.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_i0eel")
-
-[node name="Label" type="Label" parent="TipMessage"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -56.5
-offset_top = -12.5
-offset_right = 56.5
-offset_bottom = 12.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 30
-text = "存档已保存"
-label_settings = SubResource("LabelSettings_3rr5g")
-
-[node name="ConfirmMessage" type="TextureRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -272.0
-offset_top = -108.0
-offset_right = 272.0
-offset_bottom = 108.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("15_ptr3u")
-
-[node name="Label" type="Label" parent="ConfirmMessage"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -37.0
-offset_top = -51.0
-offset_right = 91.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "读取存档。
-确定吗？"
-label_settings = SubResource("LabelSettings_ptr3u")
-
-[node name="VBoxContainer" type="HBoxContainer" parent="ConfirmMessage"]
-custom_minimum_size = Vector2(340, 0)
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -170.0
-offset_top = -98.0
-offset_right = 170.0
-offset_bottom = -58.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 16
-
-[node name="Wa2Button" type="TextureButton" parent="ConfirmMessage/VBoxContainer"]
-layout_mode = 2
-texture_normal = SubResource("AtlasTexture_4g5eb")
-texture_pressed = SubResource("AtlasTexture_fwtsg")
-texture_hover = SubResource("AtlasTexture_5f1n6")
-texture_disabled = SubResource("AtlasTexture_4g5eb")
-texture_focused = SubResource("AtlasTexture_fwtsg")
-script = ExtResource("6_damy8")
-ClickStream = ExtResource("18_4g5eb")
-metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
-
-[node name="Wa2Button2" type="TextureButton" parent="ConfirmMessage/VBoxContainer"]
-layout_mode = 2
-texture_normal = SubResource("AtlasTexture_8afw7")
-texture_pressed = SubResource("AtlasTexture_kslka")
-texture_hover = SubResource("AtlasTexture_e727q")
-texture_disabled = SubResource("AtlasTexture_8afw7")
-texture_focused = SubResource("AtlasTexture_kslka")
-script = ExtResource("6_damy8")
-ClickStream = ExtResource("12_xqhj0")
-metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
-
-[node name="BgmPlayer" parent="." instance=ExtResource("19_kslka")]
-visible = false
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -34.0
-offset_right = 280.0
-offset_bottom = -6.0
-grow_vertical = 0

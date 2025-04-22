@@ -6,6 +6,8 @@ public partial class Wa2UiMgr : Control
 {
 	public Stack<Control> UiQueue = new();
 	[Export]
+	public UIConfirm UIConfirm;
+	[Export]
 	public OptionsMenu OptionsMenu;
 	[Export]
 	public BgmModeMenu BgmModeMenu;
@@ -31,6 +33,7 @@ public partial class Wa2UiMgr : Control
 	// public override void _Process(double delta)
 	// {
 	// }
+
 	public void OpenBackLog()
 	{
 		BackLogMenu.Open();
@@ -74,6 +77,11 @@ public partial class Wa2UiMgr : Control
 		LoadSaveMenu.Open(DataMode.Load);
 		UiQueue.Push(LoadSaveMenu);
 	}
+	public void OpenConfirm(string text1,string text2,bool confirm, Action action){
+		UiQueue.Push(UIConfirm);
+		UIConfirm.Open(text1,text2,confirm,action);
+		
+	}
 	public void OpenTitleMenu()
 	{
 		_engine.Reset();
@@ -90,8 +98,6 @@ public partial class Wa2UiMgr : Control
 			ui.Hide();
 
 		}
-
-
 		scene.Show();
 		UiQueue.Push(scene);
 	}

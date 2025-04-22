@@ -297,6 +297,7 @@ value = 21.0
 texture_progress = SubResource("AtlasTexture_eqhdx")
 
 [node name="AutoMaxBtnList" type="HBoxContainer" parent="PageList/Option1" index="5"]
+layout_mode = 0
 offset_left = 482.0
 offset_top = 158.0
 offset_right = 942.0
@@ -320,6 +321,7 @@ script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="WindowAlphaBtnList" type="HBoxContainer" parent="PageList/Option1" index="6"]
+layout_mode = 0
 offset_left = 482.0
 offset_top = 262.0
 offset_right = 942.0
@@ -343,6 +345,7 @@ script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="PageList/Option1" index="7"]
+layout_mode = 0
 offset_left = 482.0
 offset_top = 302.0
 offset_right = 942.0
@@ -366,6 +369,7 @@ script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="PageList/Option1" index="8"]
+layout_mode = 0
 offset_left = 482.0
 offset_top = 342.0
 offset_right = 942.0
@@ -389,6 +393,7 @@ script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="PageList/Option1" index="9"]
+layout_mode = 0
 offset_left = 482.0
 offset_top = 382.0
 offset_right = 942.0

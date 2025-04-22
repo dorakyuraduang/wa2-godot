@@ -71,7 +71,7 @@ public class VoiceInfo{
 public class Wa2GameSav
 {
 	public int TimeMode;
-	public int Label;
+	public int Label=-1;
 	public List<Wa2Var> args = new();
 	public List<JumpEntry> JumpEntrys = new();
 	public int Weather;

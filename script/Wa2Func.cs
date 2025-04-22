@@ -216,6 +216,10 @@ public class Wa2Func
 	{
 		_engine.DemoMode = args[0].Get() > 0;
 		_engine.AdvMain.SetDemoMode(_engine.DemoMode);
+		if (_engine.DemoMode)
+		{
+			_engine.StopAutoMode();
+		}
 		return true;
 	}
 	public bool VI(List<Wa2Var> args)
@@ -235,6 +239,10 @@ public class Wa2Func
 	}
 	public bool VV(List<Wa2Var> args)
 	{
+		//2循环
+		//3通道？
+		GD.Print("vv循环", args[3].Get());
+		GD.Print("vv轨道", args[3].Get());
 		_engine.VoiceInfo = new()
 		{
 			Id = args[4].Get(),
@@ -244,27 +252,36 @@ public class Wa2Func
 		};
 		if (!_engine.CanSkip())
 		{
-			_engine.SoundMgr.PlayVoice(_engine.GameSav.Label, args[4].Get(), args[0].Get(), args[1].Get());
+			_engine.SoundMgr.PlayVoice(_engine.GameSav.Label, args[4].Get(), args[0].Get(), args[1].Get(), args[2].Get() == 1, args[3].Get());
 		}
 		return true;
 	}
 	public bool VX(List<Wa2Var> args)
 	{
-		GD.Print("插入对话");
+		//5通道？
+		//2标签
+		//4循环
+		GD.Print("vx循环", args[4].Get());
+		GD.Print("vx轨道", args[5].Get());
+		_engine.SoundMgr.PlayVoice(args[2].Get(), args[1].Get(), args[0].Get(), args[3].Get(), args[4].Get() == 1, args[5].Get());
 		return false;
 	}
 	public bool VW(List<Wa2Var> args)
 	{
 		_engine.WaitTimer.Start(_engine.SoundMgr.GetVoiceTime());
 		_engine.WaitClick = true;
-		GD.Print("等待对话结束跳转下一句");
+		//1音轨
+		GD.Print("等待0:", args[0].Get());
+		GD.Print("等待1:", args[0].Get());
 		return false;
 		// _engine.AdvMain.CurName="";
 	}
 	public bool VS(List<Wa2Var> args)
 	{
-		GD.Print("停止对话");
-		_engine.SoundMgr.StopVoice();
+		//0时间
+		//1音轨
+		GD.Print("停止音轨", args[1].Get());
+		_engine.SoundMgr.StopVoice(args[1].Get(), args[0].Get() * _engine.FrameTime);
 		return true;
 	}
 	public bool W(List<Wa2Var> args)
@@ -532,10 +549,17 @@ public class Wa2Func
 	{
 		// GD.Print(args.Count);
 		Wa2SoundMgr.Instance.PlaySe(args[0].Get(), args[1].Get(), args[2].Get() != 0, args[3].Get() * _engine.FrameTime, args[4].Get());
-		return false;
+
+		GD.Print("sep音轨:", args[0].Get());
+
+
+		return true;
 	}
 	public bool SES(List<Wa2Var> args)
 	{
+		if(args[0].Get()>10){
+			GD.Print("错误");
+		}
 		Wa2SoundMgr.Instance.StopSe(args[0].Get(), args[1].Get() * _engine.FrameTime);
 		return true;
 	}
@@ -1071,7 +1095,8 @@ public class Wa2Func
 	}
 	public bool VXV(List<Wa2Var> args)
 	{
-		return false;
+		_engine.SoundMgr.SetVoiceVolume(args[2].Get(),args[0].Get(),args[1].Get());
+		return true;
 	}
 	public bool Wait2(List<Wa2Var> args)
 	{

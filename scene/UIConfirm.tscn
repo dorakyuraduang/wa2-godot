@@ -1,0 +1,187 @@
+[gd_scene load_steps=23 format=3 uid="uid://b8606yyc0k403"]
+
+[ext_resource type="Script" uid="uid://gp5glcollg5p" path="res://script/UIConfirm.cs" id="1_1ipbv"]
+[ext_resource type="Texture2D" uid="uid://fry7muu30vjg" path="res://assets/grp/sys_00110.tga" id="1_dtqvg"]
+[ext_resource type="FontFile" uid="uid://b1vxukmrcfne3" path="res://assets/fonts/cn.tres" id="2_1ipbv"]
+[ext_resource type="Texture2D" uid="uid://drerrl4salxby" path="res://assets/grp/sys_00100.png" id="3_gqeii"]
+[ext_resource type="FontFile" uid="uid://bqnr5jmcejvam" path="res://assets/fonts/fzzyjt.ttf" id="4_cr4wg"]
+[ext_resource type="Texture2D" uid="uid://dr0gcwfsp0q0n" path="res://assets/grp/sys_00101.png" id="5_3g2g7"]
+[ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="6_xfnwm"]
+[ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="7_1m5mo"]
+[ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="8_yj3s7"]
+
+[sub_resource type="FontVariation" id="FontVariation_q83v8"]
+base_font = ExtResource("4_cr4wg")
+
+[sub_resource type="LabelSettings" id="LabelSettings_gx5fx"]
+font = SubResource("FontVariation_q83v8")
+font_size = 18
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xf07o"]
+atlas = ExtResource("5_3g2g7")
+region = Rect2(0, 0, 160, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kslka"]
+load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4vs5"]
+atlas = SubResource("CompressedTexture2D_kslka")
+region = Rect2(0, 80, 160, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e727q"]
+load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l7qad"]
+atlas = SubResource("CompressedTexture2D_e727q")
+region = Rect2(0, 40, 160, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_455ds"]
+atlas = ExtResource("5_3g2g7")
+region = Rect2(160, 0, 160, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4g5eb"]
+load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1nol"]
+atlas = SubResource("CompressedTexture2D_4g5eb")
+region = Rect2(160, 80, 160, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fwtsg"]
+load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g4wjj"]
+atlas = SubResource("CompressedTexture2D_fwtsg")
+region = Rect2(160, 40, 160, 40)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2s8dg"]
+font = ExtResource("2_1ipbv")
+font_size = 12
+
+[node name="UIConfirm" type="Control" node_paths=PackedStringArray("ConfirmBtn", "CancelBtn", "ConfirmLabel", "ConfirmMessage", "TipMessage", "TipLabel")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_1ipbv")
+ConfirmBtn = NodePath("ConfirmMessage/VBoxContainer/Wa2Button")
+CancelBtn = NodePath("ConfirmMessage/VBoxContainer/Wa2Button2")
+ConfirmLabel = NodePath("ConfirmMessage/Label")
+ConfirmMessage = NodePath("ConfirmMessage")
+TipMessage = NodePath("TipMessage")
+TipLabel = NodePath("TipMessage/Label")
+
+[node name="Mask" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="ConfirmMessage" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -272.0
+offset_top = -108.0
+offset_right = 272.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_gqeii")
+
+[node name="Label" type="Label" parent="ConfirmMessage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -51.0
+offset_right = 91.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "读取存档。
+确定吗？"
+label_settings = SubResource("LabelSettings_gx5fx")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="ConfirmMessage"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -170.0
+offset_top = -98.0
+offset_right = 170.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="Wa2Button" type="TextureButton" parent="ConfirmMessage/VBoxContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_xf07o")
+texture_pressed = SubResource("AtlasTexture_x4vs5")
+texture_hover = SubResource("AtlasTexture_l7qad")
+texture_disabled = SubResource("AtlasTexture_xf07o")
+texture_focused = SubResource("AtlasTexture_x4vs5")
+script = ExtResource("6_xfnwm")
+ClickStream = ExtResource("7_1m5mo")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="ConfirmMessage/VBoxContainer"]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_455ds")
+texture_pressed = SubResource("AtlasTexture_a1nol")
+texture_hover = SubResource("AtlasTexture_g4wjj")
+texture_disabled = SubResource("AtlasTexture_455ds")
+texture_focused = SubResource("AtlasTexture_a1nol")
+script = ExtResource("6_xfnwm")
+ClickStream = ExtResource("8_yj3s7")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TipMessage" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = -56.0
+offset_right = 240.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_dtqvg")
+
+[node name="Label" type="Label" parent="TipMessage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -12.5
+offset_right = 56.5
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "存档已保存"
+label_settings = SubResource("LabelSettings_2s8dg")

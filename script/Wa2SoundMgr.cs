@@ -4,10 +4,11 @@ using System.Collections.Generic;
 [GlobalClass]
 public partial class Wa2SoundMgr : Node
 {
-	const int MAX_SE_CHANNELS = 255;
+	const int MAX_SE_CHANNELS = 10;
+	const int MAX_VOICE_CHANNELS = 10;
 	private Wa2BgmAudio _bgmAudio = new();
 	private AudioStreamPlayer _sysSeAudio = new();
-	private Wa2Audio _voiceAudio = new();
+	private Wa2Audio[] _voiceAudios;
 	private Wa2Audio[] _seAudios;
 	private Wa2EngineMain _engine;
 	public int BgmId { private set; get; }
@@ -15,26 +16,35 @@ public partial class Wa2SoundMgr : Node
 	{
 		_engine = e;
 	}
-	public void StopVoice()
+	public void SetVoiceVolume(int idx,int volume,int frame)
 	{
-		_voiceAudio.Stop();
+		_voiceAudios[idx].SetVolume(volume/256, frame*_engine.FrameTime);
+
+	}
+	public void StopVoice(int idx, float time = 0.0f)
+	{
+		_voiceAudios[idx].StopStream(time);
 	}
 	public void StopAll()
 	{
-		_voiceAudio.Stream = null;
+		for (int i = 0; i < MAX_SE_CHANNELS; i++)
+		{
+			_voiceAudios[i].Stream = null;
+		}
 		StopBgm();
 		for (int i = 0; i < MAX_SE_CHANNELS; i++)
 		{
 			_seAudios[i].Stream = null;
 		}
 	}
-	public float GetVoiceRemainingTime()
+	public float GetVoiceRemainingTime(int idx)
 	{
-		if (_voiceAudio.Stream == null)
+		Wa2Audio audio = _voiceAudios[idx];
+		if (audio.Stream == null)
 		{
 			return 0;
 		}
-		return (float)_voiceAudio.Stream.GetLength() - _voiceAudio.GetPlaybackPosition();
+		return (float)audio.Stream.GetLength() - audio.GetPlaybackPosition();
 	}
 	public void SetSeVolume(int channel, int volume, float time)
 	{
@@ -44,13 +54,18 @@ public partial class Wa2SoundMgr : Node
 		}
 		_seAudios[channel].SetVolume(volume / 255.0f, time);
 	}
-	public void PlayVoice(int label, int id, int chr, int volume = 256)
+	public void PlayVoice(int label, int id, int chr, int volume = 256, bool loop = false, int channel = 0)
 	{
-
+		Wa2Audio audio = _voiceAudios[channel];
+		if (label == -1)
+		{
+			label = _engine.GameSav.Label;
+		}
 		if (_engine.Prefs.CanPlayCharVoice(chr))
 		{
-			_voiceAudio.PlayStream(Wa2Resource.GetVoiceStream(label, id, chr), false, 0, 1);
-			_voiceAudio.SetVolume(volume / 256.0f, 0);
+			audio.PlayStream(Wa2Resource.GetVoiceStream(label, id, chr), false, 0, 1);
+			audio.SetVolume(volume / 256.0f, 0);
+			(audio.Stream as AudioStreamOggVorbis).Loop = loop;
 		}
 	}
 	public void PlayBgm(int id, bool loopFlag = true, int volume = 255)
@@ -72,11 +87,12 @@ public partial class Wa2SoundMgr : Node
 	}
 	public float GetVoiceTime()
 	{
-		if (_voiceAudio.Stream == null)
+		Wa2Audio audio = _voiceAudios[0];
+		if (audio.Stream == null)
 		{
 			return 0;
 		}
-		return (float)_voiceAudio.Stream.GetLength() - _voiceAudio.GetPlaybackPosition();
+		return (float)audio.Stream.GetLength() - audio.GetPlaybackPosition();
 	}
 	public float GetSeTime(int channel)
 	{
@@ -87,9 +103,9 @@ public partial class Wa2SoundMgr : Node
 		private set; get;
 
 	}
-	public void OnVoiceFinished()
+	public void OnVoiceFinished(int idx)
 	{
-		_voiceAudio.Stream = null;
+		_voiceAudios[idx].Stream = null;
 	}
 	public override void _Ready()
 	{
@@ -100,14 +116,22 @@ public partial class Wa2SoundMgr : Node
 		_sysSeAudio.Name = "SysSeAudio";
 		AddChild(_bgmAudio);
 		AddChild(_sysSeAudio);
-		AddChild(_voiceAudio);
 		_seAudios = new Wa2Audio[MAX_SE_CHANNELS];
-		_voiceAudio.Finished += OnVoiceFinished;
+		_voiceAudios = new Wa2Audio[MAX_VOICE_CHANNELS];
 		for (int i = 0; i < MAX_SE_CHANNELS; i++)
 		{
 			Wa2Audio audio = new();
 			audio.Name = "SeAudio" + i;
 			_seAudios[i] = audio;
+			AddChild(audio);
+		}
+		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
+		{
+			Wa2Audio audio = new();
+			audio.Name = "VoiceAudio" + i;
+			_voiceAudios[i] = audio;
+			int idx = i;
+			_voiceAudios[i].Finished += () => OnVoiceFinished(idx);
 			AddChild(audio);
 		}
 		_sysSeAudio.Play();
@@ -123,10 +147,14 @@ public partial class Wa2SoundMgr : Node
 	public void PlaySe(int channel, int id, bool loopFlag = false, float time = 0.0f, int volume = 255)
 	{
 		// GD.Print("播放音效2");
+		GD.Print("音效id", id);
 		_seAudios[channel].PlayStream(Wa2Resource.GetSeStream((uint)id), loopFlag, time, volume / 255.0f);
 	}
 	public void StopSe(int channel, float time = 0.0f)
 	{
+		if(channel>=MAX_SE_CHANNELS){
+			return;
+		}
 		_seAudios[channel].StopStream(time);
 	}
 }

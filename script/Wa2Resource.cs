@@ -61,6 +61,7 @@ public class Wa2Resource
 	}
 	public static AudioStream GetVoiceStream(int label, int id, int chr)
 	{
+		GD.Print(string.Format("{0:D4}_{1:D4}_{2:D2}.ogg", label, id, chr));
 		return GetOggStream(string.Format("{0:D4}_{1:D4}_{2:D2}.ogg", label, id, chr));
 	}
 	public static AudioStream GetSeStream(uint id)
@@ -77,9 +78,6 @@ public class Wa2Resource
 	public static AudioStream GetOggStream(string path)
 	{
 		path = path.ToLower();
-
-			
-		
 		// GD.Print(SoundDic.GetValueOrDefault(path));
 		return LoadOggSound(path);
 	}

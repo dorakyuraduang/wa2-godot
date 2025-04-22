@@ -254,10 +254,32 @@ public partial class Wa2EngineMain : Control
 	{
 		SysSav.Close();
 	}
+	public override void _Notification(int what)
+	{
+		if (what == 1007)
+		{
+			Back();
+		}
+	}
+	public void Back()
+	{
+		if (UiMgr.UiQueue.Peek() != null)
+		{
+			var ui = UiMgr.UiQueue.Peek();
+			if (ui is BasePage)
+			{
+				if (!(ui as BasePage).AnimationPlayer.IsPlaying())
+				{
+					(ui as BasePage).Close();
+				}
+			}
+		}
+	}
 
 	public override void _Ready()
 	{
 		GD.Print(FrameTime);
+		GetTree().SetQuitOnGoBack(false);
 		GameSav = new(this);
 		if (OS.GetName() == "Android")
 		{
@@ -379,7 +401,7 @@ public partial class Wa2EngineMain : Control
 			}
 			return;
 		}
-		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || CanSkip() || DemoMode))
+		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || CanSkip()))
 		{
 			bool WaitAnime = WaitAnimator();
 			if (WaitAnime && !CanSkip())
@@ -522,9 +544,9 @@ public partial class Wa2EngineMain : Control
 	public void AutoModeStart()
 	{
 		StopSkip();
-		if (SoundMgr.GetVoiceRemainingTime() > 0)
+		if (SoundMgr.GetVoiceRemainingTime(0) > 0)
 		{
-			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime() + 1.0f);
+			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 1.0f);
 		}
 		else
 		{
@@ -539,10 +561,6 @@ public partial class Wa2EngineMain : Control
 			ClickAdv();
 		}
 		UpdateTimer(delta);
-		if (DemoMode)
-		{
-			StopAutoMode();
-		}
 		AdvMain.Update((float)delta);
 
 	}
@@ -568,6 +586,10 @@ public partial class Wa2EngineMain : Control
 			if (AutoMode)
 			{
 				AutoModeStart();
+			}
+			else if (DemoMode)
+			{
+				WaitTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 1.0f);
 			}
 		}
 		if (AutoTimer.IsActive() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.Visible)
@@ -679,6 +701,17 @@ public partial class Wa2EngineMain : Control
 			}
 		}
 	}
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey keyEvent)
+		{
+			if (keyEvent.Keycode == Key.Escape)
+			{
+				Back();
+			}
+		}
+	}
+
 	public override void _GuiInput(InputEvent @event)
 	{
 		switch (State)
@@ -720,7 +753,7 @@ public partial class Wa2EngineMain : Control
 				if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
 				{
 					bool flag = true;
-					if (SkipMode &&  AdvMain.Visible)
+					if (SkipMode && AdvMain.Visible)
 					{
 						StopSkip();
 						flag = false;
