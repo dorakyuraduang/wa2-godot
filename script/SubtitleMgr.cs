@@ -64,7 +64,7 @@ public partial class SubtitleMgr : Node
       {
         ListenContent = VoiceSubtitleList[i].Content;
         ListenAudio = audio;
-        break;
+        return;
       }
     }
     TextLabel.Text = "";
