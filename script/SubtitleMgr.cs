@@ -70,7 +70,7 @@ public partial class SubtitleMgr : Node
   }
   public override void _Process(double delta)
   {
-    if (ListenAudio != null && ListenAudio.Stream != null && ListenContent != null)
+    if (ListenAudio != null && ListenAudio.Stream != null && ListenAudio.Playing && ListenContent != null)
     {
       foreach (ContentSegment segment in ListenContent)
       {
