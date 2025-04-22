@@ -67,6 +67,9 @@ public partial class SubtitleMgr : Node
         break;
       }
     }
+    TextLabel.Text = "";
+    ListenAudio = null;
+    ListenContent = null;
   }
   public override void _Process(double delta)
   {
@@ -74,15 +77,15 @@ public partial class SubtitleMgr : Node
     {
       foreach (ContentSegment segment in ListenContent)
       {
-        if (ListenAudio.GetPlaybackPosition()*1000 >= segment.Begin && ListenAudio.GetPlaybackPosition()*1000 <= segment.End)
+        if (ListenAudio.GetPlaybackPosition() * 1000 >= segment.Begin && ListenAudio.GetPlaybackPosition() * 1000 <= segment.End)
         {
-          TextLabel.Text=segment.Text;
+          TextLabel.Text = segment.Text;
         }
       }
     }
     else
     {
-      TextLabel.Text="";
+      TextLabel.Text = "";
       ListenAudio = null;
       ListenContent = null;
     }
