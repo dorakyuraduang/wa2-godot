@@ -18,7 +18,7 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void SetVoiceVolume(int idx,int volume,int frame)
 	{
-		_voiceAudios[idx].SetVolume(volume/256, frame*_engine.FrameTime);
+		_voiceAudios[idx].SetVolume(volume/256f, frame*_engine.FrameTime);
 
 	}
 	public void StopVoice(int idx, float time = 0.0f)
@@ -66,6 +66,7 @@ public partial class Wa2SoundMgr : Node
 			audio.PlayStream(Wa2Resource.GetVoiceStream(label, id, chr), false, 0, 1);
 			audio.SetVolume(volume / 256.0f, 0);
 			(audio.Stream as AudioStreamOggVorbis).Loop = loop;
+			_engine.SubtitleMgr.ListenVoice(label,id,audio);
 		}
 	}
 	public void PlayBgm(int id, bool loopFlag = true, int volume = 255)

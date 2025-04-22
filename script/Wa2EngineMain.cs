@@ -31,6 +31,8 @@ public partial class Wa2EngineMain : Control
 	// public TextureRect Texture;
 	// Called when the node enters the scene tree for the first time.
 	public Wa2GameSav GameSav;
+	[Export]
+	public SubtitleMgr SubtitleMgr;
 	// public int CurSelect=0;
 
 	// public int[] GameFlags = new int[1024];
@@ -666,41 +668,41 @@ public partial class Wa2EngineMain : Control
 		}
 		return false;
 	}
-	public void LoadSav(int idx)
-	{
-		FileAccess file = FileAccess.Open(string.Format("user://{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
-		if (file == null)
-		{
-			return;
-		}
-		file.Seek(0x110a0);
-		byte[] buffer = file.GetBuffer(2317 * 4);
-		for (int i = 0; i < 8; i++)
-		{
-			int charShow = BitConverter.ToInt32(buffer, 48 + i * 4);
-			if (charShow > 0)
-			{
-				int u1 = BitConverter.ToInt32(buffer, 100 + i * 4);
-				int u2 = BitConverter.ToInt32(buffer, 72 + i * 4);
-				if (u2 > 0)
-				{
-					int no = BitConverter.ToInt32(buffer, 64 + i * 4);
-					int pos = BitConverter.ToInt32(buffer, 84 + i * 4);
-					int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
-					int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
-					int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
-				}
-				else
-				{
-					int pos = BitConverter.ToInt32(buffer, 76 + i * 4);
-					int no = BitConverter.ToInt32(buffer, 64 + i * 4);
-					int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
-					int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
-					int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
-				}
-			}
-		}
-	}
+	// public void LoadSav(int idx)
+	// {
+	// 	FileAccess file = FileAccess.Open(string.Format("user://{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
+	// 	if (file == null)
+	// 	{
+	// 		return;
+	// 	}
+	// 	file.Seek(0x110a0);
+	// 	byte[] buffer = file.GetBuffer(2317 * 4);
+	// 	for (int i = 0; i < 8; i++)
+	// 	{
+	// 		int charShow = BitConverter.ToInt32(buffer, 48 + i * 4);
+	// 		if (charShow > 0)
+	// 		{
+	// 			int u1 = BitConverter.ToInt32(buffer, 100 + i * 4);
+	// 			int u2 = BitConverter.ToInt32(buffer, 72 + i * 4);
+	// 			if (u2 > 0)
+	// 			{
+	// 				int no = BitConverter.ToInt32(buffer, 64 + i * 4);
+	// 				int pos = BitConverter.ToInt32(buffer, 84 + i * 4);
+	// 				int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
+	// 				int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
+	// 				int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
+	// 			}
+	// 			else
+	// 			{
+	// 				int pos = BitConverter.ToInt32(buffer, 76 + i * 4);
+	// 				int no = BitConverter.ToInt32(buffer, 64 + i * 4);
+	// 				int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
+	// 				int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
+	// 				int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
+	// 			}
+	// 		}
+	// 	}
+	// }
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventKey keyEvent)

@@ -1,10 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=33 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
 [ext_resource type="Script" uid="uid://i2txg74b6v3t" path="res://script/AnimatorMgr.cs" id="2_ycdy4"]
 [ext_resource type="Script" uid="uid://7o38nrw6moms" path="res://script/Wa2Viewport.cs" id="3_0aff7"]
 [ext_resource type="PackedScene" uid="uid://8iltc13k4sm1" path="res://scene/wa2_adv_main.tscn" id="3_ww1q6"]
+[ext_resource type="Script" uid="uid://bevuj2vq1wbno" path="res://script/SubtitleMgr.cs" id="4_074og"]
 [ext_resource type="Script" uid="uid://ch3fjcpjwskoj" path="res://script/Wa2Image.cs" id="4_jqvt3"]
 [ext_resource type="Script" uid="uid://bplbwgh74r3w5" path="res://script/Wa2UiMgr.cs" id="4_p6nqb"]
 [ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="5_3be8l"]
@@ -16,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://85d6c6lepals" path="res://scene/BackLog.tscn" id="13_w48qg"]
 [ext_resource type="PackedScene" uid="uid://du2ied53oeq1x" path="res://scene/OptionsMenu.tscn" id="14_vivmo"]
 [ext_resource type="PackedScene" uid="uid://b8606yyc0k403" path="res://scene/UIConfirm.tscn" id="15_2cqfq"]
+[ext_resource type="FontFile" uid="uid://bqnr5jmcejvam" path="res://assets/fonts/fzzyjt.ttf" id="18_cegan"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tw2vm"]
 resource_local_to_scene = true
@@ -173,7 +175,13 @@ shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
 shader_parameter/top = true
 
-[node name="EngineMain" type="Control" node_paths=PackedStringArray("BmpContainer", "AnimatorMgr", "VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
+[sub_resource type="LabelSettings" id="LabelSettings_82xsv"]
+font = ExtResource("18_cegan")
+font_size = 32
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="EngineMain" type="Control" node_paths=PackedStringArray("BmpContainer", "AnimatorMgr", "SubtitleMgr", "VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -183,6 +191,7 @@ grow_vertical = 2
 script = ExtResource("1_wdeo5")
 BmpContainer = NodePath("SubViewportContainer/SubViewport/BmpContainer")
 AnimatorMgr = NodePath("AnimatorMgr")
+SubtitleMgr = NodePath("SubtitleMgr")
 VideoPlayer = NodePath("VideoStreamPlayer")
 CharGroup = NodePath("SubViewportContainer/SubViewport/CharGroup")
 SubViewport = NodePath("SubViewportContainer")
@@ -199,6 +208,10 @@ metadata/_custom_type_script = "uid://i2txg74b6v3t"
 
 [node name="SoundMgr" type="Node" parent="."]
 script = ExtResource("2_w3y5b")
+
+[node name="SubtitleMgr" type="Node" parent="." node_paths=PackedStringArray("TextLabel")]
+script = ExtResource("4_074og")
+TextLabel = NodePath("../Label")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." node_paths=PackedStringArray("BgTexure", "CharGroup", "RenderTexture")]
 custom_minimum_size = Vector2(1280, 720)
@@ -421,3 +434,14 @@ grow_vertical = 2
 mouse_filter = 2
 expand = true
 script = ExtResource("10_4c57u")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(640, 32)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 32.0
+offset_bottom = 69.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_82xsv")
+horizontal_alignment = 1

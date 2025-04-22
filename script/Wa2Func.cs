@@ -241,7 +241,6 @@ public class Wa2Func
 	{
 		//2循环
 		//3通道？
-		GD.Print("vv循环", args[3].Get());
 		GD.Print("vv轨道", args[3].Get());
 		_engine.VoiceInfo = new()
 		{
@@ -261,8 +260,7 @@ public class Wa2Func
 		//5通道？
 		//2标签
 		//4循环
-		GD.Print("vx循环", args[4].Get());
-		GD.Print("vx轨道", args[5].Get());
+		GD.Print("轨道:", args[5].Get());
 		_engine.SoundMgr.PlayVoice(args[2].Get(), args[1].Get(), args[0].Get(), args[3].Get(), args[4].Get() == 1, args[5].Get());
 		return false;
 	}
@@ -271,8 +269,6 @@ public class Wa2Func
 		_engine.WaitTimer.Start(_engine.SoundMgr.GetVoiceTime());
 		_engine.WaitClick = true;
 		//1音轨
-		GD.Print("等待0:", args[0].Get());
-		GD.Print("等待1:", args[0].Get());
 		return false;
 		// _engine.AdvMain.CurName="";
 	}
