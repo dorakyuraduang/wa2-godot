@@ -70,6 +70,7 @@ public class VoiceInfo{
 // }
 public class Wa2GameSav
 {
+	public string EffectMode="";
 	public int TimeMode;
 	public int Label=-1;
 	public List<Wa2Var> args = new();
@@ -107,6 +108,7 @@ public class Wa2GameSav
 		BgInfo = new();
 		FirstSentence = "";
 		CharName = "";
+		EffectMode="";
 		// StartTime=0;
 		
 
@@ -247,6 +249,7 @@ public class Wa2GameSav
 		file.Store32((uint)BgmInfo.Loop);
 		file.Store32((uint)BgmInfo.Volume);
 		file.Store32((uint)CurMessageIdx);
+		file.StoreBuffer([.. Encoding.ASCII.GetBytes(EffectMode).Concat(new byte[16]).Take(16)]);
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -362,6 +365,7 @@ public class Wa2GameSav
 		BgmInfo.Loop = (int)file.Get32();
 		BgmInfo.Volume = (int)file.Get32();
 		CurMessageIdx= (int)file.Get32();
+		EffectMode=file.GetBuffer(16).GetStringFromAscii().Replace("\0", "");
 		// StartTime = (int)file.Get32();
 		// GD.Print(CurMessageIdx);
 		// GD.Print(StartTime);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://djqgqhlm8ewbt"]
+[gd_scene load_steps=43 format=3 uid="uid://djqgqhlm8ewbt"]
 
 [ext_resource type="Script" uid="uid://34crv7qrvoy8" path="res://script/CGModeMenu.cs" id="1_5nscl"]
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_mkt11"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://clwoheb3ixdy1" path="res://assets/se/SE_9211.WAV" id="4_fnnbw"]
 [ext_resource type="Texture2D" uid="uid://dmg5k1lqmn5m2" path="res://assets/grp/sys_05201.png" id="8_x6mkq"]
 [ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="9_5nscl"]
+[ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="9_e1cb6"]
 [ext_resource type="Texture2D" uid="uid://dyi6h35oskvpo" path="res://assets/grp/sys_05200.png" id="11_1iyey"]
 [ext_resource type="Texture2D" uid="uid://x5qal0hextgb" path="res://assets/grp/sys_05900.png" id="12_iboml"]
 [ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="13_ltjj8"]
@@ -382,6 +383,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect4" index="0"]
@@ -397,6 +399,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect5" index="0"]
@@ -412,6 +415,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect6" index="0"]
@@ -427,6 +431,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect7" index="0"]
@@ -442,6 +447,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect8" index="0"]
@@ -457,6 +463,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect9" index="0"]
@@ -472,6 +479,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect10" index="0"]
@@ -487,6 +495,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect11" index="0"]
@@ -502,6 +511,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect12" index="0"]
@@ -517,6 +527,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect13" index="0"]
@@ -532,6 +543,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect14" index="0"]
@@ -547,6 +559,7 @@ custom_minimum_size = Vector2(272, 160)
 layout_mode = 2
 texture_normal = ExtResource("12_iboml")
 script = ExtResource("3_bkry4")
+ClickStream = ExtResource("9_e1cb6")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect15" index="0"]

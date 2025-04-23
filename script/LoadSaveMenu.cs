@@ -86,6 +86,9 @@ public partial class LoadSaveMenu : BasePage
   }
   public void OnDataSlotDown(int idx)
   {
+    if(AnimationPlayer.IsPlaying()){
+      return;
+    }
     _selectIdx = _pageNum * 10 + idx;
     if (_mode == DataMode.Save)
     {

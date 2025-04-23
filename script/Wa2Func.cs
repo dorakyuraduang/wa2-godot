@@ -241,7 +241,7 @@ public class Wa2Func
 	{
 		//2循环
 		//3通道？
-		GD.Print("vv轨道", args[3].Get());
+		// GD.Print("vv轨道", args[3].Get());
 		_engine.VoiceInfo = new()
 		{
 			Id = args[4].Get(),
@@ -260,7 +260,7 @@ public class Wa2Func
 		//5通道？
 		//2标签
 		//4循环
-		GD.Print("轨道:", args[5].Get());
+		// GD.Print("轨道:", args[5].Get());
 		_engine.SoundMgr.PlayVoice(args[2].Get(), args[1].Get(), args[0].Get(), args[3].Get(), args[4].Get() == 1, args[5].Get());
 		return false;
 	}
@@ -590,7 +590,7 @@ public class Wa2Func
 	}
 	public bool SetEffctMode(List<Wa2Var> args)
 	{
-		GD.Print("设置特效模式");
+		_engine.GameSav.EffectMode = args[0].Get();
 		return true;
 	}
 	public bool SetWeather(List<Wa2Var> args)

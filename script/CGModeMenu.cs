@@ -22,6 +22,7 @@ public partial class CGModeMenu : BasePage
   public override void Close()
   {
     AnimationPlayer.Play("close");
+    CGViewer.Close();
     _engine.SoundMgr.PlayBgm(31);
 
   }

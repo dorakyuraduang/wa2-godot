@@ -112,6 +112,7 @@ public partial class Wa2SoundMgr : Node
 	{
 		Instance = this;
 		_bgmAudio.Bus = "BGM";
+		_sysSeAudio.Bus="SE";
 		_sysSeAudio.Stream = new AudioStreamPolyphonic();
 		_bgmAudio.Name = "BgmAudio";
 		_sysSeAudio.Name = "SysSeAudio";
@@ -122,6 +123,7 @@ public partial class Wa2SoundMgr : Node
 		for (int i = 0; i < MAX_SE_CHANNELS; i++)
 		{
 			Wa2Audio audio = new();
+			audio.Bus="SE";
 			audio.Name = "SeAudio" + i;
 			_seAudios[i] = audio;
 			AddChild(audio);
@@ -129,6 +131,7 @@ public partial class Wa2SoundMgr : Node
 		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
 		{
 			Wa2Audio audio = new();
+			audio.Bus="VOICE";
 			audio.Name = "VoiceAudio" + i;
 			_voiceAudios[i] = audio;
 			int idx = i;

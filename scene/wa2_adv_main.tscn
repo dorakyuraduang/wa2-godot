@@ -1,4 +1,4 @@
-[gd_scene load_steps=175 format=3 uid="uid://8iltc13k4sm1"]
+[gd_scene load_steps=176 format=3 uid="uid://8iltc13k4sm1"]
 
 [ext_resource type="Script" uid="uid://b5kx876bryffm" path="res://script/Wa2AdvMain.cs" id="1_mc03i"]
 [ext_resource type="Texture2D" uid="uid://dxdw1w7apeaqj" path="res://assets/grp/sys_00001.png" id="2_n2b20"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://c7lxvocpmkbiu" path="res://scene/select_message.tscn" id="9_ioubw"]
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="9_pe64g"]
 [ext_resource type="Texture2D" uid="uid://cl7qv3whydsvd" path="res://assets/grp/sys_00010.png" id="11_pr5sd"]
+[ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="11_y4c0q"]
 [ext_resource type="Texture2D" uid="uid://dl8c41uirpqks" path="res://assets/grp/sys_00011.png" id="13_y4c0q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pr5sd"]
@@ -1201,6 +1202,7 @@ texture_focused = SubResource("AtlasTexture_vay2s")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("9_pe64g")
+ClickStream = ExtResource("11_y4c0q")
 
 [node name="Load" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
@@ -1218,6 +1220,7 @@ texture_focused = SubResource("AtlasTexture_0csty")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("9_pe64g")
+ClickStream = ExtResource("11_y4c0q")
 
 [node name="Option" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
@@ -1235,6 +1238,7 @@ texture_focused = SubResource("AtlasTexture_t36uy")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("9_pe64g")
+ClickStream = ExtResource("11_y4c0q")
 
 [node name="Back" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
@@ -1252,6 +1256,7 @@ texture_focused = SubResource("AtlasTexture_q8mxu")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("9_pe64g")
+ClickStream = ExtResource("11_y4c0q")
 
 [node name="Auto" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
@@ -1269,6 +1274,7 @@ texture_focused = SubResource("AtlasTexture_1krnq")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("9_pe64g")
+ClickStream = ExtResource("11_y4c0q")
 
 [node name="Skip" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
@@ -1286,6 +1292,7 @@ texture_focused = SubResource("AtlasTexture_rargn")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("9_pe64g")
+ClickStream = ExtResource("11_y4c0q")
 
 [node name="Off" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
@@ -1303,6 +1310,7 @@ texture_focused = SubResource("AtlasTexture_6sfmc")
 ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("9_pe64g")
+ClickStream = ExtResource("11_y4c0q")
 
 [node name="TextureRect3" type="TextureRect" parent="."]
 visible = false

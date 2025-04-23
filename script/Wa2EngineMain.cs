@@ -272,8 +272,19 @@ public partial class Wa2EngineMain : Control
 			{
 				if (!(ui as BasePage).AnimationPlayer.IsPlaying())
 				{
+					SoundMgr.PlaySysSe(ResourceLoader.Load<AudioStream>("res://assets/se/SE_9213.wav"));
 					(ui as BasePage).Close();
 				}
+				
+			}
+			else if (ui == UiMgr.AdvMain && State == GameState.GAME)
+			{
+				UiMgr.OpenConfirm("返回主菜单\n确认吗", "", true, () =>
+				{
+					UiMgr.UIConfirm.Close();
+					UiMgr.OpenTitleMenu();
+				});
+				SoundMgr.PlaySysSe(ResourceLoader.Load<AudioStream>("res://assets/se/SE_9213.wav"));
 			}
 		}
 	}

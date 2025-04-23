@@ -177,7 +177,7 @@ shader_parameter/top = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_82xsv"]
 font = ExtResource("18_cegan")
-font_size = 32
+font_size = 24
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
@@ -436,12 +436,12 @@ expand = true
 script = ExtResource("10_4c57u")
 
 [node name="Label" type="Label" parent="."]
-custom_minimum_size = Vector2(640, 32)
+custom_minimum_size = Vector2(640, 24)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 32.0
-offset_bottom = 69.0
+offset_top = 16.0
+offset_bottom = 53.0
 grow_horizontal = 2
 label_settings = SubResource("LabelSettings_82xsv")
 horizontal_alignment = 1
