@@ -779,8 +779,7 @@ public class Wa2Func
 	}
 	public bool SetMovie(List<Wa2Var> args)
 	{
-		GD.Print("视频编号:", args[1].Get());
-		_engine.SkipMode = false;
+		_engine.StopSkip();
 		_engine.SoundMgr.StopAll();
 		if (_engine.ReadSysFlag(args[1].Get()) == 1)
 		{
@@ -792,7 +791,6 @@ public class Wa2Func
 			_engine.WirtSysFlag(args[1].Get(), 1);
 		}
 
-		GD.Print("视频", Wa2Resource.ResPath + "movie/" + args[0].Get() + "0.mp4");
 		_engine.PlayMovie(args[0].Get());
 		return false;
 	}

@@ -140,7 +140,7 @@ shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
 shader_parameter/fead_weight = 1.0
 shader_parameter/canvas_size = Vector2(1280, 720)
-shader_parameter/top = true
+shader_parameter/center = false
 
 [node name="CGModeMenu" node_paths=PackedStringArray("Tabs", "CGSlots", "CGViewer") instance=ExtResource("1_mkt11")]
 script = ExtResource("1_5nscl")

@@ -771,7 +771,7 @@ public partial class Wa2EngineMain : Control
 						StopSkip();
 						flag = false;
 					}
-					if (!AdvMain.Visible)
+					if (!AdvMain.Visible && !VideoPlayer.IsPlaying())
 					{
 						AdvMain.Show();
 						flag = false;

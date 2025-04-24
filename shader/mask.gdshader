@@ -9,7 +9,7 @@ uniform vec2 next_offset=vec2(0.0,0.0);
 uniform float blend:hint_range(0.0, 1.0, 0.01)=0;
 uniform float fead_weight:hint_range(0,50)=1;
 uniform vec2 canvas_size=vec2(1280,720);
-uniform bool top=false;
+uniform bool center=false;
 //vec4 blend_color(vec4 color1,vec4 color2){
 		//vec4 res;
 		//float sa = 1.0f - color2.a;
@@ -31,8 +31,8 @@ vec4 get_color(sampler2D input_texture,vec2 uv,vec2 scale,vec2 offset){
 	}
 	vec2 size=vec2(textureSize(input_texture,0))/canvas_size;
 	vec2 scaled_uv = (uv /scale);
-	if(top){
-		offset-=vec2((canvas_size.x-texture_size.x)*0.5,0);
+	if(!center){
+		offset-=vec2(0,0);
 	}else{
 		offset-=vec2((canvas_size.x-texture_size.x)*0.5,canvas_size.y-texture_size.y);
 	}

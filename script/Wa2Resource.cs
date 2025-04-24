@@ -142,12 +142,12 @@ public class Wa2Resource
 		image.LoadTgaFromBuffer(buffer);
 		if (Wa2EngineMain.Engine.GameSav.EffectMode != "")
 		{
-			SetImageEffect(image);
+			SetImageEffect(image,buffer[17]);
 		}
 		ImageTexture tgaImage = ImageTexture.CreateFromImage(image);
 		return tgaImage;
 	}
-	public static void SetImageEffect(Image image)
+	public static void SetImageEffect(Image image,int depth)
 	{
 		byte[] data = image.GetData();
 		byte[] bytes = LoadFileBuffer(Wa2EngineMain.Engine.GameSav.EffectMode);
@@ -161,11 +161,33 @@ public class Wa2Resource
 					data[i] = bytes[256 + gray];
 					data[i + 1] = bytes[512 + gray];
 					data[i + 2] = bytes[768 + gray];
-					data[i + 3] = 255;
 				}
 				image.SetData(image.GetWidth(), image.GetHeight(), false, image.GetFormat(), data);
 			}
 		}
+		else if (bytes.Length == 768)
+		{
+			for (int i = 0; i < data.Length; i += 4)
+			{
+				int gray = (77 * data[i] + 151 * data[i + 1] + 28 * data[i + 2]) >> 8;
+				data[i] = bytes[0 + gray];
+				data[i + 1] = bytes[256 + gray];
+				data[i + 2] = bytes[512 + gray];
+			}
+			image.SetData(image.GetWidth(), image.GetHeight(), false, image.GetFormat(), data);
+		}
+		else if (bytes.Length == 256)
+		{
+			for (int i = 0; i < data.Length; i += 4)
+			{
+				int gray = (77 * data[i] + 151 * data[i + 1] + 28 * data[i + 2]) >> 8;
+				data[i] = bytes[gray];
+				data[i + 1] = bytes[gray];
+				data[i + 2] = bytes[gray];
+			}
+			image.SetData(image.GetWidth(), image.GetHeight(), false, image.GetFormat(), data);
+		}
+
 	}
 	public static ImageTexture LoadBmpImage(string path)
 	{
