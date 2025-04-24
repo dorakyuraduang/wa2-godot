@@ -442,6 +442,7 @@ public partial class Wa2EngineMain : Control
 		UpdateChar(0);
 		BgTexture.SetCurTexture(null);
 		BgTexture.SetNextTexture(null);
+		AnimatorsFinish();
 		WaitSeFinish();
 		if (stop)
 		{

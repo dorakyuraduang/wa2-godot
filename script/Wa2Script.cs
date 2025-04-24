@@ -422,7 +422,7 @@ public class Wa2Script
 	public void ParseCmd()
 	{
 		bool flag = true;
-		while (flag && _engine.GameSav.ScriptPos < _bnrbuffer.Length)
+		while (flag && _engine.GameSav.ScriptPos < _bnrbuffer.Length && _engine.State==Wa2EngineMain.GameState.GAME)
 		{
 			int cmd = (int)ReadU32();
 			switch (cmd)
