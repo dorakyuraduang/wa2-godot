@@ -435,13 +435,17 @@ public partial class Wa2EngineMain : Control
 		AdvMain.SetDemoMode(false);
 		StartTime = (int)Time.GetTicksMsec();
 		ClickedInWait = false;
+		WaitClick=false;
 		WaitTimer.DeActive();
 		TextTimer.DeActive();
 		AdvMain.Clear();
+		UpdateChar(0);
+		BgTexture.SetCurTexture(null);
+		BgTexture.SetNextTexture(null);
 		WaitSeFinish();
 		if (stop)
 		{
-			AutoTimer.DeActive();
+			StopAutoMode();
 			StopSkip();
 		}
 		SoundMgr.StopAll();

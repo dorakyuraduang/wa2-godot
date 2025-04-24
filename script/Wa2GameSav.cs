@@ -109,6 +109,7 @@ public class Wa2GameSav
 		FirstSentence = "";
 		CharName = "";
 		EffectMode="";
+		
 		// StartTime=0;
 		
 

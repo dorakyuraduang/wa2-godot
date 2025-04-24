@@ -196,6 +196,7 @@ public partial class Wa2AdvMain : Control
 		NameLabel.VisibleRatio = 0f;
 		NameLabel.Text = "";
 		TextLabel.Text = "";
+		Modulate=new Color(1,1,1,0);
 		// WaitSprite.Hide();
 	}
 	public void AdvShow(bool fade = true)
