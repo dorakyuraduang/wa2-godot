@@ -277,7 +277,7 @@ public partial class Wa2EngineMain : Control
 				}
 				
 			}
-			else if (ui == UiMgr.AdvMain && State == GameState.GAME)
+			else if (ui == UiMgr.AdvMain && State == GameState.GAME &&!WaitAnimator() && !VideoPlayer.IsPlaying() &&WaitClick)
 			{
 				UiMgr.OpenConfirm("返回主菜单\n确认吗", "", true, () =>
 				{
