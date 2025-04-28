@@ -383,7 +383,7 @@ public class Wa2Func
 
 	public bool BC(List<Wa2Var> args)
 	{
-		_engine.AnimatorMgr.FinishAll();
+		_engine.AnimatorMgr.FinishAll(true);
 		// GD.Print("bc");
 		// if (args[3].Get() > 0)
 		// {
@@ -1029,7 +1029,7 @@ public class Wa2Func
 		_engine.BgTexture.SetCurTexture(NextTexture);
 		// animator1.InitFade(_engine.BgInfo.Frame * _engine.FrameTime);
 		// animator2.InitHide(_engine.BgInfo.Frame * _engine.FrameTime);
-		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.BgTexture,  args[3].Get()* _engine.FrameTime, false);
+		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture,  args[3].Get()* _engine.FrameTime, true);
 		ClearChar(args[3].Get() * _engine.FrameTime);
 		return false;
 	}

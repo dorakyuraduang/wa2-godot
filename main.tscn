@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=33 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://bplbwgh74r3w5" path="res://script/Wa2UiMgr.cs" id="4_p6nqb"]
 [ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="5_3be8l"]
 [ext_resource type="PackedScene" uid="uid://b6u3qm7g3fnoj" path="res://scene/title_menu.tscn" id="5_d5jo3"]
-[ext_resource type="Texture2D" uid="uid://t5jp2egnjuix" path="res://sys_07100.png" id="7_cegan"]
 [ext_resource type="PackedScene" uid="uid://ikxlgfxd3sa7" path="res://scene/LoadSaveMenu.tscn" id="9_kek77"]
 [ext_resource type="Script" uid="uid://bh0600rsr4o0e" path="res://script/wa2_video.gd" id="10_4c57u"]
 [ext_resource type="PackedScene" uid="uid://djqgqhlm8ewbt" path="res://scene/CGModeMenu.tscn" id="10_efxa6"]
@@ -23,7 +22,6 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tw2vm"]
 resource_local_to_scene = true
 shader = ExtResource("5_3be8l")
-shader_parameter/cur_texture = ExtResource("7_cegan")
 shader_parameter/cur_scale = Vector2(1, 1)
 shader_parameter/cur_offset = Vector2(0, 0)
 shader_parameter/next_scale = Vector2(1, 1)

@@ -14,7 +14,7 @@ public class Animator
   public void Finish()
   {
     _tween.Stop();
-    _tween.CustomStep(_duration+1.0);
+    _tween.CustomStep(_duration + 1.0);
   }
   public bool IsActive()
   {
@@ -115,7 +115,9 @@ public partial class AnimatorMgr : Node
       {
         image.Hide();
         image.SetCurTexture(null);
-      }else{
+      }
+      else
+      {
         image.SetCurTexture(image.GetNextTexture());
       }
       image.SetNextTexture(null);
