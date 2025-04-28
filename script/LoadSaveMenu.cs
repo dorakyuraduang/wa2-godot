@@ -79,6 +79,10 @@ public partial class LoadSaveMenu : BasePage
   }
   public async void SaveData()
   {
+
+    if(_engine.Script==null){
+      return;
+    }
     _engine.GameSav.SaveData(_selectIdx);
     await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
     _engine.UiMgr.UIConfirm.Close();

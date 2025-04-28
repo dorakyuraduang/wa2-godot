@@ -85,7 +85,9 @@ public partial class Wa2UiMgr : Control
 	public void OpenTitleMenu()
 	{
 		_engine.State = Wa2EngineMain.GameState.TITLE;
-		_engine.GameSav.Reset();
+		
+		_engine.ScriptStack.Clear();
+		_engine.Script=null;
 		_engine.Reset();
 		_engine.SubViewport.Hide();
 		

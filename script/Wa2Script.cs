@@ -1,9 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 public enum CmdType
 {
 	NONE = 0,
@@ -50,7 +47,7 @@ public class Wa2Var
 			{
 
 			}
-			Wa2EngineMain.Engine.GameSav.GameFlags[IntValue] = value;
+			Wa2EngineMain.Engine.GameFlags[IntValue] = value;
 
 		}
 		if (CmdType == CmdType.LOCAL_VAR)
@@ -66,11 +63,11 @@ public class Wa2Var
 			// }
 			if (IntValue >= 26)
 			{
-				Wa2EngineMain.Engine.GameSav.GloFloats[IntValue % 26] = value;
+				Wa2EngineMain.Engine.Script.GloFloats[IntValue % 26] = value;
 			}
 			else
 			{
-				Wa2EngineMain.Engine.GameSav.GloInts[IntValue] = value;
+				Wa2EngineMain.Engine.Script.GloInts[IntValue] = (int)value;
 			}
 		}
 		if (CmdType == CmdType.VAR)
@@ -101,13 +98,14 @@ public class Wa2Var
 		}
 		if (CmdType == CmdType.STR_VAR)
 		{
+			GD.Print(IntValue);
 			if (IntValue == 0)
 			{
 				return "春希";
 			}
 			else if (IntValue > 0)
 			{
-				return Wa2EngineMain.Engine.Texts[IntValue].Replace("\\n", "\n"); ;
+				return Wa2EngineMain.Engine.Script.Texts[IntValue].Replace("\\n", "\n"); ;
 			}
 			else
 			{
@@ -118,17 +116,17 @@ public class Wa2Var
 		{
 			if (IntValue >= 26)
 			{
-				return Wa2EngineMain.Engine.GameSav.GloFloats[IntValue % 26];
+				return Wa2EngineMain.Engine.Script.GloFloats[IntValue % 26];
 			}
 			else
 			{
-				return Wa2EngineMain.Engine.GameSav.GloInts[IntValue];
+				return Wa2EngineMain.Engine.Script.GloInts[IntValue];
 			}
 
 		}
 		if (CmdType == CmdType.GLOBAL_VAR)
 		{
-			return Wa2EngineMain.Engine.GameSav.GameFlags[IntValue];
+			return Wa2EngineMain.Engine.GameFlags[IntValue];
 		}
 
 		return 0;
@@ -153,37 +151,28 @@ public class JumpEntry
 public class Wa2Script
 {
 	public Wa2EngineMain _engine;
-
-	public bool Wait = false;
-	public uint Label;
-	private Dictionary<uint, uint> _points = new();
-	private Dictionary<uint, uint> _jumpDic = new();
-	private List<byte[]> _text = new();
+	public Dictionary<int, uint> Points = new();
+	// private Dictionary<uint, uint> _jumpDic = new();
 	private byte[] _bnrbuffer;
+	public float[] GloFloats = new float[26];
+	public int[] GloInts = new int[26];
+	public string ScriptName;
+	public uint ScriptPos;
+	public bool Exit=false;
+	public List<string> Texts = new();
+	public List<JumpEntry> JumpEntrys = new();
+	public List<Wa2Var> Args = new();
+	public int ScriptIdx;
 
-	private Wa2Func _func;
-	public Wa2Script(Wa2Func f)
+	public Wa2Script(string name, int pos = 0)
 	{
-		_func = f;
 		_engine = Wa2EngineMain.Engine;
-
-	}
-	public void LoadScript(string name, uint pos = 0)
-	{
-		_engine.ScriptIdx = Array.IndexOf(Wa2Def.ScriptList, name);
-		_points.Clear();
-		// _engine.GameSav.Reset();
-		_engine.GameSav.JumpEntrys.Clear();
-		_engine.GameSav.GloFloats = new float[26];
-		_engine.GameSav.GloInts = new int[26];
-		_engine.GameSav.ScriptName = name;
-		Wa2EngineMain.Engine.Texts.Clear();
-		_engine.GameSav.args.Clear();
+		ScriptIdx = Array.IndexOf(Wa2Def.ScriptList, name);
+		ScriptName = name;
 		_bnrbuffer = null;
 		LoadBnr(name);
-		_engine.GameSav.ScriptPos = _points[pos];
+		ScriptPos = Points[pos];
 		_engine.HasReadMessage = _engine.GetReadMessage(0);
-		// GD.Print(_engine.GameSav.ScriptPos);
 	}
 	public void LoadBnr(string name)
 	{
@@ -195,7 +184,7 @@ public class Wa2Script
 				uint pointCount = BitConverter.ToUInt32(buffer, 8);
 				for (int i = 0; i < pointCount; i++)
 				{
-					_points.Add(BitConverter.ToUInt32(buffer, 12 + i * 8), BitConverter.ToUInt32(buffer, 12 + i * 8 + 4));
+					Points.Add(BitConverter.ToInt32(buffer, 12 + i * 8), BitConverter.ToUInt32(buffer, 12 + i * 8 + 4));
 				}
 			}
 			_bnrbuffer = buffer;
@@ -203,7 +192,7 @@ public class Wa2Script
 		}
 
 	}
-	public static void LoadText(string name)
+	public void LoadText(string name)
 	{
 		byte[] buffer = Wa2Resource.LoadFileBuffer(name + ".txt");
 		string strs = Wa2EngineMain.Engine.Wa2Encoding.GetString(buffer);
@@ -215,12 +204,12 @@ public class Wa2Script
 		// 	strs = Wa2Decode.ReplaceWithJsonMap(strs);
 		// }
 
-		Wa2EngineMain.Engine.Texts = [.. strs.Split(',')];
+		Texts = [.. strs.Split(',')];
 	}
 	public bool ParseJumpFlag()
 	{
 		uint flag = ReadU32();
-		// GD.Print(_engine.GameSav.ScriptPos);
+		// GD.Print(ScriptPos);
 		// GD.Print(_engine.GameSav.ScriptName);
 		// GD.Print("指令:", flag);
 		// GD.Print("和纱本气度:", _engine.GameSav.GameFlags[5]);
@@ -237,192 +226,193 @@ public class Wa2Script
 		switch (flag)
 		{
 			case 0:
-				break;
-			case 1:
 				return false;
+			case 1:
+			  Exit=true;
+				break;
 			case 2:
-				if (_engine.GameSav.JumpEntrys.Count < 15)
+				if (JumpEntrys.Count < 15)
 				{
-					_engine.GameSav.JumpEntrys.Add(new());
+					JumpEntrys.Add(new());
 				}
-				_engine.GameSav.JumpEntrys[^1].Type = 2;
-				_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
-				_engine.GameSav.JumpEntrys[^1].Pos = ReadU32();
+				JumpEntrys[^1].Type = 2;
+				JumpEntrys[^1].PosArr[0] = ReadU32();
+				JumpEntrys[^1].Pos = ReadU32();
 				break;
 			case 3:
-				if (_engine.GameSav.JumpEntrys[^1].Flag == 1)
+				if (JumpEntrys[^1].Flag == 1)
 				{
-					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
-					// _engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
+					ScriptPos = JumpEntrys[^1].Pos;
+					// JumpEntrys.RemoveAt(JumpEntrys.Count - 1);
 				}
 				else
 				{
-					_engine.GameSav.JumpEntrys[^1].Type = 3;
-					_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
+					JumpEntrys[^1].Type = 3;
+					JumpEntrys[^1].PosArr[0] = ReadU32();
 
 				}
-				// _engine.GameSav.args.Clear();
+				// Args.Clear();
 				break;
 			case 4:
-				if (_engine.GameSav.JumpEntrys[^1].Flag == 0)
+				if (JumpEntrys[^1].Flag == 0)
 				{
 					break;
 				}
-				_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
-				// _engine.GameSav.JumpEntrys.RemoveAt(_engine.GameSav.JumpEntrys.Count - 1);
-				// _engine.GameSav.args.Clear();
+				ScriptPos = JumpEntrys[^1].Pos;
+				// JumpEntrys.RemoveAt(JumpEntrys.Count - 1);
+				// Args.Clear();
 				break;
 			case 5:
-				if (_engine.GameSav.JumpEntrys.Count < 15)
+				if (JumpEntrys.Count < 15)
 				{
-					_engine.GameSav.JumpEntrys.Add(new());
+					JumpEntrys.Add(new());
 				}
-				_engine.GameSav.JumpEntrys[^1].Type = 5;
-				_engine.GameSav.JumpEntrys[^1].Pos = ReadU32();
-				_engine.GameSav.JumpEntrys[^1].PosArr[0] = ReadU32();
-				_engine.GameSav.JumpEntrys[^1].PosArr[1] = ReadU32();
-				_engine.GameSav.JumpEntrys[^1].PosArr[2] = ReadU32();
+				JumpEntrys[^1].Type = 5;
+				JumpEntrys[^1].Pos = ReadU32();
+				JumpEntrys[^1].PosArr[0] = ReadU32();
+				JumpEntrys[^1].PosArr[1] = ReadU32();
+				JumpEntrys[^1].PosArr[2] = ReadU32();
 				break;
 			case 6:
-				if (_engine.GameSav.JumpEntrys.Count < 15)
+				if (JumpEntrys.Count < 15)
 				{
-					_engine.GameSav.JumpEntrys.Add(new());
+					JumpEntrys.Add(new());
 				}
-				_engine.GameSav.JumpEntrys[^1].Type = 6;
-				_engine.GameSav.JumpEntrys[^1].Pos = ReadU32();
+				JumpEntrys[^1].Type = 6;
+				JumpEntrys[^1].Pos = ReadU32();
 				break;
 			case 7:
 
-				if (_engine.GameSav.JumpEntrys.Count < 15)
+				if (JumpEntrys.Count < 15)
 				{
-					_engine.GameSav.JumpEntrys.Add(new());
+					JumpEntrys.Add(new());
 				}
-				_engine.GameSav.JumpEntrys[^1].Type = 7;
-				_engine.GameSav.JumpEntrys[^1].Count = ReadU32();
-				for (int i = 0; i < _engine.GameSav.JumpEntrys[^1].Count; i++)
+				JumpEntrys[^1].Type = 7;
+				JumpEntrys[^1].Count = ReadU32();
+				for (int i = 0; i < JumpEntrys[^1].Count; i++)
 				{
-					_engine.GameSav.JumpEntrys[^1].PosArr[i] = ReadU32();
-					_engine.GameSav.JumpEntrys[^1].FlagArr[i] = ReadU32();
+					JumpEntrys[^1].PosArr[i] = ReadU32();
+					JumpEntrys[^1].FlagArr[i] = ReadU32();
 				}
-				_engine.GameSav.JumpEntrys[^1].Pos = ReadU32();
+				JumpEntrys[^1].Pos = ReadU32();
 				break;
 			case 8:
 			case 9:
 				break;
 			case 0xa:
-				for (int i = _engine.GameSav.JumpEntrys.Count - 1; i >= 0; i--)
+				for (int i = JumpEntrys.Count - 1; i >= 0; i--)
 				{
-					uint type = _engine.GameSav.JumpEntrys[i].Type;
+					uint type = JumpEntrys[i].Type;
 
 					if (type == 5 || type == 6 || type == 7)
 					{
 						break;
 					}
-					_engine.GameSav.JumpEntrys.RemoveAt(i);
+					JumpEntrys.RemoveAt(i);
 				}
 				break;
 			case 11:
-				for (int i = _engine.GameSav.JumpEntrys.Count - 1; i >= 0; i--)
+				for (int i = JumpEntrys.Count - 1; i >= 0; i--)
 				{
-					uint type = _engine.GameSav.JumpEntrys[i].Type;
+					uint type = JumpEntrys[i].Type;
 
 					if (type == 5)
 					{
-						_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[i].PosArr[2];
+						ScriptPos = JumpEntrys[i].PosArr[2];
 						break;
 					}
 					else if (type == 6)
 					{
-						_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[i].PosArr[0];
+						ScriptPos = JumpEntrys[i].PosArr[0];
 						break;
 
 					}
 					else
 					{
-						_engine.GameSav.JumpEntrys.RemoveAt(i);
+						JumpEntrys.RemoveAt(i);
 					}
 
 				}
 				break;
 			case 12:
-				_engine.GameSav.ScriptPos = ReadU32();
+				ScriptPos = ReadU32();
 				break;
 			case 13:
 
-				_engine.GameSav.JumpEntrys[^1].Flag = _engine.GameSav.args[^1].Get();
-				uint pos1 = _engine.GameSav.JumpEntrys[^1].PosArr[0];
-				uint pos2 = _engine.GameSav.JumpEntrys[^1].Pos;
-				if (_engine.GameSav.JumpEntrys[^1].Flag == 1)
+				JumpEntrys[^1].Flag = Args[^1].Get();
+				uint pos1 = JumpEntrys[^1].PosArr[0];
+				uint pos2 = JumpEntrys[^1].Pos;
+				if (JumpEntrys[^1].Flag == 1)
 				{
 					break;
 				}
 				if (pos1 != 0)
 				{
-					_engine.GameSav.ScriptPos = pos1;
+					ScriptPos = pos1;
 				}
 				else
 				{
-					_engine.GameSav.ScriptPos = pos2;
+					ScriptPos = pos2;
 				}
-				// _engine.GameSav.args.Clear();
+				// Args.Clear();
 				break;
 			case 14:
 				//debug
 				// if (_engine.TestMode)
 				// {
-				// 	_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
+				// 	ScriptPos = JumpEntrys[^1].Pos;
 				// 	break;
 				// }
 
-				_engine.GameSav.JumpEntrys[^1].Flag = _engine.GameSav.args[^1].Get();
-				if (_engine.GameSav.JumpEntrys[^1].Flag == 0)
+				JumpEntrys[^1].Flag = Args[^1].Get();
+				if (JumpEntrys[^1].Flag == 0)
 				{
-					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
+					ScriptPos = JumpEntrys[^1].Pos;
 				}
 				else
 				{
-					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[2];
+					ScriptPos = JumpEntrys[^1].PosArr[2];
 				}
-				// _engine.GameSav.args.Clear();
+				// Args.Clear();
 				break;
 			case 15:
-				_engine.GameSav.JumpEntrys[^1].Flag = _engine.GameSav.args[^1].Get();
-				if (_engine.GameSav.JumpEntrys[^1].Flag != 0)
+				JumpEntrys[^1].Flag = Args[^1].Get();
+				if (JumpEntrys[^1].Flag != 0)
 				{
 					break;
 				}
 				else
 				{
-					_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
+					ScriptPos = JumpEntrys[^1].Pos;
 				}
 
 				break;
 			case 16:
-				_engine.GameSav.JumpEntrys[^1].Flag = _engine.GameSav.args[^1].Get();
-				if (_engine.GameSav.JumpEntrys[^1].Type != 7)
+				JumpEntrys[^1].Flag = Args[^1].Get();
+				if (JumpEntrys[^1].Type != 7)
 				{
 					break;
 				}
-				for (int i = 0; i < _engine.GameSav.JumpEntrys[^1].Count; i++)
+				for (int i = 0; i < JumpEntrys[^1].Count; i++)
 				{
-					if (_engine.GameSav.JumpEntrys[^1].FlagArr[i] == _engine.GameSav.JumpEntrys[^1].Flag)
+					if (JumpEntrys[^1].FlagArr[i] == JumpEntrys[^1].Flag)
 					{
-						_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].PosArr[i];
-						// _engine.GameSav.args.Clear();
+						ScriptPos = JumpEntrys[^1].PosArr[i];
+						// Args.Clear();
 						break;
 					}
 				}
-				_engine.GameSav.ScriptPos = _engine.GameSav.JumpEntrys[^1].Pos;
-				// _engine.GameSav.args.Clear();
+				ScriptPos = JumpEntrys[^1].Pos;
+				// Args.Clear();
 				break;
 		}
-		_engine.GameSav.args.Clear();
+		Args.Clear();
 		return true;
 	}
 	public void ParseCmd()
 	{
 		bool flag = true;
-		while (flag && _engine.GameSav.ScriptPos < _bnrbuffer.Length && _engine.State==Wa2EngineMain.GameState.GAME)
+		while (flag && ScriptPos < _bnrbuffer.Length && _engine.State == Wa2EngineMain.GameState.GAME && _engine.ScriptStack.Count > 0 && _engine.Script != null && _engine.Script == this)
 		{
 			int cmd = (int)ReadU32();
 			switch (cmd)
@@ -461,17 +451,25 @@ public class Wa2Script
 				default:
 					break;
 			}
-			if (_engine.GameSav.JumpEntrys.Count > 0 && _engine.GameSav.JumpEntrys[^1].Type - 2 <= 5)
+			if (JumpEntrys.Count > 0 && JumpEntrys[^1].Type - 2 <= 5)
 			{
-				for (int i = _engine.GameSav.JumpEntrys.Count - 1; i >= 0; i--)
+				for (int i = JumpEntrys.Count - 1; i >= 0; i--)
 				{
-					var entry = _engine.GameSav.JumpEntrys[i];
-					if (entry.Pos != _engine.GameSav.ScriptPos)
+					var entry = JumpEntrys[i];
+					if (entry.Pos != ScriptPos)
 					{
 						break;
 					}
-					_engine.GameSav.JumpEntrys.RemoveAt(i);
+					JumpEntrys.RemoveAt(i);
 				}
+			}
+			if (ScriptPos >= _bnrbuffer.Length ||Exit)
+			{
+				if (_engine.ScriptStack.Count > 1)
+				{
+					_engine.ScriptStack.Pop();
+				}
+				_engine.Script = _engine.ScriptStack.Peek();
 			}
 		}
 	}
@@ -483,7 +481,7 @@ public class Wa2Script
 			ValType = (ValueType)type2,
 			IntValue = v
 		};
-		_engine.GameSav.args.Add(var);
+		Args.Add(var);
 	}
 	public void PushFloat(int type1, int type2, float v)
 	{
@@ -493,26 +491,26 @@ public class Wa2Script
 			ValType = (ValueType)type2,
 			FloatValue = v
 		};
-		_engine.GameSav.args.Add(var);
+		Args.Add(var);
 	}
 	public bool CallFunc()
 	{
 		uint funcIdx = ReadU32();
-		// GD.Print(string.Format("调用函数{0:X}", funcIdx));
-		if (_func.FuncDic.TryGetValue(funcIdx, out var func))
+		GD.Print(string.Format("调用函数{0:X}", funcIdx));
+		if (_engine.Func.FuncDic.TryGetValue(funcIdx, out var func))
 		{
-			return func(_engine.GameSav.args);
+			return func(Args);
 		}
 		return true;
 		// if (funcIdx>=0x80){
-		// 	_engine.GameSav.args.Clear();
+		// 	Args.Clear();
 		// }	
 	}
 	// public string ParseStr(int pos)
 	// {
 	// 	// if (pos == 77260)
 	// 	// {
-	// 	// 	GD.Print(_engine.GameSav.ScriptPos);
+	// 	// 	GD.Print(ScriptPos);
 	// 	// }
 	// 	// StringBuilder binary = new StringBuilder();
 	// 	// byte[] bytes = Encoding.GetEncoding("Shift_JIS").GetBytes(_text[pos]);
@@ -538,22 +536,22 @@ public class Wa2Script
 		}
 		Wa2Var a = Wa2Var.CreateEmpty();
 		Wa2Var b = Wa2Var.CreateEmpty();
-		if (_engine.GameSav.args.Count > 0 && v1 <= 0x1b)
+		if (Args.Count > 0 && v1 <= 0x1b)
 		{
-			a = _engine.GameSav.args[^1];
+			a = Args[^1];
 		}
 		if ((v1 >= 1 && v1 < 0x17) || v1 == 0x1b || v1 == 0)
 		{
-			if (_engine.GameSav.args.Count > 1)
+			if (Args.Count > 1)
 			{
-				b = _engine.GameSav.args[^2];
-				_engine.GameSav.args.RemoveAt(_engine.GameSav.args.Count - 1);
+				b = Args[^2];
+				Args.RemoveAt(Args.Count - 1);
 			}
 		}
 		;
-		if (v1 >= 8 && v1 <= 0x16 && _engine.GameSav.args.Count > 0)
+		if (v1 >= 8 && v1 <= 0x16 && Args.Count > 0)
 		{
-			_engine.GameSav.args.RemoveAt(_engine.GameSav.args.Count - 1);
+			Args.RemoveAt(Args.Count - 1);
 		}
 		// GD.Print(a.Get());
 		// GD.Print(b.Get());
@@ -719,10 +717,10 @@ public class Wa2Script
 					else
 					{
 						PushInt(5, 3, 0);
-						GD.Print("错误位置", _engine.GameSav.ScriptPos);
+						GD.Print("错误位置", ScriptPos);
 					}
 
-					// if (_engine.GameSav.args.Count == 0)
+					// if (Args.Count == 0)
 					// {
 					// 	GD.Print("错误位置");
 					// }
@@ -751,22 +749,22 @@ public class Wa2Script
 					b.ValType = (ValueType)a.Get();
 					// if (a.GetType() == typeof(int))
 					// {
-					// 	_engine.GameSav.args.Add((int)b);
+					// 	Args.Add((int)b);
 					// }
 					// else
 					// {
-					// 	_engine.GameSav.args.Add((int)b);
+					// 	Args.Add((int)b);
 					// }
 
 				}
-				// GD.Print("字符串",_engine.GameSav.args[^2]);
-				// _engine.GameSav.args[^2]=(int)(_engine.GameSav.args[^2]);
+				// GD.Print("字符串",Args[^2]);
+				// Args[^2]=(int)(Args[^2]);
 				break;
 			case 0x1C:
 			case 0x1D:
 				break;
 			case 0x1e:
-				_engine.GameSav.args.Clear();
+				Args.Clear();
 
 				break;
 			default:
@@ -775,36 +773,29 @@ public class Wa2Script
 	}
 	public uint ReadU32()
 	{
-		uint r = BitConverter.ToUInt32(_bnrbuffer, (int)_engine.GameSav.ScriptPos);
-		_engine.GameSav.ScriptPos += 4;
+		uint r = BitConverter.ToUInt32(_bnrbuffer, (int)ScriptPos);
+		ScriptPos += 4;
 		return r;
 	}
 	public void FindNextCmd()
 	{
 
-		for (int i = (int)_engine.GameSav.ScriptPos; i < _bnrbuffer.Length - 4; i += 4)
+		for (int i = (int)ScriptPos; i < _bnrbuffer.Length - 4; i += 4)
 		{
 			int v1 = BitConverter.ToInt32(_bnrbuffer, i);
 			int v2 = BitConverter.ToInt32(_bnrbuffer, i + 4);
 			if (v1 == 6 && v2 == 0xe)
 			{
-				_engine.GameSav.ScriptPos = (uint)i;
+				ScriptPos = (uint)i;
 				return;
 			}
 		}
 	}
 	public float ReadF32()
 	{
-		float r = BitConverter.ToSingle(_bnrbuffer, (int)_engine.GameSav.ScriptPos);
-		_engine.GameSav.ScriptPos += 4;
+		float r = BitConverter.ToSingle(_bnrbuffer, (int)ScriptPos);
+		ScriptPos += 4;
 		return r;
-	}
-	public static void ParseFunc()
-	{
-		// 	int r = BitConverter.ToInt32(_bnrbuffer, (int)_engine.GameSav.ScriptPos);
-		// 	_engine.GameSav.ScriptPos += 4;
-		// 	return r;
-		// }
 	}
 	// public static void LoadFunc(string name)
 	// {

@@ -36,8 +36,8 @@ public partial class Wa2EngineMain : Control
 	// public int CurSelect=0;
 
 	// public int[] GameFlags = new int[1024];
-	public int _frame;
-	public List<string> Texts = new();
+	// public int _frame;
+	// public List<string> Texts = new();
 	public List<BacklogEntry> Backlogs = new();
 	public bool TestMode = true;
 	public bool SkipMode = false;
@@ -57,7 +57,7 @@ public partial class Wa2EngineMain : Control
 	public int Day;
 	public int TimeMode;
 	public int StartTime;
-	public List<Wa2Animator> Animators { private set; get; } = new();
+	// public List<Wa2Animator> Animators { private set; get; } = new();
 	public bool WaitClick = false;
 	public bool WaitSe = false;
 	public Wa2Prefs Prefs;
@@ -92,14 +92,28 @@ public partial class Wa2EngineMain : Control
 	public Wa2Timer AutoTimer = new();
 	public VoiceInfo VoiceInfo = new();
 	public bool HasReadMessage = false;
+	public List<SelectItem> SelectItems = new();
+	public Calender Calender = new();
+	// public string FirstSentence;
+	// public string CharName;
+	public List<CharItem> CharItems = new();
 	// public bool MessageHasRead = true;
 	// public Wa2Timer SeWaitTimer = new();
 	public float FrameTime { private set; get; } = 1.0f / (int)ProjectSettings.GetSetting("application/run/max_fps");
 	public Wa2Script Script;
+	public Stack<Wa2Script> ScriptStack = new();
 	public Wa2Func Func;
 	public Wa2Encoding Wa2Encoding;
 	public FileAccess SysSav;
 	public Dictionary<int, Sprite2D> BmpDict = new();
+	public string EffectMode = "";
+	// public int TimeMode;
+	// public int Label=-1;
+	public int Weather;
+	public BgmInfo BgmInfo = new();
+	public BgInfo BgInfo = new();
+	public Color FBColor=new(1,1,1,1);
+	public int[] GameFlags = new int[0x1d];
 	public Wa2EngineMain()
 	{
 		if (Engine == null)
@@ -108,10 +122,50 @@ public partial class Wa2EngineMain : Control
 
 		}
 	}
+	public void SetFBColor(Color color)
+	{
+		FBColor = color;
+		RenderingServer.GlobalShaderParameterSet("fb", FBColor);
+	}
+	public Color GetFBColor()
+	{
+		return FBColor;
+	}
+	public void JumpScript(string name)
+	{
+		GameFlags = new int[0x1d];
+		ScriptStack.Clear();
+		Script = new Wa2Script(name);
+		ScriptStack.Push(Script);
+	}
 	public void StopSkip()
 	{
 		Skipping = false;
 		SkipMode = false;
+	}
+	public void AddChar(CharItem item)
+	{
+		for (int i = 0; i < CharItems.Count; i++)
+		{
+			if (CharItems[i].id == item.id || CharItems[i].pos == item.pos)
+			{
+				CharItems.RemoveAt(i);
+				break;
+			}
+		}
+		CharItems.Add(item);
+
+	}
+	public void RemoveChar(int id)
+	{
+		for (int i = 0; i < CharItems.Count; i++)
+		{
+			if (CharItems[i].id == id)
+			{
+				CharItems.RemoveAt(i);
+				return;
+			}
+		}
 	}
 	public void ShowSelectMessage()
 	{
@@ -122,11 +176,11 @@ public partial class Wa2EngineMain : Control
 		for (int i = 0; i < 3; i++)
 		{
 			SelectMessage btn = AdvMain.SelectMessageContainer.GetChild<SelectMessage>(i);
-			if (i < GameSav.SelectItems.Count)
+			if (i < SelectItems.Count)
 			{
 
-				btn.TextLabel.Text = GameSav.SelectItems[i].Text;
-				if (GameSav.SelectItems[i].V2 == ReadSysFlag(GameSav.SelectItems[i].V1))
+				btn.TextLabel.Text = SelectItems[i].Text;
+				if (SelectItems[i].V2 == ReadSysFlag(SelectItems[i].V1))
 				{
 					btn.Active();
 				}
@@ -155,14 +209,15 @@ public partial class Wa2EngineMain : Control
 	public void UpdateChar(float time)
 	{
 		List<int> posList = new();
-		foreach (CharItem value in GameSav.CharItems)
+		foreach (CharItem value in CharItems)
 		{
 			Wa2Image image = Chars[value.pos];
 			if (time > 0)
 			{
-				Wa2ImageAnimator animator1 = new(image);
-				image.SetNextTexture(Wa2Resource.GetChrImage(value.id, value.no));
-				animator1.InitFade(time);
+				AnimatorMgr.AddCharFeadAnimation(image,Wa2Resource.GetChrImage(value.id, value.no),time);
+				// Wa2ImageAnimator animator1 = new(image);
+				// image.SetNextTexture();
+				// animator1.InitFade(time);
 
 			}
 			else
@@ -182,9 +237,7 @@ public partial class Wa2EngineMain : Control
 			Wa2Image image = Chars[i];
 			if (time > 0)
 			{
-				Wa2ImageAnimator animator2 = new(image);
-				image.SetNextTexture(null);
-				animator2.InitFade(time);
+				AnimatorMgr.AddCharFeadAnimation(image,null,time);
 			}
 			else
 			{
@@ -275,9 +328,9 @@ public partial class Wa2EngineMain : Control
 					SoundMgr.PlaySysSe(ResourceLoader.Load<AudioStream>("res://assets/se/SE_9213.wav"));
 					(ui as BasePage).Close();
 				}
-				
+
 			}
-			else if (ui == UiMgr.AdvMain && State == GameState.GAME &&!WaitAnimator() && !VideoPlayer.IsPlaying() &&WaitClick)
+			else if (ui == UiMgr.AdvMain && State == GameState.GAME && !AnimatorMgr.WaitAnimation() && !VideoPlayer.IsPlaying() && WaitClick)
 			{
 				UiMgr.OpenConfirm("返回主菜单\n确认吗", "", true, () =>
 				{
@@ -336,7 +389,7 @@ public partial class Wa2EngineMain : Control
 
 
 		Func = new Wa2Func(this);
-		Script = new Wa2Script(Func);
+		// Script = new Wa2Script(Func);
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 		Wa2Encoding = new();
 		Wa2Def.LoadFontMap();
@@ -395,7 +448,7 @@ public partial class Wa2EngineMain : Control
 				}
 				if (CanSkip())
 				{
-					AnimatorsFinish();
+					AnimatorMgr.FinishAll();
 					if (!WaitTimer.IsDone())
 					{
 						WaitTimer.Done();
@@ -416,33 +469,43 @@ public partial class Wa2EngineMain : Control
 		}
 		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || CanSkip()))
 		{
-			bool WaitAnime = WaitAnimator();
+			bool WaitAnime = AnimatorMgr.WaitAnimation();
 			if (WaitAnime && !CanSkip())
 			{
 				return;
 			}
 			if (CanSkip())
 			{
-				AnimatorsFinish();
+				AnimatorMgr.FinishAll();
 			}
-			Script.ParseCmd();
+			ScriptParse();
 		}
 	}
 
 	public void Reset(bool stop = true)
 	{
+
+		CharItems.Clear();
+		SelectItems.Clear();
+		BgmInfo = new();
+		BgInfo = new();
+		EffectMode = "";
+		StartTime = 0;
 		DemoMode = false;
 		AdvMain.SetDemoMode(false);
 		StartTime = (int)Time.GetTicksMsec();
 		ClickedInWait = false;
-		WaitClick=false;
+		WaitClick = false;
 		WaitTimer.DeActive();
 		TextTimer.DeActive();
 		AdvMain.Clear();
 		UpdateChar(0);
 		BgTexture.SetCurTexture(null);
 		BgTexture.SetNextTexture(null);
-		AnimatorsFinish();
+		MaskTexture.SetMaskTexture(null);
+		MaskTexture.SetCurTexture(null);
+		MaskTexture.SetNextTexture(null);
+		AnimatorMgr.FinishAll();
 		WaitSeFinish();
 		if (stop)
 		{
@@ -479,13 +542,23 @@ public partial class Wa2EngineMain : Control
 		}
 		Backlogs.Add(e);
 	}
-	public void StartScript(string name, uint pos = 0)
+	public void StartScript(string name, int pos = 0)
 	{
 		SoundMgr.StopBgm();
 		Reset(true);
-		GameSav.Reset();
+		// GameSav.Reset();
+		GameFlags = new int[0x1d];
 		Backlogs.Clear();
-		Script.LoadScript(name, pos);
+		ScriptStack.Clear();
+		Script = new(name, pos);
+		ScriptStack.Push(Script);
+	}
+	public void ScriptParse()
+	{
+		if (Script != null)
+		{
+			Script.ParseCmd();
+		}
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void InputKeyHandling()
@@ -547,10 +620,10 @@ public partial class Wa2EngineMain : Control
 			UpdateFrame(delta);
 			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (!WaitClick || DemoMode))
 			{
-				bool flag = !WaitAnimator();
+				bool flag = !AnimatorMgr.WaitAnimation();
 				if (flag)
 				{
-					Script.ParseCmd();
+					ScriptParse();
 				}
 			}
 		}
@@ -595,7 +668,7 @@ public partial class Wa2EngineMain : Control
 			if (WaitTimer.IsDone())
 			{
 				WaitTimer.DeActive();
-				Script.ParseCmd();
+				ScriptParse();
 			}
 		}
 		if (TextTimer.IsActive() && TextTimer.IsDone())
@@ -625,7 +698,7 @@ public partial class Wa2EngineMain : Control
 				}
 			}
 		}
-		UpdateAnimators((float)delta);
+		// UpdateAnimators((float)delta);
 	}
 	public void WaitSeFinish()
 	{
@@ -640,50 +713,50 @@ public partial class Wa2EngineMain : Control
 			}
 		}
 	}
-	public void AnimatorsFinish(bool all = false)
-	{
-		for (int i = 0; i < Animators.Count; i++)
-		{
-			if (Animators[i].Wait || all)
-			{
-				Animators[i].Finish();
-				Animators.RemoveAt(i);
-				i--;
-			}
-		}
-	}
-	public void UpdateAnimators(float delta)
-	{
-		// GD.Print( Animators.Count);
-		for (int i = 0; i < Animators.Count; i++)
-		{
-			Animators[i].Timer.Update(delta);
-			// GD.Print(Animators[i].Timer.GetProgress());
-			if (Animators[i].IsActive())
-			{
+	// public void AnimatorsFinish(bool all = false)
+	// {
+	// 	for (int i = 0; i < Animators.Count; i++)
+	// 	{
+	// 		if (Animators[i].Wait || all)
+	// 		{
+	// 			Animators[i].Finish();
+	// 			Animators.RemoveAt(i);
+	// 			i--;
+	// 		}
+	// 	}
+	// }
+	// public void UpdateAnimators(float delta)
+	// {
+	// 	// GD.Print( Animators.Count);
+	// 	for (int i = 0; i < Animators.Count; i++)
+	// 	{
+	// 		Animators[i].Timer.Update(delta);
+	// 		// GD.Print(Animators[i].Timer.GetProgress());
+	// 		if (Animators[i].IsActive())
+	// 		{
 
-				// Animators[i].Timer.Update(delta);
-				Animators[i].Update();
-			}
-			else
-			{
-				Animators[i].Finish();
-				Animators.RemoveAt(i);
-				i--;
-			}
-		}
-	}
-	public bool WaitAnimator()
-	{
-		for (int i = 0; i < Animators.Count; i++)
-		{
-			if (Animators[i].IsActive() && Animators[i].Wait)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+	// 			// Animators[i].Timer.Update(delta);
+	// 			Animators[i].Update();
+	// 		}
+	// 		else
+	// 		{
+	// 			Animators[i].Finish();
+	// 			Animators.RemoveAt(i);
+	// 			i--;
+	// 		}
+	// 	}
+	// }
+	// public bool WaitAnimator()
+	// {
+	// 	for (int i = 0; i < Animators.Count; i++)
+	// 	{
+	// 		if (Animators[i].IsActive() && Animators[i].Wait)
+	// 		{
+	// 			return true;
+	// 		}
+	// 	}
+	// 	return false;
+	// }
 	// public void LoadSav(int idx)
 	// {
 	// 	FileAccess file = FileAccess.Open(string.Format("user://{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
@@ -776,7 +849,7 @@ public partial class Wa2EngineMain : Control
 						StopSkip();
 						flag = false;
 					}
-					if (!AdvMain.Visible && !VideoPlayer.IsPlaying())
+					if (!AdvMain.Visible && !VideoPlayer.IsPlaying() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
 					{
 						AdvMain.Show();
 						flag = false;

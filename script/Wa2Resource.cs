@@ -40,6 +40,12 @@ public class Wa2Resource
 	// 	video.File=ResPath+"movie/"+name+"0.mp4";
 	// 	return video;
 	// }
+	public class BgImage
+	{
+		public Texture2D texture;
+		public string Effect;
+		public string Mask;
+	}
 	public static AudioStream LoadWavSound(string path)
 	{
 		// GD.Print(path);
@@ -140,17 +146,17 @@ public class Wa2Resource
 		}
 		Image image = new();
 		image.LoadTgaFromBuffer(buffer);
-		if (Wa2EngineMain.Engine.GameSav.EffectMode != "")
+		if (Wa2EngineMain.Engine.EffectMode != "")
 		{
-			SetImageEffect(image,buffer[17]);
+			SetImageEffect(image, buffer[17]);
 		}
 		ImageTexture tgaImage = ImageTexture.CreateFromImage(image);
 		return tgaImage;
 	}
-	public static void SetImageEffect(Image image,int depth)
+	public static void SetImageEffect(Image image, int depth)
 	{
 		byte[] data = image.GetData();
-		byte[] bytes = LoadFileBuffer(Wa2EngineMain.Engine.GameSav.EffectMode);
+		byte[] bytes = LoadFileBuffer(Wa2EngineMain.Engine.EffectMode);
 		if (bytes.Length == 1280)
 		{
 			if (bytes != null)

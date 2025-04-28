@@ -11,144 +11,145 @@ public class Wa2Func
 	{
 		_engine = e;
 		FuncDic = new(){
-{0x0,SLoad},
-{0x1,SCall},
-{0x2,call},
-{0x3,run},
-{0x4,print},
-{0x5,Ret},
-{0x6,_int},
-{0x7,_float},
-{0x8,Rand},
-{0x9,Sin},
-{0xa,Cos},
-{0xb,Tan},
-{0xc,Asin},
-{0xd,Acos},
-{0xe,Atan},
-{0xf,Atan2},
-{0x10,Pow},
-{0x11,Sqrt},
-{0x12,TimeGetTime},
-{0x80,printEx},
-{0x81,printEx2},
-{0x82,SetMessage},
-{0x83,SetMessageE},
-{0x84,EndMessage},
-{0x85,SetMessage2},
-{0x86,WaitMessage2},
-{0x87,K},
-{0x88,SetDemoMode},
-{0x89,VI},
-{0x8a,VV},
-{0x8b,VX},
-{0x8c,VW},
-{0x8d,VS},
-{0x8e,W},
-{0x8f,WR},
-{0x90,WN},
-{0x91,WNS},
-{0x92,B},
-{0x93,BC},
-{0x94,V},
-{0x95,H},
-{0x96,SetShake},
-{0x97,StopShake},
-{0x98,F},
-{0x99,FB},
-{0x9a,C},
-{0x9b,CW},
-{0x9c,CR},
-{0x9d,CRW},
-{0x9e,M},
-{0x9f,MS},
-{0xa0,MP},
-{0xa1,MV},
-{0xa2,MW},
-{0xa3,MLW},
-{0xa4,SE},
-{0xa5,SEP},
-{0xa6,SES},
-{0xa7,SEV},
-{0xa8,SEW},
-{0xa9,SEVW},
-{0xaa,SetTimeMode},
-{0xab,SetChromaMode},
-{0xac,SetEffctMode},
-{0xad,SetWeather},
-{0xae,ChangeWeather},
-{0xaf,ResetWeather},
-{0xb0,LoadBmp},
-{0xb1,LoadBmpAnime},
-{0xb2,SetBmpAvi},
-{0xb3,WaitBmpAvi},
-{0xb4,ReleaseBmp},
-{0xb5,WaitBmpAnime},
-{0xb6,SetBmpAnimePlay},
-{0xb7,SetBmpDisp},
-{0xb8,SetBmpLayer},
-{0xb9,SetBmpParam},
-{0xba,SetBmpRevParam},
-{0xbb,SetBmpBright},
-{0xbc,SetBmpMove},
-{0xbd,SetBmpPos},
-{0xbe,SetBmpZoom},
-{0xbf,SetBmpZoom2},
-{0xc0,SetBmpRoll},
-{0xc1,SetMovie},
-{0xc2,Wait},
-{0xc3,StartTimer},
-{0xc4,WaitTimer},
-{0xc5,GoTitle},
-{0xc6,GetGameFlag},
-{0xc7,SetGameFlag},
-{0xc8,LogOut},
-{0xc9,V_Flag},
-{0xca,H_Flag},
-{0xcb,Calender},
-{0xcc,GetTimer},
-{0xcd,GetSkip},
-{0xce,GetClick},
-{0xcf,runEX},
-{0xd0,SetSelectMess},
-{0xd1,SetSelect},
-{0xd2,S},
-{0xd3,Z},
-{0xd4,R},
-{0xd5,WSZ},
-{0xd6,StopSZR},
-{0xd7,VA},
-{0xd8,CS},
-{0xd9,CM},
-{0xda,CRS},
-{0xdb,SkipOFF},
-{0xdc,NevelMode},
-{0xdd,EroMode},
-{0xde,GetReplayMode},
-{0xdf,WN2},
-{0xe0,WNS2},
-{0xe1,B2},
-{0xe2,BC2},
-{0xe3,V2},
-{0xe4,H2},
-{0xe5,SetWeather2},
-{0xe6,ChangeWeather2},
-{0xe7,SetShake2},
-{0xe8,M2},
-{0xe9,NB},
-{0xea,NBR},
-{0xeb,VXV},
-{0xec,Wait2},
-{0xed,IfSkip},
-{0xee,GetSkip2},
+			{0x0,SLoad},
+			{0x1,SCall},
+			{0x2,call},
+			{0x3,run},
+			{0x4,print},
+			{0x5,Ret},
+			{0x6,_int},
+			{0x7,_float},
+			{0x8,Rand},
+			{0x9,Sin},
+			{0xa,Cos},
+			{0xb,Tan},
+			{0xc,Asin},
+			{0xd,Acos},
+			{0xe,Atan},
+			{0xf,Atan2},
+			{0x10,Pow},
+			{0x11,Sqrt},
+			{0x12,TimeGetTime},
+			{0x80,printEx},
+			{0x81,printEx2},
+			{0x82,SetMessage},
+			{0x83,SetMessageE},
+			{0x84,EndMessage},
+			{0x85,SetMessage2},
+			{0x86,WaitMessage2},
+			{0x87,K},
+			{0x88,SetDemoMode},
+			{0x89,VI},
+			{0x8a,VV},
+			{0x8b,VX},
+			{0x8c,VW},
+			{0x8d,VS},
+			{0x8e,W},
+			{0x8f,WR},
+			{0x90,WN},
+			{0x91,WNS},
+			{0x92,B},
+			{0x93,BC},
+			{0x94,V},
+			{0x95,H},
+			{0x96,SetShake},
+			{0x97,StopShake},
+			{0x98,F},
+			{0x99,FB},
+			{0x9a,C},
+			{0x9b,CW},
+			{0x9c,CR},
+			{0x9d,CRW},
+			{0x9e,M},
+			{0x9f,MS},
+			{0xa0,MP},
+			{0xa1,MV},
+			{0xa2,MW},
+			{0xa3,MLW},
+			{0xa4,SE},
+			{0xa5,SEP},
+			{0xa6,SES},
+			{0xa7,SEV},
+			{0xa8,SEW},
+			{0xa9,SEVW},
+			{0xaa,SetTimeMode},
+			{0xab,SetChromaMode},
+			{0xac,SetEffctMode},
+			{0xad,SetWeather},
+			{0xae,ChangeWeather},
+			{0xaf,ResetWeather},
+			{0xb0,LoadBmp},
+			{0xb1,LoadBmpAnime},
+			{0xb2,SetBmpAvi},
+			{0xb3,WaitBmpAvi},
+			{0xb4,ReleaseBmp},
+			{0xb5,WaitBmpAnime},
+			{0xb6,SetBmpAnimePlay},
+			{0xb7,SetBmpDisp},
+			{0xb8,SetBmpLayer},
+			{0xb9,SetBmpParam},
+			{0xba,SetBmpRevParam},
+			{0xbb,SetBmpBright},
+			{0xbc,SetBmpMove},
+			{0xbd,SetBmpPos},
+			{0xbe,SetBmpZoom},
+			{0xbf,SetBmpZoom2},
+			{0xc0,SetBmpRoll},
+			{0xc1,SetMovie},
+			{0xc2,Wait},
+			{0xc3,StartTimer},
+			{0xc4,WaitTimer},
+			{0xc5,GoTitle},
+			{0xc6,GetGameFlag},
+			{0xc7,SetGameFlag},
+			{0xc8,LogOut},
+			{0xc9,V_Flag},
+			{0xca,H_Flag},
+			{0xcb,Calender},
+			{0xcc,GetTimer},
+			{0xcd,GetSkip},
+			{0xce,GetClick},
+			{0xcf,runEX},
+			{0xd0,SetSelectMess},
+			{0xd1,SetSelect},
+			{0xd2,S},
+			{0xd3,Z},
+			{0xd4,R},
+			{0xd5,WSZ},
+			{0xd6,StopSZR},
+			{0xd7,VA},
+			{0xd8,CS},
+			{0xd9,CM},
+			{0xda,CRS},
+			{0xdb,SkipOFF},
+			{0xdc,NevelMode},
+			{0xdd,EroMode},
+			{0xde,GetReplayMode},
+			{0xdf,WN2},
+			{0xe0,WNS2},
+			{0xe1,B2},
+			{0xe2,BC2},
+			{0xe3,V2},
+			{0xe4,H2},
+			{0xe5,SetWeather2},
+			{0xe6,ChangeWeather2},
+			{0xe7,SetShake2},
+			{0xe8,M2},
+			{0xe9,NB},
+			{0xea,NBR},
+			{0xeb,VXV},
+			{0xec,Wait2},
+			{0xed,IfSkip},
+			{0xee,GetSkip2},
 	};
 
 	}
 
-	public void PlayBgm(int id, bool loopFlag = true, int volume = 255)
-	{
-		Wa2SoundMgr.Instance.PlayBgm(id, loopFlag, volume);
-	}
+	// public void PlayBgm(int id, bool loopFlag = true, int volume = 255)
+	// {
+	// 	GD.Print("播放bgm");
+	// 	Wa2SoundMgr.Instance.PlayBgm(id, loopFlag, volume);
+	// }
 	public void StopBgm(int frame = 0)
 	{
 		Wa2SoundMgr.Instance.StopBgm(frame * _engine.FrameTime);
@@ -175,19 +176,21 @@ public class Wa2Func
 	public bool SetMessageE(List<Wa2Var> args)
 	{
 		SetMessageEx(args[0].Get(), args[1].Get());
+		_engine.WaitClick = true;
 		return false;
 		// _engine.WaitClick=true;
 	}
 	public void SetMessageEx(string text, int idx)
 	{
-		_engine.GameSav.FirstSentence = text;
-		_engine.AdvMain.ShowText(_engine.GameSav.FirstSentence, _engine.GameSav.CharName);
-		_engine.WaitClick = true;
-		_engine.GameSav.CurMessageIdx = idx;
+		// _engine.FirstSentence = text;
+		_engine.AdvMain.TextLabel.Text = text;
+		_engine.AdvMain.ShowText();
+
+		_engine.CurMessageIdx = idx;
 		_engine.AddhBackLog(new BacklogEntry()
 		{
-			Name = _engine.GameSav.CharName,
-			Text = _engine.GameSav.FirstSentence,
+			Name = _engine.AdvMain.NameLabel.Text,
+			Text = _engine.AdvMain.TextLabel.Text,
 			VoiceInfo = _engine.VoiceInfo
 		});
 		_engine.VoiceInfo = null;
@@ -196,7 +199,7 @@ public class Wa2Func
 	public bool EndMessage(List<Wa2Var> args)
 	{
 		_engine.WaitClick = false;
-		_engine.AdvMain.WaitSprite.Hide();
+		// _engine.AdvMain.WaitSprite.Hide();
 		return true;
 	}
 	public bool SetMessage2(List<Wa2Var> args)
@@ -228,7 +231,7 @@ public class Wa2Func
 		// {
 		if (args[0].Get() is int && args[0].Get() == 0)
 		{
-			_engine.GameSav.Label = args[1].Get();
+			_engine.Label = args[1].Get();
 		}
 		return true;
 		// }
@@ -246,12 +249,12 @@ public class Wa2Func
 		{
 			Id = args[4].Get(),
 			Chr = args[0].Get(),
-			Label = _engine.GameSav.Label,
+			Label = _engine.Label,
 			Volume = args[1].Get()
 		};
 		if (!_engine.CanSkip())
 		{
-			_engine.SoundMgr.PlayVoice(_engine.GameSav.Label, args[4].Get(), args[0].Get(), args[1].Get(), args[2].Get() == 1, args[3].Get());
+			_engine.SoundMgr.PlayVoice(_engine.Label, args[4].Get(), args[0].Get(), args[1].Get(), args[2].Get() == 1, args[3].Get());
 		}
 		return true;
 	}
@@ -293,16 +296,15 @@ public class Wa2Func
 	{
 		if (args[0].CmdType == CmdType.STR_VAR)
 		{
-			_engine.AdvMain.CurName = args[0].Get();
+			_engine.AdvMain.NameLabel.Text = args[0].Get();
 			// if(args[0].IntValue>0){
 			// 	_engine.WirtSysFlag(args[0].IntValue,1);
 			// }
 		}
 		else
 		{
-			_engine.AdvMain.CurName = "";
+			_engine.AdvMain.NameLabel.Text = "";
 		}
-		_engine.GameSav.CharName = _engine.AdvMain.CurName;
 		return true;
 	}
 	public bool WNS(List<Wa2Var> args)
@@ -312,24 +314,18 @@ public class Wa2Func
 
 	public bool B(List<Wa2Var> args)
 	{
-		GD.Print("设置背景");
 		for (int i = 0; i < args.Count; i++)
 		{
 			GD.Print(args[i].Get());
 		}
 		// _e.Viewport.BgDrawFrame = args[3];
-		if (args[3].Get() > 0)
-		{
-			_engine.GameSav.BgInfo.Frame = args[3].Get();
-		}
-		_engine.AnimatorsFinish(true);
+		_engine.AnimatorMgr.FinishAll(true);
 		Texture2D NextTexture;
 		Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
-
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.GameSav.TimeMode);
-			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
+			_engine.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.TimeMode);
+			NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
 		}
 		else
 		{
@@ -343,22 +339,27 @@ public class Wa2Func
 		{
 			_engine.MaskTexture.SetMaskTexture(null);
 		}
+		_engine.BgTexture.SetCurOffset(new Vector2(0, 0));
+		_engine.BgTexture.SetCurScale(new Vector2(1, 1));
+		_engine.BgInfo.Scale = Vector2.One;
+		_engine.BgInfo.Offset = Vector2.Zero;
+		ClearChar(args[3].Get() * _engine.FrameTime);
+		_engine.BgTexture.SetCurTexture(NextTexture);
+		if (args[3].Get() == 0)
+		{
+			return true;
+		}
 		_engine.MaskTexture.SetCurOffset(Vector2.Zero);
 		_engine.MaskTexture.SetCurScale(Vector2.One);
 		_engine.MaskTexture.SetCurTexture(CeacheTexture);
 		_engine.MaskTexture.SetNextScale(new Vector2(1, 1));
 		_engine.MaskTexture.SetNextOffset(new Vector2(0, 0));
 		_engine.MaskTexture.SetNextTexture(NextTexture);
-		_engine.BgTexture.SetCurOffset(new Vector2(0, 0));
-		_engine.BgTexture.SetCurScale(new Vector2(1, 1));
-		_engine.GameSav.BgInfo.Scale = Vector2.One;
-		_engine.GameSav.BgInfo.Offset = Vector2.Zero;
-		Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
-		Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
-		animator1.InitFade(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
-		animator2.InitHide(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
-		ClearChar(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
-		_engine.BgTexture.SetCurTexture(NextTexture);
+		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime);
+		// Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
+		// Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
+		// animator1.InitFade(args[3].Get() * _engine.FrameTime);
+		// animator2.InitHide(args[3].Get() * _engine.FrameTime);
 		return false;
 	}
 	public bool ClearChar(float time)
@@ -369,31 +370,32 @@ public class Wa2Func
 			{
 				continue;
 			}
-			Wa2ImageAnimator animator1 = new(_engine.Chars[i]);
-			Wa2ImageAnimator animator2 = new(_engine.Chars[i]);
-			_engine.Chars[i].SetNextTexture(null);
-			animator1.InitFade(time);
-			animator2.InitHide(time);
+			// Wa2ImageAnimator animator1 = new(_engine.Chars[i]);
+			// Wa2ImageAnimator animator2 = new(_engine.Chars[i]);
+			// _engine.Chars[i].SetNextTexture(null);
+			_engine.AnimatorMgr.AddCharFeadAnimation(_engine.Chars[i], null, time);
+			// animator1.InitFade(time);
+			// animator2.InitHide(time);
 		}
-		_engine.GameSav.CharItems.Clear();
+		_engine.CharItems.Clear();
 		return false;
 	}
 
 	public bool BC(List<Wa2Var> args)
 	{
-		_engine.AnimatorsFinish(true);
-		GD.Print("bc");
-		if (args[3].Get() > 0)
-		{
-			_engine.GameSav.BgInfo.Frame = args[3].Get();
-		}
+		_engine.AnimatorMgr.FinishAll();
+		// GD.Print("bc");
+		// if (args[3].Get() > 0)
+		// {
+		// 	_engine.BgInfo.Frame = args[3].Get();
+		// }
 
 		Texture2D NextTexture;
 		Texture2D CeacheTexture = _engine.BgTexture.GetCurTexture();
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.GameSav.TimeMode);
-			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
+			_engine.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.TimeMode);
+			NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
 		}
 		else
 		{
@@ -402,9 +404,10 @@ public class Wa2Func
 		_engine.BgTexture.SetCurTexture(CeacheTexture);
 		_engine.BgTexture.SetNextTexture(NextTexture);
 		_engine.BgTexture.SetMaskTexture(null);
-		Wa2ImageAnimator animator3 = new(_engine.BgTexture);
-		animator3.InitFade(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
-		_engine.UpdateChar(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
+		// Wa2ImageAnimator animator3 = new(_engine.BgTexture);
+		// animator3.InitFade(_engine.BgInfo.Frame * _engine.FrameTime);
+		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.BgTexture, args[3].Get() * _engine.FrameTime, false);
+		_engine.UpdateChar( args[3].Get() * _engine.FrameTime);
 
 		return false;
 		// GD.Print("更新背景和角色");
@@ -413,12 +416,12 @@ public class Wa2Func
 	public bool V(List<Wa2Var> args)
 	{
 		Texture2D NextTexture;
-		_engine.AnimatorsFinish(true);
+		_engine.AnimatorMgr.FinishAll(true);
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
+			_engine.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
 			_engine.SetCgFlag(args[1].Get() * 10 + args[2].Get(), 1);
-			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
+			NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
 		}
 		else
 		{
@@ -429,10 +432,11 @@ public class Wa2Func
 		_engine.MaskTexture.SetCurTexture(ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()));
 		_engine.MaskTexture.SetNextTexture(NextTexture);
 		_engine.MaskTexture.SetMaskTexture(null);
-		Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
-		Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
-		animator1.InitFade(args[3].Get() * _engine.FrameTime);
-		animator2.InitHide(args[3].Get() * _engine.FrameTime);
+		// Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
+		// Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
+		// animator1.InitFade(args[3].Get() * _engine.FrameTime);
+		// animator2.InitHide(args[3].Get() * _engine.FrameTime);
+		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime);
 		ClearChar(args[3].Get() * _engine.FrameTime);
 		_engine.BgTexture.SetCurTexture(NextTexture);
 		return false;
@@ -458,14 +462,22 @@ public class Wa2Func
 		float r = (int)args[1].Get() / 255f;
 		float g = (int)args[2].Get() / 255f;
 		float b = (int)args[3].Get() / 255f;
-		RenderingServer.GlobalShaderParameterSet("fb", new Vector3(r, g, b));
+
+		if (args[0].Get() > 0)
+		{
+			_engine.AnimatorMgr.AddFBAnimation(new Color(r, g, b), args[0].Get() * _engine.FrameTime);
+		}
+		else
+		{
+			_engine.SetFBColor(new Color(r, g, b));
+		}
 		return false;
 	}
 
 	public bool C(List<Wa2Var> args)
 	{
 
-		_engine.GameSav.AddChar(new CharItem
+		_engine.AddChar(new CharItem
 		{
 			id = args[0].Get(),
 			no = args[1].Get(),
@@ -477,7 +489,7 @@ public class Wa2Func
 	}
 	public bool CW(List<Wa2Var> args)
 	{
-		_engine.GameSav.AddChar(new CharItem
+		_engine.AddChar(new CharItem
 		{
 			id = args[0].Get(),
 			no = args[1].Get(),
@@ -487,24 +499,25 @@ public class Wa2Func
 	}
 	public bool CR(List<Wa2Var> args)
 	{
-		_engine.GameSav.RemoveChar(args[0].Get());
+		_engine.RemoveChar(args[0].Get());
 		_engine.UpdateChar(args[2].Get() * _engine.FrameTime);
 		return false;
 	}
 	public bool CRW(List<Wa2Var> args)
 	{
-		_engine.GameSav.RemoveChar(args[0].Get());
+		_engine.RemoveChar(args[0].Get());
 		return true;
 	}
 	public bool M(List<Wa2Var> args)
 	{
 		if (args.Count == 3)
 		{
-			GD.Print("错误位置", _engine.GameSav.ScriptPos);
+			GD.Print("错误位置", _engine.Script.ScriptPos);
 		}
-		_engine.GameSav.BgmInfo.Id = args[0].Get();
-		_engine.GameSav.BgmInfo.Loop = args[2].Get();
-		_engine.GameSav.BgmInfo.Volume = args[3].Get();
+		_engine.BgmInfo.Id = args[0].Get();
+		_engine.BgmInfo.Loop = args[2].Get();
+		_engine.BgmInfo.Volume = args[3].Get();
+		GD.Print("播放bgm");
 		// GD.Print( args[1].Get());
 		_engine.SoundMgr.PlayBgm(args[0].Get(), args[2].Get() != 0, args[3].Get());
 		return true;
@@ -553,7 +566,8 @@ public class Wa2Func
 	}
 	public bool SES(List<Wa2Var> args)
 	{
-		if(args[0].Get()>10){
+		if (args[0].Get() > 10)
+		{
 			GD.Print("错误");
 		}
 		Wa2SoundMgr.Instance.StopSe(args[0].Get(), args[1].Get() * _engine.FrameTime);
@@ -578,7 +592,7 @@ public class Wa2Func
 	}
 	public bool SetTimeMode(List<Wa2Var> args)
 	{
-		_engine.GameSav.TimeMode = args[0].Get();
+		_engine.TimeMode = args[0].Get();
 		GD.Print("mode", args[0].Get());
 		return true;
 		// uint v0 = args[0];
@@ -590,7 +604,7 @@ public class Wa2Func
 	}
 	public bool SetEffctMode(List<Wa2Var> args)
 	{
-		_engine.GameSav.EffectMode = args[0].Get();
+		_engine.EffectMode = args[0].Get();
 		return true;
 	}
 	public bool SetWeather(List<Wa2Var> args)
@@ -758,8 +772,8 @@ public class Wa2Func
 		}
 		Sprite2D tex = _engine.BmpDict[args[0].Get()];
 		tex.Centered = false;
-		tex.Scale = new Vector2(_engine.GameSav.args[3].Get() / tex.Texture.GetSize().X, args[4].Get() / tex.Texture.GetSize().Y);
-		tex.Position = new Vector2(_engine.GameSav.args[1].Get(), args[2].Get());
+		tex.Scale = new Vector2(args[3].Get() / tex.Texture.GetSize().X, args[4].Get() / tex.Texture.GetSize().Y);
+		tex.Position = new Vector2(args[1].Get(), args[2].Get());
 		return true;
 	}
 	public bool SetBmpZoom2(List<Wa2Var> args)
@@ -851,16 +865,16 @@ public class Wa2Func
 	}
 	public bool Calender(List<Wa2Var> args)
 	{
-		_engine.GameSav.Calender.Year = args[0].Get();
-		_engine.GameSav.Calender.Month = args[1].Get();
-		_engine.GameSav.Calender.Day = args[2].Get();
-		if (_engine.GameSav.Calender.Year == 2013 && _engine.GameSav.Calender.Month == 2 && _engine.GameSav.Calender.Day == 29)
+		_engine.Calender.Year = args[0].Get();
+		_engine.Calender.Month = args[1].Get();
+		_engine.Calender.Day = args[2].Get();
+		if (_engine.Calender.Year == 2013 && _engine.Calender.Month == 2 && _engine.Calender.Day == 29)
 		{
-			_engine.GameSav.Calender.DayOfWeek = 5;
+			_engine.Calender.DayOfWeek = 5;
 		}
 		else
 		{
-			_engine.GameSav.Calender.DayOfWeek = (int)new DateTime(args[0].Get(), args[1].Get(), args[2].Get()).DayOfWeek;
+			_engine.Calender.DayOfWeek = (int)new DateTime(args[0].Get(), args[1].Get(), args[2].Get()).DayOfWeek;
 		}
 
 		// uint hour=args[3];
@@ -890,7 +904,7 @@ public class Wa2Func
 		//text
 		//alpha
 		//disable
-		_engine.GameSav.SelectItems.Add(new SelectItem
+		_engine.SelectItems.Add(new SelectItem
 		{
 			Text = args[0].Get(),
 			V1 = args[1].Get(),
@@ -909,9 +923,10 @@ public class Wa2Func
 	}
 	public bool S(List<Wa2Var> args)
 	{
-		Wa2ImageAnimator animator = new(_engine.BgTexture);
-		animator.Wait = false;
-		animator.InitMove(args[2].Get() * _engine.FrameTime, args[0].Get(), args[1].Get());
+		_engine.AnimatorMgr.AddBgMoveAnimation(_engine.BgTexture, args[2].Get() * _engine.FrameTime, args[0].Get(), args[1].Get());
+		// Wa2ImageAnimator animator = new(_engine.BgTexture);
+		// animator.Wait = false;
+		// animator.InitMove(args[2].Get() * _engine.FrameTime, args[0].Get(), args[1].Get());
 		return true;
 	}
 	public bool Z(List<Wa2Var> args6)
@@ -924,10 +939,7 @@ public class Wa2Func
 	}
 	public bool WSZ(List<Wa2Var> args)
 	{
-		for (int i = 0; i < _engine.Animators.Count; i++)
-		{
-			_engine.Animators[i].Wait = true;
-		}
+		_engine.AnimatorMgr.AllWait();
 		return false;
 	}
 	public bool StopSZR(List<Wa2Var> args)
@@ -985,17 +997,13 @@ public class Wa2Func
 	}
 	public bool B2(List<Wa2Var> args)
 	{
-		_engine.AnimatorsFinish(true);
+		_engine.AnimatorMgr.FinishAll(true);
 		Texture2D NextTexture;
 		Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()); ;
-		if (args[3].Get() > 0)
-		{
-			_engine.GameSav.BgInfo.Frame = args[3].Get();
-		}
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.GameSav.TimeMode);
-			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
+			_engine.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.TimeMode);
+			NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
 		}
 		else
 		{
@@ -1006,22 +1014,23 @@ public class Wa2Func
 		_engine.MaskTexture.SetCurTexture(CeacheTexture);
 		_engine.MaskTexture.SetNextTexture(NextTexture);
 		_engine.MaskTexture.SetMaskTexture(null);
-		Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
-		Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
+		// Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
+		// Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
 		_engine.MaskTexture.SetCurOffset(Vector2.Zero);
 		_engine.MaskTexture.SetCurScale(Vector2.One);
-		_engine.GameSav.BgInfo.Offset = new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
-		_engine.GameSav.BgInfo.Scale = new Vector2(args[7].Get(), args[8].Get());
-		_engine.MaskTexture.SetNextOffset(_engine.GameSav.BgInfo.Offset);
-		_engine.MaskTexture.SetNextScale(_engine.GameSav.BgInfo.Scale);
+		_engine.BgInfo.Offset = new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
+		_engine.BgInfo.Scale = new Vector2(args[7].Get(), args[8].Get());
+		_engine.MaskTexture.SetNextOffset(_engine.BgInfo.Offset);
+		_engine.MaskTexture.SetNextScale(_engine.BgInfo.Scale);
 
 		// _engine.SubViewport.Hide();
-		_engine.BgTexture.SetCurOffset(_engine.GameSav.BgInfo.Offset);
-		_engine.BgTexture.SetCurScale(_engine.GameSav.BgInfo.Scale);
+		_engine.BgTexture.SetCurOffset(_engine.BgInfo.Offset);
+		_engine.BgTexture.SetCurScale(_engine.BgInfo.Scale);
 		_engine.BgTexture.SetCurTexture(NextTexture);
-		animator1.InitFade(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
-		animator2.InitHide(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
-		ClearChar(_engine.GameSav.BgInfo.Frame * _engine.FrameTime);
+		// animator1.InitFade(_engine.BgInfo.Frame * _engine.FrameTime);
+		// animator2.InitHide(_engine.BgInfo.Frame * _engine.FrameTime);
+		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.BgTexture,  args[3].Get()* _engine.FrameTime, false);
+		ClearChar(args[3].Get() * _engine.FrameTime);
 		return false;
 	}
 	public bool BC2(List<Wa2Var> args)
@@ -1034,27 +1043,28 @@ public class Wa2Func
 
 		if (args[1].Get() >= 0)
 		{
-			_engine.GameSav.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
+			_engine.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
 			_engine.SetCgFlag(args[1].Get() * 10 + args[2].Get(), 1);
-			NextTexture = Wa2Resource.GetTgaImage(_engine.GameSav.BgInfo.Path);
+			NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
 		}
 		else
 		{
 			NextTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
 		}
-		_engine.GameSav.BgInfo.Offset = new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
-		_engine.GameSav.BgInfo.Scale = new Vector2(args[7].Get(), args[8].Get());
-		_engine.MaskTexture.SetNextOffset(_engine.GameSav.BgInfo.Offset);
-		_engine.MaskTexture.SetNextScale(_engine.GameSav.BgInfo.Scale);
-		_engine.BgTexture.SetCurOffset(_engine.GameSav.BgInfo.Offset);
-		_engine.BgTexture.SetCurScale(_engine.GameSav.BgInfo.Scale);
+		_engine.BgInfo.Offset = new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
+		_engine.BgInfo.Scale = new Vector2(args[7].Get(), args[8].Get());
+		_engine.MaskTexture.SetNextOffset(_engine.BgInfo.Offset);
+		_engine.MaskTexture.SetNextScale(_engine.BgInfo.Scale);
+		_engine.BgTexture.SetCurOffset(_engine.BgInfo.Offset);
+		_engine.BgTexture.SetCurScale(_engine.BgInfo.Scale);
 		_engine.MaskTexture.SetCurTexture(ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()));
 		_engine.MaskTexture.SetNextTexture(NextTexture);
 		_engine.MaskTexture.SetMaskTexture(null);
-		Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
-		Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
-		animator1.InitFade(args[3].Get() * _engine.FrameTime);
-		animator2.InitHide(args[3].Get() * _engine.FrameTime);
+		// Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
+		// Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
+		// animator1.InitFade(args[3].Get() * _engine.FrameTime);
+		// animator2.InitHide(args[3].Get() * _engine.FrameTime);
+		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime);
 		ClearChar(args[3].Get() * _engine.FrameTime);
 		_engine.BgTexture.SetCurTexture(NextTexture);
 		return false;
@@ -1089,7 +1099,7 @@ public class Wa2Func
 	}
 	public bool VXV(List<Wa2Var> args)
 	{
-		_engine.SoundMgr.SetVoiceVolume(args[2].Get(),args[0].Get(),args[1].Get());
+		_engine.SoundMgr.SetVoiceVolume(args[2].Get(), args[0].Get(), args[1].Get());
 		return true;
 	}
 	public bool Wait2(List<Wa2Var> args)
@@ -1100,30 +1110,36 @@ public class Wa2Func
 	}
 	public bool IfSkip(List<Wa2Var> args)
 	{
-		_engine.Script.PushInt(5, 3, _engine.Skipping ? 1 : 0);
+		_engine.Script.PushInt(5, 3, _engine.CanSkip() ? 1 : 0);
 		return true;
 	}
 	public bool GetSkip2(List<Wa2Var> args)
 	{
-		_engine.Script.PushInt(5, 3, _engine.SkipMode ? 1 : 0);
+		_engine.Script.PushInt(5, 3, _engine.CanSkip() ? 1 : 0);
 		return true;
 	}
 	public bool SLoad(List<Wa2Var> args)
 	{
 		_engine.Reset(false);
-		_engine.Script.LoadScript(args[0].Get(), (uint)args[1].Get());
-		return true;
+		_engine.ScriptStack.Clear();
+		_engine.Script = new(args[0].Get(), args[1].Get());
+		_engine.ScriptStack.Push(_engine.Script);
+		return false;
 
 	}
 	public bool SCall(List<Wa2Var> args)
 	{
-		GD.Print("scall:", args[0].Get());
+		_engine.Reset(false);
+		_engine.ScriptStack.Push(new(args[0].Get(), args[1].Get()));
+		_engine.Script = _engine.ScriptStack.Peek();
+		// GD.Print("scall:", args[0].Get());
 		return false;
 		// GD.Print("无用函数");
 	}
 	public bool call(List<Wa2Var> args)
 	{
-		GD.Print("无用函数");
+		_engine.ScriptStack.Push(new(_engine.Script.ScriptName, args[0].Get()));
+		_engine.Script = _engine.ScriptStack.Peek();
 		return false;
 	}
 	public bool run(List<Wa2Var> args)
@@ -1138,7 +1154,9 @@ public class Wa2Func
 	}
 	public bool Ret(List<Wa2Var> args)
 	{
-		return true;
+		// _engine.ScriptStack.Pop();
+		// _engine.Script=_engine.ScriptStack.Peek();
+		return false;
 	}
 	public bool _int(List<Wa2Var> args)
 	{

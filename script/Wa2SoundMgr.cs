@@ -59,7 +59,7 @@ public partial class Wa2SoundMgr : Node
 		Wa2Audio audio = _voiceAudios[channel];
 		if (label == -1)
 		{
-			label = _engine.GameSav.Label;
+			label = _engine.Label;
 		}
 		if (_engine.Prefs.CanPlayCharVoice(chr))
 		{
@@ -83,7 +83,7 @@ public partial class Wa2SoundMgr : Node
 	public void StopBgm(float time = 0.0f)
 	{
 		_bgmAudio.StopStream(time);
-		Wa2EngineMain.Engine.GameSav.BgmInfo.Id = -1;
+		Wa2EngineMain.Engine.BgmInfo.Id = -1;
 		BgmId = -1;
 	}
 	public float GetVoiceTime()
