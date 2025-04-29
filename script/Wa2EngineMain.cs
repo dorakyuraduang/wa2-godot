@@ -112,7 +112,7 @@ public partial class Wa2EngineMain : Control
 	public int Weather;
 	public BgmInfo BgmInfo = new();
 	public BgInfo BgInfo = new();
-	public Color FBColor=new(1,1,1,1);
+	public Color FBColor = new(1, 1, 1, 1);
 	public int[] GameFlags = new int[0x1d];
 	public Wa2EngineMain()
 	{
@@ -214,7 +214,7 @@ public partial class Wa2EngineMain : Control
 			Wa2Image image = Chars[value.pos];
 			if (time > 0)
 			{
-				AnimatorMgr.AddCharFeadAnimation(image,Wa2Resource.GetChrImage(value.id, value.no),time);
+				AnimatorMgr.AddCharFeadAnimation(image, Wa2Resource.GetChrImage(value.id, value.no), time);
 				// Wa2ImageAnimator animator1 = new(image);
 				// image.SetNextTexture();
 				// animator1.InitFade(time);
@@ -237,7 +237,7 @@ public partial class Wa2EngineMain : Control
 			Wa2Image image = Chars[i];
 			if (time > 0)
 			{
-				AnimatorMgr.AddCharFeadAnimation(image,null,time);
+				AnimatorMgr.AddCharFeadAnimation(image, null, time);
 			}
 			else
 			{
@@ -487,6 +487,7 @@ public partial class Wa2EngineMain : Control
 
 		CharItems.Clear();
 		SelectItems.Clear();
+		Calender = new();
 		BgmInfo = new();
 		BgInfo = new();
 		EffectMode = "";
@@ -618,7 +619,7 @@ public partial class Wa2EngineMain : Control
 		{
 			InputKeyHandling();
 			UpdateFrame(delta);
-			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (!WaitClick || DemoMode))
+			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (!WaitClick || DemoMode) && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
 			{
 				bool flag = !AnimatorMgr.WaitAnimation();
 				if (flag)

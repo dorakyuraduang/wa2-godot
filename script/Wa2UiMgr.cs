@@ -6,6 +6,8 @@ public partial class Wa2UiMgr : Control
 {
 	public Stack<Control> UiQueue = new();
 	[Export]
+	public UICalender UICalender;
+	[Export]
 	public UIConfirm UIConfirm;
 	[Export]
 	public OptionsMenu OptionsMenu;
@@ -93,6 +95,10 @@ public partial class Wa2UiMgr : Control
 		
 		TitleMenu.Open();
 		JumpScene(TitleMenu);
+	}
+	public void OpenUICalender(){
+		UiQueue.Push(UICalender);
+		UICalender.Open();
 	}
 	public void JumpScene(Control scene)
 	{

@@ -31,6 +31,7 @@ public partial class BgmPlayer : Control
     {
       BgmName.Hide();
     }
+    
 
   }
 }

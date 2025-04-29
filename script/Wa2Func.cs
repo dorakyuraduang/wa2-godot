@@ -876,10 +876,10 @@ public class Wa2Func
 		{
 			_engine.Calender.DayOfWeek = (int)new DateTime(args[0].Get(), args[1].Get(), args[2].Get()).DayOfWeek;
 		}
-
+		_engine.UiMgr.OpenUICalender();
 		// uint hour=args[3];
 		// GD.Print("设置日期" + year + "年" + month + "月" + day + "日");
-		return true;
+		return false;
 	}
 	public bool GetTimer(List<Wa2Var> args)
 	{

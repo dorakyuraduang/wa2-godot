@@ -1,0 +1,304 @@
+[gd_scene load_steps=20 format=3 uid="uid://d4mbvpx3le3ye"]
+
+[ext_resource type="Script" uid="uid://c6ei666pan6sw" path="res://script/UICalender.cs" id="1_misqx"]
+[ext_resource type="Texture2D" uid="uid://de2lw7fg77jay" path="res://assets/grp/calender_00.png" id="1_uanmy"]
+[ext_resource type="Texture2D" uid="uid://iumdnkc5pm3n" path="res://assets/grp/calender_11.png" id="2_6cohj"]
+[ext_resource type="Texture2D" uid="uid://blygana0p1tbl" path="res://assets/grp/catch_H.png" id="3_y4l8v"]
+[ext_resource type="Texture2D" uid="uid://7h86uhwjwn2l" path="res://assets/grp/catch_V.png" id="4_misqx"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2brx7"]
+load_path = "res://.godot/imported/calender_10.png-d468cf38b1ed22f8fd70fb3dbd51b57d.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75bgv"]
+atlas = SubResource("CompressedTexture2D_2brx7")
+region = Rect2(0, 0, 40, 48)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_www73"]
+load_path = "res://.godot/imported/calender_10.png-d468cf38b1ed22f8fd70fb3dbd51b57d.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ek8y6"]
+atlas = SubResource("CompressedTexture2D_www73")
+region = Rect2(0, 0, 40, 48)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_misqx"]
+load_path = "res://.godot/imported/calender_10.png-d468cf38b1ed22f8fd70fb3dbd51b57d.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2brx7"]
+atlas = SubResource("CompressedTexture2D_misqx")
+region = Rect2(440, 0, 40, 48)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e1xul"]
+load_path = "res://.godot/imported/calender_10.png-d468cf38b1ed22f8fd70fb3dbd51b57d.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jig0v"]
+atlas = SubResource("CompressedTexture2D_e1xul")
+region = Rect2(0, 0, 40, 48)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fibno"]
+load_path = "res://.godot/imported/calender_10.png-d468cf38b1ed22f8fd70fb3dbd51b57d.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swikh"]
+atlas = SubResource("CompressedTexture2D_fibno")
+region = Rect2(0, 0, 40, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hdq0"]
+atlas = ExtResource("2_6cohj")
+region = Rect2(0, 0, 104, 32)
+
+[sub_resource type="Animation" id="Animation_5hdq0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("H:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1280, 237)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("V:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(167, -720)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Date:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(64, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Date:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_2brx7"]
+resource_name = "open"
+length = 4.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("H:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-1280, 237), Vector2(0, 237), Vector2(0, 237), Vector2(1280, 237)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("V:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(167, -720), Vector2(167, 0), Vector2(167, 0), Vector2(167, 720)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Date:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(64, 0), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Date:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 3.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_75bgv"]
+_data = {
+&"RESET": SubResource("Animation_5hdq0"),
+&"open": SubResource("Animation_2brx7")
+}
+
+[node name="Calender" type="Control" node_paths=PackedStringArray("AnimationPlayer", "BgImage", "WeekDay", "Num1", "Num2", "Num3", "Num4")]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_misqx")
+AnimationPlayer = NodePath("AnimationPlayer")
+BgImage = NodePath("Bg")
+WeekDay = NodePath("Date/WeekDay")
+Num1 = NodePath("Date/Num1")
+Num2 = NodePath("Date/Num2")
+Num3 = NodePath("Date/Num4")
+Num4 = NodePath("Date/Num5")
+
+[node name="Bg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_uanmy")
+
+[node name="Date" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 64.0
+offset_right = 104.0
+offset_bottom = 40.0
+
+[node name="Num1" type="TextureRect" parent="Date"]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 180.0
+offset_right = 226.0
+offset_bottom = 228.0
+texture = SubResource("AtlasTexture_75bgv")
+
+[node name="Num2" type="TextureRect" parent="Date"]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 180.0
+offset_right = 266.0
+offset_bottom = 228.0
+texture = SubResource("AtlasTexture_ek8y6")
+
+[node name="Num" type="TextureRect" parent="Date"]
+layout_mode = 0
+offset_left = 266.0
+offset_top = 180.0
+offset_right = 306.0
+offset_bottom = 228.0
+texture = SubResource("AtlasTexture_2brx7")
+
+[node name="Num4" type="TextureRect" parent="Date"]
+layout_mode = 0
+offset_left = 298.0
+offset_top = 180.0
+offset_right = 338.0
+offset_bottom = 228.0
+texture = SubResource("AtlasTexture_jig0v")
+
+[node name="Num5" type="TextureRect" parent="Date"]
+layout_mode = 0
+offset_left = 338.0
+offset_top = 180.0
+offset_right = 378.0
+offset_bottom = 228.0
+texture = SubResource("AtlasTexture_swikh")
+
+[node name="WeekDay" type="TextureRect" parent="Date"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 192.0
+offset_right = 496.0
+offset_bottom = 224.0
+texture = SubResource("AtlasTexture_5hdq0")
+
+[node name="H" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -1280.0
+offset_top = 237.0
+offset_bottom = 238.0
+texture = ExtResource("3_y4l8v")
+
+[node name="V" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 167.0
+offset_top = -720.0
+offset_right = 168.0
+texture = ExtResource("4_misqx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_75bgv")
+}

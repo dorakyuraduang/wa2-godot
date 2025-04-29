@@ -174,4 +174,8 @@ public partial class AnimatorMgr : Node
     AddAnimator(animator);
     tween.TweenMethod(Callable.From<Color>(_engine.SetFBColor), _engine.GetFBColor(), color, time);
   }
+  // public void AddCalenderAnimation(){
+  //   Tween tween = CreateTween();
+  //   Animator animator = new(tween, 4.0f);
+  // }
 }
