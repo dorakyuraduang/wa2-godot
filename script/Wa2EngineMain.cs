@@ -112,7 +112,8 @@ public partial class Wa2EngineMain : Control
 	public int Weather;
 	public BgmInfo BgmInfo = new();
 	public BgInfo BgInfo = new();
-	public Color FBColor = new(1, 1, 1, 1);
+	public Color FBColor = new(0.5f, 0.5f, 0.5f, 1);
+	public bool IsClick;
 	public int[] GameFlags = new int[0x1d];
 	public Wa2EngineMain()
 	{
@@ -495,6 +496,7 @@ public partial class Wa2EngineMain : Control
 		DemoMode = false;
 		AdvMain.SetDemoMode(false);
 		StartTime = (int)Time.GetTicksMsec();
+		SetFBColor(new Color(0.5f,0.5f,0.5f,1));
 		ClickedInWait = false;
 		WaitClick = false;
 		WaitTimer.DeActive();
@@ -845,6 +847,7 @@ public partial class Wa2EngineMain : Control
 				if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
 				{
 					bool flag = true;
+					IsClick = true;
 					if (SkipMode && AdvMain.Visible)
 					{
 						StopSkip();
@@ -859,6 +862,8 @@ public partial class Wa2EngineMain : Control
 					{
 						ClickAdv();
 					}
+				}else{
+					IsClick=false;
 				}
 				break;
 		}

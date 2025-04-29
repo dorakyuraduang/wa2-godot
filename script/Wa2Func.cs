@@ -455,6 +455,17 @@ public class Wa2Func
 	}
 	public bool F(List<Wa2Var> args)
 	{
+		float r = (int)args[2].Get() / 255f;
+		float g = (int)args[3].Get() / 255f;
+		float b = (int)args[4].Get() / 255f;
+		if (args[1].Get() > 0)
+		{
+			_engine.AnimatorMgr.AddFAnimation(new Color(r, g, b), args[1].Get() * _engine.FrameTime);
+		}
+		else
+		{
+			_engine.SetFBColor(new Color(r, g, b));
+		}
 		return false;
 	}
 	public bool FB(List<Wa2Var> args)
@@ -888,11 +899,12 @@ public class Wa2Func
 	}
 	public bool GetSkip(List<Wa2Var> args)
 	{
-		_engine.Script.PushInt(5, 3, 0);
+		_engine.Script.PushInt(5, 3, _engine.CanSkip() ? 1:0);
 		return true;
 	}
 	public bool GetClick(List<Wa2Var> args)
 	{
+		_engine.Script.PushInt(5, 3, _engine.IsClick ? 1:0);
 		return true;
 	}
 	public bool runEX(List<Wa2Var> args)
@@ -969,6 +981,7 @@ public class Wa2Func
 	}
 	public bool SkipOFF(List<Wa2Var> args)
 	{
+		_engine.StopSkip();
 		return false;
 	}
 	public bool NevelMode(List<Wa2Var> args)
