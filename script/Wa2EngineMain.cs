@@ -88,7 +88,7 @@ public partial class Wa2EngineMain : Control
 	public bool HasPlayMovie = false;
 	public GameState State = GameState.LOGO;
 	public Wa2Timer WaitTimer = new();
-	public Wa2Timer TextTimer = new();
+	// public Wa2Timer TextTimer = new();
 	public Wa2Timer AutoTimer = new();
 	public VoiceInfo VoiceInfo = new();
 	public bool HasReadMessage = false;
@@ -431,7 +431,7 @@ public partial class Wa2EngineMain : Control
 		// if(WaitTime){
 		// 	return;
 		// }
-		if (WaitTimer.IsActive() || TextTimer.IsActive())
+		if (WaitTimer.IsActive() || AdvMain.State == Wa2AdvMain.AdvState.PARSE_TEXT)
 		{
 			if (!ClickedInWait)
 			{
@@ -441,7 +441,7 @@ public partial class Wa2EngineMain : Control
 			{
 				if (VideoPlayer.IsPlaying())
 				{
-					if (!HasPlayMovie)
+					if (!HasPlayMovie || CanSkip())
 					{
 						return;
 					}
@@ -455,10 +455,9 @@ public partial class Wa2EngineMain : Control
 						WaitTimer.Done();
 					}
 				}
-				if (!TextTimer.IsDone())
+				if (AdvMain.State == Wa2AdvMain.AdvState.PARSE_TEXT)
 				{
-					TextTimer.Done();
-					// AdvMain.Update();
+					AdvMain.SetWaitClick();
 				}
 				if (!AutoTimer.IsDone())
 				{
@@ -481,7 +480,7 @@ public partial class Wa2EngineMain : Control
 			}
 			if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
 			{
-				AdvMain.State = Wa2AdvMain.AdvState.END;
+				AdvMain. State = Wa2AdvMain.AdvState.END;
 				// AdvMain.WaitClick=false;
 			}
 			ScriptParse();
@@ -504,7 +503,7 @@ public partial class Wa2EngineMain : Control
 		SetFBColor(new Color(0.5f, 0.5f, 0.5f, 1));
 		ClickedInWait = false;
 		WaitTimer.DeActive();
-		TextTimer.DeActive();
+		// TextTimer.DeActive();
 		AdvMain.Clear();
 		UpdateChar(0);
 		BgTexture.SetCurTexture(null);
@@ -625,9 +624,13 @@ public partial class Wa2EngineMain : Control
 		{
 			InputKeyHandling();
 			UpdateFrame(delta);
-			if (!WaitTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (AdvMain.State == Wa2AdvMain.AdvState.END || AdvMain.State == Wa2AdvMain.AdvState.FADE_OUT || DemoMode) && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
+			if (AdvMain.State != Wa2AdvMain.AdvState.PARSE_TEXT && !WaitTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (AdvMain.State == Wa2AdvMain.AdvState.END || AdvMain.State == Wa2AdvMain.AdvState.FADE_OUT || DemoMode) && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
 			{
 
+				if (DemoMode)
+				{
+
+				}
 				bool flag = !AnimatorMgr.WaitAnimation();
 				if (flag)
 				{
@@ -679,9 +682,8 @@ public partial class Wa2EngineMain : Control
 				ScriptParse();
 			}
 		}
-		if (TextTimer.IsActive() && TextTimer.IsDone())
+		if (AdvMain.State == Wa2AdvMain.AdvState.END)
 		{
-			TextTimer.DeActive();
 			if (AutoMode)
 			{
 				AutoModeStart();

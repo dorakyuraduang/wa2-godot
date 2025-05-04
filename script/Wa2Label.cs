@@ -252,6 +252,7 @@ public partial class Wa2Label : Node2D
 							case 'W':
 							case 'w':
 								tag.Type = 8;
+								i++;
 								waitprogress = ParseDecimalDigits(Text, ref i);
 								tagList.Push(tag);
 								break;

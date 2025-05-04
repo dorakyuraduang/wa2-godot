@@ -128,10 +128,10 @@ public partial class Wa2AdvMain : Control
 	{
 		TextLabel.Text = "";
 		NameLabel.Text = "";
-		TextLabel.Update(-1); 
+		TextLabel.Update(-1);
 		NameLabel.Update(-1);
 		TextProgress = 0;
-		
+
 		WaitClick = false;
 	}
 	public void SetDemoMode(bool b)
@@ -156,6 +156,14 @@ public partial class Wa2AdvMain : Control
 
 		}
 	}
+	public void SetWaitClick()
+	{
+		State = AdvState.WAIT_CLICK;
+		TextParseResult r = TextLabel.Update(-1);
+		TextLabel.Segment++;
+		WaitSprite.Position = TextLabel.Position + r.EndPosition;
+		WaitClick = r.WaitClick;
+	}
 	public void Update()
 	{
 		switch (State)
@@ -173,18 +181,7 @@ public partial class Wa2AdvMain : Control
 
 				if (r.ParseEnd)
 				{
-					State = AdvState.WAIT_CLICK;
-					TextLabel.Segment++;
-					WaitSprite.Position = TextLabel.Position + r.EndPosition;
-					WaitClick = r.WaitClick;
-					// if (r.WaitClick)
-					// {
-					// 	WaitSprite.Play("page1");
-					// }
-					// else
-					// {
-					// 	WaitSprite.Play("page2");
-					// }
+					SetWaitClick();
 				}
 				break;
 			case AdvState.FADE_IN:
@@ -192,6 +189,7 @@ public partial class Wa2AdvMain : Control
 			case AdvState.FADE_OUT:
 				break;
 			case AdvState.WAIT_CLICK:
+				TextLabel.Update(-1);
 				break;
 			case AdvState.END:
 
@@ -199,7 +197,7 @@ public partial class Wa2AdvMain : Control
 			case AdvState.HIDE:
 				break;
 		}
-		if (State == AdvState.WAIT_CLICK && !SelectMessageContainer.Visible && !_engine.CanSkip() && !_engine.AutoMode)
+		if (State == AdvState.WAIT_CLICK && !SelectMessageContainer.Visible && !_engine.CanSkip() && !_engine.AutoMode && !_engine.DemoMode)
 		{
 			WaitSprite.Show();
 		}
@@ -219,10 +217,10 @@ public partial class Wa2AdvMain : Control
 	}
 	public void AdvShow(bool fade = true)
 	{
-		
+
 		if (!Visible || Modulate.A < 1)
 		{
-			TextLabel.Clear();
+			// TextLabel.Clear();
 			if (fade)
 			{
 				AdvFade(0.2f, true);

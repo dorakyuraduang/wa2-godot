@@ -213,8 +213,8 @@ public class Wa2Func
 		// _engine.AdvMain.State = Wa2AdvMain.AdvState.END;
 		// _engine.AdvMain.WaitClick = false;
 		// _engine.AdvMain.WaitSprite.Hide();
-		_engine.AdvMain.TextLabel.Text="";
-		_engine.AdvMain.NameLabel.Text="";
+	// 	_engine.AdvMain.TextLabel.Text="";
+	// 	_engine.AdvMain.NameLabel.Text="";
 	_engine.AdvMain.TextLabel.Segment = 0;
 		// _engine.AdvMain.Clear();
 		return true;

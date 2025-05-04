@@ -502,29 +502,7 @@ public class Wa2Script
 			return func(Args);
 		}
 		return true;
-		// if (funcIdx>=0x80){
-		// 	Args.Clear();
-		// }	
 	}
-	// public string ParseStr(int pos)
-	// {
-	// 	// if (pos == 77260)
-	// 	// {
-	// 	// 	GD.Print(ScriptPos);
-	// 	// }
-	// 	// StringBuilder binary = new StringBuilder();
-	// 	// byte[] bytes = Encoding.GetEncoding("Shift_JIS").GetBytes(_text[pos]);
-
-	// 	// foreach (byte b in bytes)
-	// 	// {
-	// 	// 	binary.Append(b.ToString("X2"));
-	// 	// }
-
-	// 	// GD.Print(binary);
-	// 	// GD.Print(_text[pos]);
-	// 	return Wa2EngineMain.Engine.Wa2Encoding.GetString(_text[pos]);
-
-	// }
 	public void ParseCalc()
 	{
 		// GD.Print("脚本名", Wa2EngineMain.Engine.GameSav.ScriptName);
