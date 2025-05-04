@@ -176,15 +176,26 @@ public class Wa2Func
 	public bool SetMessageE(List<Wa2Var> args)
 	{
 		SetMessageEx(args[0].Get(), args[1].Get());
-		_engine.WaitClick = true;
 		return false;
 		// _engine.WaitClick=true;
 	}
 	public void SetMessageEx(string text, int idx)
 	{
 		// _engine.FirstSentence = text;
-		_engine.AdvMain.TextLabel.Text = text;
-		_engine.AdvMain.ShowText();
+		// _engine.AdvMain.TextLabel.ParseEnd=false;
+		_engine.AdvMain.NameLabel.Update(-1);
+		if (_engine.AdvMain.WaitClick)
+		{
+			_engine.AdvMain.TextLabel.Text += text;
+			_engine.AdvMain.State=Wa2AdvMain.AdvState.PARSE_TEXT;
+		}
+		else
+		{
+			_engine.AdvMain.TextLabel.Text = text;
+			_engine.AdvMain.ShowText();
+		}
+
+		
 
 		_engine.CurMessageIdx = idx;
 		_engine.AddhBackLog(new BacklogEntry()
@@ -198,7 +209,8 @@ public class Wa2Func
 	}
 	public bool EndMessage(List<Wa2Var> args)
 	{
-		_engine.WaitClick = false;
+		_engine.AdvMain.State = Wa2AdvMain.AdvState.END;
+		_engine.AdvMain.WaitClick = false;
 		// _engine.AdvMain.WaitSprite.Hide();
 		return true;
 	}
@@ -270,7 +282,7 @@ public class Wa2Func
 	public bool VW(List<Wa2Var> args)
 	{
 		_engine.WaitTimer.Start(_engine.SoundMgr.GetVoiceTime());
-		_engine.WaitClick = true;
+		// _engine.WaitClick = true;
 		//1音轨
 		return false;
 		// _engine.AdvMain.CurName="";
@@ -407,7 +419,7 @@ public class Wa2Func
 		// Wa2ImageAnimator animator3 = new(_engine.BgTexture);
 		// animator3.InitFade(_engine.BgInfo.Frame * _engine.FrameTime);
 		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.BgTexture, args[3].Get() * _engine.FrameTime, false);
-		_engine.UpdateChar( args[3].Get() * _engine.FrameTime);
+		_engine.UpdateChar(args[3].Get() * _engine.FrameTime);
 
 		return false;
 		// GD.Print("更新背景和角色");
@@ -656,7 +668,6 @@ public class Wa2Func
 			GD.Print("loadbmp" + i + ":", args[i].Get());
 		}
 		return true;
-		// _engine.Script.ParseCmd();
 	}
 	public bool LoadBmpAnime(List<Wa2Var> args)
 	{
@@ -899,12 +910,12 @@ public class Wa2Func
 	}
 	public bool GetSkip(List<Wa2Var> args)
 	{
-		_engine.Script.PushInt(5, 3, _engine.CanSkip() ? 1:0);
+		_engine.Script.PushInt(5, 3, _engine.CanSkip() ? 1 : 0);
 		return true;
 	}
 	public bool GetClick(List<Wa2Var> args)
 	{
-		_engine.Script.PushInt(5, 3, _engine.IsClick ? 1:0);
+		_engine.Script.PushInt(5, 3, _engine.IsClick ? 1 : 0);
 		return true;
 	}
 	public bool runEX(List<Wa2Var> args)
@@ -1042,7 +1053,7 @@ public class Wa2Func
 		_engine.BgTexture.SetCurTexture(NextTexture);
 		// animator1.InitFade(_engine.BgInfo.Frame * _engine.FrameTime);
 		// animator2.InitHide(_engine.BgInfo.Frame * _engine.FrameTime);
-		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture,  args[3].Get()* _engine.FrameTime, true);
+		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime, true);
 		ClearChar(args[3].Get() * _engine.FrameTime);
 		return false;
 	}

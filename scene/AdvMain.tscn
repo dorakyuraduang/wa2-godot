@@ -667,7 +667,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ssera")
 }],
 "loop": true,
-"name": &"Page1",
+"name": &"page1",
 "speed": 60.0
 }, {
 "frames": [{
@@ -1032,7 +1032,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_bs7xf")
 }],
 "loop": true,
-"name": &"Page2",
+"name": &"page2",
 "speed": 60.0
 }]
 
@@ -1166,11 +1166,10 @@ FontTexture = ExtResource("5_5s8hw")
 ShadowTexture = ExtResource("6_cwlbo")
 
 [node name="AwaitSprite" type="AnimatedSprite2D" parent="."]
-visible = false
 sprite_frames = SubResource("SpriteFrames_5lqc7")
-animation = &"Page2"
-autoplay = "Page2"
-frame_progress = 0.667928
+animation = &"page1"
+autoplay = "page2"
+frame_progress = 0.999039
 centered = false
 
 [node name="HBoxContainer" type="Control" parent="."]

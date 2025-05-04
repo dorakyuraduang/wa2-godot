@@ -337,18 +337,9 @@ public class Wa2GameSav
 		_engine.BgmInfo.Volume = (int)file.Get32();
 		_engine.CurMessageIdx = (int)file.Get32();
 		_engine.EffectMode = file.GetBuffer(16).GetStringFromAscii().Replace("\0", "");
-		// StartTime = (int)file.Get32();
-		// GD.Print(CurMessageIdx);
-		// GD.Print(StartTime);
 		if (selectCount > 0)
 		{
 			_engine.ShowSelectMessage();
-			// _engine.SelectVar = args[0];
-		}
-		else
-		{
-			_engine.WaitClick = true;
-
 		}
 		_engine.AdvMain.ShowText(false);
 		_engine.SoundMgr.PlayBgm(_engine.BgmInfo.Id, _engine.BgmInfo.Loop != 0, _engine.BgmInfo.Volume);

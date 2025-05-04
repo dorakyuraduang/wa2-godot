@@ -66,9 +66,9 @@ texture = SubResource("AtlasTexture_pbthv")
 
 [node name="No" type="Label" parent="."]
 layout_mode = 0
-offset_left = 16.0
+offset_left = 14.0
 offset_top = 24.0
-offset_right = 52.0
+offset_right = 50.0
 offset_bottom = 41.0
 theme_override_fonts/font = ExtResource("3_8eqka")
 theme_override_font_sizes/font_size = 16
@@ -120,13 +120,10 @@ label_settings = SubResource("LabelSettings_k5oa6")
 [node name="FirstSentence" type="Node2D" parent="."]
 position = Vector2(198, 44)
 script = ExtResource("7_smn8n")
-VisibleRatio = 1.0
 FontTexture = ExtResource("8_7aix8")
 ShadowTexture = ExtResource("8_xnv3s")
 Shadow = false
 FontSize = 20
-MaxChar = 13
-TTFFontSize = 20
 metadata/_custom_type_script = "uid://qsw3xkgywsql"
 
 [node name="Label" type="Label" parent="."]

@@ -137,23 +137,33 @@ public partial class AnimatorMgr : Node
     AddAnimator(animator);
     tween.TweenProperty(t, "modulate:a", target, duration);
   }
-  public void AddAdvFeadAnimation(CanvasItem t, float duration, bool fadein)
+  public void AddAdvFeadAnimation(Wa2AdvMain adv, float duration, bool fadein)
   {
     Tween tween = CreateTween();
     Animator animator = new(tween, duration);
     AddAnimator(animator);
     if (fadein)
     {
-      t.Show();
+      adv.Show();
+
+      adv.State = Wa2AdvMain.AdvState.FADE_IN;
     }
-    tween.TweenProperty(t, "modulate:a", fadein ? 1 : 0, duration);
+    else
+    {
+      adv.State = Wa2AdvMain.AdvState.FADE_OUT;
+    }
+    tween.TweenProperty(adv, "modulate:a", fadein ? 1 : 0, duration);
     tween.TweenCallback(Callable.From(() =>
       {
         if (!fadein)
         {
-          t.Hide();
+          adv.Hide();
         }
-      })).SetDelay(duration);
+        else
+        {
+          adv.State = Wa2AdvMain.AdvState.PARSE_TEXT;
+        }
+      }));
   }
   public void AddCharFeadAnimation(Wa2Image image, Texture2D texture, float time)
   {
@@ -180,7 +190,7 @@ public partial class AnimatorMgr : Node
     Tween tween = CreateTween();
     Animator animator = new(tween, time);
     AddAnimator(animator);
-    tween.TweenMethod(Callable.From<Color>(_engine.SetFBColor), color, new Color(0.5f,0.5f,0.5f,1.0f), time);
+    tween.TweenMethod(Callable.From<Color>(_engine.SetFBColor), color, new Color(0.5f, 0.5f, 0.5f, 1.0f), time);
   }
   // public void AddCalenderAnimation(){
   //   Tween tween = CreateTween();

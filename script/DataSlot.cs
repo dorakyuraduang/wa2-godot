@@ -62,7 +62,12 @@ public partial class DataSlot : Wa2Button
       {
         texture.Region = new Rect2(0, 48, 248, 24);
       }
-      FirstSentenceLabel.Text=Encoding.Unicode.GetString(file.GetBuffer(256)).Replace("\n","").Replace("\0","");
+      string text=Encoding.Unicode.GetString(file.GetBuffer(256)).Replace("\n","").Replace("\\n","").Replace("\0","");
+      if(text.Length>=14){
+        text=text.Substring(0,13)+"…";
+      }
+      FirstSentenceLabel.Text=text;
+      FirstSentenceLabel.Update(-1);
       NoData.Hide();
       DateLabel.Show();
       ExistData.Show();
@@ -72,6 +77,7 @@ public partial class DataSlot : Wa2Button
     else
     {
       FirstSentenceLabel.Text="";
+      FirstSentenceLabel.Clear();
       Category.Hide();
       SaveTexture.Texture = null;
       NoData.Show();

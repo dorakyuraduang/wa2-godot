@@ -25,7 +25,6 @@ window/size/viewport_height=720
 window/size/window_width_override=800
 window/size/window_height_override=450
 window/stretch/mode="canvas_items"
-window/dpi/allow_hidpi=false
 
 [dotnet]
 
@@ -47,7 +46,9 @@ Skip={
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
+textures/lossless_compression/force_png=true
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+limits/default_filters/anisotropic_filtering_level=0
 
 [shader_globals]
 

@@ -58,7 +58,7 @@ public partial class Wa2EngineMain : Control
 	public int TimeMode;
 	public int StartTime;
 	// public List<Wa2Animator> Animators { private set; get; } = new();
-	public bool WaitClick = false;
+	// public bool WaitClick = false;
 	public bool WaitSe = false;
 	public Wa2Prefs Prefs;
 	public int Label;
@@ -331,7 +331,7 @@ public partial class Wa2EngineMain : Control
 				}
 
 			}
-			else if (ui == UiMgr.AdvMain && State == GameState.GAME && !AnimatorMgr.WaitAnimation() && !VideoPlayer.IsPlaying() && WaitClick)
+			else if (ui == UiMgr.AdvMain && State == GameState.GAME && !AnimatorMgr.WaitAnimation() && !VideoPlayer.IsPlaying() && AdvMain.State==Wa2AdvMain.AdvState.WAIT_CLICK)
 			{
 				UiMgr.OpenConfirm("返回主菜单\n确认吗", "", true, () =>
 				{
@@ -458,7 +458,7 @@ public partial class Wa2EngineMain : Control
 				if (!TextTimer.IsDone())
 				{
 					TextTimer.Done();
-					AdvMain.Update(0);
+					// AdvMain.Update();
 				}
 				if (!AutoTimer.IsDone())
 				{
@@ -468,7 +468,7 @@ public partial class Wa2EngineMain : Control
 			}
 			return;
 		}
-		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (WaitClick || CanSkip()))
+		if (State == GameState.GAME && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && !AdvMain.SelectMessageContainer.Visible && (AdvMain.State==Wa2AdvMain.AdvState.WAIT_CLICK || CanSkip()))
 		{
 			bool WaitAnime = AnimatorMgr.WaitAnimation();
 			if (WaitAnime && !CanSkip())
@@ -478,6 +478,10 @@ public partial class Wa2EngineMain : Control
 			if (CanSkip())
 			{
 				AnimatorMgr.FinishAll();
+			}
+			if(AdvMain.WaitClick && AdvMain.State==Wa2AdvMain.AdvState.WAIT_CLICK){
+				AdvMain.State=Wa2AdvMain.AdvState.END;
+				// AdvMain.WaitClick=false;
 			}
 			ScriptParse();
 		}
@@ -498,7 +502,6 @@ public partial class Wa2EngineMain : Control
 		StartTime = (int)Time.GetTicksMsec();
 		SetFBColor(new Color(0.5f,0.5f,0.5f,1));
 		ClickedInWait = false;
-		WaitClick = false;
 		WaitTimer.DeActive();
 		TextTimer.DeActive();
 		AdvMain.Clear();
@@ -621,8 +624,9 @@ public partial class Wa2EngineMain : Control
 		{
 			InputKeyHandling();
 			UpdateFrame(delta);
-			if (!WaitTimer.IsActive() && !TextTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (!WaitClick || DemoMode) && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
+			if (!WaitTimer.IsActive()&& !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (AdvMain.State==Wa2AdvMain.AdvState.END || AdvMain.State==Wa2AdvMain.AdvState.FADE_OUT || DemoMode) && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
 			{
+
 				bool flag = !AnimatorMgr.WaitAnimation();
 				if (flag)
 				{
@@ -655,7 +659,7 @@ public partial class Wa2EngineMain : Control
 			ClickAdv();
 		}
 		UpdateTimer(delta);
-		AdvMain.Update((float)delta);
+		AdvMain.Update();
 
 	}
 	public void UpdateTimer(double delta)

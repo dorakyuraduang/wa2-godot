@@ -105,7 +105,7 @@ public class Wa2Var
 			}
 			else if (IntValue > 0)
 			{
-				return Wa2EngineMain.Engine.Script.Texts[IntValue].Replace("\\n", "\n"); ;
+				return Wa2EngineMain.Engine.Script.Texts[IntValue];
 			}
 			else
 			{

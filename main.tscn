@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
 [ext_resource type="Script" uid="uid://i2txg74b6v3t" path="res://script/AnimatorMgr.cs" id="2_ycdy4"]
 [ext_resource type="Script" uid="uid://7o38nrw6moms" path="res://script/Wa2Viewport.cs" id="3_0aff7"]
-[ext_resource type="PackedScene" uid="uid://8iltc13k4sm1" path="res://scene/wa2_adv_main.tscn" id="3_ww1q6"]
+[ext_resource type="PackedScene" uid="uid://8iltc13k4sm1" path="res://scene/AdvMain.tscn" id="3_ww1q6"]
 [ext_resource type="Script" uid="uid://bevuj2vq1wbno" path="res://script/SubtitleMgr.cs" id="4_074og"]
 [ext_resource type="Script" uid="uid://ch3fjcpjwskoj" path="res://script/Wa2Image.cs" id="4_jqvt3"]
 [ext_resource type="Script" uid="uid://bplbwgh74r3w5" path="res://script/Wa2UiMgr.cs" id="4_p6nqb"]
@@ -427,8 +427,6 @@ visible = false
 layout_mode = 1
 
 [node name="Calender" parent="Wa2UiMgr" instance=ExtResource("17_cegan")]
-visible = false
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]

@@ -38,7 +38,6 @@ texture = SubResource("AtlasTexture_wrrn3")
 [node name="TextLabel" type="Node2D" parent="."]
 position = Vector2(118, 18)
 script = ExtResource("2_2tuhy")
-VisibleRatio = 1.0
 FontTexture = ExtResource("3_3ecsp")
 ShadowTexture = ExtResource("4_ktgq3")
 
