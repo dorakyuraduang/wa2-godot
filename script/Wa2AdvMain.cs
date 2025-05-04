@@ -42,7 +42,7 @@ public partial class Wa2AdvMain : Control
 	public string OriginText = "";
 	public string CurName = "";
 	public int TextProgress = 0;
-	public bool WaitClick=false;
+	public bool WaitClick = false;
 	public enum AdvState
 	{
 		PARSE_TEXT = 0,
@@ -124,6 +124,16 @@ public partial class Wa2AdvMain : Control
 		}
 
 	}
+	public void ClearText()
+	{
+		TextLabel.Text = "";
+		NameLabel.Text = "";
+		TextLabel.Update(-1); 
+		NameLabel.Update(-1);
+		TextProgress = 0;
+		
+		WaitClick = false;
+	}
 	public void SetDemoMode(bool b)
 	{
 		if (b)
@@ -166,15 +176,15 @@ public partial class Wa2AdvMain : Control
 					State = AdvState.WAIT_CLICK;
 					TextLabel.Segment++;
 					WaitSprite.Position = TextLabel.Position + r.EndPosition;
-					WaitClick=r.WaitClick;
-					if (r.WaitClick)
-					{
-						WaitSprite.Play("page1");
-					}
-					else
-					{
-						WaitSprite.Play("page2");
-					}
+					WaitClick = r.WaitClick;
+					// if (r.WaitClick)
+					// {
+					// 	WaitSprite.Play("page1");
+					// }
+					// else
+					// {
+					// 	WaitSprite.Play("page2");
+					// }
 				}
 				break;
 			case AdvState.FADE_IN:
@@ -189,7 +199,7 @@ public partial class Wa2AdvMain : Control
 			case AdvState.HIDE:
 				break;
 		}
-		if (State == AdvState.WAIT_CLICK && !SelectMessageContainer.Visible &&!_engine.CanSkip())
+		if (State == AdvState.WAIT_CLICK && !SelectMessageContainer.Visible && !_engine.CanSkip() && !_engine.AutoMode)
 		{
 			WaitSprite.Show();
 		}
@@ -203,18 +213,16 @@ public partial class Wa2AdvMain : Control
 	}
 	public void Clear()
 	{
-		// TextLabel.VisibleRatio = 0f;
-		// NameLabel.VisibleRatio = 0f;
-		NameLabel.Text = "";
-		TextLabel.Text = "";
+		ClearText();
+		TextLabel.Segment = 0;
 		Modulate = new Color(1, 1, 1, 0);
-		// WaitSprite.Hide();
 	}
 	public void AdvShow(bool fade = true)
 	{
+		
 		if (!Visible || Modulate.A < 1)
 		{
-			TextLabel.Clear();	
+			TextLabel.Clear();
 			if (fade)
 			{
 				AdvFade(0.2f, true);
@@ -229,36 +237,21 @@ public partial class Wa2AdvMain : Control
 		else
 		{
 			State = AdvState.PARSE_TEXT;
-			
+
 		}
 	}
 	public void AdvHide(float time = 0.2f)
 	{
 		AdvFade(time, false);
-		// _engine.WaitTimer.Start(time);
 	}
 	public void AdvFade(float time, bool fadein)
 	{
 		_engine.AnimatorMgr.AddAdvFeadAnimation(this, time, fadein);
-
 	}
-	// public void TextStart(float delay = 0f)
-	// {
-
-	// 	if (TextLabel.Text != "")
-	// 	{
-	// 		// GD.Print(TextLabel.Text.Length / _engine.Prefs.TextSpeed);
-	// 		_engine.TextTimer.Start(TextLabel.Text.Length / _engine.Prefs.TextSpeed, delay);
-	// 	}
-
-	// }
-
-	public void ShowText(bool fade=true)
+	public void ShowText(bool fade = true)
 	{
-		TextProgress = 0;
-		TextLabel.Segment=0;
-		WaitClick=false;
-		
+
+
 		AdvShow(fade);
 		if (_engine.GetReadMessage(_engine.CurMessageIdx))
 		{
@@ -293,12 +286,5 @@ public partial class Wa2AdvMain : Control
 	public void SetWindowAlpha(int alpha)
 	{
 		Window.Modulate = new Color(1, 1, 1, alpha / 256f);
-	}
-	public void ParseMsg(string msg)
-	{
-		for (int i = 0; i < msg.Length; i++)
-		{
-			char c = msg[i];
-		}
 	}
 }

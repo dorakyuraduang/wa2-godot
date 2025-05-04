@@ -20,6 +20,8 @@ public partial class BackLogItem : Control
     // GD.Print(e.Text);
     NmaeLabel.Text = e.Name;
     TextLabel.Text = e.Text;
+    NmaeLabel.Update(-1);
+    TextLabel.Update(-1);
     VoiceInfo = e.VoiceInfo;
     if (VoiceInfo != null)
     {

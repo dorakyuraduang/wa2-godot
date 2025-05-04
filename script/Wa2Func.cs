@@ -191,6 +191,7 @@ public class Wa2Func
 		}
 		else
 		{
+			_engine.AdvMain.ClearText();
 			_engine.AdvMain.TextLabel.Text = text;
 			_engine.AdvMain.ShowText();
 		}
@@ -209,9 +210,13 @@ public class Wa2Func
 	}
 	public bool EndMessage(List<Wa2Var> args)
 	{
-		_engine.AdvMain.State = Wa2AdvMain.AdvState.END;
-		_engine.AdvMain.WaitClick = false;
+		// _engine.AdvMain.State = Wa2AdvMain.AdvState.END;
+		// _engine.AdvMain.WaitClick = false;
 		// _engine.AdvMain.WaitSprite.Hide();
+		_engine.AdvMain.TextLabel.Text="";
+		_engine.AdvMain.NameLabel.Text="";
+	_engine.AdvMain.TextLabel.Segment = 0;
+		// _engine.AdvMain.Clear();
 		return true;
 	}
 	public bool SetMessage2(List<Wa2Var> args)
