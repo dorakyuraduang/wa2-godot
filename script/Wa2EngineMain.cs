@@ -41,6 +41,7 @@ public partial class Wa2EngineMain : Control
 	public List<BacklogEntry> Backlogs = new();
 	public bool TestMode = true;
 	public bool SkipMode = false;
+	public bool SkipDisable=false;
 	public int ReplayMode;
 	public bool AutoMode = false;
 	public int WaitSeChannel;
@@ -481,6 +482,7 @@ public partial class Wa2EngineMain : Control
 			if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
 			{
 				AdvMain.State = Wa2AdvMain.AdvState.END;
+				SkipDisable=false;
 				// AdvMain.WaitClick=false;
 			}
 			ScriptParse();
@@ -502,6 +504,7 @@ public partial class Wa2EngineMain : Control
 		StartTime = (int)Time.GetTicksMsec();
 		SetFBColor(new Color(0.5f, 0.5f, 0.5f, 1));
 		ClickedInWait = false;
+		SkipDisable=false;
 		WaitTimer.DeActive();
 		// TextTimer.DeActive();
 		AdvMain.Clear();
@@ -637,7 +640,7 @@ public partial class Wa2EngineMain : Control
 	}
 	public bool CanSkip()
 	{
-		return (SkipMode || Skipping) && (HasReadMessage || (int)Prefs.GetConfig("msg_cut_optin") == 1);
+		return (SkipMode || Skipping) && (HasReadMessage || (int)Prefs.GetConfig("msg_cut_optin") == 1) &&!SkipDisable;
 	}
 	public void AutoModeStart()
 	{

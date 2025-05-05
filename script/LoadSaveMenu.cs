@@ -130,62 +130,11 @@ public partial class LoadSaveMenu : BasePage
 
     }
   }
-  // public async void ShowTipMessage()
-  // {
-  // Mask.Show();
-  // TipMessage.Show();
-  // if (_mode == DataMode.Save)
-  // {
-  //   TipLabel.Text = "存档已保存";
-  //   await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
-  //   Close();
-  // }
-  // else if (_mode == DataMode.Load)
-  // {
-  //   TipLabel.Text = "存档读取成功";
-
-  //   if (_engine.State == Wa2EngineMain.GameState.TITLE)
-  //   {
-  //     await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
-  //     Close();
-  //     await ToSignal(AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
-  //     _engine.UiMgr.TitleMenu.AnimationPlayer.Play("close");
-  //     await ToSignal(_engine.UiMgr.TitleMenu.AnimationPlayer, AnimationMixer.SignalName.AnimationFinished);
-  //     _engine.UiMgr.OpenGame();
-  //     _engine.GameSav.LoadData(_selectIdx);
-  //   }
-  //   else if (_engine.State == Wa2EngineMain.GameState.GAME)
-  //   {
-  //     _engine.GameSav.LoadData(_selectIdx);
-  //     await ToSignal(GetTree().CreateTimer(1), SceneTreeTimer.SignalName.Timeout);
-  //     Close();
-
-  //   }
-
-
-
-  // }
-
-  // }
-  // public void ShowConfirmMessage()
-  // {
-  //   Mask.Show();
-  //   ConfirmMessage.Show();
-  //   if (_mode == DataMode.Load)
-  //   {
-  //     ConfirmLabel.Text = "读取存档。\n确定吗？";
-  //   }
-  //   else if (_mode == DataMode.Save)
-  //   {
-  //     ConfirmLabel.Text = "存档将被覆盖。\n确定吗？";
-  //   }
-  // }
-
 
   public void Open(DataMode mode)
   {
     _mode = mode;
-    Tabs.GetChild<Wa2Button>(_pageNum).GrabFocus();
+    Tabs.GetChild<Wa2Button>(_pageNum).ButtonPressed=true;
     if (_mode == DataMode.Save)
     {
       PageTop.Texture = ResourceLoader.Load<Texture2D>("res://assets/grp/sys_01000.png");

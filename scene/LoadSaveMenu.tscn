@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://ikxlgfxd3sa7"]
+[gd_scene load_steps=53 format=3 uid="uid://ikxlgfxd3sa7"]
 
 [ext_resource type="Script" uid="uid://dbkyiayv0e7wj" path="res://script/LoadSaveMenu.cs" id="1_l5c20"]
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_pkuu4"]
@@ -17,6 +17,8 @@ region = Rect2(0, 48, 840, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_e5niv"]
 atlas = ExtResource("9_kslka")
 region = Rect2(0, 0, 840, 48)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_pkuu4"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_fcvwr"]
 
@@ -203,42 +205,62 @@ columns = 2
 [node name="SaveSlot" parent="GridContainer" index="0" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pkuu4")
 
 [node name="SaveSlot2" parent="GridContainer" index="1" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pkuu4")
 
 [node name="SaveSlot3" parent="GridContainer" index="2" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pkuu4")
 
 [node name="SaveSlot4" parent="GridContainer" index="3" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pkuu4")
 
 [node name="SaveSlot5" parent="GridContainer" index="4" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pkuu4")
 
 [node name="SaveSlot6" parent="GridContainer" index="5" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pkuu4")
 
 [node name="SaveSlot7" parent="GridContainer" index="6" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pkuu4")
 
 [node name="SaveSlot8" parent="GridContainer" index="7" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pkuu4")
 
 [node name="SaveSlot9" parent="GridContainer" index="8" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pkuu4")
 
 [node name="SaveSlot10" parent="GridContainer" index="9" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_pkuu4")
 
 [node name="PageBtnContainer" type="HBoxContainer" parent="." index="10"]
 layout_mode = 0
@@ -255,7 +277,6 @@ keep_pressed_outside = true
 button_group = SubResource("ButtonGroup_fcvwr")
 texture_normal = SubResource("AtlasTexture_cputl")
 texture_pressed = SubResource("AtlasTexture_ixhss")
-texture_focused = SubResource("AtlasTexture_ixhss")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
@@ -267,7 +288,6 @@ keep_pressed_outside = true
 button_group = SubResource("ButtonGroup_fcvwr")
 texture_normal = SubResource("AtlasTexture_qnmmp")
 texture_pressed = SubResource("AtlasTexture_oornp")
-texture_focused = SubResource("AtlasTexture_oornp")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
@@ -279,7 +299,6 @@ keep_pressed_outside = true
 button_group = SubResource("ButtonGroup_fcvwr")
 texture_normal = SubResource("AtlasTexture_ry5k3")
 texture_pressed = SubResource("AtlasTexture_gaqio")
-texture_focused = SubResource("AtlasTexture_gaqio")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
@@ -291,7 +310,6 @@ keep_pressed_outside = true
 button_group = SubResource("ButtonGroup_fcvwr")
 texture_normal = SubResource("AtlasTexture_5hpk7")
 texture_pressed = SubResource("AtlasTexture_wlqxe")
-texture_focused = SubResource("AtlasTexture_wlqxe")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
@@ -303,7 +321,6 @@ keep_pressed_outside = true
 button_group = SubResource("ButtonGroup_fcvwr")
 texture_normal = SubResource("AtlasTexture_kdt6h")
 texture_pressed = SubResource("AtlasTexture_1vicu")
-texture_focused = SubResource("AtlasTexture_1vicu")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
@@ -315,7 +332,6 @@ keep_pressed_outside = true
 button_group = SubResource("ButtonGroup_fcvwr")
 texture_normal = SubResource("AtlasTexture_holra")
 texture_pressed = SubResource("AtlasTexture_ikqum")
-texture_focused = SubResource("AtlasTexture_ikqum")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
@@ -327,7 +343,6 @@ keep_pressed_outside = true
 button_group = SubResource("ButtonGroup_fcvwr")
 texture_normal = SubResource("AtlasTexture_7kj0i")
 texture_pressed = SubResource("AtlasTexture_r21gt")
-texture_focused = SubResource("AtlasTexture_r21gt")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
@@ -339,7 +354,6 @@ keep_pressed_outside = true
 button_group = SubResource("ButtonGroup_fcvwr")
 texture_normal = SubResource("AtlasTexture_ltl3s")
 texture_pressed = SubResource("AtlasTexture_x6upx")
-texture_focused = SubResource("AtlasTexture_x6upx")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
@@ -351,7 +365,6 @@ keep_pressed_outside = true
 button_group = SubResource("ButtonGroup_fcvwr")
 texture_normal = SubResource("AtlasTexture_yltgh")
 texture_pressed = SubResource("AtlasTexture_72fv4")
-texture_focused = SubResource("AtlasTexture_72fv4")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
@@ -363,7 +376,6 @@ keep_pressed_outside = true
 button_group = SubResource("ButtonGroup_fcvwr")
 texture_normal = SubResource("AtlasTexture_3qymf")
 texture_pressed = SubResource("AtlasTexture_pcplq")
-texture_focused = SubResource("AtlasTexture_pcplq")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")

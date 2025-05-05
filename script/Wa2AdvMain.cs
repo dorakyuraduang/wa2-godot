@@ -249,8 +249,6 @@ public partial class Wa2AdvMain : Control
 	}
 	public void ShowText(bool fade = true)
 	{
-
-
 		AdvShow(fade);
 		if (_engine.GetReadMessage(_engine.CurMessageIdx))
 		{
