@@ -1166,6 +1166,7 @@ FontTexture = ExtResource("5_5s8hw")
 ShadowTexture = ExtResource("6_cwlbo")
 
 [node name="AwaitSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_5lqc7")
 animation = &"page1"
 autoplay = "page2"

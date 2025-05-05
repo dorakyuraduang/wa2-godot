@@ -59,6 +59,7 @@ public partial class Wa2AdvMain : Control
 	{
 		_engine = e;
 		Visible = false;
+		WaitSprite.Hide();
 		Modulate = new Color(1, 1, 1, 0);
 		LoadButton.ButtonDown += OnLoadButtonDown;
 		SaveButton.ButtonDown += OnSaveButtonDown;
@@ -157,11 +158,11 @@ public partial class Wa2AdvMain : Control
 	}
 	public void SetWaitClick()
 	{
-		State = AdvState.WAIT_CLICK;
-		TextParseResult r = TextLabel.Update(-1);
+		TextParseResult r = TextLabel.Update(9999);
 		TextLabel.Segment++;
 		WaitSprite.Position = TextLabel.Position + r.EndPosition;
 		WaitClick = r.WaitClick;
+		State = AdvState.WAIT_CLICK;
 	}
 	public void Update()
 	{
