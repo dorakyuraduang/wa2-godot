@@ -187,7 +187,7 @@ public class Wa2Func
 		if (_engine.AdvMain.WaitClick)
 		{
 			_engine.AdvMain.TextLabel.Text += text;
-			_engine.AdvMain.State=Wa2AdvMain.AdvState.PARSE_TEXT;
+			_engine.AdvMain.State = Wa2AdvMain.AdvState.PARSE_TEXT;
 		}
 		else
 		{
@@ -196,7 +196,7 @@ public class Wa2Func
 			_engine.AdvMain.ShowText();
 		}
 
-		
+
 
 		_engine.CurMessageIdx = idx;
 		_engine.AddhBackLog(new BacklogEntry()
@@ -213,9 +213,9 @@ public class Wa2Func
 		// _engine.AdvMain.State = Wa2AdvMain.AdvState.END;
 		// _engine.AdvMain.WaitClick = false;
 		// _engine.AdvMain.WaitSprite.Hide();
-	// 	_engine.AdvMain.TextLabel.Text="";
-	// 	_engine.AdvMain.NameLabel.Text="";
-	_engine.AdvMain.TextLabel.Segment = 0;
+		// _engine.AdvMain.TextLabel.Text="";
+		// _engine.AdvMain.NameLabel.Text="";
+		_engine.AdvMain.TextLabel.Segment = 0;
 		// _engine.AdvMain.Clear();
 		return true;
 	}
@@ -282,7 +282,7 @@ public class Wa2Func
 		//4循环
 		// GD.Print("轨道:", args[5].Get());
 		_engine.SoundMgr.PlayVoice(args[2].Get(), args[1].Get(), args[0].Get(), args[3].Get(), args[4].Get() == 1, args[5].Get());
-		return false;
+		return true;
 	}
 	public bool VW(List<Wa2Var> args)
 	{

@@ -176,7 +176,8 @@ public partial class Wa2AdvMain : Control
 				}
 				else
 				{
-					r = TextLabel.Update(TextProgress++);
+					TextProgress+=2;
+					r = TextLabel.Update(TextProgress);
 				}
 
 				if (r.ParseEnd)

@@ -426,7 +426,7 @@ public partial class Wa2EngineMain : Control
 		// GD.Print(Time.GetTicksMsec());
 		// GetTree().ChangeSceneToFile("res://scene/as/title_menu.tscn");
 	}
-	public void ClickAdv()
+	public void ClickAdv(bool click=false)
 	{
 		// if(WaitTime){
 		// 	return;
@@ -441,7 +441,7 @@ public partial class Wa2EngineMain : Control
 			{
 				if (VideoPlayer.IsPlaying())
 				{
-					if (!HasPlayMovie || CanSkip())
+					if (!HasPlayMovie || !click)
 					{
 						return;
 					}
@@ -480,7 +480,7 @@ public partial class Wa2EngineMain : Control
 			}
 			if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
 			{
-				AdvMain. State = Wa2AdvMain.AdvState.END;
+				AdvMain.State = Wa2AdvMain.AdvState.END;
 				// AdvMain.WaitClick=false;
 			}
 			ScriptParse();
@@ -627,10 +627,6 @@ public partial class Wa2EngineMain : Control
 			if (AdvMain.State != Wa2AdvMain.AdvState.PARSE_TEXT && !WaitTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (AdvMain.State == Wa2AdvMain.AdvState.END || AdvMain.State == Wa2AdvMain.AdvState.FADE_OUT || DemoMode) && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
 			{
 
-				if (DemoMode)
-				{
-
-				}
 				bool flag = !AnimatorMgr.WaitAnimation();
 				if (flag)
 				{
@@ -664,6 +660,18 @@ public partial class Wa2EngineMain : Control
 		}
 		UpdateTimer(delta);
 		AdvMain.Update();
+		if (AdvMain.State == Wa2AdvMain.AdvState.PARSE_TEXT)
+		{
+			if (AutoMode)
+			{
+				AutoModeStart();
+			}
+			else if (DemoMode)
+			{
+				WaitTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 1.0f);
+			}
+		}
+
 
 	}
 	public void UpdateTimer(double delta)
@@ -682,17 +690,7 @@ public partial class Wa2EngineMain : Control
 				ScriptParse();
 			}
 		}
-		if (AdvMain.State == Wa2AdvMain.AdvState.END)
-		{
-			if (AutoMode)
-			{
-				AutoModeStart();
-			}
-			else if (DemoMode)
-			{
-				WaitTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 1.0f);
-			}
-		}
+
 		if (AutoTimer.IsActive() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.Visible)
 		{
 			if (!AutoTimer.IsDone() && AutoMode)
@@ -867,7 +865,7 @@ public partial class Wa2EngineMain : Control
 					}
 					if (flag)
 					{
-						ClickAdv();
+						ClickAdv(true);
 					}
 				}
 				else
