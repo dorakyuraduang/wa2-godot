@@ -26,6 +26,17 @@ public partial class UICalender : Control
 			Close();
 		};
 	}
+  public override void _Process(double delta)
+  {
+    if(AnimationPlayer.IsPlaying()){
+			if(_engine.CanSkip()){
+				AnimationPlayer.SpeedScale=8;
+			}else{
+				AnimationPlayer.SpeedScale=1;
+			}
+		}
+  }
+
 	public void Close()
 	{
 		Hide();
@@ -33,6 +44,7 @@ public partial class UICalender : Control
 	}
 	public void Open()
 	{
+		AnimationPlayer.SpeedScale=1;
 		if (_engine.GameFlags[0] == 2)
 		{
 			BgImage.Texture = ResourceLoader.Load<Texture2D>("res://assets/grp/calender_01.png");

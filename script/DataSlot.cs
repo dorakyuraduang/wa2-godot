@@ -75,7 +75,7 @@ public partial class DataSlot : Wa2Button
     }
     else
     {
-      FirstSentenceLabel.Text="";
+      FirstSentenceLabel.SetText("");
       FirstSentenceLabel.Clear();
       Category.Hide();
       SaveTexture.Texture = null;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://ikxlgfxd3sa7"]
+[gd_scene load_steps=62 format=3 uid="uid://ikxlgfxd3sa7"]
 
 [ext_resource type="Script" uid="uid://dbkyiayv0e7wj" path="res://script/LoadSaveMenu.cs" id="1_l5c20"]
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_pkuu4"]
@@ -19,6 +19,24 @@ atlas = ExtResource("9_kslka")
 region = Rect2(0, 0, 840, 48)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_pkuu4"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ngv2f"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_21eec"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_n1sq5"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_xqhj0"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_3rr5g"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ptr3u"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_q83v8"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_8afw7"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_4g5eb"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_fcvwr"]
 
@@ -212,55 +230,55 @@ button_group = SubResource("ButtonGroup_pkuu4")
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pkuu4")
+button_group = SubResource("ButtonGroup_ngv2f")
 
 [node name="SaveSlot3" parent="GridContainer" index="2" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pkuu4")
+button_group = SubResource("ButtonGroup_21eec")
 
 [node name="SaveSlot4" parent="GridContainer" index="3" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pkuu4")
+button_group = SubResource("ButtonGroup_n1sq5")
 
 [node name="SaveSlot5" parent="GridContainer" index="4" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pkuu4")
+button_group = SubResource("ButtonGroup_xqhj0")
 
 [node name="SaveSlot6" parent="GridContainer" index="5" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pkuu4")
+button_group = SubResource("ButtonGroup_3rr5g")
 
 [node name="SaveSlot7" parent="GridContainer" index="6" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pkuu4")
+button_group = SubResource("ButtonGroup_ptr3u")
 
 [node name="SaveSlot8" parent="GridContainer" index="7" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pkuu4")
+button_group = SubResource("ButtonGroup_q83v8")
 
 [node name="SaveSlot9" parent="GridContainer" index="8" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pkuu4")
+button_group = SubResource("ButtonGroup_8afw7")
 
 [node name="SaveSlot10" parent="GridContainer" index="9" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pkuu4")
+button_group = SubResource("ButtonGroup_4g5eb")
 
 [node name="PageBtnContainer" type="HBoxContainer" parent="." index="10"]
 layout_mode = 0

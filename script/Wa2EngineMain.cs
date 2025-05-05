@@ -482,7 +482,7 @@ public partial class Wa2EngineMain : Control
 			if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
 			{
 				AdvMain.State = Wa2AdvMain.AdvState.END;
-				SkipDisable=false;
+				// SkipDisable=false;
 				// AdvMain.WaitClick=false;
 			}
 			ScriptParse();
@@ -572,7 +572,7 @@ public partial class Wa2EngineMain : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void InputKeyHandling()
 	{
-		if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain && State != GameState.GAME)
+		if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain &&UiMgr.UiQueue.Peek()!=UiMgr.UICalender && State != GameState.GAME)
 		{
 			StopSkip();
 			return;

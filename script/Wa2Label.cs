@@ -97,6 +97,7 @@ public partial class Wa2Label : Node2D
 		Stack<TextTag> tagList = new();
 		int drawX = 0;
 		int drawY = 0;
+		int lastDrawX=0;
 		TextParseResult r = new();
 		bool wrapHold = false;
 		// int drawX = 0;
@@ -283,8 +284,7 @@ public partial class Wa2Label : Node2D
 					}
 					break;
 				case '\\':
-					i++;
-					switch (Text[i])
+					switch (Text[++i])
 					{
 						case '<':
 						case '>':
@@ -356,12 +356,13 @@ public partial class Wa2Label : Node2D
 						case 'k':
 							if (curSegment >= Segment && Segment != -1)
 							{
-								curSegment++;
 								r.WaitClick = true;
+								break;
 							}
+							curSegment++;
 							break;
 						case 'n':
-
+							lastDrawX=drawX;
 							drawY += FontSize + ParagraphSpacing;
 							drawX = 0;
 							break;
@@ -380,7 +381,7 @@ public partial class Wa2Label : Node2D
 						i++;
 						while (Text[i] != '>')
 						{
-							x += FontSize + LineSpacing;
+							
 							if (curSegment >= Segment)
 							{
 								_renderDatas.Add(new CharRenderData(Text[i], x + (FontSize - FontSize / 2) / 2, y, FontSize / 2, progress - curprogress));
@@ -390,7 +391,7 @@ public partial class Wa2Label : Node2D
 							{
 								_renderDatas.Add(new CharRenderData(Text[i], x + (FontSize - FontSize / 2) / 2, y, FontSize / 2, 16));
 							}
-
+							x += FontSize + LineSpacing;
 							i++;
 						}
 					}
@@ -398,15 +399,6 @@ public partial class Wa2Label : Node2D
 				case '~':
 					break;
 				default:
-					if (drawX >= (MaxChars * (FontSize + LineSpacing)))
-					{
-						drawY += FontSize + ParagraphSpacing;
-						drawX = 0;
-					}
-					else
-					{
-						drawX += modFontSize + LineSpacing;
-					}
 					if (curSegment >= Segment)
 					{
 						curprogress++;
@@ -416,6 +408,17 @@ public partial class Wa2Label : Node2D
 					{
 						_renderDatas.Add(new CharRenderData(Text[i], drawX, drawY, modFontSize, 16));
 					}
+					lastDrawX=drawX;
+					if (drawX >= (MaxChars * (FontSize + LineSpacing)))
+					{
+						drawY += FontSize + ParagraphSpacing;
+						drawX = 0;
+					}
+					else
+					{
+						drawX += modFontSize + LineSpacing;
+					}
+
 
 					break;
 			}
@@ -424,7 +427,22 @@ public partial class Wa2Label : Node2D
 				r.ParseEnd = curprogress <= progress - 16;
 			}
 		}
-		r.EndPosition = new Vector2(drawX + modFontSize + LineSpacing, drawY);
+		if (r.WaitClick)
+		{
+			if (drawX != 0 || drawY == 0 || drawX > (MaxChars + 1) * (FontSize + LineSpacing))
+			{
+				r.EndPosition = new Vector2(drawX , drawY);
+			}
+			else
+			{
+				r.EndPosition= new Vector2(lastDrawX , drawY- FontSize - ParagraphSpacing);
+			}
+		}
+		else
+		{
+			r.EndPosition = new Vector2(drawX , drawY);
+		}
+
 		QueueRedraw();
 		return r;
 	}

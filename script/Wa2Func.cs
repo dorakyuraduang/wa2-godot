@@ -169,24 +169,23 @@ public class Wa2Func
 	}
 	public bool SetMessage(List<Wa2Var> args)
 	{
-		SetMessageEx(args[0].Get(), args[1].Get());
+		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get());
 		return false;
 
 	}
 	public bool SetMessageE(List<Wa2Var> args)
 	{
-		SetMessageEx(args[0].Get(), args[1].Get());
+		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get());
 		return false;
 		// _engine.WaitClick=true;
 	}
-	public void SetMessageEx(string text, int idx)
+	public void SetMessageEx(string text, int idx, int v3)
 	{
 		// _engine.FirstSentence = text;
 		// _engine.AdvMain.TextLabel.ParseEnd=false;
-		_engine.AdvMain.TextProgress=0;
-		_engine.AdvMain.NameLabel.Update(-1);
-		if (_engine.AdvMain.WaitClick)
+		if (v3 == 0)
 		{
+			text += "\\k";
 			_engine.AdvMain.TextLabel.Text += text;
 			_engine.AdvMain.State = Wa2AdvMain.AdvState.PARSE_TEXT;
 		}
@@ -196,7 +195,15 @@ public class Wa2Func
 			_engine.AdvMain.TextLabel.Text = text;
 			_engine.AdvMain.ShowText();
 		}
+		_engine.AdvMain.TextProgress = 0;
+		_engine.AdvMain.NameLabel.Update(-1);
 		_engine.CurMessageIdx = idx;
+
+
+	}
+	public bool EndMessage(List<Wa2Var> args)
+	{
+		// _engine.AdvMain.TextLabel.Segment = 0;
 		_engine.AddhBackLog(new BacklogEntry()
 		{
 			Name = _engine.AdvMain.NameLabel.Text,
@@ -204,22 +211,17 @@ public class Wa2Func
 			VoiceInfo = _engine.VoiceInfo
 		});
 		_engine.VoiceInfo = null;
-
-	}
-	public bool EndMessage(List<Wa2Var> args)
-	{
-		// _engine.AdvMain.TextLabel.Segment = 0;
 		return true;
 	}
 	public bool SetMessage2(List<Wa2Var> args)
 	{
-		SetMessageEx(args[0].Get(), args[1].Get());
-		_engine.SkipDisable=true;
+		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get());
+		_engine.SkipDisable = true;
 		return false;
 	}
 	public bool WaitMessage2(List<Wa2Var> args)
 	{
-		_engine.SkipDisable=false;
+		_engine.SkipDisable = false;
 		// _engine.AdvMain.TextLabel.Segment = 0;
 		return true;
 
