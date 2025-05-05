@@ -78,10 +78,10 @@ public partial class Wa2Label : Node2D
 			DrawChar(r);
 		}
 	}
-	public override void _PhysicsProcess(double delta)
-	{
-		QueueRedraw();
-	}
+	// public override void _PhysicsProcess(double delta)
+	// {
+
+	// }
 	public void Clear()
 	{
 		_renderDatas.Clear();
@@ -381,7 +381,16 @@ public partial class Wa2Label : Node2D
 						while (Text[i] != '>')
 						{
 							x += FontSize + LineSpacing;
-							_renderDatas.Add(new CharRenderData(Text[i], x + (FontSize - FontSize / 2) / 2, y, FontSize / 2, progress - curprogress));
+							if (curSegment >= Segment)
+							{
+								_renderDatas.Add(new CharRenderData(Text[i], x + (FontSize - FontSize / 2) / 2, y, FontSize / 2, progress - curprogress));
+
+							}
+							else
+							{
+								_renderDatas.Add(new CharRenderData(Text[i], x + (FontSize - FontSize / 2) / 2, y, FontSize / 2, 16));
+							}
+
 							i++;
 						}
 					}
@@ -398,8 +407,16 @@ public partial class Wa2Label : Node2D
 					{
 						drawX += modFontSize + LineSpacing;
 					}
-					curprogress++;
-					_renderDatas.Add(new CharRenderData(Text[i], drawX, drawY, modFontSize, progress - curprogress));
+					if (curSegment >= Segment)
+					{
+						curprogress++;
+						_renderDatas.Add(new CharRenderData(Text[i], drawX, drawY, modFontSize, progress - curprogress));
+					}
+					else
+					{
+						_renderDatas.Add(new CharRenderData(Text[i], drawX, drawY, modFontSize, 16));
+					}
+
 					break;
 			}
 			if (i == Text.Length - 1)
@@ -408,6 +425,7 @@ public partial class Wa2Label : Node2D
 			}
 		}
 		r.EndPosition = new Vector2(drawX + modFontSize + LineSpacing, drawY);
+		QueueRedraw();
 		return r;
 	}
 	public int ParseDecimalDigits(string input, ref int index)
@@ -445,5 +463,10 @@ public partial class Wa2Label : Node2D
 			}
 			DrawTextureRectRegion(FontTexture, rect, srcRect, new Color(Color.R, Color.G, Color.B, r.Alpha));
 		}
+	}
+	public TextParseResult SetText(string text, int progress = -1)
+	{
+		Text = text;
+		return Update(progress);
 	}
 }

@@ -181,7 +181,7 @@ public partial class Wa2EngineMain : Control
 			if (i < SelectItems.Count)
 			{
 
-				btn.TextLabel.Text = SelectItems[i].Text;
+				btn.TextLabel.SetText(SelectItems[i].Text);
 				if (SelectItems[i].V2 == ReadSysFlag(SelectItems[i].V1))
 				{
 					btn.Active();

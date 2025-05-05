@@ -66,8 +66,7 @@ public partial class DataSlot : Wa2Button
       if(text.Length>=14){
         text=text.Substring(0,13)+"…";
       }
-      FirstSentenceLabel.Text=text;
-      FirstSentenceLabel.Update(-1);
+      FirstSentenceLabel.SetText(text);
       NoData.Hide();
       DateLabel.Show();
       ExistData.Show();

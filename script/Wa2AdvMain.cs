@@ -111,6 +111,7 @@ public partial class Wa2AdvMain : Control
 		_engine.Script.Args[^1].Set(idx);
 		_engine.SelectItems.Clear();
 		SelectMessageContainer.Hide();
+		State=AdvState.END;
 	}
 
 	public void OnOffButtonDown()
@@ -126,12 +127,10 @@ public partial class Wa2AdvMain : Control
 	}
 	public void ClearText()
 	{
-		TextLabel.Text = "";
-		NameLabel.Text = "";
-		TextLabel.Update(-1);
-		NameLabel.Update(-1);
+		TextLabel.SetText(""); 
+		NameLabel.SetText("");
 		TextProgress = 0;
-
+		TextLabel.Segment = 0;
 		WaitClick = false;
 	}
 	public void SetDemoMode(bool b)
@@ -190,7 +189,7 @@ public partial class Wa2AdvMain : Control
 			case AdvState.FADE_OUT:
 				break;
 			case AdvState.WAIT_CLICK:
-				TextLabel.Update(-1);
+				TextLabel.Update(0);
 				break;
 			case AdvState.END:
 
@@ -213,7 +212,7 @@ public partial class Wa2AdvMain : Control
 	public void Clear()
 	{
 		ClearText();
-		TextLabel.Segment = 0;
+		// TextLabel.Segment = 0;
 		Modulate = new Color(1, 1, 1, 0);
 	}
 	public void AdvShow(bool fade = true)

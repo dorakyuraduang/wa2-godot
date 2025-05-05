@@ -320,8 +320,6 @@ public class Wa2GameSav
 		_engine.Label = (int)file.Get32();
 		_engine.Weather = (int)file.Get32();
 		_engine.BgInfo.Path = Encoding.Unicode.GetString(file.GetBuffer(32)).Replace("\0", "");
-
-
 		_engine.BgInfo.Scale.X = file.GetFloat();
 		_engine.BgInfo.Scale.Y = file.GetFloat();
 		_engine.BgInfo.Offset.X = file.GetFloat();

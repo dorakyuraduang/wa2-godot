@@ -183,6 +183,7 @@ public class Wa2Func
 	{
 		// _engine.FirstSentence = text;
 		// _engine.AdvMain.TextLabel.ParseEnd=false;
+		_engine.AdvMain.TextProgress=0;
 		_engine.AdvMain.NameLabel.Update(-1);
 		if (_engine.AdvMain.WaitClick)
 		{
@@ -195,9 +196,6 @@ public class Wa2Func
 			_engine.AdvMain.TextLabel.Text = text;
 			_engine.AdvMain.ShowText();
 		}
-
-
-
 		_engine.CurMessageIdx = idx;
 		_engine.AddhBackLog(new BacklogEntry()
 		{
@@ -210,7 +208,7 @@ public class Wa2Func
 	}
 	public bool EndMessage(List<Wa2Var> args)
 	{
-		_engine.AdvMain.TextLabel.Segment = 0;
+		// _engine.AdvMain.TextLabel.Segment = 0;
 		return true;
 	}
 	public bool SetMessage2(List<Wa2Var> args)
@@ -222,7 +220,7 @@ public class Wa2Func
 	public bool WaitMessage2(List<Wa2Var> args)
 	{
 		_engine.SkipDisable=false;
-		_engine.AdvMain.TextLabel.Segment = 0;
+		// _engine.AdvMain.TextLabel.Segment = 0;
 		return true;
 
 	}
