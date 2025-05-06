@@ -15,13 +15,14 @@ public partial class BgmPlayer : Control
   }
   public override void _Process(double delta)
   {
-    if(!Visible){
+    if (!Visible)
+    {
       return;
     }
     float m = _spectrum.GetMagnitudeForFrequencyRange(0, 3200, AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.Average).Length();
     // GD.Print(_spectrum.GetMagnitudeForFrequencyRange(20,20000).Length());
     BgmVolume.Value = Math.Clamp((60 + Mathf.LinearToDb(m)) / 60, 0.0f, 1.0f);
-    int pos=Array.IndexOf(Wa2Def.BgmSlot,Wa2EngineMain.Engine.SoundMgr.BgmId);
+    int pos = Array.IndexOf(Wa2Def.BgmSlot, Wa2EngineMain.Engine.SoundMgr.BgmId);
     if (pos >= 0)
     {
       BgmName.Show();
@@ -31,7 +32,7 @@ public partial class BgmPlayer : Control
     {
       BgmName.Hide();
     }
-    
+
 
   }
 }

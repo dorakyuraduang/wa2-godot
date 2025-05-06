@@ -185,9 +185,13 @@ public class Wa2Func
 		// _engine.AdvMain.TextLabel.ParseEnd=false;
 		if (v3 == 0)
 		{
-			text += "\\k";
-			_engine.AdvMain.TextLabel.Text += text;
+
+			_engine.AdvMain.TextLabel.Text += "\\k"+ text;
+			_engine.AdvMain.TextLabel.Segment++;
 			_engine.AdvMain.State = Wa2AdvMain.AdvState.PARSE_TEXT;
+			// _engine.AdvMain.TextLabel.Segment++;
+
+
 		}
 		else
 		{

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bugs243iwg2om"]
+
+[ext_resource type="Script" uid="uid://byk1qhhxutqno" path="res://script/Wa2Ani.cs" id="1_qf0l8"]
+[ext_resource type="Texture2D" uid="uid://dy70fdewudf72" path="res://assets/grp/page_02.png" id="2_qf0l8"]
+
+[node name="Wa2Ani" type="Node"]
+script = ExtResource("1_qf0l8")
+path = "res://assets/grp/page_02.ani"
+Texture = ExtResource("2_qf0l8")
+metadata/_custom_type_script = "uid://byk1qhhxutqno"

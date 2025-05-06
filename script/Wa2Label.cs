@@ -109,7 +109,7 @@ public partial class Wa2Label : Node2D
 			{
 				if (curSegment >= Segment)
 				{
-					// ParseEnd = true;
+					// r.ParseEnd = true;
 
 					break;
 				}
@@ -193,6 +193,7 @@ public partial class Wa2Label : Node2D
 							case 'f':
 								tag.Type = 4;
 								tag.Value = FontSize;
+								i++;
 								modFontSize = ParseDecimalDigits(Text, ref i);
 								tagList.Push(tag);
 								break;
@@ -212,6 +213,7 @@ public partial class Wa2Label : Node2D
 							case 's':
 								tag.Type = 7;
 								tag.Value = Speed;
+								i++;
 								switch (ParseDecimalDigits(Text, ref i))
 								{
 									case 0:
@@ -357,7 +359,7 @@ public partial class Wa2Label : Node2D
 							if (curSegment >= Segment && Segment != -1)
 							{
 								r.WaitClick = true;
-								break;
+								r.ParseEnd=true;
 							}
 							curSegment++;
 							break;
@@ -422,10 +424,6 @@ public partial class Wa2Label : Node2D
 
 					break;
 			}
-			if (i == Text.Length - 1)
-			{
-				r.ParseEnd = curprogress <= progress - 16;
-			}
 		}
 		if (r.WaitClick)
 		{
@@ -441,6 +439,7 @@ public partial class Wa2Label : Node2D
 		else
 		{
 			r.EndPosition = new Vector2(drawX , drawY);
+			r.ParseEnd = curprogress <= progress - 16;
 		}
 
 		QueueRedraw();

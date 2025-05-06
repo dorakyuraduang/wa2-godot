@@ -34,6 +34,7 @@ public partial class Wa2AdvMain : Control
 	public AnimatedSprite2D WaitSprite;
 	[Export]
 	public TextureRect Window;
+	public int PageAnime = 2;
 	// [Export]
 	// public Control DebugUi;
 	// 	[Export]
@@ -112,7 +113,7 @@ public partial class Wa2AdvMain : Control
 		_engine.Script.Args[^1].Set(idx);
 		_engine.SelectItems.Clear();
 		SelectMessageContainer.Hide();
-		State=AdvState.END;
+		State = AdvState.END;
 	}
 
 	public void OnOffButtonDown()
@@ -128,11 +129,11 @@ public partial class Wa2AdvMain : Control
 	}
 	public void ClearText()
 	{
-		TextLabel.SetText(""); 
+		TextLabel.SetText("");
 		NameLabel.SetText("");
 		TextProgress = 0;
 		TextLabel.Segment = 0;
-		WaitClick = false;
+		// WaitClick = false;
 	}
 	public void SetDemoMode(bool b)
 	{
@@ -156,48 +157,9 @@ public partial class Wa2AdvMain : Control
 
 		}
 	}
-	public void SetWaitClick()
-	{
-		TextParseResult r = TextLabel.Update(9999);
-		TextLabel.Segment++;
-		WaitSprite.Position = TextLabel.Position + r.EndPosition;
-		WaitClick = r.WaitClick;
-		State = AdvState.WAIT_CLICK;
-	}
+
 	public void Update()
 	{
-		switch (State)
-		{
-			case AdvState.PARSE_TEXT:
-				TextParseResult r;
-				if (_engine.CanSkip())
-				{
-					r = TextLabel.Update(9999);
-				}
-				else
-				{
-					TextProgress+=2;
-					r = TextLabel.Update(TextProgress);
-				}
-
-				if (r.ParseEnd)
-				{
-					SetWaitClick();
-				}
-				break;
-			case AdvState.FADE_IN:
-				break;
-			case AdvState.FADE_OUT:
-				break;
-			case AdvState.WAIT_CLICK:
-				TextLabel.Update(0);
-				break;
-			case AdvState.END:
-
-				break;
-			case AdvState.HIDE:
-				break;
-		}
 		if (State == AdvState.WAIT_CLICK && !SelectMessageContainer.Visible && !_engine.CanSkip() && !_engine.AutoMode && !_engine.DemoMode)
 		{
 			WaitSprite.Show();
@@ -206,6 +168,53 @@ public partial class Wa2AdvMain : Control
 		{
 			WaitSprite.Hide();
 		}
+		switch (State)
+		{
+			case AdvState.PARSE_TEXT:
+				TextParseResult r;
+				if (_engine.CanSkip() ||_engine.ClickedInWait)
+				{
+					r = TextLabel.Update(9999);
+					_engine.ClickedInWait = false;
+				}
+				else
+				{
+					TextProgress += 1;
+					r = TextLabel.Update(TextProgress);
+				}
+				if (r.ParseEnd)
+				{
+					TextLabel.Segment++;
+					TextProgress = 0;
+					State = AdvState.WAIT_CLICK;
+					// WaitClick = r.WaitClick;
+					WaitSprite.Position = TextLabel.Position + r.EndPosition;
+					if (r.WaitClick)
+					{
+						WaitSprite.Play("page1");
+					}
+					else
+					{
+						WaitSprite.Play("page2");
+					}
+				}
+				break;
+			case AdvState.FADE_IN:
+				break;
+			case AdvState.FADE_OUT:
+				break;
+			case AdvState.WAIT_CLICK:
+				r = TextLabel.Update(0);
+
+
+				break;
+			case AdvState.END:
+
+				break;
+			case AdvState.HIDE:
+				break;
+		}
+
 		AutoModeTexture.Visible = _engine.AutoMode;
 		SkipModeTexture.Visible = _engine.SkipMode;
 		IsReadTexture.Visible = _engine.HasReadMessage;

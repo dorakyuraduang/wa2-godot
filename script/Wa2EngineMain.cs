@@ -447,6 +447,7 @@ public partial class Wa2EngineMain : Control
 						return;
 					}
 					HideVideo();
+					ClickedInWait = false;
 				}
 				if (CanSkip())
 				{
@@ -456,15 +457,10 @@ public partial class Wa2EngineMain : Control
 						WaitTimer.Done();
 					}
 				}
-				if (AdvMain.State == Wa2AdvMain.AdvState.PARSE_TEXT)
-				{
-					AdvMain.SetWaitClick();
-				}
 				if (!AutoTimer.IsDone())
 				{
 					AutoTimer.Done();
 				}
-				ClickedInWait = false;
 			}
 			return;
 		}
