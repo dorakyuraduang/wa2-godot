@@ -35,7 +35,7 @@ public partial class Wa2AdvMain : Control
 	[Export]
 	public TextureRect Window;
 	public int PageAnime = 2;
-	public bool ParseEnd;
+	public bool WaitKey;
 	// [Export]
 	// public Control DebugUi;
 	// 	[Export]
@@ -191,29 +191,27 @@ public partial class Wa2AdvMain : Control
 				}
 				if (r.ParseEnd)
 				{
-					 if (r.WaitClick)
+					if (r.WaitKey)
 					{
 						TextLabel.Segment++;
 						TextProgress = 0;
 						State = AdvState.WAIT_CLICK;
-						WaitSprite.Position = TextLabel.Position + r.EndPosition;
-						WaitSprite.Play("page1");
+
 					}
 					else if (ParseMode == 2)
 					{
 						TextLabel.Segment++;
 						TextProgress = 0;
 						State = AdvState.WAIT_CLICK;
-						WaitSprite.Position = TextLabel.Position + r.EndPosition;
-						WaitSprite.Play("page2");
-						ParseEnd=true;
+
+						WaitKey = true;
 					}
 					else if (ParseMode == 1)
 					{
 						TextLabel.Segment++;
 						TextProgress = 0;
 						State = AdvState.END;
-						ParseEnd=true;
+						WaitKey = true;
 					}
 				}
 
@@ -223,7 +221,16 @@ public partial class Wa2AdvMain : Control
 			case AdvState.FADE_OUT:
 				break;
 			case AdvState.WAIT_CLICK:
-				// r = TextLabel.Update(0);
+				r = TextLabel.Update(0);
+				WaitSprite.Position = TextLabel.Position + r.EndPosition;
+				if (WaitKey)
+				{
+					WaitSprite.Play("page2");
+				}
+				else
+				{
+					WaitSprite.Play("page1");
+				}
 				break;
 			case AdvState.END:
 
@@ -256,7 +263,7 @@ public partial class Wa2AdvMain : Control
 			{
 				Visible = true;
 				Modulate = new Color(1, 1, 1, 1);
-				State = AdvState.PARSE_TEXT;
+				State = AdvState.WAIT_CLICK;
 			}
 		}
 		else

@@ -226,6 +226,9 @@ public class Wa2GameSav
 		file.Store32((uint)_engine.BgmInfo.Volume);
 		file.Store32((uint)_engine.CurMessageIdx);
 		file.StoreBuffer([.. Encoding.ASCII.GetBytes(_engine.EffectMode).Concat(new byte[16]).Take(16)]);
+		file.Store32((uint)_engine.AdvMain.TextLabel.Segment);
+		file.Store32((uint)_engine.AdvMain.ParseMode);
+		file.Store8((byte)(_engine.AdvMain.WaitKey? 1:0));
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -335,6 +338,12 @@ public class Wa2GameSav
 		_engine.BgmInfo.Volume = (int)file.Get32();
 		_engine.CurMessageIdx = (int)file.Get32();
 		_engine.EffectMode = file.GetBuffer(16).GetStringFromAscii().Replace("\0", "");
+		_engine.AdvMain.TextLabel.Segment = (int)file.Get32();
+		_engine.AdvMain.ParseMode = (int)file.Get32();
+		_engine.AdvMain.WaitKey=file.Get8()==1;
+		if(_engine.AdvMain.ParseMode==0){
+			_engine.AdvMain.ParseMode=2;
+		}
 		if (selectCount > 0)
 		{
 			_engine.ShowSelectMessage();

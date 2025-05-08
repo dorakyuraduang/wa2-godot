@@ -7,7 +7,7 @@ public class TextParseResult
 {
 	public Vector2 EndPosition = Vector2.Zero;
 	public bool ParseEnd = false;
-	public bool WaitClick = false;
+	public bool WaitKey = false;
 }
 public class TextTag
 {
@@ -362,7 +362,7 @@ public partial class Wa2Label : Node2D
 						case 'k':
 							if (curSegment >= Segment && Segment != -1)
 							{
-								r.WaitClick = true;
+								r.WaitKey = true;
 								// r.ParseEnd = true;
 							}
 							curSegment++;
@@ -434,7 +434,7 @@ public partial class Wa2Label : Node2D
 					break;
 			}
 		}
-		if (r.WaitClick)
+		if (r.WaitKey)
 		{
 			if (drawX != 0 || drawY == 0 || drawX > (MaxChars + 1) * (FontSize + LineSpacing))
 			{

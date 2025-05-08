@@ -180,7 +180,7 @@ public class Wa2Func
 	}
 	public void SetMessageEx(string text, int idx, int v3,int v4)
 	{
-		_engine.AdvMain.ParseEnd=false;
+		_engine.AdvMain.WaitKey=false;
 		if (v3 == 0)
 		{
 			_engine.AdvMain.TextLabel.Text += "\\k"+ text;

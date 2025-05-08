@@ -475,7 +475,7 @@ public partial class Wa2EngineMain : Control
 			}
 			if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
 			{
-				if (AdvMain.ParseEnd)
+				if (AdvMain.WaitKey)
 				{
 					AdvMain.State = Wa2AdvMain.AdvState.END;
 				}else{
@@ -514,7 +514,7 @@ public partial class Wa2EngineMain : Control
 		MaskTexture.SetCurTexture(null);
 		MaskTexture.SetNextTexture(null);
 		AnimatorMgr.FinishAll();
-		AdvMain.ParseEnd = false;
+		AdvMain.WaitKey = false;
 		WaitSeFinish();
 		if (stop)
 		{
