@@ -1,8 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://b8606yyc0k403"]
+[gd_scene load_steps=22 format=3 uid="uid://b8606yyc0k403"]
 
 [ext_resource type="Script" uid="uid://gp5glcollg5p" path="res://script/UIConfirm.cs" id="1_1ipbv"]
 [ext_resource type="Texture2D" uid="uid://fry7muu30vjg" path="res://assets/grp/sys_00110.tga" id="1_dtqvg"]
-[ext_resource type="FontFile" uid="uid://b1vxukmrcfne3" path="res://assets/fonts/cn.tres" id="2_1ipbv"]
 [ext_resource type="Texture2D" uid="uid://drerrl4salxby" path="res://assets/grp/sys_00100.png" id="3_gqeii"]
 [ext_resource type="FontFile" uid="uid://bqnr5jmcejvam" path="res://assets/fonts/fzzyjt.ttf" id="4_cr4wg"]
 [ext_resource type="Texture2D" uid="uid://dr0gcwfsp0q0n" path="res://assets/grp/sys_00101.png" id="5_3g2g7"]
@@ -54,8 +53,8 @@ atlas = SubResource("CompressedTexture2D_fwtsg")
 region = Rect2(160, 40, 160, 40)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2s8dg"]
-font = ExtResource("2_1ipbv")
-font_size = 12
+font = ExtResource("4_cr4wg")
+font_size = 18
 
 [node name="UIConfirm" type="Control" node_paths=PackedStringArray("ConfirmBtn", "CancelBtn", "ConfirmLabel", "ConfirmMessage", "TipMessage", "TipLabel")]
 layout_mode = 3

@@ -41,7 +41,7 @@ public partial class Wa2EngineMain : Control
 	public List<BacklogEntry> Backlogs = new();
 	public bool TestMode = true;
 	public bool SkipMode = false;
-	public bool SkipDisable=false;
+	public bool SkipDisable = false;
 	public int ReplayMode;
 	public bool AutoMode = false;
 	public int WaitSeChannel;
@@ -58,8 +58,6 @@ public partial class Wa2EngineMain : Control
 	public int Day;
 	public int TimeMode;
 	public int StartTime;
-	// public List<Wa2Animator> Animators { private set; get; } = new();
-	// public bool WaitClick = false;
 	public bool WaitSe = false;
 	public Wa2Prefs Prefs;
 	public int Label;
@@ -427,7 +425,7 @@ public partial class Wa2EngineMain : Control
 		// GD.Print(Time.GetTicksMsec());
 		// GetTree().ChangeSceneToFile("res://scene/as/title_menu.tscn");
 	}
-	public void ClickAdv(bool click=false)
+	public void ClickAdv(bool click = false)
 	{
 		// if(WaitTime){
 		// 	return;
@@ -477,9 +475,14 @@ public partial class Wa2EngineMain : Control
 			}
 			if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
 			{
-				AdvMain.State = Wa2AdvMain.AdvState.END;
-				// SkipDisable=false;
-				// AdvMain.WaitClick=false;
+				if (AdvMain.ParseEnd)
+				{
+					AdvMain.State = Wa2AdvMain.AdvState.END;
+				}else{
+					AdvMain.State = Wa2AdvMain.AdvState.PARSE_TEXT;
+				}
+
+				ClickedInWait = false;
 			}
 			ScriptParse();
 		}
@@ -500,7 +503,7 @@ public partial class Wa2EngineMain : Control
 		StartTime = (int)Time.GetTicksMsec();
 		SetFBColor(new Color(0.5f, 0.5f, 0.5f, 1));
 		ClickedInWait = false;
-		SkipDisable=false;
+		SkipDisable = false;
 		WaitTimer.DeActive();
 		// TextTimer.DeActive();
 		AdvMain.Clear();
@@ -511,6 +514,7 @@ public partial class Wa2EngineMain : Control
 		MaskTexture.SetCurTexture(null);
 		MaskTexture.SetNextTexture(null);
 		AnimatorMgr.FinishAll();
+		AdvMain.ParseEnd = false;
 		WaitSeFinish();
 		if (stop)
 		{
@@ -568,7 +572,7 @@ public partial class Wa2EngineMain : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void InputKeyHandling()
 	{
-		if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain &&UiMgr.UiQueue.Peek()!=UiMgr.UICalender && State != GameState.GAME)
+		if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain && UiMgr.UiQueue.Peek() != UiMgr.UICalender && State != GameState.GAME)
 		{
 			StopSkip();
 			return;
@@ -636,7 +640,7 @@ public partial class Wa2EngineMain : Control
 	}
 	public bool CanSkip()
 	{
-		return (SkipMode || Skipping) && (HasReadMessage || (int)Prefs.GetConfig("msg_cut_optin") == 1) &&!SkipDisable;
+		return (SkipMode || Skipping) && (HasReadMessage || (int)Prefs.GetConfig("msg_cut_optin") == 1) && !SkipDisable;
 	}
 	public void AutoModeStart()
 	{

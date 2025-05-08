@@ -31,6 +31,10 @@ public class CharRenderData
 		{
 			Alpha = Mathf.Pow(2, v - 16);
 		}
+		else if (v < 0)
+		{
+			Alpha = 0.0f;
+		}
 	}
 }
 [GlobalClass]
@@ -50,8 +54,8 @@ public partial class Wa2Label : Node2D
 	public int FontSize = 28;
 	[Export]
 	public int Rect1Size = 40;
-	[Export]
-	public int Rect2Size = 30;
+	// [Export]
+	// public int Rect2Size = 31;
 	[Export]
 	public int ParagraphSpacing = 14;
 	[Export]
@@ -64,12 +68,11 @@ public partial class Wa2Label : Node2D
 	// public string EllipsisChar = "…";
 	[Export]
 	public Color ShadowColor = new Color(0, 0, 0, 0.9f); // 阴影颜色
-	[Export]
-	public int ShadowSize = 8; // 阴影大小
-	[Export]
-	public int Speed = 10;
-	public int Segment = 0;
+																											 // [Export]
+																											 // public int ShadowSize = 8; // 阴影大小
 
+	public int Segment = 0;
+	public int ProgressStep = 0;
 	private List<CharRenderData> _renderDatas = new();
 	public override void _Draw()
 	{
@@ -90,6 +93,7 @@ public partial class Wa2Label : Node2D
 	{
 		//遍历所有字符
 		_renderDatas.Clear();
+		int Speed = 10;
 		int curprogress = 0;
 		int waitprogress = 0;
 		int curSegment = 0;
@@ -97,7 +101,7 @@ public partial class Wa2Label : Node2D
 		Stack<TextTag> tagList = new();
 		int drawX = 0;
 		int drawY = 0;
-		int lastDrawX=0;
+		int lastDrawX = 0;
 		TextParseResult r = new();
 		bool wrapHold = false;
 		// int drawX = 0;
@@ -359,12 +363,12 @@ public partial class Wa2Label : Node2D
 							if (curSegment >= Segment && Segment != -1)
 							{
 								r.WaitClick = true;
-								r.ParseEnd=true;
+								// r.ParseEnd = true;
 							}
 							curSegment++;
 							break;
 						case 'n':
-							lastDrawX=drawX;
+							lastDrawX = drawX;
 							drawY += FontSize + ParagraphSpacing;
 							drawX = 0;
 							break;
@@ -383,7 +387,7 @@ public partial class Wa2Label : Node2D
 						i++;
 						while (Text[i] != '>')
 						{
-							
+
 							if (curSegment >= Segment)
 							{
 								_renderDatas.Add(new CharRenderData(Text[i], x + (FontSize - FontSize / 2) / 2, y, FontSize / 2, progress - curprogress));
@@ -403,14 +407,19 @@ public partial class Wa2Label : Node2D
 				default:
 					if (curSegment >= Segment)
 					{
-						curprogress++;
-						_renderDatas.Add(new CharRenderData(Text[i], drawX, drawY, modFontSize, progress - curprogress));
+						curprogress += Speed / 10;
+						int v = 16;
+						if (progress >= 0)
+						{
+							v = progress - curprogress;
+						}
+						_renderDatas.Add(new CharRenderData(Text[i], drawX, drawY, modFontSize, v));
 					}
 					else
 					{
 						_renderDatas.Add(new CharRenderData(Text[i], drawX, drawY, modFontSize, 16));
 					}
-					lastDrawX=drawX;
+					lastDrawX = drawX;
 					if (drawX >= (MaxChars * (FontSize + LineSpacing)))
 					{
 						drawY += FontSize + ParagraphSpacing;
@@ -429,19 +438,22 @@ public partial class Wa2Label : Node2D
 		{
 			if (drawX != 0 || drawY == 0 || drawX > (MaxChars + 1) * (FontSize + LineSpacing))
 			{
-				r.EndPosition = new Vector2(drawX , drawY);
+				r.EndPosition = new Vector2(drawX, drawY);
+
 			}
 			else
 			{
-				r.EndPosition= new Vector2(lastDrawX , drawY- FontSize - ParagraphSpacing);
+				r.EndPosition = new Vector2(lastDrawX, drawY - FontSize - ParagraphSpacing);
+
 			}
 		}
 		else
 		{
-			r.EndPosition = new Vector2(drawX , drawY);
-			r.ParseEnd = curprogress <= progress - 16;
+			r.EndPosition = new Vector2(drawX, drawY);
+			
+			// GD.Print(r.EndPosition);
 		}
-
+		r.ParseEnd = curprogress <= (progress - 16);
 		QueueRedraw();
 		return r;
 	}
@@ -473,12 +485,20 @@ public partial class Wa2Label : Node2D
 			int x = pos % 80;
 			int y = pos / 80;
 			Rect2 rect = new(new Vector2(r.X, r.Y), new Vector2(r.Size, r.Size));
-			Rect2 srcRect = new(new Vector2(x, y) * Rect1Size + new Vector2(4, 4), new Vector2(Rect2Size, Rect2Size));
+			Rect2 srcRect = new(new Vector2(x, y) * Rect1Size + new Vector2(5, 5), new Vector2(27, 27));
+			Rect2 shadowRect = new(new Vector2(x, y) * Rect1Size + new Vector2(3, 3), new Vector2(31, 31));
 			if (Shadow)
 			{
-				DrawTextureRectRegion(ShadowTexture, rect, srcRect, new Color(0.15f, 0.15f, 0.15f, r.Alpha));
+				DrawTextureRectRegion(ShadowTexture, rect, shadowRect, new Color(0.12f, 0.15f, 0.15f, r.Alpha));
+				DrawTextureRectRegion(FontTexture, rect, shadowRect, new Color(Color.R, Color.G, Color.B, r.Alpha));
 			}
-			DrawTextureRectRegion(FontTexture, rect, srcRect, new Color(Color.R, Color.G, Color.B, r.Alpha));
+			else
+			{
+				DrawTextureRectRegion(FontTexture, rect, srcRect, new Color(Color.R, Color.G, Color.B, r.Alpha));
+			}
+
+
+
 		}
 	}
 	public TextParseResult SetText(string text, int progress = -1)
@@ -486,4 +506,22 @@ public partial class Wa2Label : Node2D
 		Text = text;
 		return Update(progress);
 	}
+	// public int GetProgressStep(int delay)
+	// {
+	// 	if (delay == 2)
+	// 	{
+	// 		return ProgressStep;
+	// 	}
+	// 	else if (delay == 1)
+	// 	{
+	// 		ProgressStep = 0;
+	// 		return 0;
+	// 	}
+	// 	int mod = delay % 10;
+	// 	int temp = ProgressStep + mod;
+	// 	int div2 = temp / 10 * 3 / 2;
+	// 	int adjustment = (div2 * -3) + temp;
+	// 	ProgressStep = temp + (adjustment * 2);
+	// 	return ProgressStep;
+	// }
 }

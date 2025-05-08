@@ -35,6 +35,7 @@ public partial class Wa2AdvMain : Control
 	[Export]
 	public TextureRect Window;
 	public int PageAnime = 2;
+	public bool ParseEnd;
 	// [Export]
 	// public Control DebugUi;
 	// 	[Export]
@@ -43,7 +44,7 @@ public partial class Wa2AdvMain : Control
 	public string OriginText = "";
 	public string CurName = "";
 	public int TextProgress = 0;
-	public bool WaitClick = false;
+	public int ParseMode = 2;
 	public enum AdvState
 	{
 		PARSE_TEXT = 0,
@@ -133,7 +134,6 @@ public partial class Wa2AdvMain : Control
 		NameLabel.SetText("");
 		TextProgress = 0;
 		TextLabel.Segment = 0;
-		// WaitClick = false;
 	}
 	public void SetDemoMode(bool b)
 	{
@@ -172,41 +172,58 @@ public partial class Wa2AdvMain : Control
 		{
 			case AdvState.PARSE_TEXT:
 				TextParseResult r;
-				if (_engine.CanSkip() ||_engine.ClickedInWait)
+				if (_engine.CanSkip() || _engine.ClickedInWait)
 				{
 					r = TextLabel.Update(9999);
 					_engine.ClickedInWait = false;
 				}
 				else
 				{
-					TextProgress += 1;
+					if (_engine.DemoMode || _engine.AutoMode)
+					{
+						TextProgress += 2;
+					}
+					else
+					{
+						TextProgress++;
+					}
 					r = TextLabel.Update(TextProgress);
 				}
 				if (r.ParseEnd)
 				{
-					TextLabel.Segment++;
-					TextProgress = 0;
-					State = AdvState.WAIT_CLICK;
-					// WaitClick = r.WaitClick;
-					WaitSprite.Position = TextLabel.Position + r.EndPosition;
-					if (r.WaitClick)
+					 if (r.WaitClick)
 					{
+						TextLabel.Segment++;
+						TextProgress = 0;
+						State = AdvState.WAIT_CLICK;
+						WaitSprite.Position = TextLabel.Position + r.EndPosition;
 						WaitSprite.Play("page1");
 					}
-					else
+					else if (ParseMode == 2)
 					{
+						TextLabel.Segment++;
+						TextProgress = 0;
+						State = AdvState.WAIT_CLICK;
+						WaitSprite.Position = TextLabel.Position + r.EndPosition;
 						WaitSprite.Play("page2");
+						ParseEnd=true;
+					}
+					else if (ParseMode == 1)
+					{
+						TextLabel.Segment++;
+						TextProgress = 0;
+						State = AdvState.END;
+						ParseEnd=true;
 					}
 				}
+
 				break;
 			case AdvState.FADE_IN:
 				break;
 			case AdvState.FADE_OUT:
 				break;
 			case AdvState.WAIT_CLICK:
-				r = TextLabel.Update(0);
-
-
+				// r = TextLabel.Update(0);
 				break;
 			case AdvState.END:
 

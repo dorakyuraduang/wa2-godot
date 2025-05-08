@@ -169,29 +169,22 @@ public class Wa2Func
 	}
 	public bool SetMessage(List<Wa2Var> args)
 	{
-		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get());
+		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get(),1);
 		return false;
 
 	}
 	public bool SetMessageE(List<Wa2Var> args)
 	{
-		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get());
+		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get(),2);
 		return false;
-		// _engine.WaitClick=true;
 	}
-	public void SetMessageEx(string text, int idx, int v3)
+	public void SetMessageEx(string text, int idx, int v3,int v4)
 	{
-		// _engine.FirstSentence = text;
-		// _engine.AdvMain.TextLabel.ParseEnd=false;
+		_engine.AdvMain.ParseEnd=false;
 		if (v3 == 0)
 		{
-
 			_engine.AdvMain.TextLabel.Text += "\\k"+ text;
-			_engine.AdvMain.TextLabel.Segment++;
 			_engine.AdvMain.State = Wa2AdvMain.AdvState.PARSE_TEXT;
-			// _engine.AdvMain.TextLabel.Segment++;
-
-
 		}
 		else
 		{
@@ -201,6 +194,7 @@ public class Wa2Func
 		}
 		_engine.AdvMain.TextProgress = 0;
 		_engine.AdvMain.NameLabel.Update(-1);
+		_engine.AdvMain.ParseMode=v4;
 		_engine.CurMessageIdx = idx;
 
 
@@ -219,7 +213,7 @@ public class Wa2Func
 	}
 	public bool SetMessage2(List<Wa2Var> args)
 	{
-		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get());
+		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get(),2);
 		_engine.SkipDisable = true;
 		return false;
 	}
