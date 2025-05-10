@@ -2,14 +2,13 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 public class BacklogEntry
 {
 
 	public string Name;
 	public string Text;
-	public VoiceInfo VoiceInfo;
+	public  List<VoiceInfo> VoiceInfos=new();
 }
 public partial class Wa2EngineMain : Control
 {
@@ -89,7 +88,7 @@ public partial class Wa2EngineMain : Control
 	public Wa2Timer WaitTimer = new();
 	// public Wa2Timer TextTimer = new();
 	public Wa2Timer AutoTimer = new();
-	public VoiceInfo VoiceInfo = new();
+	public List<VoiceInfo> VoiceInfos = new();
 	public bool HasReadMessage = false;
 	public List<SelectItem> SelectItems = new();
 	public Calender Calender = new();

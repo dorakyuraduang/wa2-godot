@@ -12,13 +12,17 @@ public partial class Wa2SoundMgr : Node
 	private Wa2Audio[] _seAudios;
 	private Wa2EngineMain _engine;
 	public int BgmId { private set; get; }
+	public Wa2Audio GetVoicePlayer(int idx)
+	{
+		return _voiceAudios[idx];
+	}
 	public void Init(Wa2EngineMain e)
 	{
 		_engine = e;
 	}
-	public void SetVoiceVolume(int idx,int volume,int frame)
+	public void SetVoiceVolume(int idx, int volume, int frame)
 	{
-		_voiceAudios[idx].SetVolume(volume/256f, frame*_engine.FrameTime);
+		_voiceAudios[idx].SetVolume(volume / 256f, frame * _engine.FrameTime);
 
 	}
 	public void StopVoice(int idx, float time = 0.0f)
@@ -56,17 +60,34 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void PlayVoice(int label, int id, int chr, int volume = 256, bool loop = false, int channel = 0)
 	{
+
 		Wa2Audio audio = _voiceAudios[channel];
 		if (label == -1)
 		{
 			label = _engine.Label;
 		}
+		if (channel == 0)
+		{
+			_engine.VoiceInfos.Add(new()
+			{
+				Id = id,
+				Chr = chr,
+				Label = label,
+				Volume = volume
+			});
+		}
+
+
 		if (_engine.Prefs.CanPlayCharVoice(chr))
 		{
-			audio.PlayStream(Wa2Resource.GetVoiceStream(label, id, chr), false, 0, 1);
+			if (!_engine.CanSkip() || _engine.DemoMode)
+			{
+				audio.PlayStream(Wa2Resource.GetVoiceStream(label, id, chr), false, 0, 1);
+			}
+
 			audio.SetVolume(volume / 256.0f, 0);
 			(audio.Stream as AudioStreamOggVorbis).Loop = loop;
-			_engine.SubtitleMgr.ListenVoice(label,id,audio);
+			_engine.SubtitleMgr.ListenVoice(label, id, audio);
 		}
 	}
 	public void PlayBgm(int id, bool loopFlag = true, int volume = 255)
@@ -112,7 +133,7 @@ public partial class Wa2SoundMgr : Node
 	{
 		Instance = this;
 		_bgmAudio.Bus = "BGM";
-		_sysSeAudio.Bus="SE";
+		_sysSeAudio.Bus = "SE";
 		_sysSeAudio.Stream = new AudioStreamPolyphonic();
 		_bgmAudio.Name = "BgmAudio";
 		_sysSeAudio.Name = "SysSeAudio";
@@ -123,7 +144,7 @@ public partial class Wa2SoundMgr : Node
 		for (int i = 0; i < MAX_SE_CHANNELS; i++)
 		{
 			Wa2Audio audio = new();
-			audio.Bus="SE";
+			audio.Bus = "SE";
 			audio.Name = "SeAudio" + i;
 			_seAudios[i] = audio;
 			AddChild(audio);
@@ -131,7 +152,7 @@ public partial class Wa2SoundMgr : Node
 		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
 		{
 			Wa2Audio audio = new();
-			audio.Bus="VOICE";
+			audio.Bus = "VOICE";
 			audio.Name = "VoiceAudio" + i;
 			_voiceAudios[i] = audio;
 			int idx = i;
@@ -156,7 +177,8 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void StopSe(int channel, float time = 0.0f)
 	{
-		if(channel>=MAX_SE_CHANNELS){
+		if (channel >= MAX_SE_CHANNELS)
+		{
 			return;
 		}
 		_seAudios[channel].StopStream(time);

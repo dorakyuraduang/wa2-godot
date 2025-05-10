@@ -169,32 +169,34 @@ public class Wa2Func
 	}
 	public bool SetMessage(List<Wa2Var> args)
 	{
-		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get(),1);
+		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get(), 1);
 		return false;
 
 	}
 	public bool SetMessageE(List<Wa2Var> args)
 	{
-		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get(),2);
+		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get(), 2);
 		return false;
 	}
-	public void SetMessageEx(string text, int idx, int v3,int v4)
+	public void SetMessageEx(string text, int idx, int v3, int v4)
 	{
-		_engine.AdvMain.WaitKey=false;
+		_engine.AdvMain.WaitKey = false;
 		if (v3 == 0)
 		{
-			_engine.AdvMain.TextLabel.Text += "\\k"+ text;
+			_engine.AdvMain.TextLabel.Text += "\\k" + text;
 			_engine.AdvMain.State = Wa2AdvMain.AdvState.PARSE_TEXT;
 		}
 		else
 		{
-			_engine.AdvMain.ClearText();
+			// _engine.AdvMain.ClearText();
+					_engine.AdvMain.TextProgress = 0;
+		_engine.AdvMain.TextLabel.Segment = 0;
 			_engine.AdvMain.TextLabel.Text = text;
 			_engine.AdvMain.ShowText();
 		}
 		_engine.AdvMain.TextProgress = 0;
 		_engine.AdvMain.NameLabel.Update(-1);
-		_engine.AdvMain.ParseMode=v4;
+		_engine.AdvMain.ParseMode = v4;
 		_engine.CurMessageIdx = idx;
 
 
@@ -206,14 +208,14 @@ public class Wa2Func
 		{
 			Name = _engine.AdvMain.NameLabel.Text,
 			Text = _engine.AdvMain.TextLabel.Text,
-			VoiceInfo = _engine.VoiceInfo
+			VoiceInfos = [.. _engine.VoiceInfos]
 		});
-		_engine.VoiceInfo = null;
+		_engine.VoiceInfos.Clear();
 		return true;
 	}
 	public bool SetMessage2(List<Wa2Var> args)
 	{
-		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get(),2);
+		SetMessageEx(args[0].Get(), args[1].Get(), args[2].Get(), 2);
 		_engine.SkipDisable = true;
 		return false;
 	}
@@ -258,17 +260,9 @@ public class Wa2Func
 		//2循环
 		//3通道？
 		// GD.Print("vv轨道", args[3].Get());
-		_engine.VoiceInfo = new()
-		{
-			Id = args[4].Get(),
-			Chr = args[0].Get(),
-			Label = _engine.Label,
-			Volume = args[1].Get()
-		};
-		if (!_engine.CanSkip())
-		{
+
 			_engine.SoundMgr.PlayVoice(_engine.Label, args[4].Get(), args[0].Get(), args[1].Get(), args[2].Get() == 1, args[3].Get());
-		}
+
 		return true;
 	}
 	public bool VX(List<Wa2Var> args)
@@ -277,7 +271,8 @@ public class Wa2Func
 		//2标签
 		//4循环
 		// GD.Print("轨道:", args[5].Get());
-		_engine.SoundMgr.PlayVoice(args[2].Get(), args[1].Get(), args[0].Get(), args[3].Get(), args[4].Get() == 1, args[5].Get());
+
+			_engine.SoundMgr.PlayVoice(args[2].Get(), args[1].Get(), args[0].Get(), args[3].Get(), args[4].Get() == 1, args[5].Get());
 		return true;
 	}
 	public bool VW(List<Wa2Var> args)

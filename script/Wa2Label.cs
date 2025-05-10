@@ -506,22 +506,4 @@ public partial class Wa2Label : Node2D
 		Text = text;
 		return Update(progress);
 	}
-	// public int GetProgressStep(int delay)
-	// {
-	// 	if (delay == 2)
-	// 	{
-	// 		return ProgressStep;
-	// 	}
-	// 	else if (delay == 1)
-	// 	{
-	// 		ProgressStep = 0;
-	// 		return 0;
-	// 	}
-	// 	int mod = delay % 10;
-	// 	int temp = ProgressStep + mod;
-	// 	int div2 = temp / 10 * 3 / 2;
-	// 	int adjustment = (div2 * -3) + temp;
-	// 	ProgressStep = temp + (adjustment * 2);
-	// 	return ProgressStep;
-	// }
 }

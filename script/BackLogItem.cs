@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 public partial class BackLogItem : Control
 {
@@ -7,7 +8,7 @@ public partial class BackLogItem : Control
   public Wa2Label NmaeLabel;
   [Export]
   public Wa2Label TextLabel;
-  public VoiceInfo VoiceInfo;
+  public List<VoiceInfo> VoiceInfos;
   public Wa2EngineMain _engine;
   public override void _Ready()
   {
@@ -18,13 +19,13 @@ public partial class BackLogItem : Control
   {
     // GD.Print(e.Name);
     // GD.Print(e.Text);
-    NmaeLabel.SetText( e.Name);
-    TextLabel.SetText( e.Text);
-    VoiceInfo = e.VoiceInfo;
-    if (VoiceInfo != null)
+    NmaeLabel.SetText(e.Name);
+    TextLabel.SetText(e.Text);
+    VoiceInfos = e.VoiceInfos;
+    if (VoiceInfos != null && VoiceInfos.Count > 0)
     {
       VoiceBtn.Show();
-      if (!_engine.Prefs.CanPlayCharVoice(VoiceInfo.Chr))
+      if (!_engine.Prefs.CanPlayCharVoice(VoiceInfos[0].Chr))
       {
         VoiceBtn.Disabled = true;
       }
@@ -40,9 +41,9 @@ public partial class BackLogItem : Control
   }
   public void OnViceoBtnDown()
   {
-    if (VoiceInfo != null)
+    if (VoiceInfos != null && VoiceInfos.Count > 0)
     {
-      _engine.SoundMgr.PlayVoice(VoiceInfo.Label, VoiceInfo.Id, VoiceInfo.Chr, VoiceInfo.Volume);
+      _engine.SoundMgr.PlayVoice(VoiceInfos[0].Label, VoiceInfos[0].Id, VoiceInfos[0].Chr, VoiceInfos[0].Volume);
     }
   }
 }
