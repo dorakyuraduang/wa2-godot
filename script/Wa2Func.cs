@@ -189,8 +189,8 @@ public class Wa2Func
 		else
 		{
 			// _engine.AdvMain.ClearText();
-					_engine.AdvMain.TextProgress = 0;
-		_engine.AdvMain.TextLabel.Segment = 0;
+			_engine.AdvMain.TextProgress = 0;
+			_engine.AdvMain.TextLabel.Segment = 0;
 			_engine.AdvMain.TextLabel.Text = text;
 			_engine.AdvMain.ShowText();
 		}
@@ -261,7 +261,7 @@ public class Wa2Func
 		//3通道？
 		// GD.Print("vv轨道", args[3].Get());
 
-			_engine.SoundMgr.PlayVoice(_engine.Label, args[4].Get(), args[0].Get(), args[1].Get(), args[2].Get() == 1, args[3].Get());
+		_engine.SoundMgr.PlayVoice(_engine.Label, args[4].Get(), args[0].Get(), args[1].Get(), args[2].Get() == 1, args[3].Get());
 
 		return true;
 	}
@@ -272,7 +272,7 @@ public class Wa2Func
 		//4循环
 		// GD.Print("轨道:", args[5].Get());
 
-			_engine.SoundMgr.PlayVoice(args[2].Get(), args[1].Get(), args[0].Get(), args[3].Get(), args[4].Get() == 1, args[5].Get());
+		_engine.SoundMgr.PlayVoice(args[2].Get(), args[1].Get(), args[0].Get(), args[3].Get(), args[4].Get() == 1, args[5].Get());
 		return true;
 	}
 	public bool VW(List<Wa2Var> args)

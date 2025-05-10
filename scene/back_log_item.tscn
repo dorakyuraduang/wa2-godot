@@ -43,7 +43,7 @@ ShadowTexture = ExtResource("4_q4g71")
 metadata/_custom_type_script = "uid://qsw3xkgywsql"
 
 [node name="Text" type="Node2D" parent="."]
-position = Vector2(100, 46)
+position = Vector2(100, 40)
 script = ExtResource("1_c0jps")
 FontTexture = ExtResource("3_cbnvi")
 ShadowTexture = ExtResource("4_q4g71")
