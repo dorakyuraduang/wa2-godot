@@ -184,4 +184,14 @@ public partial class Wa2SoundMgr : Node
 		}
 		_seAudios[channel].StopStream(time);
 	}
+	public void GetLoopSe()
+	{
+		for (int i = 0; i < _seAudios.Length; i++)
+		{
+			if (_seAudios[i].Playing && _seAudios[i].Stream != null && _seAudios[i].Loop)
+			{
+				
+			}
+		}
+	}
 }

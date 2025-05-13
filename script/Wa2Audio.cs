@@ -5,9 +5,9 @@ public partial class Wa2Audio : AudioStreamPlayer
 {
 	protected float _duration;
 	protected float _counter;
-	protected bool _loop;
 	protected int _state;
 	protected float _volume;
+	public bool Loop{ get;private set;}
 	public void StopStream(float time)
 	{
 
@@ -39,7 +39,7 @@ public partial class Wa2Audio : AudioStreamPlayer
 		Seek(0);
 		_counter = 0;
 		_volume = volume;
-		_loop = loop;
+		Loop = loop;
 		Stream = stream;
 		Play();
 		if (_duration > 0)
@@ -85,9 +85,21 @@ public partial class Wa2Audio : AudioStreamPlayer
 				break;
 		}
 	}
+		private void _OnFinished()
+	{
+		if (Loop)
+		{
+			PlayStream(Stream, true, 0, _volume);
+		}
+		else
+		{
+			Stop();
+		}
+	}
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Finished+=_OnFinished;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

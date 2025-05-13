@@ -55,7 +55,7 @@ public partial class Wa2AdvMain : Control
 		NONE = 5,
 		HIDE = 6
 	}
-	public AdvState State;
+	public AdvState State = AdvState.END;
 	// public bool Active;
 	public void Init(Wa2EngineMain e)
 	{
@@ -171,6 +171,7 @@ public partial class Wa2AdvMain : Control
 		switch (State)
 		{
 			case AdvState.PARSE_TEXT:
+
 				TextParseResult r;
 				if (_engine.CanSkip() || _engine.ClickedInWait)
 				{
@@ -269,6 +270,7 @@ public partial class Wa2AdvMain : Control
 		else
 		{
 			State = AdvState.PARSE_TEXT;
+			NameLabel.Update(-1);
 
 		}
 	}
@@ -282,6 +284,16 @@ public partial class Wa2AdvMain : Control
 	}
 	public void ShowText(bool fade = true)
 	{
+
+
+		// ClearText();
+		TextLabel.Clear();
+		NameLabel.Clear();
+		
+		if (!fade)
+		{
+			NameLabel.Update(-1);
+		}
 		AdvShow(fade);
 		if (_engine.GetReadMessage(_engine.CurMessageIdx))
 		{

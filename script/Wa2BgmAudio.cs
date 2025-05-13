@@ -17,7 +17,7 @@ public partial class Wa2BgmAudio : Wa2Audio
 	}
 	private void _OnFinished()
 	{
-		if (_loop)
+		if (Loop)
 		{
 			PlayStream(_loop_stream, true, 0, _volume);
 		}

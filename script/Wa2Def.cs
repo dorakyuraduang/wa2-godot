@@ -1,10 +1,13 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 public static class Wa2Def
 {
+	public static List<Rect2> FontSliceData = new();
+	public static List<Rect2> FontShadowSliceData = new();
 	public static int[][] CgSlot = [
 [100100],
 [100200],
@@ -477,6 +480,50 @@ public static class Wa2Def
 		0x39,
 		0x41,
 	];
+	// public static void LoadSliceData(string path, List<Rect2> rects)
+	// {
+	// 	GD.Print(Time.GetTicksMsec());
+	// 	var tex = GD.Load<Texture2D>(path);
+	// 	var img = tex.GetImage();
+	// 	var bitmap = new Bitmap();
+	// 	bitmap.CreateFromImageAlpha(img);
+	// 	// const int SIZE = 40;
+	// 	int width = img.GetWidth();
+	// 	int height = img.GetHeight();
+
+	// 	const int SIZE = 32;
+
+
+	// 	for (int i = 0; i < width / SIZE; i++)
+	// 	{
+	// 		for (int j = 0; j < height / SIZE; j++)
+	// 		{
+	// 			var rect = new Rect2I(i * SIZE, j * SIZE, SIZE, SIZE);
+	// 			var polygons = bitmap.OpaqueToPolygons(rect);
+
+	// 			if (polygons.Count == 0)
+	// 				continue;
+
+	// 			var extractedRect = new Rect2(polygons[0][0], Vector2.Zero);
+
+	// 			foreach (var polygon in polygons)
+	// 			{
+	// 				for (int k = 1; k < polygon.Count(); k++)
+	// 				{
+	// 					extractedRect = extractedRect.Expand(polygon[k]);
+	// 				}
+	// 			}
+
+	// 			// 加回偏移（因为局部 rect 是从 0,0 开始）
+	// 			extractedRect.Position += new Vector2(i * SIZE, j * SIZE);
+
+	// 			rects.Add(extractedRect);
+	// 		}
+	// 	}
+
+	// 	GD.Print(rects);
+	// }
+
 	public static void LoadFontMap()
 	{
 		byte[] buffer = FileAccess.GetFileAsBytes("res://assets/font.map");

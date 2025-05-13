@@ -195,7 +195,7 @@ public class Wa2Func
 			_engine.AdvMain.ShowText();
 		}
 		_engine.AdvMain.TextProgress = 0;
-		_engine.AdvMain.NameLabel.Update(-1);
+		
 		_engine.AdvMain.ParseMode = v4;
 		_engine.CurMessageIdx = idx;
 

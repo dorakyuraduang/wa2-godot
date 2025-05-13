@@ -162,6 +162,7 @@ public partial class AnimatorMgr : Node
         else
         {
           adv.State = Wa2AdvMain.AdvState.PARSE_TEXT;
+          adv.NameLabel.Update(-1);
         }
       }));
   }

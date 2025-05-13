@@ -118,7 +118,8 @@ public partial class Wa2EngineMain : Control
 		if (Engine == null)
 		{
 			Engine = this;
-
+			// Wa2Def.LoadSliceData("res://assets/fonts/cn/本体80.png",Wa2Def.FontSliceData);
+			// Wa2Def.LoadSliceData("res://assets/fonts/cn/袋影80.png",Wa2Def.FontShadowSliceData);
 		}
 	}
 	public void SetFBColor(Color color)
@@ -514,6 +515,7 @@ public partial class Wa2EngineMain : Control
 		MaskTexture.SetNextTexture(null);
 		AnimatorMgr.FinishAll();
 		AdvMain.WaitKey = false;
+		AdvMain.State=Wa2AdvMain.AdvState.END;
 		WaitSeFinish();
 		if (stop)
 		{

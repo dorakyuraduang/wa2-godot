@@ -57,7 +57,7 @@ public partial class Wa2Label : Node2D
 	// [Export]
 	// public int Rect2Size = 31;
 	[Export]
-	public int ParagraphSpacing = 14;
+	public int ParagraphSpacing = 13;
 	[Export]
 	public int LineSpacing = 0;
 	[Export]
@@ -485,12 +485,13 @@ public partial class Wa2Label : Node2D
 			int x = pos % 80;
 			int y = pos / 80;
 			Rect2 rect = new(new Vector2(r.X, r.Y), new Vector2(r.Size, r.Size));
-			Rect2 srcRect = new(new Vector2(x, y) * Rect1Size + new Vector2(5, 5), new Vector2(27, 27));
-			Rect2 shadowRect = new(new Vector2(x, y) * Rect1Size + new Vector2(3, 3), new Vector2(31, 31));
+			Rect2 rect2 = new(new Vector2(r.X-r.Size/28f*2, r.Y-r.Size/28f*2), new Vector2(r.Size/28f*32, r.Size/28f*32));
+			Rect2 srcRect = new(new Vector2(x, y) * Rect1Size + new Vector2(4, 4), new Vector2(28, 28));
+			Rect2 shadowRect = new(new Vector2(x, y) * Rect1Size+ new Vector2(2, 2), new Vector2(32, 32));
 			if (Shadow)
 			{
-				DrawTextureRectRegion(ShadowTexture, rect, shadowRect, new Color(0.12f, 0.15f, 0.15f, r.Alpha));
-				DrawTextureRectRegion(FontTexture, rect, shadowRect, new Color(Color.R, Color.G, Color.B, r.Alpha));
+				DrawTextureRectRegion(ShadowTexture, rect2, shadowRect, new Color(0.15f, 0.15f, 0.15f, r.Alpha));
+				DrawTextureRectRegion(FontTexture, rect, srcRect, new Color(Color.R, Color.G, Color.B, r.Alpha));
 			}
 			else
 			{
