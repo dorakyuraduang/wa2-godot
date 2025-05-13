@@ -8,7 +8,7 @@ public partial class Wa2BgmAudio : Wa2Audio
 	private AudioStream _loop_stream;
 	public override void _Ready()
 	{
-		Finished+=_OnFinished;
+		Finished += _OnFinished;
 
 	}
 	public void SetLoopStream(AudioStream stream)
@@ -19,12 +19,22 @@ public partial class Wa2BgmAudio : Wa2Audio
 	{
 		if (Loop)
 		{
-			PlayStream(_loop_stream, true, 0, _volume);
+			PlaySound(_loop_stream, true, 0, Volume);
 		}
 		else
 		{
 			Stop();
 		}
 	}
+	public void PlaySound(AudioStream stream, bool loop, float time, int volume)
+	{
+		
+		Seek(0);
+		Loop = loop;
+		Stream = stream;
+		SetVolume(0,0);
+		SetVolume(volume,time);
+		Play();
 
+	}
 }

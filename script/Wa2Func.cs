@@ -195,7 +195,7 @@ public class Wa2Func
 			_engine.AdvMain.ShowText();
 		}
 		_engine.AdvMain.TextProgress = 0;
-		
+
 		_engine.AdvMain.ParseMode = v4;
 		_engine.CurMessageIdx = idx;
 
@@ -576,11 +576,9 @@ public class Wa2Func
 	public bool SEP(List<Wa2Var> args)
 	{
 		// GD.Print(args.Count);
-		Wa2SoundMgr.Instance.PlaySe(args[0].Get(), args[1].Get(), args[2].Get() != 0, args[3].Get() * _engine.FrameTime, args[4].Get());
-
-		GD.Print("sep音轨:", args[0].Get());
-
-
+		GD.Print("循环播放:",args[3].Get());
+		GD.Print("id:",args[1].Get());
+		Wa2SoundMgr.Instance.PlaySe(args[0].Get(), args[1].Get(), args[3].Get() != 0, args[2].Get() * _engine.FrameTime, args[4].Get());
 		return true;
 	}
 	public bool SES(List<Wa2Var> args)

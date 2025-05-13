@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Threading.Channels;
 public struct Calender
 {
 	public int Year;
@@ -54,6 +55,14 @@ public class VoiceInfo
 	public int Id;
 	public int Label;
 	public int Volume;
+}
+public class SeInfo
+{
+	public int Id;
+	public int Volume;
+	public bool Loop;
+	public int Channel;
+	public float Time;
 }
 // public struct FirstCmd{
 
@@ -228,7 +237,21 @@ public class Wa2GameSav
 		file.StoreBuffer([.. Encoding.ASCII.GetBytes(_engine.EffectMode).Concat(new byte[16]).Take(16)]);
 		file.Store32((uint)_engine.AdvMain.TextLabel.Segment);
 		file.Store32((uint)_engine.AdvMain.ParseMode);
-		file.Store8((byte)(_engine.AdvMain.WaitKey? 1:0));
+		file.Store8((byte)(_engine.AdvMain.WaitKey ? 1 : 0));
+		int seCount = _engine.SoundMgr.GetLoopSeAudioCount();
+		file.Store32((uint)seCount);
+		Wa2SeAudio[] seAudios = _engine.SoundMgr.SeAudios;
+		for (int i = 0; i < seAudios.Length; i++)
+		{
+			if (seAudios[i].Loop && seAudios[i].Id >= 0)
+			{
+				file.Store32((uint)i);
+				file.Store32((uint)seAudios[i].Id);
+				file.Store32((uint)seAudios[i].Volume);
+				file.Store8((byte)(seAudios[i].Loop ? 1 : 0));
+			}
+
+		}
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -340,9 +363,19 @@ public class Wa2GameSav
 		_engine.EffectMode = file.GetBuffer(16).GetStringFromAscii().Replace("\0", "");
 		_engine.AdvMain.TextLabel.Segment = (int)file.Get32();
 		_engine.AdvMain.ParseMode = (int)file.Get32();
-		_engine.AdvMain.WaitKey=file.Get8()==1;
-		if(_engine.AdvMain.ParseMode==0){
-			_engine.AdvMain.ParseMode=2;
+		_engine.AdvMain.WaitKey = file.Get8() == 1;
+		int seCount = (int)file.Get32();
+		for (int i = 0; i < seCount; i++)
+		{
+			int channel = (int)file.Get32();
+			int id = (int)file.Get32();
+			int volume = (int)file.Get32();
+			bool loop = file.Get8() == 1;
+			_engine.SoundMgr.PlaySe(channel,id,loop,0,volume );
+		}
+		if (_engine.AdvMain.ParseMode == 0)
+		{
+			_engine.AdvMain.ParseMode = 2;
 		}
 		if (selectCount > 0)
 		{

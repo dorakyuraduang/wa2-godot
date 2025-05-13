@@ -46,4 +46,5 @@ public partial class BackLogItem : Control
       _engine.SoundMgr.PlayVoice(VoiceInfos[0].Label, VoiceInfos[0].Id, VoiceInfos[0].Chr, VoiceInfos[0].Volume);
     }
   }
+
 }

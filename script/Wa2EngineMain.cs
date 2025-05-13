@@ -89,6 +89,7 @@ public partial class Wa2EngineMain : Control
 	// public Wa2Timer TextTimer = new();
 	public Wa2Timer AutoTimer = new();
 	public List<VoiceInfo> VoiceInfos = new();
+	// public List<SeInfo> SeInfos=new();
 	public bool HasReadMessage = false;
 	public List<SelectItem> SelectItems = new();
 	public Calender Calender = new();
@@ -154,6 +155,9 @@ public partial class Wa2EngineMain : Control
 			}
 		}
 		CharItems.Add(item);
+
+	}
+	public void AddSeInfp(SeInfo seInfo){
 
 	}
 	public void RemoveChar(int id)
@@ -493,6 +497,8 @@ public partial class Wa2EngineMain : Control
 
 		CharItems.Clear();
 		SelectItems.Clear();
+		// SeInfos.Clear();
+		VoiceInfos.Clear();
 		Calender = new();
 		BgmInfo = new();
 		BgInfo = new();
@@ -628,7 +634,7 @@ public partial class Wa2EngineMain : Control
 		{
 			InputKeyHandling();
 			UpdateFrame(delta);
-			if (AdvMain.State != Wa2AdvMain.AdvState.PARSE_TEXT && !WaitTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (AdvMain.State == Wa2AdvMain.AdvState.END || AdvMain.State == Wa2AdvMain.AdvState.FADE_OUT || DemoMode) && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
+			if (AdvMain.State != Wa2AdvMain.AdvState.PARSE_TEXT && !AutoTimer.IsActive() && !WaitTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (AdvMain.State == Wa2AdvMain.AdvState.END || AdvMain.State == Wa2AdvMain.AdvState.FADE_OUT || (DemoMode && AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)) && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
 			{
 
 				bool flag = !AnimatorMgr.WaitAnimation();
@@ -664,7 +670,7 @@ public partial class Wa2EngineMain : Control
 		}
 		UpdateTimer(delta);
 		AdvMain.Update();
-		if (AdvMain.State == Wa2AdvMain.AdvState.PARSE_TEXT)
+		if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK && !AutoTimer.IsActive())
 		{
 			if (AutoMode)
 			{
@@ -672,7 +678,9 @@ public partial class Wa2EngineMain : Control
 			}
 			else if (DemoMode)
 			{
-				WaitTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 1.0f);
+				AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 1.0f);
+				GD.Print("时间:",SoundMgr.GetVoiceRemainingTime(0));
+
 			}
 		}
 
@@ -697,14 +705,14 @@ public partial class Wa2EngineMain : Control
 
 		if (AutoTimer.IsActive() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.Visible)
 		{
-			if (!AutoTimer.IsDone() && AutoMode)
+			if (!AutoTimer.IsDone() && (AutoMode||DemoMode))
 			{
 				AutoTimer.Update((float)delta);
 			}
 			else
 			{
 				AutoTimer.DeActive();
-				if (AutoMode)
+				if (AutoMode ||DemoMode)
 				{
 					ClickAdv();
 				}
