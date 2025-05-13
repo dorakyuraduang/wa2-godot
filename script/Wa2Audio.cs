@@ -21,6 +21,7 @@ public partial class Wa2Audio : AudioStreamPlayer
 		}
 		else
 		{
+			Stream=null;
 			Stop();
 		}
 	}
@@ -83,6 +84,7 @@ public partial class Wa2Audio : AudioStreamPlayer
 				if (_counter >= _duration)
 				{
 					_state = 0;
+					Stream=null;
 					Stop();
 				}
 				else

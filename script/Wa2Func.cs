@@ -1142,6 +1142,7 @@ public class Wa2Func
 		_engine.ScriptStack.Clear();
 		_engine.Script = new(args[0].Get(), args[1].Get());
 		_engine.ScriptStack.Push(_engine.Script);
+		_engine.WaitSeChannel =-1;
 		return false;
 
 	}

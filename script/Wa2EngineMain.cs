@@ -8,7 +8,7 @@ public class BacklogEntry
 
 	public string Name;
 	public string Text;
-	public  List<VoiceInfo> VoiceInfos=new();
+	public List<VoiceInfo> VoiceInfos = new();
 }
 public partial class Wa2EngineMain : Control
 {
@@ -43,7 +43,7 @@ public partial class Wa2EngineMain : Control
 	public bool SkipDisable = false;
 	public int ReplayMode;
 	public bool AutoMode = false;
-	public int WaitSeChannel;
+	public int WaitSeChannel = -1;
 	public bool ClickedInWait;
 	public int CurMessageIdx;
 	public static Wa2EngineMain Engine;
@@ -157,7 +157,8 @@ public partial class Wa2EngineMain : Control
 		CharItems.Add(item);
 
 	}
-	public void AddSeInfp(SeInfo seInfo){
+	public void AddSeInfp(SeInfo seInfo)
+	{
 
 	}
 	public void RemoveChar(int id)
@@ -457,6 +458,12 @@ public partial class Wa2EngineMain : Control
 					if (!WaitTimer.IsDone())
 					{
 						WaitTimer.Done();
+						if (WaitSeChannel >= 0)
+						{
+							SoundMgr.StopSe(WaitSeChannel);
+							WaitSeChannel = -1;
+
+						}
 					}
 				}
 				if (!AutoTimer.IsDone())
@@ -482,7 +489,9 @@ public partial class Wa2EngineMain : Control
 				if (AdvMain.WaitKey)
 				{
 					AdvMain.State = Wa2AdvMain.AdvState.END;
-				}else{
+				}
+				else
+				{
 					AdvMain.State = Wa2AdvMain.AdvState.PARSE_TEXT;
 				}
 
@@ -497,6 +506,7 @@ public partial class Wa2EngineMain : Control
 
 		CharItems.Clear();
 		SelectItems.Clear();
+		WaitSeChannel = -1;
 		// SeInfos.Clear();
 		VoiceInfos.Clear();
 		Calender = new();
@@ -521,8 +531,8 @@ public partial class Wa2EngineMain : Control
 		MaskTexture.SetNextTexture(null);
 		AnimatorMgr.FinishAll();
 		AdvMain.WaitKey = false;
-		AdvMain.State=Wa2AdvMain.AdvState.END;
-		WaitSeFinish();
+		AdvMain.State = Wa2AdvMain.AdvState.END;
+		// WaitSeFinish();
 		if (stop)
 		{
 			StopAutoMode();
@@ -679,7 +689,7 @@ public partial class Wa2EngineMain : Control
 			else if (DemoMode)
 			{
 				AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 1.0f);
-				GD.Print("时间:",SoundMgr.GetVoiceRemainingTime(0));
+				GD.Print("时间:", SoundMgr.GetVoiceRemainingTime(0));
 
 			}
 		}
@@ -705,14 +715,14 @@ public partial class Wa2EngineMain : Control
 
 		if (AutoTimer.IsActive() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.Visible)
 		{
-			if (!AutoTimer.IsDone() && (AutoMode||DemoMode))
+			if (!AutoTimer.IsDone() && (AutoMode || DemoMode))
 			{
 				AutoTimer.Update((float)delta);
 			}
 			else
 			{
 				AutoTimer.DeActive();
-				if (AutoMode ||DemoMode)
+				if (AutoMode || DemoMode)
 				{
 					ClickAdv();
 				}
@@ -720,19 +730,19 @@ public partial class Wa2EngineMain : Control
 		}
 		// UpdateAnimators((float)delta);
 	}
-	public void WaitSeFinish()
-	{
-		if (WaitSe)
-		{
-			WaitSe = false;
-			if (WaitSeChannel >= 0)
-			{
+	// public void WaitSeFinish()
+	// {
+	// 	if (WaitSe)
+	// 	{
+	// 		WaitSe = false;
+	// 		if (WaitSeChannel >= 0)
+	// 		{
 
-				SoundMgr.StopSe(WaitSeChannel);
-				WaitSeChannel = -1;
-			}
-		}
-	}
+	// 			SoundMgr.StopSe(WaitSeChannel);
+	// 			WaitSeChannel = -1;
+	// 		}
+	// 	}
+	// }
 	// public void AnimatorsFinish(bool all = false)
 	// {
 	// 	for (int i = 0; i < Animators.Count; i++)

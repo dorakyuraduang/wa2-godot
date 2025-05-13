@@ -9,7 +9,7 @@ public partial class Wa2SoundMgr : Node
 	private Wa2BgmAudio _bgmAudio = new();
 	private AudioStreamPlayer _sysSeAudio = new();
 	private Wa2VoiceAudio[] _voiceAudios;
-	public Wa2SeAudio[] SeAudios {private set;get;}
+	public Wa2SeAudio[] SeAudios { private set; get; }
 	private Wa2EngineMain _engine;
 	public int BgmId { private set; get; }
 	public Wa2Audio GetVoicePlayer(int idx)
@@ -118,6 +118,10 @@ public partial class Wa2SoundMgr : Node
 	}
 	public float GetSeTime(int channel)
 	{
+		if (SeAudios[channel].Stream == null)
+		{
+			return 0;
+		}
 		return (float)SeAudios[channel].Stream.GetLength() - SeAudios[channel].GetPlaybackPosition();
 	}
 	public static Wa2SoundMgr Instance
@@ -188,10 +192,10 @@ public partial class Wa2SoundMgr : Node
 	}
 	public int GetLoopSeAudioCount()
 	{
-		int r=0;
+		int r = 0;
 		foreach (Wa2SeAudio audio in SeAudios)
 		{
-			if (audio.Loop && audio.Id>=0)
+			if (audio.Loop && audio.Id >= 0)
 			{
 				r++;
 			}
