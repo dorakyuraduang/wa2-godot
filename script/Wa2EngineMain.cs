@@ -817,9 +817,10 @@ public partial class Wa2EngineMain : Control
 						StopSkip();
 						flag = false;
 					}
-					if (!AdvMain.Visible && !VideoPlayer.IsPlaying() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
+					if (!AdvMain.Visible && !VideoPlayer.IsPlaying() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.State==Wa2AdvMain.AdvState.HIDE)
 					{
 						AdvMain.Show();
+						AdvMain.State=Wa2AdvMain.AdvState.WAIT_CLICK;
 						flag = false;
 					}
 					if (flag)
