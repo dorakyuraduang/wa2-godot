@@ -37,7 +37,7 @@ public partial class DataSlot : Wa2Button
       int millisecond = (int)file.Get32();
       DateLabel.Text = string.Format("{0:D4} {1:D2}/{2:D2} {3:D2}:{4:D2}", year, month, day, hour, minute);
       SaveTexture.Texture = ImageTexture.CreateFromImage(Image.CreateFromData(256, 144, false, Image.Format.Rgb8, file.GetBuffer(0x1b000)));
-      GD.Print(idx);
+      // GD.Print(idx);
       string scriptName = file.GetBuffer(8).GetStringFromUtf8();
       Category.Show();
       if (scriptName[0]=='2' || scriptName[0]=='3'){

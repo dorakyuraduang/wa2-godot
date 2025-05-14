@@ -288,7 +288,7 @@ public class Wa2Func
 	{
 		//0时间
 		//1音轨
-		GD.Print("停止音轨", args[1].Get());
+		// GD.Print("停止音轨", args[1].Get());
 		_engine.SoundMgr.StopVoice(args[1].Get(), args[0].Get() * _engine.FrameTime);
 		return true;
 	}
@@ -323,10 +323,10 @@ public class Wa2Func
 
 	public bool B(List<Wa2Var> args)
 	{
-		for (int i = 0; i < args.Count; i++)
-		{
-			GD.Print(args[i].Get());
-		}
+		// for (int i = 0; i < args.Count; i++)
+		// {
+		// 	GD.Print(args[i].Get());
+		// }
 		// _e.Viewport.BgDrawFrame = args[3];
 		_engine.AnimatorMgr.FinishAll(true);
 		Texture2D NextTexture;

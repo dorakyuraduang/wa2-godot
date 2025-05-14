@@ -98,7 +98,7 @@ public class Wa2Var
 		}
 		if (CmdType == CmdType.STR_VAR)
 		{
-			GD.Print(IntValue);
+			// GD.Print(IntValue);
 			if (IntValue == 0)
 			{
 				return "春希";
@@ -496,7 +496,7 @@ public class Wa2Script
 	public bool CallFunc()
 	{
 		uint funcIdx = ReadU32();
-		GD.Print(string.Format("调用函数{0:X}", funcIdx));
+		// GD.Print(string.Format("调用函数{0:X}", funcIdx));
 		if (_engine.Func.FuncDic.TryGetValue(funcIdx, out var func))
 		{
 			return func(Args);

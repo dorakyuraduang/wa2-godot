@@ -179,7 +179,7 @@ public partial class AnimatorMgr : Node
   }
   public void AddFBAnimation(Color color, float time)
   {
-    GD.Print("时间", time);
+    // GD.Print("时间", time);
     Tween tween = CreateTween();
     Animator animator = new(tween, time);
     AddAnimator(animator);
@@ -187,7 +187,7 @@ public partial class AnimatorMgr : Node
   }
   public void AddFAnimation(Color color, float time)
   {
-    GD.Print("时间", time);
+    // GD.Print("时间", time);
     Tween tween = CreateTween();
     Animator animator = new(tween, time);
     AddAnimator(animator);

@@ -187,7 +187,7 @@ public partial class Wa2AdvMain : Control
 					else
 					{
 						TextProgress+=magWait;
-						GD.Print(TextProgress);
+						// GD.Print(TextProgress);
 					}
 					r = TextLabel.Update(TextProgress);
 				}
