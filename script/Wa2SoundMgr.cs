@@ -76,18 +76,17 @@ public partial class Wa2SoundMgr : Node
 				Volume = volume
 			});
 		}
-
-
 		if (_engine.Prefs.CanPlayCharVoice(chr))
 		{
-			if (!_engine.CanSkip() || _engine.DemoMode)
+			if (!_engine.CanSkip() || _engine.DemoMode || channel!=0)
 			{
 				audio.PlaySound(Wa2Resource.GetVoiceStream(label, id, chr), false, volume);
 				(audio.Stream as AudioStreamOggVorbis).Loop = loop;
-				_engine.SubtitleMgr.ListenVoice(label, id, audio);
+				if (channel != 0)
+				{
+					_engine.SubtitleMgr.ListenVoice(label, id, audio);
+				}
 			}
-
-
 		}
 	}
 	public void PlayBgm(int id, bool loopFlag = true, int volume = 255)

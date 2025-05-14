@@ -265,7 +265,7 @@ public partial class Wa2AdvMain : Control
 			{
 				Visible = true;
 				Modulate = new Color(1, 1, 1, 1);
-				State = AdvState.PARSE_TEXT;
+				State = AdvState.WAIT_CLICK;
 			}
 		}
 		else
