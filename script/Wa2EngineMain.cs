@@ -464,7 +464,7 @@ public partial class Wa2EngineMain : Control
 						{
 							case Wa2WaitTimer.WaitType.WAIT_VOICE:
 								// GD.Print("等待语音结束");
-								SoundMgr.StopSe(WaitTimer.Value);
+								SoundMgr.StopVoice(WaitTimer.Value);
 								break;
 							case Wa2WaitTimer.WaitType.WAIT_SE:
 								// GD.Print("等待音效结束");

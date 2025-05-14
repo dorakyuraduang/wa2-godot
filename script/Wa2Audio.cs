@@ -12,7 +12,7 @@ public partial class Wa2Audio : AudioStreamPlayer
 	public bool Loop { get; protected set; }
 	public void StopStream(float time)
 	{
-
+		Loop=false;
 		_duration = time;
 		_counter = 0;
 		if (_duration > 0.0f)
@@ -21,8 +21,9 @@ public partial class Wa2Audio : AudioStreamPlayer
 		}
 		else
 		{
-			Stream=null;
 			Stop();
+			Stream=null;
+			
 		}
 	}
 	public void SetVolume(int volume, float frame)
@@ -84,8 +85,9 @@ public partial class Wa2Audio : AudioStreamPlayer
 				if (_counter >= _duration)
 				{
 					_state = 0;
-					Stream=null;
 					Stop();
+					Stream=null;
+					
 				}
 				else
 				{
