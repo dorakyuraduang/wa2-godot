@@ -277,7 +277,8 @@ public class Wa2Func
 	}
 	public bool VW(List<Wa2Var> args)
 	{
-		_engine.WaitTimer.Start(_engine.SoundMgr.GetVoiceTime());
+		_engine.WaitTimer.Start(_engine.SoundMgr.GetVoiceTime(), Wa2WaitTimer.WaitType.WAIT_VOICE, args[1].Get());
+
 		// _engine.WaitClick = true;
 		//1音轨
 		return false;
@@ -576,8 +577,8 @@ public class Wa2Func
 	public bool SEP(List<Wa2Var> args)
 	{
 		// GD.Print(args.Count);
-		GD.Print("循环播放:",args[3].Get());
-		GD.Print("id:",args[1].Get());
+		GD.Print("循环播放:", args[3].Get());
+		GD.Print("id:", args[1].Get());
 		Wa2SoundMgr.Instance.PlaySe(args[0].Get(), args[1].Get(), args[3].Get() != 0, args[2].Get() * _engine.FrameTime, args[4].Get());
 		return true;
 	}
@@ -597,9 +598,7 @@ public class Wa2Func
 	}
 	public bool SEW(List<Wa2Var> args)
 	{
-		_engine.WaitSe = true;
-		_engine.WaitSeChannel = args[0].Get();
-		_engine.WaitTimer.Start(_engine.SoundMgr.GetSeTime(args[0].Get()));
+		_engine.WaitTimer.Start(_engine.SoundMgr.GetSeTime(args[1].Get()), Wa2WaitTimer.WaitType.WAIT_SE, args[0].Get());
 		return false;
 	}
 	public bool SEVW(List<Wa2Var> args)
@@ -845,7 +844,7 @@ public class Wa2Func
 		// }
 		if (Time.GetTicksMsec() < (ulong)(_engine.StartTime + args[0].Get()))
 		{
-			_engine.WaitTimer.Start((_engine.StartTime + args[0].Get() - (int)Time.GetTicksMsec()) * 0.001f);
+			_engine.WaitTimer.Start((_engine.StartTime + args[0].Get() - (int)Time.GetTicksMsec()) * 0.001f, Wa2WaitTimer.WaitType.WAIT_TIMER,(int)args[0].Get());
 		}
 		args.Clear();
 		return false;
@@ -1142,7 +1141,6 @@ public class Wa2Func
 		_engine.ScriptStack.Clear();
 		_engine.Script = new(args[0].Get(), args[1].Get());
 		_engine.ScriptStack.Push(_engine.Script);
-		_engine.WaitSeChannel =-1;
 		return false;
 
 	}

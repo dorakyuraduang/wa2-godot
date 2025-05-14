@@ -176,11 +176,11 @@ public partial class Wa2AdvMain : Control
 				if (_engine.CanSkip() || _engine.ClickedInWait ||magWait==0)
 				{
 					r = TextLabel.Update(9999);
-					_engine.ClickedInWait = false;
+					// _engine.ClickedInWait = false;
 				}
 				else
 				{
-					if (_engine.DemoMode || _engine.AutoMode)
+					if (_engine.DemoMode )
 					{
 						TextProgress +=2;
 					}
@@ -265,7 +265,7 @@ public partial class Wa2AdvMain : Control
 			{
 				Visible = true;
 				Modulate = new Color(1, 1, 1, 1);
-				State = AdvState.WAIT_CLICK;
+				State = AdvState.PARSE_TEXT;
 			}
 		}
 		else

@@ -1,8 +1,30 @@
 using Godot;
 using System;
 
-public partial class Wa2Timer : RefCounted
+public partial class Wa2WaitTimer : Wa2Timer
 {
+	public enum WaitType
+	{
+		WAIT,
+		WAIT_TIMER,
+		WAIT_SE,
+		WAIT_VOICE
+
+	}
+	public int Value { private set; get; }
+	public WaitType Type { private set; get; }
+	public void Start(float time, WaitType type=WaitType.WAIT, int value=0)
+	{
+    
+		Value = value;
+		Type = type;
+		base.Start(time, 0);
+
+	}
+}
+public class Wa2Timer
+{
+
 	private float _delay = 0f;
 	private float _progress = 0f;
 	private bool _active = false;

@@ -131,6 +131,7 @@ public class Wa2Prefs
 	public int GetMsgWaitValue(int idx){
 		return MsgWaitIdxs[idx];
 	}
+
 	public void SetDefault()
 	{
 		string section = "DEFAULT";

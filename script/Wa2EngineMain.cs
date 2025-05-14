@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 public class BacklogEntry
@@ -43,7 +44,7 @@ public partial class Wa2EngineMain : Control
 	public bool SkipDisable = false;
 	public int ReplayMode;
 	public bool AutoMode = false;
-	public int WaitSeChannel = -1;
+
 	public bool ClickedInWait;
 	public int CurMessageIdx;
 	public static Wa2EngineMain Engine;
@@ -85,11 +86,9 @@ public partial class Wa2EngineMain : Control
 	public Wa2Image MaskTexture;
 	public bool HasPlayMovie = false;
 	public GameState State = GameState.LOGO;
-	public Wa2Timer WaitTimer = new();
-	// public Wa2Timer TextTimer = new();
+	public Wa2WaitTimer WaitTimer = new();
 	public Wa2Timer AutoTimer = new();
 	public List<VoiceInfo> VoiceInfos = new();
-	// public List<SeInfo> SeInfos=new();
 	public bool HasReadMessage = false;
 	public List<SelectItem> SelectItems = new();
 	public Calender Calender = new();
@@ -453,19 +452,27 @@ public partial class Wa2EngineMain : Control
 						return;
 					}
 					HideVideo();
-					ClickedInWait = false;
 				}
+				AdvMain.Update();
 				if (CanSkip())
 				{
 					AnimatorMgr.FinishAll();
 					if (!WaitTimer.IsDone())
 					{
 						WaitTimer.Done();
-						if (WaitSeChannel >= 0)
+						switch (WaitTimer.Type)
 						{
-							SoundMgr.StopSe(WaitSeChannel);
-							WaitSeChannel = -1;
-
+							case Wa2WaitTimer.WaitType.WAIT_VOICE:
+								// GD.Print("等待语音结束");
+								SoundMgr.StopSe(WaitTimer.Value);
+								break;
+							case Wa2WaitTimer.WaitType.WAIT_SE:
+								// GD.Print("等待音效结束");
+								SoundMgr.StopSe(WaitTimer.Value);
+								break;
+							case Wa2WaitTimer.WaitType.WAIT_TIMER:
+								StartTime = (int)Time.GetTicksMsec() - WaitTimer.Value;
+								break;
 						}
 					}
 				}
@@ -473,6 +480,7 @@ public partial class Wa2EngineMain : Control
 				{
 					AutoTimer.Done();
 				}
+				ClickedInWait = false;
 			}
 			return;
 		}
@@ -498,7 +506,7 @@ public partial class Wa2EngineMain : Control
 					AdvMain.State = Wa2AdvMain.AdvState.PARSE_TEXT;
 				}
 
-				ClickedInWait = false;
+				// ClickedInWait = false;
 			}
 			ScriptParse();
 		}
@@ -509,14 +517,11 @@ public partial class Wa2EngineMain : Control
 
 		CharItems.Clear();
 		SelectItems.Clear();
-		WaitSeChannel = -1;
-		// SeInfos.Clear();
 		VoiceInfos.Clear();
 		Calender = new();
 		BgmInfo = new();
 		BgInfo = new();
 		EffectMode = "";
-		StartTime = 0;
 		DemoMode = false;
 		AdvMain.SetDemoMode(false);
 		StartTime = (int)Time.GetTicksMsec();
@@ -536,7 +541,7 @@ public partial class Wa2EngineMain : Control
 		AdvMain.WaitKey = false;
 		AdvMain.State = Wa2AdvMain.AdvState.END;
 		ScriptDelta = 0.0f;
-		FrameDelta=0.0f;
+		FrameDelta = 0.0f;
 		// WaitSeFinish();
 		if (stop)
 		{
@@ -649,6 +654,7 @@ public partial class Wa2EngineMain : Control
 		{
 
 			InputKeyHandling();
+			UpdateTimer(delta);
 			UpdateFrame(delta);
 			CheckScript(delta);
 		}
@@ -684,7 +690,7 @@ public partial class Wa2EngineMain : Control
 		StopSkip();
 		if (SoundMgr.GetVoiceRemainingTime(0) > 0)
 		{
-			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 1.0f);
+			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + Prefs.GetConfig("auto_max") * FrameTime);
 		}
 		else
 		{
@@ -694,6 +700,10 @@ public partial class Wa2EngineMain : Control
 	public void UpdateFrame(double delta)
 	{
 		FrameDelta += delta;
+		if (CanSkip())
+		{
+			ClickAdv();
+		}
 		if (FrameDelta >= FrameTime)
 		{
 			FrameDelta -= FrameTime;
@@ -702,11 +712,6 @@ public partial class Wa2EngineMain : Control
 		{
 			return;
 		}
-		if (CanSkip())
-		{
-			ClickAdv();
-		}
-		UpdateTimer(delta);
 		AdvMain.Update();
 		if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK && !AutoTimer.IsActive())
 		{
@@ -716,7 +721,7 @@ public partial class Wa2EngineMain : Control
 			}
 			else if (DemoMode)
 			{
-				AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 1.0f);
+				AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 137 * FrameTime);
 			}
 		}
 	}
@@ -754,98 +759,6 @@ public partial class Wa2EngineMain : Control
 		}
 		// UpdateAnimators((float)delta);
 	}
-	// public void WaitSeFinish()
-	// {
-	// 	if (WaitSe)
-	// 	{
-	// 		WaitSe = false;
-	// 		if (WaitSeChannel >= 0)
-	// 		{
-
-	// 			SoundMgr.StopSe(WaitSeChannel);
-	// 			WaitSeChannel = -1;
-	// 		}
-	// 	}
-	// }
-	// public void AnimatorsFinish(bool all = false)
-	// {
-	// 	for (int i = 0; i < Animators.Count; i++)
-	// 	{
-	// 		if (Animators[i].Wait || all)
-	// 		{
-	// 			Animators[i].Finish();
-	// 			Animators.RemoveAt(i);
-	// 			i--;
-	// 		}
-	// 	}
-	// }
-	// public void UpdateAnimators(float delta)
-	// {
-	// 	// GD.Print( Animators.Count);
-	// 	for (int i = 0; i < Animators.Count; i++)
-	// 	{
-	// 		Animators[i].Timer.Update(delta);
-	// 		// GD.Print(Animators[i].Timer.GetProgress());
-	// 		if (Animators[i].IsActive())
-	// 		{
-
-	// 			// Animators[i].Timer.Update(delta);
-	// 			Animators[i].Update();
-	// 		}
-	// 		else
-	// 		{
-	// 			Animators[i].Finish();
-	// 			Animators.RemoveAt(i);
-	// 			i--;
-	// 		}
-	// 	}
-	// }
-	// public bool WaitAnimator()
-	// {
-	// 	for (int i = 0; i < Animators.Count; i++)
-	// 	{
-	// 		if (Animators[i].IsActive() && Animators[i].Wait)
-	// 		{
-	// 			return true;
-	// 		}
-	// 	}
-	// 	return false;
-	// }
-	// public void LoadSav(int idx)
-	// {
-	// 	FileAccess file = FileAccess.Open(string.Format("user://{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
-	// 	if (file == null)
-	// 	{
-	// 		return;
-	// 	}
-	// 	file.Seek(0x110a0);
-	// 	byte[] buffer = file.GetBuffer(2317 * 4);
-	// 	for (int i = 0; i < 8; i++)
-	// 	{
-	// 		int charShow = BitConverter.ToInt32(buffer, 48 + i * 4);
-	// 		if (charShow > 0)
-	// 		{
-	// 			int u1 = BitConverter.ToInt32(buffer, 100 + i * 4);
-	// 			int u2 = BitConverter.ToInt32(buffer, 72 + i * 4);
-	// 			if (u2 > 0)
-	// 			{
-	// 				int no = BitConverter.ToInt32(buffer, 64 + i * 4);
-	// 				int pos = BitConverter.ToInt32(buffer, 84 + i * 4);
-	// 				int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
-	// 				int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
-	// 				int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
-	// 			}
-	// 			else
-	// 			{
-	// 				int pos = BitConverter.ToInt32(buffer, 76 + i * 4);
-	// 				int no = BitConverter.ToInt32(buffer, 64 + i * 4);
-	// 				int u3 = BitConverter.ToInt32(buffer, 108 + i * 4);
-	// 				int u4 = BitConverter.ToInt32(buffer, 92 + i * 4);
-	// 				int chr = BitConverter.ToInt32(buffer, 56 + i * 4);
-	// 			}
-	// 		}
-	// 	}
-	// }
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventKey keyEvent)
