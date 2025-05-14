@@ -89,7 +89,7 @@ public partial class Wa2Audio : AudioStreamPlayer
 				}
 				else
 				{
-					VolumeDb = Mathf.LinearToDb(0);
+					VolumeDb = Mathf.LinearToDb((1.0f-(float)_counter / _duration) * _volume);
 				}
 				break;
 		}
