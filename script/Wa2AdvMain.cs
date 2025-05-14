@@ -85,6 +85,7 @@ public partial class Wa2AdvMain : Control
 		_engine.AutoMode = !_engine.AutoMode;
 		if (_engine.AutoMode)
 		{
+			_engine.StopSkip();
 			_engine.AutoModeStart();
 		}
 	}
@@ -94,7 +95,7 @@ public partial class Wa2AdvMain : Control
 	}
 	public void OnSkipButtonDown()
 	{
-		_engine.StopAutoMode();
+		_engine.AutoTimer.DeActive();
 		if (!_engine.HasReadMessage && _engine.Prefs.GetConfig("msg_cut_optin") == 0)
 		{
 			_engine.SkipMode = false;

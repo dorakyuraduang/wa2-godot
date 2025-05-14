@@ -687,7 +687,7 @@ public partial class Wa2EngineMain : Control
 	}
 	public void AutoModeStart()
 	{
-		StopSkip();
+		
 		float autoTime=DemoMode ? 137* FrameTime  : Prefs.GetConfig("auto_max") * FrameTime;
 		if (SoundMgr.GetVoiceRemainingTime(0) > 0)
 		{
