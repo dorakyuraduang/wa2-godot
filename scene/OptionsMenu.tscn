@@ -181,7 +181,6 @@ offset_bottom = 592.0
 texture = ExtResource("3_jifwb")
 
 [node name="MsgWait" type="HBoxContainer" parent="PageList/Option1" index="0"]
-visible = false
 layout_mode = 0
 offset_left = 455.0
 offset_top = 77.0

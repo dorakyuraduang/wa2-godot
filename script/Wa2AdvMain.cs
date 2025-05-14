@@ -171,9 +171,9 @@ public partial class Wa2AdvMain : Control
 		switch (State)
 		{
 			case AdvState.PARSE_TEXT:
-
 				TextParseResult r;
-				if (_engine.CanSkip() || _engine.ClickedInWait)
+				int magWait=_engine.Prefs.GetMsgWait();
+				if (_engine.CanSkip() || _engine.ClickedInWait ||magWait==0)
 				{
 					r = TextLabel.Update(9999);
 					_engine.ClickedInWait = false;
@@ -182,11 +182,12 @@ public partial class Wa2AdvMain : Control
 				{
 					if (_engine.DemoMode || _engine.AutoMode)
 					{
-						TextProgress += 2;
+						TextProgress +=2;
 					}
 					else
 					{
-						TextProgress++;
+						TextProgress+=magWait;
+						GD.Print(TextProgress);
 					}
 					r = TextLabel.Update(TextProgress);
 				}

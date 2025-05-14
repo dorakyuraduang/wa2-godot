@@ -6,15 +6,15 @@ using System.Collections.Generic;
 public class Wa2Prefs
 {
 	public ConfigFile ConfigFile = new();
-	public float TextSpeed = 40;
 	public Wa2EngineMain _engine;
+	public int[] MsgWaitIdxs = { 0, 4, 2, 1 };
 	public void Init(Wa2EngineMain e)
 	{
 		_engine = e;
 		if (!FileAccess.FileExists("user://SYSTEM.ini"))
 		{
 			SetDefault();
-			
+
 		}
 		else
 		{
@@ -116,9 +116,20 @@ public class Wa2Prefs
 	{
 		return (int)ConfigFile.GetValue("DEFAULT", key);
 	}
+	public int GetMsgWait()
+	{
+		return GetConfig("msg_wait");
+	}
 	public void Save()
 	{
 		ConfigFile.Save("user://SYSTEM.ini");
+	}
+	public int GetMsgWaitIdx()
+	{
+		return Array.IndexOf(MsgWaitIdxs,GetMsgWait());
+	}
+	public int GetMsgWaitValue(int idx){
+		return MsgWaitIdxs[idx];
 	}
 	public void SetDefault()
 	{

@@ -1,3 +1,4 @@
+using System;
 using Godot;
 public partial class OptionsMenu : BasePage
 {
@@ -60,6 +61,14 @@ public partial class OptionsMenu : BasePage
     MsgCutOptinReadBtn.ButtonDown += () => _engine.Prefs.SetConfig("msg_cut_optin", 0);
     WaitFastBtn.ButtonDown += () => _engine.Prefs.SetConfig("wait", 1);
     WaitNormalBtn.ButtonDown += () => _engine.Prefs.SetConfig("wait", 0);
+    for (int i = 0; i < 4; i++)
+    {
+      int idx=i;
+      MsgWaitBtnList.GetChild<Wa2Button>(i).ButtonDown += () =>
+      {
+        _engine.Prefs.SetConfig("msg_wait",_engine.Prefs.GetMsgWaitValue(idx));
+      };
+    }
     VolumeBtnList.GetChild<HBoxContainer>(0).GetChild<Wa2Button>(0).ButtonDown += () =>
     {
       AllVolumeBar.Value--;
@@ -156,6 +165,7 @@ public partial class OptionsMenu : BasePage
     VoiceVolumeBar.Value = (int)(_engine.Prefs.GetConfig("voice_vol") / (256 / 21));
     AutoMaxBar.Value = (int)((_engine.Prefs.GetConfig("auto_max") - 60) / (540 / 21));
     WindowAlphaBar.Value = (int)(_engine.Prefs.GetConfig("win_alpha") / (256 / 21));
+    MsgWaitBtnList.GetChild<Wa2Button>(_engine.Prefs.GetMsgWaitIdx()).ButtonPressed = true;
     for (int i = 0; i < 10; i++)
     {
       if (_engine.Prefs.GetConfig("char_voice" + i) == 1)

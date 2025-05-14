@@ -98,7 +98,8 @@ public partial class Wa2EngineMain : Control
 	public List<CharItem> CharItems = new();
 	// public bool MessageHasRead = true;
 	// public Wa2Timer SeWaitTimer = new();
-	public float FrameTime { private set; get; } = 1.0f / (int)ProjectSettings.GetSetting("application/run/max_fps");
+	public float FrameTime { private set; get; } = 1.0f / 60;
+	public float ScriptFrameTime { private set; get; } = 1.0f / 30;
 	public Wa2Script Script;
 	public Stack<Wa2Script> ScriptStack = new();
 	public Wa2Func Func;
@@ -114,6 +115,8 @@ public partial class Wa2EngineMain : Control
 	public Color FBColor = new(0.5f, 0.5f, 0.5f, 1);
 	public bool IsClick;
 	public int[] GameFlags = new int[0x1d];
+	public double ScriptDelta = 0.0f;
+	public double FrameDelta = 0.0f;
 	public Wa2EngineMain()
 	{
 		if (Engine == null)
@@ -532,6 +535,8 @@ public partial class Wa2EngineMain : Control
 		AnimatorMgr.FinishAll();
 		AdvMain.WaitKey = false;
 		AdvMain.State = Wa2AdvMain.AdvState.END;
+		ScriptDelta = 0.0f;
+		FrameDelta=0.0f;
 		// WaitSeFinish();
 		if (stop)
 		{
@@ -642,16 +647,31 @@ public partial class Wa2EngineMain : Control
 		}
 		else if (State == GameState.GAME)
 		{
+
 			InputKeyHandling();
 			UpdateFrame(delta);
-			if (AdvMain.State != Wa2AdvMain.AdvState.PARSE_TEXT && !AutoTimer.IsActive() && !WaitTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (AdvMain.State == Wa2AdvMain.AdvState.END || AdvMain.State == Wa2AdvMain.AdvState.FADE_OUT || (DemoMode && AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)) && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
-			{
+			CheckScript(delta);
+		}
+	}
+	public void CheckScript(double delta)
+	{
+		ScriptDelta += delta;
+		if (ScriptDelta >= ScriptFrameTime)
+		{
+			ScriptDelta -= ScriptFrameTime;
 
-				bool flag = !AnimatorMgr.WaitAnimation();
-				if (flag)
-				{
-					ScriptParse();
-				}
+		}
+		else
+		{
+			return;
+		}
+		if (AdvMain.State != Wa2AdvMain.AdvState.PARSE_TEXT && !AutoTimer.IsActive() && !WaitTimer.IsActive() && !CanSkip() && !AdvMain.SelectMessageContainer.Visible && (AdvMain.State == Wa2AdvMain.AdvState.END || AdvMain.State == Wa2AdvMain.AdvState.FADE_OUT || (DemoMode && AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)) && UiMgr.UiQueue.Peek() == UiMgr.AdvMain)
+		{
+
+			bool flag = !AnimatorMgr.WaitAnimation();
+			if (flag)
+			{
+				ScriptParse();
 			}
 		}
 	}
@@ -673,7 +693,15 @@ public partial class Wa2EngineMain : Control
 	}
 	public void UpdateFrame(double delta)
 	{
-
+		FrameDelta += delta;
+		if (FrameDelta >= FrameTime)
+		{
+			FrameDelta -= FrameTime;
+		}
+		else
+		{
+			return;
+		}
 		if (CanSkip())
 		{
 			ClickAdv();
@@ -689,12 +717,8 @@ public partial class Wa2EngineMain : Control
 			else if (DemoMode)
 			{
 				AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 1.0f);
-				GD.Print("时间:", SoundMgr.GetVoiceRemainingTime(0));
-
 			}
 		}
-
-
 	}
 	public void UpdateTimer(double delta)
 	{
@@ -919,5 +943,6 @@ public partial class Wa2EngineMain : Control
 		}
 
 	}
+
 }
 
