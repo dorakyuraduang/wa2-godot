@@ -598,7 +598,7 @@ public class Wa2Func
 	}
 	public bool SEW(List<Wa2Var> args)
 	{
-		_engine.WaitTimer.Start(_engine.SoundMgr.GetSeTime(args[1].Get()), Wa2WaitTimer.WaitType.WAIT_SE, args[0].Get());
+		_engine.WaitTimer.Start(_engine.SoundMgr.GetSeTime(args[0].Get()), Wa2WaitTimer.WaitType.WAIT_SE, args[0].Get());
 		return false;
 	}
 	public bool SEVW(List<Wa2Var> args)
