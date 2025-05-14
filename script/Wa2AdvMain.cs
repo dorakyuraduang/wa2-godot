@@ -176,7 +176,6 @@ public partial class Wa2AdvMain : Control
 				if (_engine.CanSkip() || _engine.ClickedInWait ||magWait==0)
 				{
 					r = TextLabel.Update(9999);
-					// _engine.ClickedInWait = false;
 				}
 				else
 				{

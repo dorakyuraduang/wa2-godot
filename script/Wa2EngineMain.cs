@@ -449,6 +449,7 @@ public partial class Wa2EngineMain : Control
 				{
 					if (!HasPlayMovie || !click)
 					{
+						ClickedInWait = false;
 						return;
 					}
 					HideVideo();
@@ -476,10 +477,7 @@ public partial class Wa2EngineMain : Control
 						}
 					}
 				}
-				if (!AutoTimer.IsDone())
-				{
-					AutoTimer.Done();
-				}
+
 				ClickedInWait = false;
 			}
 			return;
@@ -505,8 +503,10 @@ public partial class Wa2EngineMain : Control
 				{
 					AdvMain.State = Wa2AdvMain.AdvState.PARSE_TEXT;
 				}
-
-				// ClickedInWait = false;
+				if (AutoTimer.IsActive() && !AutoTimer.IsDone())
+				{
+					AutoTimer.Done();
+				}
 			}
 			ScriptParse();
 		}
@@ -753,7 +753,7 @@ public partial class Wa2EngineMain : Control
 				AutoTimer.DeActive();
 				if (AutoMode || DemoMode)
 				{
-					ClickAdv();
+					AdvMain.State = Wa2AdvMain.AdvState.END;
 				}
 			}
 		}
@@ -817,10 +817,10 @@ public partial class Wa2EngineMain : Control
 						StopSkip();
 						flag = false;
 					}
-					if (!AdvMain.Visible && !VideoPlayer.IsPlaying() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.State==Wa2AdvMain.AdvState.HIDE)
+					if (!AdvMain.Visible && !VideoPlayer.IsPlaying() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.State == Wa2AdvMain.AdvState.HIDE)
 					{
 						AdvMain.Show();
-						AdvMain.State=Wa2AdvMain.AdvState.WAIT_CLICK;
+						AdvMain.State = Wa2AdvMain.AdvState.WAIT_CLICK;
 						flag = false;
 					}
 					if (flag)
