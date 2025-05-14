@@ -688,13 +688,14 @@ public partial class Wa2EngineMain : Control
 	public void AutoModeStart()
 	{
 		StopSkip();
+		float autoTime=DemoMode ? 137* FrameTime  : Prefs.GetConfig("auto_max") * FrameTime;
 		if (SoundMgr.GetVoiceRemainingTime(0) > 0)
 		{
-			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + Prefs.GetConfig("auto_max") * FrameTime);
+			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + autoTime);
 		}
 		else
 		{
-			AutoTimer.Start(Prefs.GetConfig("auto_max") * FrameTime);
+			AutoTimer.Start(autoTime);
 		}
 	}
 	public void UpdateFrame(double delta)
@@ -715,13 +716,9 @@ public partial class Wa2EngineMain : Control
 		AdvMain.Update();
 		if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK && !AutoTimer.IsActive())
 		{
-			if (AutoMode)
+			if (AutoMode || DemoMode)
 			{
 				AutoModeStart();
-			}
-			else if (DemoMode)
-			{
-				AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + 137 * FrameTime);
 			}
 		}
 	}

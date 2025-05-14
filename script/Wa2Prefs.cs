@@ -137,7 +137,7 @@ public class Wa2Prefs
 		string section = "DEFAULT";
 		ConfigFile.SetValue(section, "wheel", 0);
 		ConfigFile.SetValue(section, "wait", 0);
-		ConfigFile.SetValue(section, "msg_wait", 4);
+		ConfigFile.SetValue(section, "msg_wait", 2);
 		ConfigFile.SetValue(section, "msg_cut_optin", 1);
 		ConfigFile.SetValue(section, "all_sound", 1);
 		ConfigFile.SetValue(section, "bgm", 1);
