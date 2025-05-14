@@ -44,6 +44,7 @@ public partial class UICalender : Control
 	}
 	public void Open()
 	{
+	
 		AnimationPlayer.SpeedScale=1;
 		if (_engine.GameFlags[0] == 2)
 		{
@@ -63,7 +64,7 @@ public partial class UICalender : Control
 		else
 		{
 			Num1.Hide();
-			(Num2.Texture as AtlasTexture).Region = new Rect2(40 * _engine.Calender.DayOfWeek, 0, 40, 48);
+			(Num2.Texture as AtlasTexture).Region = new Rect2(40 * _engine.Calender.Month, 0, 40, 48);
 		}
 		if (_engine.Calender.Day >= 10)
 		{
