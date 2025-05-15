@@ -505,14 +505,14 @@ public partial class Wa2EngineMain : Control
 				}
 				if (AutoTimer.IsActive() && !AutoTimer.IsDone())
 				{
-					AutoTimer.Done();
+					AutoTimer.DeActive();
 				}
 			}
 			if (!AdvMain.WaitKey)
 			{
 				ScriptParse();
 			}
-			
+
 		}
 	}
 
@@ -542,7 +542,7 @@ public partial class Wa2EngineMain : Control
 		MaskTexture.SetMaskTexture(null);
 		MaskTexture.SetCurTexture(null);
 		MaskTexture.SetNextTexture(null);
-		AnimatorMgr.FinishAll();
+		AnimatorMgr.FinishAll(true);
 		AdvMain.WaitKey = false;
 		AdvMain.State = Wa2AdvMain.AdvState.END;
 		ScriptDelta = 0.0f;
@@ -692,8 +692,8 @@ public partial class Wa2EngineMain : Control
 	}
 	public void AutoModeStart()
 	{
-		
-		float autoTime=DemoMode ? 137* FrameTime  : Prefs.GetConfig("auto_max") * FrameTime;
+
+		float autoTime = DemoMode ? 137 * FrameTime : Prefs.GetConfig("auto_max") * FrameTime;
 		if (SoundMgr.GetVoiceRemainingTime(0) > 0)
 		{
 			AutoTimer.Start(SoundMgr.GetVoiceRemainingTime(0) + autoTime);
@@ -755,7 +755,7 @@ public partial class Wa2EngineMain : Control
 				AutoTimer.DeActive();
 				if (AutoMode || DemoMode)
 				{
-					AdvMain.State = Wa2AdvMain.AdvState.END;
+					ClickAdv();
 				}
 			}
 		}

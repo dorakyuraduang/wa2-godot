@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Text;
 public partial class DataSlot : Wa2Button
 {
@@ -38,7 +39,7 @@ public partial class DataSlot : Wa2Button
       DateLabel.Text = string.Format("{0:D4} {1:D2}/{2:D2} {3:D2}:{4:D2}", year, month, day, hour, minute);
       SaveTexture.Texture = ImageTexture.CreateFromImage(Image.CreateFromData(256, 144, false, Image.Format.Rgb8, file.GetBuffer(0x1b000)));
       // GD.Print(idx);
-      string scriptName = file.GetBuffer(8).GetStringFromUtf8();
+      string scriptName = file.GetBuffer(8).GetStringFromUtf8().Replace("\0", "");
       Category.Show();
       AtlasTexture texture = (AtlasTexture)Category.Texture;
       if (scriptName[0] == '1')
@@ -53,34 +54,67 @@ public partial class DataSlot : Wa2Button
       {
         texture.Region = new Rect2(0, 48, 248, 24);
       }
-      string text = Encoding.Unicode.GetString(file.GetBuffer(256)).Replace("\n", "").Replace("\\n", "").Replace("\0", "");
-      if (text.Length >= 14)
+      else if (scriptName == "5000")
       {
-        text = text.Substring(0, 13) + "…";
+        texture.Region = new Rect2(0, 144, 248, 24);
       }
+      else if (scriptName == "5001")
+      {
+        texture.Region = new Rect2(0, 168, 248, 24);
+      }
+      else if (scriptName == "5002")
+      {
+        texture.Region = new Rect2(0, 192, 248, 24);
+      }
+      else if (scriptName == "5003")
+      {
+        texture.Region = new Rect2(0, 216, 248, 24);
+      }
+      else if (scriptName == "5004")
+      {
+        texture.Region = new Rect2(0, 240, 248, 24);
+      }
+      else if (scriptName == "5100")
+      {
+        texture.Region = new Rect2(0, 264, 248, 24);
+      }
+      else if (scriptName == "5101")
+      {
+        texture.Region = new Rect2(0, 288, 248, 24);
+      }
+      else if (scriptName == "5102")
+      {
+        texture.Region = new Rect2(0, 312, 248, 24);
+      }
+      else if (scriptName == "5103")
+      {
+        texture.Region = new Rect2(0, 336, 248, 24);
+      }
+      else if (scriptName == "5104")
+      {
+        texture.Region = new Rect2(0, 360, 248, 24);
+      }
+
       if (scriptName[0] == '2' || scriptName[0] == '3')
       {
         Month.Show();
         DayLabel.Show();
 
         AtlasTexture texture2 = (AtlasTexture)Month.Texture;
-        file.Seek(file.GetPosition() + 20 + 0x1d * 4 + 52 * 4);
-        file.Seek(file.GetPosition() + file.Get32() * 132 * 4+4);
-        file.Seek(file.GetPosition() + file.Get32() * 20+4);
-        file.Seek(file.GetPosition() + file.Get32() * 12+4);
-        file.Seek(file.GetPosition() + file.Get32() * 76+8);
-        GD.Print("pos", file.GetPosition());
-        
-        int m = (int)file.Get32()-1;
-        GD.Print("月份", m);
-        
-        texture2.Region = new Rect2(m /4 * 40, m % 4 * 24, 40, 24);
+        file.Get32();
+        int m = (int)file.Get32() - 1;
+        texture2.Region = new Rect2(m / 4 * 40, m % 4 * 24, 40, 24);
         DayLabel.Text = string.Format("{0:D2}", file.Get32());
       }
       else
       {
         Month.Hide();
         DayLabel.Hide();
+      }
+      string text = Encoding.Unicode.GetString(file.GetBuffer(1024)).Replace("\n", "").Replace("\\n", "").Replace("\0", "");
+      if (text.Length >= 14)
+      {
+        text = text.Substring(0, 13) + "…";
       }
       FirstSentenceLabel.SetText(text);
       NoData.Hide();

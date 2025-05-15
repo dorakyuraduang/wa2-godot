@@ -4,6 +4,7 @@ using System;
 public partial class Wa2AdvMain : Control
 {
 
+	public bool NevelMode=false;
 	[Export]
 	public Wa2Button BackLogButton;
 	[Export]
@@ -63,6 +64,7 @@ public partial class Wa2AdvMain : Control
 	// public bool Active;
 	public void SetNevelMode(bool flag)
 	{
+		NevelMode = flag;
 		if (flag)
 		{
 			MessageBox.Hide();

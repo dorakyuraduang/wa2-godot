@@ -109,10 +109,6 @@ public partial class Wa2Label : Node2D
 		for (int i = 0; i < Text.Length; i++)
 		{
 			//当前进度超过目标进度时
-			if (r.WaitKey)
-			{
-				break;
-			}
 			if (curprogress >= progress && progress != -1)
 			{
 				if (curSegment >= Segment)
@@ -366,7 +362,11 @@ public partial class Wa2Label : Node2D
 						case 'k':
 							if (curSegment >= Segment && Segment != -1)
 							{
-								r.WaitKey = true;
+								if (progress != -1)
+								{
+									r.WaitKey = true;
+								}
+
 								// break;
 								// r.ParseEnd = true;
 							}
@@ -455,7 +455,7 @@ public partial class Wa2Label : Node2D
 		else
 		{
 			r.EndPosition = new Vector2(drawX, drawY);
-			
+
 			// GD.Print(r.EndPosition);
 		}
 		r.ParseEnd = curprogress <= (progress - 16);
@@ -490,9 +490,9 @@ public partial class Wa2Label : Node2D
 			int x = pos % 80;
 			int y = pos / 80;
 			Rect2 rect = new(new Vector2(r.X, r.Y), new Vector2(r.Size, r.Size));
-			Rect2 rect2 = new(new Vector2(r.X-r.Size/28f*2, r.Y-r.Size/28f*2), new Vector2(r.Size/28f*32, r.Size/28f*32));
+			Rect2 rect2 = new(new Vector2(r.X - r.Size / 28f * 2, r.Y - r.Size / 28f * 2), new Vector2(r.Size / 28f * 32, r.Size / 28f * 32));
 			Rect2 srcRect = new(new Vector2(x, y) * Rect1Size + new Vector2(4, 4), new Vector2(28, 28));
-			Rect2 shadowRect = new(new Vector2(x, y) * Rect1Size+ new Vector2(2, 2), new Vector2(32, 32));
+			Rect2 shadowRect = new(new Vector2(x, y) * Rect1Size + new Vector2(2, 2), new Vector2(32, 32));
 			if (Shadow)
 			{
 				DrawTextureRectRegion(ShadowTexture, rect2, shadowRect, new Color(0.15f, 0.15f, 0.15f, r.Alpha));

@@ -153,7 +153,11 @@ public class Wa2GameSav
 		file.Store32((uint)SystemTime.Millisecond);
 		file.StoreBuffer(image.GetData());
 		file.StoreBuffer([.. Encoding.ASCII.GetBytes(_engine.Script.ScriptName).Concat(new byte[8]).Take(8)]);
-		file.StoreBuffer([.. Encoding.Unicode.GetBytes(_engine.AdvMain.TextLabel.Text).Concat(new byte[256]).Take(256)]);
+		file.Store32((uint)_engine.Calender.Year);
+		file.Store32((uint)_engine.Calender.Month);
+		file.Store32((uint)_engine.Calender.Day);
+		file.Store32((uint)_engine.Calender.DayOfWeek);
+		file.StoreBuffer([.. Encoding.Unicode.GetBytes(_engine.AdvMain.TextLabel.Text).Concat(new byte[1024]).Take(1024)]);
 		file.StoreBuffer([.. Encoding.Unicode.GetBytes(_engine.AdvMain.NameLabel.Text).Concat(new byte[16]).Take(16)]);
 		file.Store32(_engine.Script.ScriptPos);
 		for (int i = 0; i < _engine.GameFlags.Length; i++)
@@ -212,10 +216,7 @@ public class Wa2GameSav
 			file.Store32((uint)_engine.SelectItems[i].V2);
 			file.Store32((uint)_engine.SelectItems[i].V3);
 		}
-		file.Store32((uint)_engine.Calender.Year);
-		file.Store32((uint)_engine.Calender.Month);
-		file.Store32((uint)_engine.Calender.Day);
-		file.Store32((uint)_engine.Calender.DayOfWeek);
+
 		file.Store32((uint)_engine.TimeMode);
 		file.Store32((uint)_engine.Label);
 		file.Store32((uint)_engine.Weather);
@@ -250,8 +251,8 @@ public class Wa2GameSav
 				file.Store32((uint)seAudios[i].Volume);
 				file.Store8((byte)(seAudios[i].Loop ? 1 : 0));
 			}
-
 		}
+		file.Store8((byte)(_engine.AdvMain.NevelMode ? 1 : 0));
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -261,11 +262,16 @@ public class Wa2GameSav
 		FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
 		file.Seek(0x1b000 + 32);
 		_engine.JumpScript(file.GetBuffer(8).GetStringFromAscii().Replace("\0", ""));
-		_engine.AdvMain.TextLabel.Text = Encoding.Unicode.GetString(file.GetBuffer(256)).Replace("\0", "");
+		_engine.Calender = new Calender()
+		{
+			Year = (int)file.Get32(),
+			Month = (int)file.Get32(),
+			Day = (int)file.Get32(),
+			DayOfWeek = (int)file.Get32()
+		};
+		_engine.AdvMain.TextLabel.Text = Encoding.Unicode.GetString(file.GetBuffer(1024)).Replace("\0", "");
 		_engine.AdvMain.NameLabel.Text = Encoding.Unicode.GetString(file.GetBuffer(16)).Replace("\0", "");
 		_engine.Script.ScriptPos = file.Get32();
-		GD.Print("脚本名:", _engine.Script.ScriptName);
-		GD.Print("脚本位置:", _engine.Script.ScriptPos);
 		for (int i = 0; i < 0x1d; i++)
 		{
 			_engine.GameFlags[i] = (int)file.Get32();
@@ -336,13 +342,7 @@ public class Wa2GameSav
 			});
 		}
 		GD.Print("日期位置", file.GetPosition());
-		_engine.Calender = new Calender()
-		{
-			Year = (int)file.Get32(),
-			Month = (int)file.Get32(),
-			Day = (int)file.Get32(),
-			DayOfWeek = (int)file.Get32()
-		};
+
 		_engine.TimeMode = (int)file.Get32();
 		_engine.Label = (int)file.Get32();
 		_engine.Weather = (int)file.Get32();
@@ -372,8 +372,9 @@ public class Wa2GameSav
 			int id = (int)file.Get32();
 			int volume = (int)file.Get32();
 			bool loop = file.Get8() == 1;
-			_engine.SoundMgr.PlaySe(channel,id,loop,0,volume );
+			_engine.SoundMgr.PlaySe(channel, id, loop, 0, volume);
 		}
+		_engine.AdvMain.SetNevelMode(file.Get8() == 1);
 		if (_engine.AdvMain.ParseMode == 0)
 		{
 			_engine.AdvMain.ParseMode = 2;
