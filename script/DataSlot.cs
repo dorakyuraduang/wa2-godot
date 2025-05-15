@@ -23,10 +23,10 @@ public partial class DataSlot : Wa2Button
   public void Update(int idx)
   {
     IdxLabel.Text = string.Format("{0:D2}", idx + 1);
-    if (FileAccess.FileExists(string.Format("user://sav{0:D2}.sav",idx)))
+    if (FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", idx)))
     {
 
-      FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav",idx), FileAccess.ModeFlags.Read);
+      FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
       int year = (int)file.Get32();
       int month = (int)file.Get32();
       int dayOfWeek = (int)file.Get32();
@@ -40,16 +40,6 @@ public partial class DataSlot : Wa2Button
       // GD.Print(idx);
       string scriptName = file.GetBuffer(8).GetStringFromUtf8();
       Category.Show();
-      if (scriptName[0]=='2' || scriptName[0]=='3'){
-        Month.Show();
-        DayLabel.Show();
-        DayLabel.Text=string.Format("{0:D2}", day);
-        AtlasTexture texture2 = (AtlasTexture)Category.Texture;
-        texture2.Region = new Rect2(month/4*40, month%4*24, 40, 24);
-      }else{
-        Month.Hide();
-        DayLabel.Hide();
-      }
       AtlasTexture texture = (AtlasTexture)Category.Texture;
       if (scriptName[0] == '1')
       {
@@ -63,9 +53,34 @@ public partial class DataSlot : Wa2Button
       {
         texture.Region = new Rect2(0, 48, 248, 24);
       }
-      string text=Encoding.Unicode.GetString(file.GetBuffer(256)).Replace("\n","").Replace("\\n","").Replace("\0","");
-      if(text.Length>=14){
-        text=text.Substring(0,13)+"…";
+      string text = Encoding.Unicode.GetString(file.GetBuffer(256)).Replace("\n", "").Replace("\\n", "").Replace("\0", "");
+      if (text.Length >= 14)
+      {
+        text = text.Substring(0, 13) + "…";
+      }
+      if (scriptName[0] == '2' || scriptName[0] == '3')
+      {
+        Month.Show();
+        DayLabel.Show();
+
+        AtlasTexture texture2 = (AtlasTexture)Month.Texture;
+        file.Seek(file.GetPosition() + 20 + 0x1d * 4 + 52 * 4);
+        file.Seek(file.GetPosition() + file.Get32() * 132 * 4+4);
+        file.Seek(file.GetPosition() + file.Get32() * 20+4);
+        file.Seek(file.GetPosition() + file.Get32() * 12+4);
+        file.Seek(file.GetPosition() + file.Get32() * 76+8);
+        GD.Print("pos", file.GetPosition());
+        
+        int m = (int)file.Get32()-1;
+        GD.Print("月份", m);
+        
+        texture2.Region = new Rect2(m /4 * 40, m % 4 * 24, 40, 24);
+        DayLabel.Text = string.Format("{0:D2}", file.Get32());
+      }
+      else
+      {
+        Month.Hide();
+        DayLabel.Hide();
       }
       FirstSentenceLabel.SetText(text);
       NoData.Hide();

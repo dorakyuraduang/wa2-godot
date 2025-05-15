@@ -335,6 +335,7 @@ public class Wa2GameSav
 				V3 = (int)file.Get32()
 			});
 		}
+		GD.Print("日期位置", file.GetPosition());
 		_engine.Calender = new Calender()
 		{
 			Year = (int)file.Get32(),

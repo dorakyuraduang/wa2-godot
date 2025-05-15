@@ -4,8 +4,6 @@
 [ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="2_k5oa6"]
 [ext_resource type="Texture2D" uid="uid://ekms51gcnb2h" path="res://assets/grp/sys_01010.tga" id="2_yye6e"]
 [ext_resource type="FontFile" uid="uid://13ow1d25naon" path="res://assets/fonts/number.tres" id="3_8eqka"]
-[ext_resource type="Texture2D" uid="uid://dwuhirbqoetti" path="res://assets/grp/sys_01016.png" id="4_qg7dv"]
-[ext_resource type="Texture2D" uid="uid://dai73h84v2ui3" path="res://assets/grp/sys_01015.png" id="5_d6xoc"]
 [ext_resource type="Script" uid="uid://qsw3xkgywsql" path="res://script/Wa2Label.cs" id="7_smn8n"]
 [ext_resource type="Texture2D" uid="uid://cmgdubqht36c6" path="res://assets/fonts/cn/本体80.png" id="8_7aix8"]
 [ext_resource type="Texture2D" uid="uid://kphqvd0w7amu" path="res://assets/fonts/cn/袋影80.png" id="8_xnv3s"]
@@ -22,14 +20,20 @@ region = Rect2(632, 0, 632, 96)
 line_spacing = 0.0
 font = ExtResource("3_8eqka")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d6xoc"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_smn8n"]
+load_path = "res://.godot/imported/sys_01016.png-addbcd355ae423a0441b30c5dbc91316.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnv3s"]
 resource_local_to_scene = true
-atlas = ExtResource("4_qg7dv")
+atlas = SubResource("CompressedTexture2D_smn8n")
 region = Rect2(0, 0, 248, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fyfrv"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_k5oa6"]
+load_path = "res://.godot/imported/sys_01015.png-560ca07e249713aa667d266c9009e8e3.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smn8n"]
 resource_local_to_scene = true
-atlas = ExtResource("5_d6xoc")
+atlas = SubResource("CompressedTexture2D_k5oa6")
 region = Rect2(0, 0, 40, 24)
 
 [sub_resource type="LabelSettings" id="LabelSettings_k5oa6"]
@@ -98,7 +102,7 @@ offset_left = 376.0
 offset_top = 16.0
 offset_right = 624.0
 offset_bottom = 40.0
-texture = SubResource("AtlasTexture_d6xoc")
+texture = SubResource("AtlasTexture_xnv3s")
 
 [node name="Month" type="TextureRect" parent="."]
 layout_mode = 0
@@ -106,7 +110,7 @@ offset_left = 540.0
 offset_top = 16.0
 offset_right = 580.0
 offset_bottom = 40.0
-texture = SubResource("AtlasTexture_fyfrv")
+texture = SubResource("AtlasTexture_smn8n")
 
 [node name="Day" type="Label" parent="."]
 layout_mode = 0

@@ -518,7 +518,7 @@ public partial class Wa2EngineMain : Control
 		CharItems.Clear();
 		SelectItems.Clear();
 		VoiceInfos.Clear();
-		Calender = new();
+		// Calender = new();
 		BgmInfo = new();
 		BgInfo = new();
 		EffectMode = "";
@@ -582,7 +582,7 @@ public partial class Wa2EngineMain : Control
 	{
 		SoundMgr.StopBgm();
 		Reset(true);
-		// GameSav.Reset();
+		Calender = new();
 		GameFlags = new int[0x1d];
 		Backlogs.Clear();
 		ScriptStack.Clear();
