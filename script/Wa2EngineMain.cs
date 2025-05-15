@@ -495,7 +495,7 @@ public partial class Wa2EngineMain : Control
 			}
 			if (AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
 			{
-				if (AdvMain.WaitKey)
+				if (!AdvMain.WaitKey)
 				{
 					AdvMain.State = Wa2AdvMain.AdvState.END;
 				}
@@ -508,7 +508,11 @@ public partial class Wa2EngineMain : Control
 					AutoTimer.Done();
 				}
 			}
-			ScriptParse();
+			if (!AdvMain.WaitKey)
+			{
+				ScriptParse();
+			}
+			
 		}
 	}
 
@@ -521,6 +525,7 @@ public partial class Wa2EngineMain : Control
 		// Calender = new();
 		BgmInfo = new();
 		BgInfo = new();
+		AdvMain.SetNevelMode(false);
 		EffectMode = "";
 		DemoMode = false;
 		AdvMain.SetDemoMode(false);

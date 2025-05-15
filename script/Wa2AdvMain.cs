@@ -34,6 +34,10 @@ public partial class Wa2AdvMain : Control
 	public AnimatedSprite2D WaitSprite;
 	[Export]
 	public TextureRect Window;
+	[Export]
+	public Control MessageBox;
+	[Export]
+	public ColorRect Mask;
 	public int PageAnime = 2;
 	public bool WaitKey;
 	// [Export]
@@ -57,6 +61,24 @@ public partial class Wa2AdvMain : Control
 	}
 	public AdvState State = AdvState.END;
 	// public bool Active;
+	public void SetNevelMode(bool flag)
+	{
+		if (flag)
+		{
+			MessageBox.Hide();
+			TextLabel.Position = new Vector2(80, 40);
+			Mask.Show();
+			TextLabel.MaxChars = 40;
+		}
+		else
+		{
+			MessageBox.Show();
+			Mask.Hide();
+			TextLabel.FontSize = 28;
+			TextLabel.MaxChars = 28;
+			TextLabel.Position = new Vector2(240, 540);
+		}
+	}
 	public void Init(Wa2EngineMain e)
 	{
 		_engine = e;
@@ -198,6 +220,7 @@ public partial class Wa2AdvMain : Control
 						TextLabel.Segment++;
 						TextProgress = 0;
 						State = AdvState.WAIT_CLICK;
+						WaitKey = true;
 
 					}
 					else if (ParseMode == 2)
@@ -206,14 +229,14 @@ public partial class Wa2AdvMain : Control
 						TextProgress = 0;
 						State = AdvState.WAIT_CLICK;
 
-						WaitKey = true;
+						WaitKey = false;
 					}
 					else if (ParseMode == 1)
 					{
 						TextLabel.Segment++;
 						TextProgress = 0;
 						State = AdvState.END;
-						WaitKey = true;
+						WaitKey = false;
 					}
 				}
 
@@ -225,7 +248,7 @@ public partial class Wa2AdvMain : Control
 			case AdvState.WAIT_CLICK:
 				r = TextLabel.Update(0);
 				WaitSprite.Position = TextLabel.Position + r.EndPosition;
-				if (WaitKey)
+				if (!WaitKey)
 				{
 					WaitSprite.Play("page2");
 				}

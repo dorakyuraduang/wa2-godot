@@ -36,6 +36,16 @@ public partial class TitleMenu : Control
 	public Wa2Button SpecialButton;
 	[Export]
 	public Control Special;
+	[Export]
+	public Control DigitalNovel;
+	[Export]
+	public Wa2Button DigitalNovelButton;
+	[Export]
+	public Wa2Button DigitalNovelBackButton;
+	[Export]
+	public Wa2Button DigitalNovel1Button;
+		[Export]
+	public Wa2Button DigitalNovel2Button;
 	private Wa2EngineMain _engine;
 
 
@@ -51,20 +61,37 @@ public partial class TitleMenu : Control
 		SpecialBackButton.ButtonDown += OnSpecialBackButtonDown;
 		// As1Button.ButtonDown += OnAs1ButtonDown;
 		// As2Button.ButtonDown += OnAs2ButtonDown;
-		OptionsButton.ButtonDown+=OnOptionsButtonDown;
-		BgmModeButton.ButtonDown+=OnBgmModeButtonDown;
+		DigitalNovel1Button.ButtonDown +=OnDigitalNovel1ButtonDown;
+			DigitalNovel2Button.ButtonDown +=OnDigitalNovel2ButtonDown;
+		DigitalNovelButton.ButtonDown += OnDigitalNovelButtonDown;
+		DigitalNovelBackButton.ButtonDown += OnDigitalNovelBackButtonDown;
+		OptionsButton.ButtonDown += OnOptionsButtonDown;
+		BgmModeButton.ButtonDown += OnBgmModeButtonDown;
 		CodeaButton.ButtonDown += OnCodeaButtonDown;
 		LoadtButton.ButtonDown += OnLoadButtonDown;
-		CgModeButton.ButtonDown+=OnCgModeButtonDown;
+		CgModeButton.ButtonDown += OnCgModeButtonDown;
+	}
+	public void OnDigitalNovelButtonDown()
+	{
+		Special.Hide();
+		DigitalNovel.Show();
+	}
+	public void OnDigitalNovelBackButtonDown()
+	{
+		DigitalNovel.Hide();
+		Special.Show();
 
 	}
-	public void OnOptionsButtonDown(){
+	public void OnOptionsButtonDown()
+	{
 		_engine.UiMgr.OpenOptionsMenu();
 	}
-	public void OnCgModeButtonDown(){
+	public void OnCgModeButtonDown()
+	{
 		_engine.UiMgr.OpenCGModeMenu();
 	}
-	public void OnBgmModeButtonDown(){
+	public void OnBgmModeButtonDown()
+	{
 		_engine.UiMgr.OpenBgmModeMenu();
 	}
 	public void OnLoadButtonDown()
@@ -91,6 +118,22 @@ public partial class TitleMenu : Control
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
 		_engine.StartScript("2001");
 		_engine.UiMgr.OpenGame();
+	}
+	public async void OnDigitalNovel1ButtonDown() {
+		_engine.SoundMgr.StopBgm();
+		AnimationPlayer.Play("close");
+		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+		_engine.StartScript("5000");
+		_engine.UiMgr.OpenGame();
+	
+	}
+		public async void OnDigitalNovel2ButtonDown() {
+		_engine.SoundMgr.StopBgm();
+		AnimationPlayer.Play("close");
+		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+		_engine.StartScript("5100");
+		_engine.UiMgr.OpenGame();
+	
 	}
 	public async void OnIcButtonDown()
 	{

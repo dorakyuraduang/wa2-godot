@@ -109,6 +109,10 @@ public partial class Wa2Label : Node2D
 		for (int i = 0; i < Text.Length; i++)
 		{
 			//当前进度超过目标进度时
+			if (r.WaitKey)
+			{
+				break;
+			}
 			if (curprogress >= progress && progress != -1)
 			{
 				if (curSegment >= Segment)
@@ -363,6 +367,7 @@ public partial class Wa2Label : Node2D
 							if (curSegment >= Segment && Segment != -1)
 							{
 								r.WaitKey = true;
+								// break;
 								// r.ParseEnd = true;
 							}
 							curSegment++;

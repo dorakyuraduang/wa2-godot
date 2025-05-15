@@ -1759,7 +1759,7 @@ region = Rect2(248, 64, 32, 32)
 atlas = ExtResource("13_y4c0q")
 region = Rect2(288, 64, 32, 32)
 
-[node name="AdvMain" type="Control" node_paths=PackedStringArray("BackLogButton", "IsReadTexture", "AutoModeTexture", "SkipModeTexture", "SaveButton", "LoadButton", "OptionButton", "AutoButton", "SkipButton", "OffButton", "SelectMessageContainer", "NameLabel", "TextLabel", "WaitSprite", "Window")]
+[node name="AdvMain" type="Control" node_paths=PackedStringArray("BackLogButton", "IsReadTexture", "AutoModeTexture", "SkipModeTexture", "SaveButton", "LoadButton", "OptionButton", "AutoButton", "SkipButton", "OffButton", "SelectMessageContainer", "NameLabel", "TextLabel", "WaitSprite", "Window", "MessageBox", "Mask")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1781,9 +1781,31 @@ SelectMessageContainer = NodePath("SelectMessage")
 NameLabel = NodePath("NameLabel")
 TextLabel = NodePath("TextLabel")
 WaitSprite = NodePath("AwaitSprite")
-Window = NodePath("Window")
+Window = NodePath("MessageBox/Window")
+MessageBox = NodePath("MessageBox")
+Mask = NodePath("Mask")
 
-[node name="Window" type="TextureRect" parent="."]
+[node name="Mask" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="MessageBox" type="Control" parent="."]
+custom_minimum_size = Vector2(1248, 208)
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 480.0
+offset_right = 56.0
+offset_bottom = 520.0
+mouse_filter = 2
+
+[node name="Window" type="TextureRect" parent="MessageBox"]
 modulate = Color(1, 1, 1, 0.5)
 layout_mode = 1
 anchors_preset = 7
@@ -1792,16 +1814,15 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -624.0
-offset_top = -240.0
+offset_top = -208.0
 offset_right = 624.0
-offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 texture = ExtResource("2_n2b20")
 stretch_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="MessageBox" type="TextureRect" parent="MessageBox"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1809,9 +1830,8 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -624.0
-offset_top = -240.0
+offset_top = -208.0
 offset_right = 624.0
-offset_bottom = -32.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2

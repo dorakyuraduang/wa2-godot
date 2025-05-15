@@ -990,6 +990,7 @@ public class Wa2Func
 	}
 	public bool NevelMode(List<Wa2Var> args)
 	{
+		_engine.AdvMain.SetNevelMode(args[0].Get() != 0);
 		return false;
 	}
 	public bool EroMode(List<Wa2Var> args)
