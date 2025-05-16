@@ -306,9 +306,6 @@ public class Wa2Func
 		if (args[0].CmdType == CmdType.STR_VAR)
 		{
 			_engine.AdvMain.NameLabel.Text = args[0].Get();
-			// if(args[0].IntValue>0){
-			// 	_engine.WirtSysFlag(args[0].IntValue,1);
-			// }
 		}
 		else
 		{
@@ -975,8 +972,15 @@ public class Wa2Func
 	}
 	public bool WN2(List<Wa2Var> args)
 	{
-		GD.Print("wn2");
-		return false;
+		if (args[0].CmdType == CmdType.STR_VAR)
+		{
+			_engine.AdvMain.NameLabel.Text = args[0].Get();
+		}
+		else
+		{
+			_engine.AdvMain.NameLabel.Text = "";
+		}
+		return true;
 
 	}
 	public bool WNS2(List<Wa2Var> args)
@@ -1084,10 +1088,12 @@ public class Wa2Func
 	}
 	public bool NB(List<Wa2Var> args)
 	{
+		_engine.AdvMain.AdvHide(args[0].Get()*_engine.FrameTime);
 		return false;
 	}
 	public bool NBR(List<Wa2Var> args)
 	{
+		_engine.AdvMain.AdvShow(args[0].Get()*_engine.FrameTime);
 		return false;
 	}
 	public bool VXV(List<Wa2Var> args)

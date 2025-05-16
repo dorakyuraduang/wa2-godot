@@ -906,14 +906,6 @@ public partial class Wa2EngineMain : Control
 		else
 		{
 			targetTexture.SetMaskTexture(null);
-			// switch (efc)
-			// {
-			// 	case 0:
-			// 		break;
-			// 	case 12:
-
-			// 		break;
-			// }
 		}
 		BgInfo.Offset = new Vector2(x - offset, y);
 		BgInfo.Scale = new Vector2(scaleX, ScaleY);
@@ -948,12 +940,7 @@ public partial class Wa2EngineMain : Control
 			{
 				continue;
 			}
-			// Wa2ImageAnimator animator1 = new(_engine.Chars[i]);
-			// Wa2ImageAnimator animator2 = new(_engine.Chars[i]);
-			// _engine.Chars[i].SetNextTexture(null);
 			AnimatorMgr.AddCharFeadAnimation(Chars[i], null, time);
-			// animator1.InitFade(time);
-			// animator2.InitHide(time);
 		}
 		CharItems.Clear();
 		return false;
