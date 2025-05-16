@@ -304,6 +304,14 @@ public partial class Wa2AdvMain : Control
 	{
 		AdvFade(time, false);
 	}
+	public void NeveHide(float time)
+	{
+		_engine.AnimatorMgr.AddFeadAnimation(Mask, time, 0.0f);
+	}
+		public void NeveShow(float time)
+	{
+		_engine.AnimatorMgr.AddFeadAnimation(Mask,time,1.0f);
+	}
 	public void AdvFade(float time, bool fadein)
 	{
 		_engine.AnimatorMgr.AddAdvFeadAnimation(this, time, fadein);
@@ -313,8 +321,6 @@ public partial class Wa2AdvMain : Control
 
 
 		// ClearText();
-		TextLabel.Clear();
-		NameLabel.Clear();
 		
 		if (!fade)
 		{

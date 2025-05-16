@@ -184,16 +184,16 @@ public class Wa2Func
 		if (v3 == 0)
 		{
 			_engine.AdvMain.TextLabel.Text += "\\k" + text;
-			_engine.AdvMain.State = Wa2AdvMain.AdvState.PARSE_TEXT;
 		}
 		else
 		{
 			// _engine.AdvMain.ClearText();
-			_engine.AdvMain.TextProgress = 0;
+			_engine.AdvMain.TextLabel.Clear();
+			_engine.AdvMain.NameLabel.Clear();
 			_engine.AdvMain.TextLabel.Segment = 0;
 			_engine.AdvMain.TextLabel.Text = text;
-			_engine.AdvMain.ShowText();
 		}
+		_engine.AdvMain.ShowText();
 		_engine.AdvMain.TextProgress = 0;
 
 		_engine.AdvMain.ParseMode = v4;
@@ -967,7 +967,7 @@ public class Wa2Func
 	}
 	public bool GetReplayMode(List<Wa2Var> args)
 	{
-		_engine.Script.PushInt(5, 3, _engine.ReplayMode ? 1 :0);
+		_engine.Script.PushInt(5, 3, _engine.ReplayMode ? 1 : 0);
 		return true;
 	}
 	public bool WN2(List<Wa2Var> args)
@@ -1088,12 +1088,12 @@ public class Wa2Func
 	}
 	public bool NB(List<Wa2Var> args)
 	{
-		_engine.AdvMain.AdvHide(args[0].Get()*_engine.FrameTime);
+		_engine.AdvMain.AdvHide(args[0].Get() * _engine.FrameTime);
 		return false;
 	}
 	public bool NBR(List<Wa2Var> args)
 	{
-		_engine.AdvMain.AdvShow(args[0].Get()*_engine.FrameTime);
+		_engine.AdvMain.AdvShow(args[0].Get() * _engine.FrameTime);
 		return false;
 	}
 	public bool VXV(List<Wa2Var> args)
