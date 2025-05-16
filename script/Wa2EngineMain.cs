@@ -39,10 +39,11 @@ public partial class Wa2EngineMain : Control
 	// public int _frame;
 	// public List<string> Texts = new();
 	public List<BacklogEntry> Backlogs = new();
+	public bool EroMode = false;
 	public bool TestMode = true;
 	public bool SkipMode = false;
 	public bool SkipDisable = false;
-	public int ReplayMode;
+	public bool ReplayMode = false;
 	public bool AutoMode = false;
 
 	public bool ClickedInWait;
@@ -522,7 +523,6 @@ public partial class Wa2EngineMain : Control
 		CharItems.Clear();
 		SelectItems.Clear();
 		VoiceInfos.Clear();
-		// Calender = new();
 		BgmInfo = new();
 		BgInfo = new();
 		AdvMain.SetNevelMode(false);
@@ -534,20 +534,17 @@ public partial class Wa2EngineMain : Control
 		ClickedInWait = false;
 		SkipDisable = false;
 		WaitTimer.DeActive();
-		// TextTimer.DeActive();
 		AdvMain.Clear();
 		UpdateChar(0);
-		BgTexture.SetCurTexture(null);
-		BgTexture.SetNextTexture(null);
-		MaskTexture.SetMaskTexture(null);
-		MaskTexture.SetCurTexture(null);
-		MaskTexture.SetNextTexture(null);
+		EroMode = false;
+		ReplayMode = false;
 		AnimatorMgr.FinishAll(true);
+		BgTexture.Reset();
+		MaskTexture.Reset();
 		AdvMain.WaitKey = false;
 		AdvMain.State = Wa2AdvMain.AdvState.END;
 		ScriptDelta = 0.0f;
 		FrameDelta = 0.0f;
-		// WaitSeFinish();
 		if (stop)
 		{
 			StopAutoMode();
@@ -859,6 +856,107 @@ public partial class Wa2EngineMain : Control
 		}
 
 	}
+	// public void Load
+	public void RenderImage(int id, int efc, bool updateChar, int type, int frame, int offset, int x, int y, float scaleX, float ScaleY)
+	{
+		AnimatorMgr.FinishAll(true);
+		Texture2D NextTexture;
+		Texture2D CeacheTexture = ImageTexture.CreateFromImage(Viewport.GetTexture().GetImage());
+		Wa2Image targetTexture;
+		if (updateChar)
+		{
+			targetTexture = BgTexture;
+		}
+		else
+		{
+			targetTexture = MaskTexture;
+		}
+		if (id >= 0)
+		{
+			if (type == 1)
+			{
+				BgInfo.Path = string.Format("v{0:D6}.tga", id, TimeMode);
+			}
+			else if (type == 2)
+			{
+				BgInfo.Path = string.Format("h{0:D6}.tga", id, TimeMode);
+			}
+			else
+			{
+				BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", id / 10, id % 10, TimeMode);
+			}
+			NextTexture = Wa2Resource.GetTgaImage(BgInfo.Path);
+		}
+		else
+		{
+			if (updateChar)
+			{
+				NextTexture = BgTexture.GetCurTexture();
+			}
+			else
+			{
+				NextTexture = CeacheTexture;
+			}
 
+		}
+		if (efc >= 128)
+		{
+			targetTexture.SetMaskTexture(Wa2Resource.GetMaskImage(efc & 0x7f));
+		}
+		else
+		{
+			targetTexture.SetMaskTexture(null);
+			// switch (efc)
+			// {
+			// 	case 0:
+			// 		break;
+			// 	case 12:
+
+			// 		break;
+			// }
+		}
+		BgInfo.Offset = new Vector2(x - offset, y);
+		BgInfo.Scale = new Vector2(scaleX, ScaleY);
+		targetTexture.SetNextTexture(NextTexture);
+		if (!updateChar)
+		{
+			MaskTexture.SetCurTexture(CeacheTexture);
+			MaskTexture.SetCurOffset(Vector2.Zero);
+			MaskTexture.SetCurScale(Vector2.One);
+			MaskTexture.SetNextOffset(BgInfo.Offset);
+			MaskTexture.SetNextScale(BgInfo.Scale);
+			BgTexture.SetCurOffset(BgInfo.Offset);
+			BgTexture.SetCurScale(BgInfo.Scale);
+			BgTexture.SetCurTexture(NextTexture);
+			AnimatorMgr.AddMaskFeadAnimation(MaskTexture, frame * FrameTime, true);
+		}
+		else
+		{
+			AnimatorMgr.AddBgFeadAnimation(BgTexture, frame * FrameTime, BgInfo.Offset, BgInfo.Scale);
+		}
+		if (updateChar)
+		{
+			UpdateChar(frame * FrameTime);
+		}
+		ClearChar(frame * FrameTime);
+	}
+	public bool ClearChar(float time)
+	{
+		for (int i = 0; i < Chars.Length; i++)
+		{
+			if (Chars[i].GetCurTexture() == null)
+			{
+				continue;
+			}
+			// Wa2ImageAnimator animator1 = new(_engine.Chars[i]);
+			// Wa2ImageAnimator animator2 = new(_engine.Chars[i]);
+			// _engine.Chars[i].SetNextTexture(null);
+			AnimatorMgr.AddCharFeadAnimation(Chars[i], null, time);
+			// animator1.InitFade(time);
+			// animator2.InitHide(time);
+		}
+		CharItems.Clear();
+		return false;
+	}
 }
 

@@ -18,7 +18,7 @@ public partial class Wa2Image : ColorRect
 	{
 		(Material as ShaderMaterial).SetShaderParameter("cur_scale", val);
 	}
-		public void SetNextOffset(Vector2 val)
+	public void SetNextOffset(Vector2 val)
 	{
 		(Material as ShaderMaterial).SetShaderParameter("next_offset", val);
 	}
@@ -32,7 +32,7 @@ public partial class Wa2Image : ColorRect
 	{
 		return (Vector2)(Material as ShaderMaterial).GetShaderParameter("cur_offset");
 	}
-		public Vector2 GetCurScale()
+	public Vector2 GetCurScale()
 	{
 		return (Vector2)(Material as ShaderMaterial).GetShaderParameter("cur_scale");
 	}
@@ -41,7 +41,7 @@ public partial class Wa2Image : ColorRect
 	{
 		return (Vector2)(Material as ShaderMaterial).GetShaderParameter("next_offset");
 	}
-		public Vector2 GetNextScale()
+	public Vector2 GetNextScale()
 	{
 		return (Vector2)(Material as ShaderMaterial).GetShaderParameter("next_scale");
 	}
@@ -52,7 +52,7 @@ public partial class Wa2Image : ColorRect
 	public void SetNextTexture(Texture2D texture)
 	{
 		(Material as ShaderMaterial).SetShaderParameter("next_texture", texture);
-		
+
 	}
 	public void SetCurTexture(Texture2D texture)
 	{
@@ -74,5 +74,16 @@ public partial class Wa2Image : ColorRect
 	public Texture2D GetMaskTexture()
 	{
 		return (Texture2D)(Material as ShaderMaterial).GetShaderParameter("mask_texture");
+	}
+	public void Reset()
+	{
+		SetCurOffset(Vector2.Zero);
+		SetNextOffset(Vector2.Zero);
+		SetCurScale(Vector2.One);
+		SetNextScale(Vector2.One);
+		SetCurTexture(null);
+		SetNextTexture(null);
+		SetMaskTexture(null);
+
 	}
 }

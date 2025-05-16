@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FFmpeg.AutoGen;
 using Godot;
 public class Animator
 {
@@ -90,6 +91,36 @@ public partial class AnimatorMgr : Node
     Vector2 StartOffset = image.GetCurOffset();
     tween.TweenMethod(Callable.From<Vector2>(image.SetCurOffset), StartOffset, new Vector2(x, y), time);
 
+  }
+  public void AddBgFeadAnimation(Wa2Image image, float time, Vector2 offset, Vector2 scale)
+  {
+    Tween tween = CreateTween();
+    Animator animator = new(tween, time);
+    AddAnimator(animator);
+    image.SetBlend(0f);
+    if (image.GetMaskTexture() == null)
+    {
+      (image.Material as ShaderMaterial).SetShaderParameter("fead_weight", 0.5);
+    }
+    else
+    {
+      (image.Material as ShaderMaterial).SetShaderParameter("fead_weight", 1.0);
+    }
+    tween.SetParallel(true);
+    tween.TweenMethod(Callable.From<float>(image.SetBlend), 0f, 1f, time);
+    tween.TweenMethod(Callable.From<Vector2>(image.SetNextOffset), image.GetCurOffset(), offset, time);
+    tween.TweenMethod(Callable.From<Vector2>(image.SetNextScale), image.GetCurScale(), scale, time);
+    tween.SetParallel(false);
+    tween.TweenCallback(Callable.From(() =>
+    {
+      image.SetCurOffset(offset);
+      image.SetCurOffset(offset);
+      image.SetMaskTexture(null);
+       image.SetCurTexture(image.GetNextTexture());
+      image.SetNextTexture(null);
+     
+      image.SetBlend(0);
+    }));
   }
   public void AddMaskFeadAnimation(Wa2Image image, float time, bool mask = true)
   {

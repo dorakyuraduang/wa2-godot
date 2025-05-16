@@ -323,131 +323,101 @@ public class Wa2Func
 
 	public bool B(List<Wa2Var> args)
 	{
-		// for (int i = 0; i < args.Count; i++)
-		// {
-		// 	GD.Print(args[i].Get());
-		// }
-		// _e.Viewport.BgDrawFrame = args[3];
-		_engine.AnimatorMgr.FinishAll(true);
-		Texture2D NextTexture;
-		Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
-		if (args[1].Get() >= 0)
-		{
-			_engine.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.TimeMode);
-			NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
-		}
-		else
-		{
-			NextTexture = _engine.BgTexture.GetCurTexture();
-		}
-		if (args[0].Get() >= 128)
-		{
-			_engine.MaskTexture.SetMaskTexture(Wa2Resource.GetMaskImage(args[0].Get() & 0x7f));
-		}
-		else
-		{
-			_engine.MaskTexture.SetMaskTexture(null);
-		}
-		_engine.BgTexture.SetCurOffset(new Vector2(0, 0));
-		_engine.BgTexture.SetCurScale(new Vector2(1, 1));
-		_engine.BgInfo.Scale = Vector2.One;
-		_engine.BgInfo.Offset = Vector2.Zero;
-		ClearChar(args[3].Get() * _engine.FrameTime);
-		_engine.BgTexture.SetCurTexture(NextTexture);
-		if (args[3].Get() == 0)
-		{
-			return true;
-		}
-		_engine.MaskTexture.SetCurOffset(Vector2.Zero);
-		_engine.MaskTexture.SetCurScale(Vector2.One);
-		_engine.MaskTexture.SetCurTexture(CeacheTexture);
-		_engine.MaskTexture.SetNextScale(new Vector2(1, 1));
-		_engine.MaskTexture.SetNextOffset(new Vector2(0, 0));
-		_engine.MaskTexture.SetNextTexture(NextTexture);
-		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime);
-		// Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
-		// Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
-		// animator1.InitFade(args[3].Get() * _engine.FrameTime);
-		// animator2.InitHide(args[3].Get() * _engine.FrameTime);
-		return false;
-	}
-	public bool ClearChar(float time)
-	{
-		for (int i = 0; i < _engine.Chars.Length; i++)
-		{
-			if (_engine.Chars[i].GetCurTexture() == null)
-			{
-				continue;
-			}
-			// Wa2ImageAnimator animator1 = new(_engine.Chars[i]);
-			// Wa2ImageAnimator animator2 = new(_engine.Chars[i]);
-			// _engine.Chars[i].SetNextTexture(null);
-			_engine.AnimatorMgr.AddCharFeadAnimation(_engine.Chars[i], null, time);
-			// animator1.InitFade(time);
-			// animator2.InitHide(time);
-		}
-		_engine.CharItems.Clear();
-		return false;
-	}
 
+		// _engine.AnimatorMgr.FinishAll(true);
+		// Texture2D NextTexture;
+		// Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
+		// if (args[1].Get() >= 0)
+		// {
+		// 	_engine.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.TimeMode);
+		// 	NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
+		// }
+		// else
+		// {
+		// 	NextTexture = _engine.BgTexture.GetCurTexture();
+		// }
+		// if (args[0].Get() >= 128)
+		// {
+		// 	_engine.MaskTexture.SetMaskTexture(Wa2Resource.GetMaskImage(args[0].Get() & 0x7f));
+		// }
+		// else
+		// {
+		// 	_engine.MaskTexture.SetMaskTexture(null);
+		// }
+		// _engine.BgTexture.SetCurOffset(new Vector2(0, 0));
+		// _engine.BgTexture.SetCurScale(new Vector2(1, 1));
+		// _engine.BgInfo.Scale = Vector2.One;
+		// _engine.BgInfo.Offset = Vector2.Zero;
+		// _engine.ClearChar(args[3].Get() * _engine.FrameTime);
+		// _engine.BgTexture.SetCurTexture(NextTexture);
+		// if (args[3].Get() == 0)
+		// {
+		// 	return true;
+		// }
+		// _engine.MaskTexture.SetCurOffset(Vector2.Zero);
+		// _engine.MaskTexture.SetCurScale(Vector2.One);
+		// _engine.MaskTexture.SetCurTexture(CeacheTexture);
+		// _engine.MaskTexture.SetNextScale(new Vector2(1, 1));
+		// _engine.MaskTexture.SetNextOffset(new Vector2(0, 0));
+		// _engine.MaskTexture.SetNextTexture(NextTexture);
+		// _engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime);
+		int id = args[2].Get() + 10 * args[1].Get();
+		_engine.RenderImage(id, args[0].Get(), false, 0, args[3].Get(), args[4].Get(), args[5].Get(), args[6].Get(), args[7].Get() / 1280f, args[8].Get() / 720f);
+		return false;
+	}
 	public bool BC(List<Wa2Var> args)
 	{
-		_engine.AnimatorMgr.FinishAll(true);
-		// GD.Print("bc");
-		// if (args[3].Get() > 0)
-		// {
-		// 	_engine.BgInfo.Frame = args[3].Get();
-		// }
-
-		Texture2D NextTexture;
-		Texture2D CeacheTexture = _engine.BgTexture.GetCurTexture();
-		if (args[1].Get() >= 0)
-		{
-			_engine.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.TimeMode);
-			NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
-		}
-		else
-		{
-			NextTexture = CeacheTexture;
-		}
-		_engine.BgTexture.SetCurTexture(CeacheTexture);
-		_engine.BgTexture.SetNextTexture(NextTexture);
-		_engine.BgTexture.SetMaskTexture(null);
-		// Wa2ImageAnimator animator3 = new(_engine.BgTexture);
-		// animator3.InitFade(_engine.BgInfo.Frame * _engine.FrameTime);
-		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.BgTexture, args[3].Get() * _engine.FrameTime, false);
-		_engine.UpdateChar(args[3].Get() * _engine.FrameTime);
-
+		int id = args[2].Get() + 10 * args[1].Get();
+		_engine.RenderImage(id, args[0].Get(), true, 0, args[3].Get(), args[4].Get(), args[5].Get(), args[6].Get(), args[7].Get() / 1280f, args[8].Get() / 720f);
 		return false;
+		// _engine.AnimatorMgr.FinishAll(true);
+		// Texture2D NextTexture;
+		// Texture2D CeacheTexture = _engine.BgTexture.GetCurTexture();
+		// if (args[1].Get() >= 0)
+		// {
+		// 	_engine.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.TimeMode);
+		// 	NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
+		// }
+		// else
+		// {
+		// 	NextTexture = CeacheTexture;
+		// }
+		// _engine.BgTexture.SetCurTexture(CeacheTexture);
+		// _engine.BgTexture.SetNextTexture(NextTexture);
+		// _engine.BgTexture.SetMaskTexture(null);
+		// // Wa2ImageAnimator animator3 = new(_engine.BgTexture);
+		// // animator3.InitFade(_engine.BgInfo.Frame * _engine.FrameTime);
+		// _engine.AnimatorMgr.AddMaskFeadAnimation(_engine.BgTexture, args[3].Get() * _engine.FrameTime, false);
+		// _engine.UpdateChar(args[3].Get() * _engine.FrameTime);
+
 		// GD.Print("更新背景和角色");
 
 	}
 	public bool V(List<Wa2Var> args)
 	{
-		Texture2D NextTexture;
-		_engine.AnimatorMgr.FinishAll(true);
-		if (args[1].Get() >= 0)
-		{
-			_engine.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
-			_engine.SetCgFlag(args[1].Get() * 10 + args[2].Get(), 1);
-			NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
-		}
-		else
-		{
-			NextTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
-		}
-		_engine.MaskTexture.SetCurOffset(_engine.BgTexture.GetCurOffset());
-		_engine.MaskTexture.SetCurScale(_engine.BgTexture.GetCurScale());
-		_engine.MaskTexture.SetCurTexture(ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()));
-		_engine.MaskTexture.SetNextTexture(NextTexture);
-		_engine.MaskTexture.SetMaskTexture(null);
-		// Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
-		// Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
-		// animator1.InitFade(args[3].Get() * _engine.FrameTime);
-		// animator2.InitHide(args[3].Get() * _engine.FrameTime);
-		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime);
-		ClearChar(args[3].Get() * _engine.FrameTime);
-		_engine.BgTexture.SetCurTexture(NextTexture);
+		// Texture2D NextTexture;
+		// _engine.AnimatorMgr.FinishAll(true);
+		// if (args[1].Get() >= 0)
+		// {
+		// 	_engine.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
+		// 	_engine.SetCgFlag(args[1].Get() * 10 + args[2].Get(), 1);
+		// 	NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
+		// }
+		// else
+		// {
+		// 	NextTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
+		// }
+		// _engine.MaskTexture.SetCurOffset(_engine.BgTexture.GetCurOffset());
+		// _engine.MaskTexture.SetCurScale(_engine.BgTexture.GetCurScale());
+		// _engine.MaskTexture.SetCurTexture(ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()));
+		// _engine.MaskTexture.SetNextTexture(NextTexture);
+		// _engine.MaskTexture.SetMaskTexture(null);
+		// _engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime);
+		// _engine.ClearChar(args[3].Get() * _engine.FrameTime);
+		// _engine.BgTexture.SetCurTexture(NextTexture);
+		// return false;
+		int id = args[2].Get() + 10 * args[1].Get();
+		_engine.RenderImage(id, args[0].Get(), false, 1, args[3].Get(), args[4].Get(), args[5].Get(), args[6].Get(), args[7].Get() / 1280f, args[8].Get() / 720f);
 		return false;
 	}
 	public bool H(List<Wa2Var> args)
@@ -844,7 +814,7 @@ public class Wa2Func
 		// }
 		if (Time.GetTicksMsec() < (ulong)(_engine.StartTime + args[0].Get()))
 		{
-			_engine.WaitTimer.Start((_engine.StartTime + args[0].Get() - (int)Time.GetTicksMsec()) * 0.001f, Wa2WaitTimer.WaitType.WAIT_TIMER,(int)args[0].Get());
+			_engine.WaitTimer.Start((_engine.StartTime + args[0].Get() - (int)Time.GetTicksMsec()) * 0.001f, Wa2WaitTimer.WaitType.WAIT_TIMER, (int)args[0].Get());
 		}
 		args.Clear();
 		return false;
@@ -995,11 +965,12 @@ public class Wa2Func
 	}
 	public bool EroMode(List<Wa2Var> args)
 	{
-		return false;
+		_engine.EroMode = true;
+		return true;
 	}
 	public bool GetReplayMode(List<Wa2Var> args)
 	{
-		_engine.Script.PushInt(5, 3, _engine.ReplayMode);
+		_engine.Script.PushInt(5, 3, _engine.ReplayMode ? 1 :0);
 		return true;
 	}
 	public bool WN2(List<Wa2Var> args)
@@ -1015,76 +986,80 @@ public class Wa2Func
 	}
 	public bool B2(List<Wa2Var> args)
 	{
-		_engine.AnimatorMgr.FinishAll(true);
-		Texture2D NextTexture;
-		Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()); ;
-		if (args[1].Get() >= 0)
-		{
-			_engine.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.TimeMode);
-			NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
-		}
-		else
-		{
-			NextTexture = _engine.BgTexture.GetCurTexture();
-		}
-		// _engine.MaskTexture.SetCurOffset(_engine.BgTexture.GetCurOffset());
-		// _engine.MaskTexture.SetCurScale(_engine.BgTexture.GetCurScale());
-		_engine.MaskTexture.SetCurTexture(CeacheTexture);
-		_engine.MaskTexture.SetNextTexture(NextTexture);
-		_engine.MaskTexture.SetMaskTexture(null);
-		// Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
-		// Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
-		_engine.MaskTexture.SetCurOffset(Vector2.Zero);
-		_engine.MaskTexture.SetCurScale(Vector2.One);
-		_engine.BgInfo.Offset = new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
-		_engine.BgInfo.Scale = new Vector2(args[7].Get(), args[8].Get());
-		_engine.MaskTexture.SetNextOffset(_engine.BgInfo.Offset);
-		_engine.MaskTexture.SetNextScale(_engine.BgInfo.Scale);
-
-		// _engine.SubViewport.Hide();
-		_engine.BgTexture.SetCurOffset(_engine.BgInfo.Offset);
-		_engine.BgTexture.SetCurScale(_engine.BgInfo.Scale);
-		_engine.BgTexture.SetCurTexture(NextTexture);
-		// animator1.InitFade(_engine.BgInfo.Frame * _engine.FrameTime);
-		// animator2.InitHide(_engine.BgInfo.Frame * _engine.FrameTime);
-		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime, true);
-		ClearChar(args[3].Get() * _engine.FrameTime);
+		int id = args[2].Get() + 10 * args[1].Get();
+		_engine.RenderImage(id, args[0].Get(), false, 0, args[3].Get(), args[4].Get(), args[5].Get(), args[6].Get(), args[7].Get(), args[8].Get());
 		return false;
+		// _engine.AnimatorMgr.FinishAll(true);
+		// Texture2D NextTexture;
+		// Texture2D CeacheTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()); ;
+		// if (args[1].Get() >= 0)
+		// {
+		// 	_engine.BgInfo.Path = string.Format("B{0:D4}{1:D1}{2:D1}.tga", args[1].Get(), args[2].Get(), _engine.TimeMode);
+		// 	NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
+		// }
+		// else
+		// {
+		// 	NextTexture = _engine.BgTexture.GetCurTexture();
+		// }
+		// // _engine.MaskTexture.SetCurOffset(_engine.BgTexture.GetCurOffset());
+		// // _engine.MaskTexture.SetCurScale(_engine.BgTexture.GetCurScale());
+		// _engine.MaskTexture.SetCurTexture(CeacheTexture);
+		// _engine.MaskTexture.SetNextTexture(NextTexture);
+		// _engine.MaskTexture.SetMaskTexture(null);
+		// // Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
+		// // Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
+		// _engine.MaskTexture.SetCurOffset(Vector2.Zero);
+		// _engine.MaskTexture.SetCurScale(Vector2.One);
+		// _engine.BgInfo.Offset = new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
+		// _engine.BgInfo.Scale = new Vector2(args[7].Get(), args[8].Get());
+		// _engine.MaskTexture.SetNextOffset(_engine.BgInfo.Offset);
+		// _engine.MaskTexture.SetNextScale(_engine.BgInfo.Scale);
+
+		// // _engine.SubViewport.Hide();
+		// _engine.BgTexture.SetCurOffset(_engine.BgInfo.Offset);
+		// _engine.BgTexture.SetCurScale(_engine.BgInfo.Scale);
+		// _engine.BgTexture.SetCurTexture(NextTexture);
+		// // animator1.InitFade(_engine.BgInfo.Frame * _engine.FrameTime);
+		// // animator2.InitHide(_engine.BgInfo.Frame * _engine.FrameTime);
+		// _engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime, true);
+		// _engine.ClearChar(args[3].Get() * _engine.FrameTime);
+		// return false;
 	}
 	public bool BC2(List<Wa2Var> args)
 	{
+		int id = args[2].Get() + 10 * args[1].Get();
+		_engine.RenderImage(id, args[0].Get(), true, 0, args[3].Get(), args[4].Get(), args[5].Get(), args[6].Get(), args[7].Get(), args[8].Get());
 		return false;
 	}
 	public bool V2(List<Wa2Var> args)
 	{
-		Texture2D NextTexture;
+		// Texture2D NextTexture;
 
-		if (args[1].Get() >= 0)
-		{
-			_engine.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
-			_engine.SetCgFlag(args[1].Get() * 10 + args[2].Get(), 1);
-			NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
-		}
-		else
-		{
-			NextTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
-		}
-		_engine.BgInfo.Offset = new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
-		_engine.BgInfo.Scale = new Vector2(args[7].Get(), args[8].Get());
-		_engine.MaskTexture.SetNextOffset(_engine.BgInfo.Offset);
-		_engine.MaskTexture.SetNextScale(_engine.BgInfo.Scale);
-		_engine.BgTexture.SetCurOffset(_engine.BgInfo.Offset);
-		_engine.BgTexture.SetCurScale(_engine.BgInfo.Scale);
-		_engine.MaskTexture.SetCurTexture(ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()));
-		_engine.MaskTexture.SetNextTexture(NextTexture);
-		_engine.MaskTexture.SetMaskTexture(null);
-		// Wa2ImageAnimator animator1 = new(_engine.MaskTexture);
-		// Wa2ImageAnimator animator2 = new(_engine.MaskTexture);
-		// animator1.InitFade(args[3].Get() * _engine.FrameTime);
-		// animator2.InitHide(args[3].Get() * _engine.FrameTime);
-		_engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime);
-		ClearChar(args[3].Get() * _engine.FrameTime);
-		_engine.BgTexture.SetCurTexture(NextTexture);
+		// if (args[1].Get() >= 0)
+		// {
+		// 	_engine.BgInfo.Path = string.Format("v{0:D5}{1:D1}.tga", args[1].Get(), args[2].Get());
+		// 	_engine.SetCgFlag(args[1].Get() * 10 + args[2].Get(), 1);
+		// 	NextTexture = Wa2Resource.GetTgaImage(_engine.BgInfo.Path);
+		// }
+		// else
+		// {
+		// 	NextTexture = ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage());
+		// }
+		// _engine.BgInfo.Offset = new Vector2(args[5].Get() - args[4].Get(), args[6].Get());
+		// _engine.BgInfo.Scale = new Vector2(args[7].Get(), args[8].Get());
+		// _engine.MaskTexture.SetNextOffset(_engine.BgInfo.Offset);
+		// _engine.MaskTexture.SetNextScale(_engine.BgInfo.Scale);
+		// _engine.BgTexture.SetCurOffset(_engine.BgInfo.Offset);
+		// _engine.BgTexture.SetCurScale(_engine.BgInfo.Scale);
+		// _engine.MaskTexture.SetCurTexture(ImageTexture.CreateFromImage(_engine.Viewport.GetTexture().GetImage()));
+		// _engine.MaskTexture.SetNextTexture(NextTexture);
+		// _engine.MaskTexture.SetMaskTexture(null);
+		// _engine.AnimatorMgr.AddMaskFeadAnimation(_engine.MaskTexture, args[3].Get() * _engine.FrameTime);
+		// _engine.ClearChar(args[3].Get() * _engine.FrameTime);
+		// _engine.BgTexture.SetCurTexture(NextTexture);
+		// return false;
+		int id = args[2].Get() + 10 * args[1].Get();
+		_engine.RenderImage(id, args[0].Get(), false, 1, args[3].Get(), args[4].Get(), args[5].Get(), args[6].Get(), args[7].Get(), args[8].Get());
 		return false;
 	}
 	public bool H2(List<Wa2Var> args)
