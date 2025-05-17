@@ -193,11 +193,12 @@ public class Wa2Func
 			_engine.AdvMain.TextLabel.Segment = 0;
 			_engine.AdvMain.TextLabel.Text = text;
 		}
-		_engine.AdvMain.ShowText();
+
 		_engine.AdvMain.TextProgress = 0;
 
 		_engine.AdvMain.ParseMode = v4;
 		_engine.CurMessageIdx = idx;
+		_engine.AdvMain.ShowText();
 
 
 	}

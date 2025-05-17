@@ -106,19 +106,19 @@ public partial class AnimatorMgr : Node
     {
       (image.Material as ShaderMaterial).SetShaderParameter("fead_weight", 1.0);
     }
-    tween.SetParallel(true);
+    image.SetNextOffset(offset);
+    image.SetNextScale(scale);
     tween.TweenMethod(Callable.From<float>(image.SetBlend), 0f, 1f, time);
-    tween.TweenMethod(Callable.From<Vector2>(image.SetNextOffset), image.GetCurOffset(), offset, time);
-    tween.TweenMethod(Callable.From<Vector2>(image.SetNextScale), image.GetCurScale(), scale, time);
-    tween.SetParallel(false);
+    // tween.TweenMethod(Callable.From<Vector2>(image.SetNextOffset), image.GetCurOffset(), offset, time);
+    // tween.TweenMethod(Callable.From<Vector2>(image.SetNextScale), image.GetCurScale(), scale, time);
+    // tween.SetParallel(false);
     tween.TweenCallback(Callable.From(() =>
     {
       image.SetCurOffset(offset);
-      image.SetCurOffset(offset);
+      image.SetCurScale(scale);
       image.SetMaskTexture(null);
-       image.SetCurTexture(image.GetNextTexture());
+      image.SetCurTexture(image.GetNextTexture());
       image.SetNextTexture(null);
-     
       image.SetBlend(0);
     }));
   }
