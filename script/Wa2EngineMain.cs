@@ -223,14 +223,10 @@ public partial class Wa2EngineMain : Control
 			if (time > 0)
 			{
 				AnimatorMgr.AddCharFeadAnimation(image, Wa2Resource.GetChrImage(value.id, value.no), time);
-				// Wa2ImageAnimator animator1 = new(image);
-				// image.SetNextTexture();
-				// animator1.InitFade(time);
 
 			}
 			else
 			{
-				// GD.Print("设置角色", value.id, value.no);
 				image.SetCurTexture(Wa2Resource.GetChrImage(value.id, value.no));
 			}
 			posList.Add(value.pos);
@@ -930,7 +926,11 @@ public partial class Wa2EngineMain : Control
 		{
 			UpdateChar(frame * FrameTime);
 		}
-		ClearChar(frame * FrameTime);
+		else
+		{
+			ClearChar(frame * FrameTime);
+		}
+		
 	}
 	public bool ClearChar(float time)
 	{
