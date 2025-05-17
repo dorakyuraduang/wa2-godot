@@ -2,7 +2,7 @@
 .godot/
 /android/
 *.pak
-/assets/
+# /assets/
 .VSCodeCounter/
 .vscode/
 .qodo/
@@ -12,7 +12,16 @@
 *.ogg
 *.WAV
 *.wav
-!assets/font.map
-!assets/fonts/number.tres
-!assets/ani
-!assets/sub.yaml
+*.mp4
+/assets/grp
+/assets/movie
+/assets/se
+/assets/IC
+/assets/fonts/cn
+/assets/fonts/jp
+/assets/fonts/fzzyjt.ttf
+/assets/fonts/fzzyjt.ttf.import
+# !assets/font.map
+# !assets/fonts/number.tres
+# !assets/ani
+# !assets/sub.yaml
