@@ -12,3 +12,7 @@
 *.ogg
 *.WAV
 *.wav
+!assets/font.map
+!assets/fonts/number.tres
+!assets/ani
+!assets/sub.yaml
