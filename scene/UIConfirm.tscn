@@ -184,3 +184,5 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "存档已保存"
 label_settings = SubResource("LabelSettings_2s8dg")
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -23,6 +23,8 @@ public partial class Wa2UiMgr : Control
 	public CGModeMenu CGModeMenu;
 	[Export]
 	public BackLogMenu BackLogMenu;
+	[Export]
+	public NovelBackLogMenu NovelBackLogMenu;
 	private Wa2EngineMain _engine;
 	public override void _Ready()
 	{
@@ -35,7 +37,11 @@ public partial class Wa2UiMgr : Control
 	// public override void _Process(double delta)
 	// {
 	// }
-
+	public void OpenNovelBackLog()
+	{
+		NovelBackLogMenu.Open();
+		UiQueue.Push(NovelBackLogMenu);
+	}
 	public void OpenBackLog()
 	{
 		BackLogMenu.Open();

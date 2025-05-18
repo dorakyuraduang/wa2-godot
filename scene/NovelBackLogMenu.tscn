@@ -1,0 +1,86 @@
+[gd_scene load_steps=15 format=3 uid="uid://dh1x6736ft2sb"]
+
+[ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_mwcdh"]
+[ext_resource type="Script" uid="uid://bllnchdtme44j" path="res://script/NovelBackLogMenu.cs" id="2_nj80r"]
+[ext_resource type="Script" uid="uid://qsw3xkgywsql" path="res://script/Wa2Label.cs" id="2_p08xi"]
+[ext_resource type="Texture2D" uid="uid://cgnie27dykapw" path="res://assets/grp/sys_00033.png" id="2_wjep4"]
+[ext_resource type="Texture2D" uid="uid://dm5uslthnol4n" path="res://assets/grp/sys_00032.png" id="3_oa0je"]
+[ext_resource type="Texture2D" uid="uid://cmgdubqht36c6" path="res://assets/fonts/cn/本体80.png" id="3_sdr0k"]
+[ext_resource type="Texture2D" uid="uid://kphqvd0w7amu" path="res://assets/fonts/cn/袋影80.png" id="4_eff1v"]
+[ext_resource type="Texture2D" uid="uid://daj7v6ntkuj5e" path="res://assets/grp/sys_00030.png" id="4_oa0je"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcsar"]
+atlas = ExtResource("4_oa0je")
+region = Rect2(0, 592, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlwm1"]
+atlas = ExtResource("4_oa0je")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_207pf"]
+atlas = ExtResource("4_oa0je")
+region = Rect2(0, 48, 32, 544)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p08xi"]
+texture = SubResource("AtlasTexture_207pf")
+axis_stretch_horizontal = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7cua"]
+atlas = ExtResource("4_oa0je")
+region = Rect2(64, 48, 16, 88)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sdr0k"]
+texture = SubResource("AtlasTexture_x7cua")
+texture_margin_left = 32.0
+texture_margin_bottom = 96.0
+region_rect = Rect2(-4, -4, 16, 96)
+
+[node name="NovelBackLogMenu" node_paths=PackedStringArray("ScrollBar", "TextLabel") instance=ExtResource("1_mwcdh")]
+script = ExtResource("2_nj80r")
+ScrollBar = NodePath("VScrollBar")
+TextLabel = NodePath("TextLabel")
+
+[node name="NinePatchRect" type="TextureRect" parent="." index="1"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -620.0
+offset_right = 620.0
+offset_bottom = 720.0
+grow_horizontal = 2
+texture = ExtResource("2_wjep4")
+
+[node name="TextLabel" type="Node2D" parent="." index="2"]
+position = Vector2(80, 40)
+script = ExtResource("2_p08xi")
+FontTexture = ExtResource("3_sdr0k")
+ShadowTexture = ExtResource("4_eff1v")
+MaxLines = 28
+MaxChars = 39
+
+[node name="Logo" parent="." index="3"]
+visible = false
+
+[node name="PageTop" parent="." index="4"]
+texture = ExtResource("3_oa0je")
+
+[node name="VScrollBar" type="VScrollBar" parent="." index="9"]
+layout_mode = 0
+offset_left = 1228.0
+offset_top = 29.0
+offset_right = 1260.0
+offset_bottom = 675.0
+theme_override_icons/increment = SubResource("AtlasTexture_bcsar")
+theme_override_icons/increment_highlight = SubResource("AtlasTexture_bcsar")
+theme_override_icons/increment_pressed = SubResource("AtlasTexture_bcsar")
+theme_override_icons/decrement = SubResource("AtlasTexture_tlwm1")
+theme_override_icons/decrement_highlight = SubResource("AtlasTexture_tlwm1")
+theme_override_icons/decrement_pressed = SubResource("AtlasTexture_tlwm1")
+theme_override_styles/scroll = SubResource("StyleBoxTexture_p08xi")
+theme_override_styles/scroll_focus = SubResource("StyleBoxTexture_p08xi")
+theme_override_styles/grabber = SubResource("StyleBoxTexture_sdr0k")
+theme_override_styles/grabber_highlight = SubResource("StyleBoxTexture_sdr0k")
+theme_override_styles/grabber_pressed = SubResource("StyleBoxTexture_sdr0k")
+max_value = 1.0
+step = 1.0

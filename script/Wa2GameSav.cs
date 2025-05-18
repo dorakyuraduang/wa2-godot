@@ -252,7 +252,7 @@ public class Wa2GameSav
 				file.Store8((byte)(seAudios[i].Loop ? 1 : 0));
 			}
 		}
-		file.Store8((byte)(_engine.AdvMain.NevelMode ? 1 : 0));
+		file.Store8((byte)(_engine.AdvMain.NovelMode ? 1 : 0));
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -374,7 +374,7 @@ public class Wa2GameSav
 			bool loop = file.Get8() == 1;
 			_engine.SoundMgr.PlaySe(channel, id, loop, 0, volume);
 		}
-		_engine.AdvMain.SetNevelMode(file.Get8() == 1);
+		_engine.AdvMain.SetNovelMode(file.Get8() == 1);
 		if (_engine.AdvMain.ParseMode == 0)
 		{
 			_engine.AdvMain.ParseMode = 2;

@@ -122,7 +122,7 @@ public class Wa2Func
 			{0xd9,CM},
 			{0xda,CRS},
 			{0xdb,SkipOFF},
-			{0xdc,NevelMode},
+			{0xdc,NovelMode},
 			{0xdd,EroMode},
 			{0xde,GetReplayMode},
 			{0xdf,WN2},
@@ -195,7 +195,6 @@ public class Wa2Func
 		}
 
 		_engine.AdvMain.TextProgress = 0;
-
 		_engine.AdvMain.ParseMode = v4;
 		_engine.CurMessageIdx = idx;
 		_engine.AdvMain.ShowText();
@@ -956,9 +955,9 @@ public class Wa2Func
 		_engine.StopSkip();
 		return false;
 	}
-	public bool NevelMode(List<Wa2Var> args)
+	public bool NovelMode(List<Wa2Var> args)
 	{
-		_engine.AdvMain.SetNevelMode(args[0].Get() != 0);
+		_engine.AdvMain.SetNovelMode(args[0].Get() != 0);
 		return false;
 	}
 	public bool EroMode(List<Wa2Var> args)
@@ -1089,12 +1088,12 @@ public class Wa2Func
 	}
 	public bool NB(List<Wa2Var> args)
 	{
-		_engine.AdvMain.AdvHide(args[0].Get() * _engine.FrameTime);
+		_engine.AdvMain.NovelHide(args[0].Get() * _engine.FrameTime);
 		return false;
 	}
 	public bool NBR(List<Wa2Var> args)
 	{
-		_engine.AdvMain.AdvShow(args[0].Get() * _engine.FrameTime);
+		_engine.AdvMain.NovelShow(args[0].Get() * _engine.FrameTime);
 		return false;
 	}
 	public bool VXV(List<Wa2Var> args)

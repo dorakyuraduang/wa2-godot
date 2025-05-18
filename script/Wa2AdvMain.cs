@@ -4,7 +4,7 @@ using System;
 public partial class Wa2AdvMain : Control
 {
 
-	public bool NevelMode=false;
+	public bool NovelMode = false;
 	[Export]
 	public Wa2Button BackLogButton;
 	[Export]
@@ -62,15 +62,15 @@ public partial class Wa2AdvMain : Control
 	}
 	public AdvState State = AdvState.END;
 	// public bool Active;
-	public void SetNevelMode(bool flag)
+	public void SetNovelMode(bool flag)
 	{
-		NevelMode = flag;
+		NovelMode = flag;
 		if (flag)
 		{
 			MessageBox.Hide();
 			TextLabel.Position = new Vector2(80, 40);
 			Mask.Show();
-			TextLabel.MaxChars = 40;
+			TextLabel.MaxChars = 39;
 		}
 		else
 		{
@@ -115,7 +115,19 @@ public partial class Wa2AdvMain : Control
 	}
 	public void OnBackLogButtonDown()
 	{
-		_engine.UiMgr.OpenBackLog();
+		if (_engine.Backlogs.Count <= 0)
+		{
+			return;
+		}
+		if (NovelMode)
+		{
+			_engine.UiMgr.OpenNovelBackLog();
+		}
+		else
+		{
+			_engine.UiMgr.OpenBackLog();
+		}
+
 	}
 	public void OnSkipButtonDown()
 	{
@@ -197,20 +209,20 @@ public partial class Wa2AdvMain : Control
 		{
 			case AdvState.PARSE_TEXT:
 				TextParseResult r;
-				int magWait=_engine.Prefs.GetMsgWait();
-				if (_engine.CanSkip() || _engine.ClickedInWait ||magWait==0)
+				int magWait = _engine.Prefs.GetMsgWait();
+				if (_engine.CanSkip() || _engine.ClickedInWait || magWait == 0)
 				{
 					r = TextLabel.Update(9999);
 				}
 				else
 				{
-					if (_engine.DemoMode )
+					if (_engine.DemoMode)
 					{
-						TextProgress +=2;
+						TextProgress += 2;
 					}
 					else
 					{
-						TextProgress+=magWait;
+						TextProgress += magWait;
 						// GD.Print(TextProgress);
 					}
 					r = TextLabel.Update(TextProgress);
@@ -308,20 +320,35 @@ public partial class Wa2AdvMain : Control
 	{
 		_engine.AnimatorMgr.AddFeadAnimation(Mask, time, 0.0f);
 	}
-		public void NeveShow(float time)
+	public void NeveShow(float time)
 	{
-		_engine.AnimatorMgr.AddFeadAnimation(Mask,time,1.0f);
+		_engine.AnimatorMgr.AddFeadAnimation(Mask, time, 1.0f);
 	}
 	public void AdvFade(float time, bool fadein)
 	{
 		_engine.AnimatorMgr.AddAdvFeadAnimation(this, time, fadein);
+	}
+	public void NovelHide(float time)
+	{
+		_engine.AnimatorMgr.AddFeadAnimation(Mask, time, 0f);
+		_engine.AnimatorMgr.AddFeadAnimation(TextLabel, time, 0f);
+	}
+	public void NovelShow(float time)
+	{
+		_engine.AnimatorMgr.AddFeadAnimation(Mask, time, 1f);
+		_engine.AnimatorMgr.AddFeadAnimation(TextLabel, time, 1f);
 	}
 	public void ShowText(bool fade = true)
 	{
 
 
 		// ClearText();
-		
+		// TextLabel.Modulate=new Color(1, 1, 1, 1);
+		// Mask.Modulate = new Color(1, 1, 1, 1);
+		if (NovelMode && Mask.Modulate.A < 1)
+		{
+			NovelShow(0.2f);
+		}
 		if (!fade)
 		{
 			NameLabel.Update(-1);

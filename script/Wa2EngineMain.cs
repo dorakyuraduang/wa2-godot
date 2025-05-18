@@ -521,7 +521,7 @@ public partial class Wa2EngineMain : Control
 		VoiceInfos.Clear();
 		BgmInfo = new();
 		BgInfo = new();
-		AdvMain.SetNevelMode(false);
+		AdvMain.SetNovelMode(false);
 		EffectMode = "";
 		DemoMode = false;
 		AdvMain.SetDemoMode(false);
@@ -539,6 +539,8 @@ public partial class Wa2EngineMain : Control
 		MaskTexture.Reset();
 		AdvMain.WaitKey = false;
 		AdvMain.State = Wa2AdvMain.AdvState.END;
+		AdvMain.TextLabel.Modulate = new Color(1, 1, 1, 1);
+		AdvMain.Mask.Modulate = new Color(1, 1, 1, 1);
 		ScriptDelta = 0.0f;
 		FrameDelta = 0.0f;
 		if (stop)
@@ -930,7 +932,7 @@ public partial class Wa2EngineMain : Control
 		{
 			ClearChar(frame * FrameTime);
 		}
-		
+
 	}
 	public bool ClearChar(float time)
 	{

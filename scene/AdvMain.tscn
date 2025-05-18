@@ -1800,9 +1800,9 @@ color = Color(0, 0, 0, 0.501961)
 custom_minimum_size = Vector2(1248, 208)
 anchors_preset = 0
 offset_left = 16.0
-offset_top = 480.0
-offset_right = 56.0
-offset_bottom = 520.0
+offset_top = 460.0
+offset_right = 1264.0
+offset_bottom = 668.0
 mouse_filter = 2
 
 [node name="Window" type="TextureRect" parent="MessageBox"]
@@ -1839,13 +1839,13 @@ texture = ExtResource("3_n2b20")
 stretch_mode = 2
 
 [node name="NameLabel" type="Node2D" parent="."]
-position = Vector2(188, 496)
+position = Vector2(168, 476)
 script = ExtResource("4_cjs8f")
 FontTexture = ExtResource("5_5s8hw")
 ShadowTexture = ExtResource("6_cwlbo")
 
 [node name="TextLabel" type="Node2D" parent="."]
-position = Vector2(240, 540)
+position = Vector2(220, 520)
 script = ExtResource("4_cjs8f")
 FontTexture = ExtResource("5_5s8hw")
 ShadowTexture = ExtResource("6_cwlbo")
