@@ -900,6 +900,7 @@ public partial class Wa2EngineMain : Control
 		}
 		BgInfo.Offset = new Vector2(x - offset, y);
 		BgInfo.Scale = new Vector2(scaleX, ScaleY);
+		targetTexture.SetNextTexture(NextTexture);
 
 		if (!updateChar)
 		{
