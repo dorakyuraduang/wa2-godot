@@ -78,7 +78,7 @@ public partial class Wa2AdvMain : Control
 			Mask.Hide();
 			TextLabel.FontSize = 28;
 			TextLabel.MaxChars = 28;
-			TextLabel.Position = new Vector2(240, 540);
+			TextLabel.Position = new Vector2(278, 554);
 		}
 	}
 	public void Init(Wa2EngineMain e)

@@ -547,6 +547,7 @@ public class Wa2Func
 		GD.Print("循环播放:", args[3].Get());
 		GD.Print("id:", args[1].Get());
 		Wa2SoundMgr.Instance.PlaySe(args[0].Get(), args[1].Get(), args[3].Get() != 0, args[2].Get() * _engine.FrameTime, args[4].Get());
+		args.Clear();
 		return true;
 	}
 	public bool SES(List<Wa2Var> args)

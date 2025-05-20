@@ -26,7 +26,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -440.0
-offset_bottom = -540.0
+offset_bottom = -560.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -36,14 +36,14 @@ NmaeLabel = NodePath("Name")
 TextLabel = NodePath("Text")
 
 [node name="Name" type="Node2D" parent="."]
-position = Vector2(84, 6)
+position = Vector2(62, 4)
 script = ExtResource("1_c0jps")
 FontTexture = ExtResource("3_cbnvi")
 ShadowTexture = ExtResource("4_q4g71")
 metadata/_custom_type_script = "uid://qsw3xkgywsql"
 
 [node name="Text" type="Node2D" parent="."]
-position = Vector2(100, 40)
+position = Vector2(63, 42)
 script = ExtResource("1_c0jps")
 FontTexture = ExtResource("3_cbnvi")
 ShadowTexture = ExtResource("4_q4g71")
@@ -51,10 +51,10 @@ metadata/_custom_type_script = "uid://qsw3xkgywsql"
 
 [node name="Wa2Button" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 26.0
-offset_top = 6.0
-offset_right = 54.0
-offset_bottom = 34.0
+offset_left = 20.0
+offset_top = 4.0
+offset_right = 48.0
+offset_bottom = 32.0
 texture_normal = SubResource("AtlasTexture_q4g71")
 texture_pressed = SubResource("AtlasTexture_wgcw3")
 texture_disabled = SubResource("AtlasTexture_03jx2")

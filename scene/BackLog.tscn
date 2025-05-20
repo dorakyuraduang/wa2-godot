@@ -43,8 +43,8 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -420.0
-offset_right = 420.0
+offset_left = -425.0
+offset_right = 425.0
 offset_bottom = 720.0
 grow_horizontal = 2
 texture = ExtResource("3_vw6ks")
@@ -62,10 +62,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -420.0
-offset_top = -332.0
-offset_right = 420.0
-offset_bottom = 320.0
+offset_left = -425.0
+offset_top = -328.0
+offset_right = 425.0
+offset_bottom = 318.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -73,19 +73,22 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="BackLogItem2" parent="VBoxContainer" index="1" instance=ExtResource("5_hirb6")]
+custom_minimum_size = Vector2(850, 158)
 layout_mode = 2
 
 [node name="BackLogItem3" parent="VBoxContainer" index="2" instance=ExtResource("5_hirb6")]
+custom_minimum_size = Vector2(850, 158)
 layout_mode = 2
 
 [node name="BackLogItem4" parent="VBoxContainer" index="3" instance=ExtResource("5_hirb6")]
+custom_minimum_size = Vector2(850, 158)
 layout_mode = 2
 
 [node name="VScrollBar" type="VScrollBar" parent="." index="9"]
 layout_mode = 0
-offset_left = 1028.0
+offset_left = 1033.0
 offset_top = 29.0
-offset_right = 1060.0
+offset_right = 1065.0
 offset_bottom = 675.0
 theme_override_icons/increment = SubResource("AtlasTexture_oc868")
 theme_override_icons/increment_highlight = SubResource("AtlasTexture_oc868")
