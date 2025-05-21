@@ -379,6 +379,8 @@ public static class Wa2Def
 		160,
 		480
 	};
+	
+
 	public static Dictionary<int, string> CharDict = new(){
 		{0, "har"},
 		{1, "kaz"},

@@ -418,8 +418,9 @@ public partial class Wa2EngineMain : Control
 			// Chars[i]=new Wa2Image();
 			Chars[i] = CharGroup.GetChild(i) as Wa2Image;
 			Chars[i].Size = new Vector2(1280, 720);
-			Chars[i].SetCurOffset(new Vector2(Wa2Def.CharPos[i], 0));
-			Chars[i].SetNextOffset(new Vector2(Wa2Def.CharPos[i], 0));
+			Chars[i].SetCurOffset(new Vector2(-Wa2Def.CharPos[i], 0));
+			Chars[i].SetNextOffset(new Vector2(-Wa2Def.CharPos[i], 0));
+			Chars[i].ZIndex=-Wa2Def.CharPos[i];
 			// GD.Print(Chars[i].GetCurOffset());
 			// GD.Print(Chars[i].GetNextOffset());
 			// CharGroup.AddChild(Chars[i]);

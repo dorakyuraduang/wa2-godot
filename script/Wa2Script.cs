@@ -496,7 +496,7 @@ public class Wa2Script
 	public bool CallFunc()
 	{
 		uint funcIdx = ReadU32();
-		GD.Print(string.Format("调用函数{0:X}", funcIdx));
+		// GD.Print(string.Format("调用函数{0:X}", funcIdx));
 		if (_engine.Func.FuncDic.TryGetValue(funcIdx, out var func))
 		{
 			return func(Args);
