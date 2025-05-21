@@ -367,17 +367,17 @@ public static class Wa2Def
 	];
 	public static Dictionary<char, int> FontMap = new();
 	public static readonly int[] CharPos = new int[]{
-		-290,
+		-288,
 		0,
-		290,
-		380,
-		-380,
-		-320,
-		320,
+		288,
+		-384,
+		384,
 		-480,
 		480,
+		-480,
 		-160,
-		160
+		160,
+		480
 	};
 	public static Dictionary<int, string> CharDict = new(){
 		{0, "har"},

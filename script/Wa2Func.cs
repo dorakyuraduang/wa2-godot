@@ -470,6 +470,8 @@ public class Wa2Func
 			no = args[1].Get(),
 			pos = args[2].Get(),
 		});
+		//v7色调
+		//v6透明度
 		_engine.UpdateChar(args[5].Get() * _engine.FrameTime);
 		return false;
 
