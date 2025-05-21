@@ -874,6 +874,7 @@ public partial class Wa2EngineMain : Control
 			if (type == 1)
 			{
 				BgInfo.Path = string.Format("v{0:D6}.tga", id, TimeMode);
+				SetCgFlag(id, 1);
 			}
 			else if (type == 2)
 			{
