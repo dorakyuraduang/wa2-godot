@@ -9,6 +9,7 @@ public class BacklogEntry
 
 	public string Name;
 	public string Text;
+	public int Segment;
 	public List<VoiceInfo> VoiceInfos = new();
 }
 public partial class Wa2EngineMain : Control

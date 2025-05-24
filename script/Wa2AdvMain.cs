@@ -252,6 +252,10 @@ public partial class Wa2AdvMain : Control
 						State = AdvState.END;
 						WaitKey = false;
 					}
+					if (_engine.Backlogs.Count > 0)
+					{
+						_engine.Backlogs[^1].Segment = Math.Max(0,TextLabel.Segment-1);
+					}
 				}
 
 				break;

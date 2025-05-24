@@ -35,6 +35,8 @@ public partial class NovelBackLogMenu : BasePage
 	public void OnScrollBarValChanged(double val)
 	{
 		int pos = (int)val;
+		TextLabel.Segment = _engine.Backlogs[pos].Segment;
 		TextLabel.SetText(_engine.Backlogs[pos].Text);
+		
 	}
 }

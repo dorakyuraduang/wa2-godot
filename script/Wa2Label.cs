@@ -366,10 +366,10 @@ public partial class Wa2Label : Node2D
 						case 'k':
 							if (curSegment >= Segment && Segment != -1)
 							{
-								if (progress != -1)
-								{
+								// if (progress != -1)
+								// {
 									r.WaitKey = true;
-								}
+								// }
 
 								// break;
 								// r.ParseEnd = true;

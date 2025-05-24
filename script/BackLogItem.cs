@@ -19,8 +19,10 @@ public partial class BackLogItem : Control
   {
     // GD.Print(e.Name);
     // GD.Print(e.Text);
+    TextLabel.Segment = e.Segment;
     NmaeLabel.SetText(e.Name);
     TextLabel.SetText(e.Text);
+    
     VoiceInfos = e.VoiceInfos;
     if (VoiceInfos != null && VoiceInfos.Count > 0)
     {

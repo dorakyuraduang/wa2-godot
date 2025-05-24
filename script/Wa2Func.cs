@@ -188,6 +188,7 @@ public class Wa2Func
 		else
 		{
 			// _engine.AdvMain.ClearText();
+			_engine.Backlogs.Add(new BacklogEntry());
 			_engine.AdvMain.TextLabel.Clear();
 			_engine.AdvMain.NameLabel.Clear();
 			_engine.AdvMain.TextLabel.Segment = 0;
@@ -198,18 +199,24 @@ public class Wa2Func
 		_engine.AdvMain.ParseMode = v4;
 		_engine.CurMessageIdx = idx;
 		_engine.AdvMain.ShowText();
-
-
+		if (_engine.Backlogs.Count <= 0)
+		{
+			return;
+		}
+		_engine.Backlogs[^1].Name = _engine.AdvMain.NameLabel.Text;
+		_engine.Backlogs[^1].Text = _engine.AdvMain.TextLabel.Text;
+		_engine.Backlogs[^1].Segment = _engine.AdvMain.TextLabel.Segment;
+		_engine.Backlogs[^1].VoiceInfos = [.. _engine.VoiceInfos];
 	}
 	public bool EndMessage(List<Wa2Var> args)
 	{
 		// _engine.AdvMain.TextLabel.Segment = 0;
-		_engine.AddhBackLog(new BacklogEntry()
-		{
-			Name = _engine.AdvMain.NameLabel.Text,
-			Text = _engine.AdvMain.TextLabel.Text,
-			VoiceInfos = [.. _engine.VoiceInfos]
-		});
+		// _engine.AddhBackLog(new BacklogEntry()
+		// {
+		// 	Name = _engine.AdvMain.NameLabel.Text,
+		// 	Text = _engine.AdvMain.TextLabel.Text,
+		// 	VoiceInfos = [.. _engine.VoiceInfos]
+		// });
 		_engine.VoiceInfos.Clear();
 		return true;
 	}
