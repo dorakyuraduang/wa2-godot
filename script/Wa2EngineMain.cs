@@ -780,7 +780,7 @@ public partial class Wa2EngineMain : Control
 			case GameState.OP:
 				if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
 				{
-					if (VideoPlayer.IsPlaying())
+					if (VideoPlayer.IsPlaying() && VideoPlayer.StreamPosition>0)
 					{
 						HideVideo();
 						// WaitTimer.DeActive();
