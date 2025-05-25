@@ -16,6 +16,7 @@ public partial class Wa2EngineMain : Control
 {
 	public enum GameState
 	{
+		NONE,
 		LOGO,
 		OP,
 		TITLE,
@@ -87,7 +88,7 @@ public partial class Wa2EngineMain : Control
 	[Export]
 	public Wa2Image MaskTexture;
 	public bool HasPlayMovie = false;
-	public GameState State = GameState.LOGO;
+	public GameState State = GameState.NONE;
 	public Wa2WaitTimer WaitTimer = new();
 	public Wa2Timer AutoTimer = new();
 	public List<VoiceInfo> VoiceInfos = new();
@@ -427,7 +428,7 @@ public partial class Wa2EngineMain : Control
 			// CharGroup.AddChild(Chars[i]);
 		}
 		VideoPlayer.Finished += OnVideoFinished;
-
+		State = GameState.LOGO;
 		// GD.Print(Time.GetTicksMsec());
 		// GetTree().ChangeSceneToFile("res://scene/as/title_menu.tscn");
 	}
