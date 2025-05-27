@@ -363,6 +363,7 @@ grow_vertical = 2
 script = ExtResource("4_jqvt3")
 
 [node name="BmpContainer" type="Control" parent="SubViewportContainer/SubViewport"]
+z_index = 999
 layout_mode = 3
 anchors_preset = 0
 

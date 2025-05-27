@@ -285,7 +285,7 @@ public class Wa2Func
 	public bool VW(List<Wa2Var> args)
 	{
 		_engine.WaitTimer.Start(_engine.SoundMgr.GetVoiceTime(), Wa2WaitTimer.WaitType.WAIT_VOICE, args[1].Get());
-
+		args.Clear();
 		// _engine.WaitClick = true;
 		//1音轨
 		return false;
@@ -532,7 +532,7 @@ public class Wa2Func
 	}
 	public bool MV(List<Wa2Var> args)
 	{
-		GD.Print("估计是改变语言音量2个参数");
+		// GD.Print("估计是改变语言音量2个参数");
 		return true;
 	}
 	public bool MW(List<Wa2Var> args)
@@ -548,6 +548,7 @@ public class Wa2Func
 	public bool SE(List<Wa2Var> args)
 	{
 		Wa2SoundMgr.Instance.PlaySe(0, args[0].Get(), false, 0, args[1].Get());
+		args.Clear();
 		return true;
 	}
 	public bool SEP(List<Wa2Var> args)
@@ -566,16 +567,19 @@ public class Wa2Func
 			GD.Print("错误");
 		}
 		Wa2SoundMgr.Instance.StopSe(args[0].Get(), args[1].Get() * _engine.FrameTime);
+		args.Clear();
 		return true;
 	}
 	public bool SEV(List<Wa2Var> args)
 	{
 		_engine.SoundMgr.SetSeVolume(args[0].Get(), args[1].Get(), args[2].Get() * _engine.FrameTime);
+		args.Clear();
 		return true;
 	}
 	public bool SEW(List<Wa2Var> args)
 	{
 		_engine.WaitTimer.Start(_engine.SoundMgr.GetSeTime(args[0].Get()), Wa2WaitTimer.WaitType.WAIT_SE, args[0].Get());
+		args.Clear();
 		return false;
 	}
 	public bool SEVW(List<Wa2Var> args)
@@ -633,19 +637,19 @@ public class Wa2Func
 		texture.ZIndex = args[2].Get();
 		_engine.BmpDict[args[0].Get()] = texture;
 		_engine.BmpContainer.CallDeferred("add_child", texture);
-		for (int i = 0; i < args.Count; i++)
-		{
-			GD.Print("loadbmp" + i + ":", args[i].Get());
-		}
+		// for (int i = 0; i < args.Count; i++)
+		// {
+		// 	GD.Print("loadbmp" + i + ":", args[i].Get());
+		// }
 		return true;
 	}
 	public bool LoadBmpAnime(List<Wa2Var> args)
 	{
-		for (int i = 0; i < args.Count; i++)
-		{
-			GD.Print("bmpani" + i + ":", args[i].Get());
-		}
-		GD.Print("加载bmp动画");
+		// for (int i = 0; i < args.Count; i++)
+		// {
+		// 	GD.Print("bmpani" + i + ":", args[i].Get());
+		// }
+		// GD.Print("加载bmp动画");
 		return true;
 	}
 	public bool SetBmpAvi(List<Wa2Var> args)
@@ -1153,7 +1157,7 @@ public class Wa2Func
 	}
 	public bool run(List<Wa2Var> args)
 	{
-		GD.Print("RUN");
+		// GD.Print("RUN");
 		return false;
 	}
 	public bool print(List<Wa2Var> args)
