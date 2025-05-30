@@ -222,6 +222,7 @@ public partial class Wa2EngineMain : Control
 		foreach (CharItem value in CharItems)
 		{
 			Wa2Image image = Chars[value.pos];
+			image.Show();
 			if (time > 0)
 			{
 				AnimatorMgr.AddCharFeadAnimation(image, Wa2Resource.GetChrImage(value.id, value.no), time);
@@ -249,6 +250,7 @@ public partial class Wa2EngineMain : Control
 			{
 				image.SetCurTexture(null);
 				image.SetNextTexture(null);
+				image.Hide();
 			}
 
 		}
@@ -422,7 +424,9 @@ public partial class Wa2EngineMain : Control
 			Chars[i].Size = new Vector2(1280, 720);
 			Chars[i].SetCurOffset(new Vector2(-Wa2Def.CharPos[i], 0));
 			Chars[i].SetNextOffset(new Vector2(-Wa2Def.CharPos[i], 0));
-			Chars[i].ZIndex=-Wa2Def.CharPos[i]+720;
+			Chars[i].ZIndex = -Wa2Def.CharPos[i] + 720;
+			Chars[i].SetCenter(true);
+			Chars[i].Hide();
 			// GD.Print(Chars[i].GetCurOffset());
 			// GD.Print(Chars[i].GetNextOffset());
 			// CharGroup.AddChild(Chars[i]);

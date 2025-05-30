@@ -10,6 +10,10 @@ public partial class Wa2Image : ColorRect
 	// 	shader.ResourceLocalToScene=true;
 	// 	(Material as ShaderMaterial).SetShader(shader);
 	// }
+	public void SetCenter(bool b)
+	{
+		(Material as ShaderMaterial).SetShaderParameter("center", b);
+	}
 	public void SetCurOffset(Vector2 val)
 	{
 		(Material as ShaderMaterial).SetShaderParameter("cur_offset", val);
