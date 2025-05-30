@@ -105,11 +105,14 @@ public partial class DataSlot : Wa2Button
         int m = (int)file.Get32() - 1;
         texture2.Region = new Rect2(m / 4 * 40, m % 4 * 24, 40, 24);
         DayLabel.Text = string.Format("{0:D2}", file.Get32());
+        file.Get32();
       }
       else
       {
         Month.Hide();
         DayLabel.Hide();
+        file.Seek(file.GetPosition() + 16);
+
       }
       string text = Encoding.Unicode.GetString(file.GetBuffer(1024)).Replace("\n", "").Replace("\\n", "").Replace("\0", "");
       if (text.Length >= 14)
