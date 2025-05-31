@@ -204,13 +204,16 @@ public partial class AnimatorMgr : Node
     AddAnimator(animator);
     image.SetNextTexture(texture);
     tween.TweenMethod(Callable.From<float>(image.SetBlend), 0f, 1f, time);
-    tween.TweenCallback(Callable.From(() => image.SetCurTexture(texture)));
-    tween.TweenCallback(Callable.From(() => image.SetNextTexture(null)));
-    tween.TweenCallback(Callable.From(() => image.SetBlend(0)));
-    if (texture == null)
+    tween.TweenCallback(Callable.From(() =>
     {
-      image.Hide();
-    }
+      image.SetCurTexture(texture);
+      image.SetNextTexture(null);
+      image.SetBlend(0);
+      if (texture == null)
+      {
+        image.Hide();
+      }
+    }));
   }
   public void AddFBAnimation(Color color, float time)
   {
