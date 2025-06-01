@@ -252,11 +252,11 @@ public class Wa2Func
 		// if (args[0].Get() == 0)
 		// {
 		//参数1大概率是废弃了
-		if (!(args[0].Get() is int))
-		{
-			GD.Print("vi");
-		}
-		if (args[1].Get()!=-1)
+		// if (!(args[0].Get() is int))
+		// {
+		// 	GD.Print("vi");
+		// }
+		if (args[1].Get() != -1)
 		{
 			_engine.Label = args[1].Get();
 		}
@@ -866,17 +866,31 @@ public class Wa2Func
 	}
 	public bool Calender(List<Wa2Var> args)
 	{
+		int year = args[0].Get();
+		int month = args[1].Get();
+		int day = args[2].Get();
+		int dayOfWeek = args[3].Get();
+		if (month == 1 || month == 2)
+		{
+			year -= 1;
+			month += 12;
+		}
+		if (dayOfWeek == -1)
+		{
+			dayOfWeek = (int)(day + year + (int)((ulong)(1374389535L * year) >> 32 >> 7) + (13 * month + 8) / 5 + (int)((ulong)(1374389535L * year) >> 32 >> 31) - year / 100 + year / 4) % 7;
+		}
 		_engine.Calender.Year = args[0].Get();
 		_engine.Calender.Month = args[1].Get();
 		_engine.Calender.Day = args[2].Get();
-		if (_engine.Calender.Year == 2013 && _engine.Calender.Month == 2 && _engine.Calender.Day == 29)
-		{
-			_engine.Calender.DayOfWeek = 5;
-		}
-		else
-		{
-			_engine.Calender.DayOfWeek = (int)new DateTime(args[0].Get(), args[1].Get(), args[2].Get()).DayOfWeek;
-		}
+		_engine.Calender.DayOfWeek = dayOfWeek;
+		// if (_engine.Calender.Year == 2013 && _engine.Calender.Month == 2 && _engine.Calender.Day == 29)
+		// {
+		// 	_engine.Calender.DayOfWeek = 5;
+		// }
+		// else
+		// {
+		// 	_engine.Calender.DayOfWeek = (int)new DateTime(args[0].Get(), args[1].Get(), args[2].Get()).DayOfWeek;
+		// }
 		_engine.UiMgr.OpenUICalender();
 		// uint hour=args[3];
 		// GD.Print("设置日期" + year + "年" + month + "月" + day + "日");
