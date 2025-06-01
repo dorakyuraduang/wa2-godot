@@ -25,6 +25,8 @@ public partial class Wa2UiMgr : Control
 	public BackLogMenu BackLogMenu;
 	[Export]
 	public NovelBackLogMenu NovelBackLogMenu;
+	[Export]
+	public SceneReplayMenu SceneReplayMenu;
 	private Wa2EngineMain _engine;
 	public override void _Ready()
 	{
@@ -74,6 +76,11 @@ public partial class Wa2UiMgr : Control
 	{
 		CGModeMenu.Open();
 		UiQueue.Push(CGModeMenu);
+	}
+	public void OpenSceneReplayMenu()
+	{
+		SceneReplayMenu.Open();
+		UiQueue.Push(SceneReplayMenu);
 	}
 	public void OpenBgmModeMenu()
 	{

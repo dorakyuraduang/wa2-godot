@@ -251,9 +251,13 @@ public class Wa2Func
 	{
 		// if (args[0].Get() == 0)
 		// {
-		if (args[0].Get() is int && args[0].Get() == 0)
+		if (!(args[^2].Get() is int))
 		{
-			_engine.Label = args[1].Get();
+			GD.Print("vi");
+		}
+		if (args[^2].Get() is int)
+		{
+			_engine.Label = args[^1].Get();
 		}
 		return true;
 		// }
@@ -513,7 +517,7 @@ public class Wa2Func
 		_engine.BgmInfo.Id = args[0].Get();
 		_engine.BgmInfo.Loop = args[2].Get();
 		_engine.BgmInfo.Volume = args[3].Get();
-		GD.Print("播放bgm");
+		// GD.Print("播放bgm");
 		// GD.Print( args[1].Get());
 		_engine.SoundMgr.PlayBgm(args[0].Get(), args[2].Get() != 0, args[3].Get());
 		return true;
@@ -981,7 +985,7 @@ public class Wa2Func
 	}
 	public bool GetReplayMode(List<Wa2Var> args)
 	{
-		_engine.Script.PushInt(5, 3, _engine.ReplayMode ? 1 : 0);
+		_engine.Script.PushInt(5, 3, _engine.ReplayMode);
 		return true;
 	}
 	public bool WN2(List<Wa2Var> args)

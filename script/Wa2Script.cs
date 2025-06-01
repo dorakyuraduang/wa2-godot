@@ -240,7 +240,7 @@ public class Wa2Script
 				JumpEntrys[^1].Pos = ReadU32();
 				break;
 			case 3:
-				if (JumpEntrys[^1].Flag == 1)
+				if (JumpEntrys[^1].Flag !=0)
 				{
 					ScriptPos = JumpEntrys[^1].Pos;
 					// JumpEntrys.RemoveAt(JumpEntrys.Count - 1);
@@ -342,7 +342,7 @@ public class Wa2Script
 				JumpEntrys[^1].Flag = Args[^1].Get();
 				uint pos1 = JumpEntrys[^1].PosArr[0];
 				uint pos2 = JumpEntrys[^1].Pos;
-				if (JumpEntrys[^1].Flag == 1)
+				if (JumpEntrys[^1].Flag !=0)
 				{
 					break;
 				}
@@ -393,17 +393,21 @@ public class Wa2Script
 				{
 					break;
 				}
+				bool f = false;
 				for (int i = 0; i < JumpEntrys[^1].Count; i++)
 				{
 					if (JumpEntrys[^1].FlagArr[i] == JumpEntrys[^1].Flag)
 					{
 						ScriptPos = JumpEntrys[^1].PosArr[i];
+						f = true;
 						// Args.Clear();
 						break;
 					}
 				}
-				ScriptPos = JumpEntrys[^1].Pos;
-				// Args.Clear();
+				if (!f)
+				{
+					ScriptPos = JumpEntrys[^1].Pos;
+				}
 				break;
 		}
 		Args.Clear();

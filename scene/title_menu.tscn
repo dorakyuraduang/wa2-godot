@@ -697,7 +697,7 @@ scale_over_velocity_min = 32.0
 scale_over_velocity_max = 128.0
 scale_over_velocity_curve = SubResource("CurveTexture_nst6c")
 
-[node name="TitleMenu" type="Control" node_paths=PackedStringArray("CgModeButton", "BgmModeButton", "MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton", "SpecialBackButton", "SpecialButton", "Special", "DigitalNovel", "DigitalNovelButton", "DigitalNovelBackButton", "DigitalNovel1Button", "DigitalNovel2Button")]
+[node name="TitleMenu" type="Control" node_paths=PackedStringArray("CgModeButton", "BgmModeButton", "MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton", "SpecialBackButton", "SpecialButton", "Special", "DigitalNovel", "DigitalNovelButton", "DigitalNovelBackButton", "DigitalNovel1Button", "DigitalNovel2Button", "SceneReplayButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -726,6 +726,7 @@ DigitalNovelButton = NodePath("Special/DigitalNovel")
 DigitalNovelBackButton = NodePath("DigitalNovel/Quit")
 DigitalNovel1Button = NodePath("DigitalNovel/MenuButton")
 DigitalNovel2Button = NodePath("DigitalNovel/MenuButton2")
+SceneReplayButton = NodePath("Special/SceneReplay")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_4rxvu")
@@ -906,7 +907,7 @@ offset_bottom = 80.0
 texture_normal = SubResource("AtlasTexture_kx5k3")
 ClickStream = ExtResource("10_fma1i")
 
-[node name="MenuButton3" parent="Special" instance=ExtResource("6_qxj8v")]
+[node name="SceneReplay" parent="Special" instance=ExtResource("6_qxj8v")]
 layout_mode = 0
 offset_top = 80.0
 offset_bottom = 120.0

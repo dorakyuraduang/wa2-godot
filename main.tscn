@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=36 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://d4mbvpx3le3ye" path="res://scene/Calender.tscn" id="17_cegan"]
 [ext_resource type="PackedScene" uid="uid://dh1x6736ft2sb" path="res://scene/NovelBackLogMenu.tscn" id="18_82xsv"]
 [ext_resource type="FontFile" uid="uid://bqnr5jmcejvam" path="res://assets/fonts/fzzyjt.ttf" id="18_cegan"]
+[ext_resource type="PackedScene" uid="uid://rteyiik8w6ct" path="res://scene/SceneReplayMenu.tscn" id="19_getpj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tw2vm"]
 resource_local_to_scene = true
@@ -378,7 +379,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_jqvt3")
 
-[node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("UICalender", "UIConfirm", "OptionsMenu", "BgmModeMenu", "AdvMain", "TitleMenu", "LoadSaveMenu", "CGModeMenu", "BackLogMenu", "NovelBackLogMenu")]
+[node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("UICalender", "UIConfirm", "OptionsMenu", "BgmModeMenu", "AdvMain", "TitleMenu", "LoadSaveMenu", "CGModeMenu", "BackLogMenu", "NovelBackLogMenu", "SceneReplayMenu")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -397,6 +398,7 @@ LoadSaveMenu = NodePath("LoadSaveMenu")
 CGModeMenu = NodePath("CGModeMenu")
 BackLogMenu = NodePath("BackLogMenu")
 NovelBackLogMenu = NodePath("NovelBackLogMenu")
+SceneReplayMenu = NodePath("SceneReplayMenu")
 
 [node name="TitleMenu" parent="Wa2UiMgr" instance=ExtResource("5_d5jo3")]
 visible = false
@@ -433,6 +435,9 @@ layout_mode = 1
 layout_mode = 1
 
 [node name="NovelBackLogMenu" parent="Wa2UiMgr" instance=ExtResource("18_82xsv")]
+layout_mode = 1
+
+[node name="SceneReplayMenu" parent="Wa2UiMgr" instance=ExtResource("19_getpj")]
 layout_mode = 1
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]

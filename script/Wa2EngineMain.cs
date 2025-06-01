@@ -45,7 +45,7 @@ public partial class Wa2EngineMain : Control
 	public bool TestMode = true;
 	public bool SkipMode = false;
 	public bool SkipDisable = false;
-	public bool ReplayMode = false;
+	public int ReplayMode = 0;
 	public bool AutoMode = false;
 
 	public bool ClickedInWait;
@@ -540,7 +540,7 @@ public partial class Wa2EngineMain : Control
 		AdvMain.Clear();
 		UpdateChar(0);
 		EroMode = false;
-		ReplayMode = false;
+		// ReplayMode = 0;
 		AnimatorMgr.FinishAll(true);
 		BgTexture.Reset();
 		MaskTexture.Reset();

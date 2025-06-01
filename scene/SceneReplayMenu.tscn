@@ -1,0 +1,296 @@
+[gd_scene load_steps=17 format=3 uid="uid://rteyiik8w6ct"]
+
+[ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_ui8sx"]
+[ext_resource type="Script" uid="uid://ctt84xh6ggxlp" path="res://script/SceneReplayMenu.cs" id="2_ui8sx"]
+[ext_resource type="Texture2D" uid="uid://ce4v2k0oof3jx" path="res://assets/grp/sys_06000.png" id="3_mxo72"]
+[ext_resource type="Texture2D" uid="uid://dmg5k1lqmn5m2" path="res://assets/grp/sys_05201.png" id="4_33sa8"]
+[ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="5_ha4ej"]
+[ext_resource type="AudioStream" uid="uid://clwoheb3ixdy1" path="res://assets/se/SE_9211.WAV" id="6_b2yiq"]
+[ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="7_o5ehh"]
+[ext_resource type="Texture2D" uid="uid://dyi6h35oskvpo" path="res://assets/grp/sys_05200.png" id="8_pln6w"]
+[ext_resource type="Texture2D" uid="uid://x5qal0hextgb" path="res://assets/grp/sys_05900.png" id="9_u1nl1"]
+[ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="10_p3ajl"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_g2hbg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gg36h"]
+atlas = ExtResource("4_33sa8")
+region = Rect2(0, 64, 60, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_40lah"]
+atlas = ExtResource("4_33sa8")
+region = Rect2(0, 0, 60, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ajim"]
+atlas = ExtResource("4_33sa8")
+region = Rect2(0, 64, 60, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rban0"]
+atlas = ExtResource("4_33sa8")
+region = Rect2(60, 64, 60, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e52ix"]
+atlas = ExtResource("4_33sa8")
+region = Rect2(60, 0, 60, 32)
+
+[node name="SceneReplayMenu" node_paths=PackedStringArray("Tabs", "SceneSlots") instance=ExtResource("1_ui8sx")]
+script = ExtResource("2_ui8sx")
+Tabs = NodePath("PageBtnContainer")
+SceneSlots = NodePath("GridContainer")
+
+[node name="PageTop" parent="." index="2"]
+texture = ExtResource("3_mxo72")
+
+[node name="PageBtnContainer" type="HBoxContainer" parent="." index="6"]
+layout_mode = 0
+offset_left = 1160.0
+offset_top = 70.0
+offset_right = 1280.0
+offset_bottom = 102.0
+theme_override_constants/separation = 0
+
+[node name="TextureButton" type="TextureButton" parent="PageBtnContainer" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_g2hbg")
+texture_normal = SubResource("AtlasTexture_gg36h")
+texture_pressed = SubResource("AtlasTexture_40lah")
+texture_hover = SubResource("AtlasTexture_1ajim")
+texture_disabled = SubResource("AtlasTexture_1ajim")
+texture_focused = SubResource("AtlasTexture_40lah")
+script = ExtResource("5_ha4ej")
+HoverStream = ExtResource("6_b2yiq")
+ClickStream = ExtResource("7_o5ehh")
+
+[node name="TextureButton2" type="TextureButton" parent="PageBtnContainer" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_g2hbg")
+texture_normal = SubResource("AtlasTexture_rban0")
+texture_pressed = SubResource("AtlasTexture_e52ix")
+texture_hover = SubResource("AtlasTexture_rban0")
+texture_disabled = SubResource("AtlasTexture_rban0")
+texture_focused = SubResource("AtlasTexture_e52ix")
+script = ExtResource("5_ha4ej")
+HoverStream = ExtResource("6_b2yiq")
+ClickStream = ExtResource("7_o5ehh")
+
+[node name="TextureRect" type="TextureRect" parent="." index="7"]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 86.0
+offset_right = 1280.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("8_pln6w")
+
+[node name="GridContainer" type="GridContainer" parent="." index="8"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -544.0
+offset_top = -244.0
+offset_right = 544.0
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 0
+columns = 4
+
+[node name="TextureRect4" type="TextureButton" parent="GridContainer" index="0"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect4" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect5" type="TextureButton" parent="GridContainer" index="1"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect5" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect6" type="TextureButton" parent="GridContainer" index="2"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect6" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect7" type="TextureButton" parent="GridContainer" index="3"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect7" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect8" type="TextureButton" parent="GridContainer" index="4"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect8" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect9" type="TextureButton" parent="GridContainer" index="5"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect9" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect10" type="TextureButton" parent="GridContainer" index="6"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect10" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect11" type="TextureButton" parent="GridContainer" index="7"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect11" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect12" type="TextureButton" parent="GridContainer" index="8"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect12" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect13" type="TextureButton" parent="GridContainer" index="9"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect13" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect14" type="TextureButton" parent="GridContainer" index="10"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect14" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0
+
+[node name="TextureRect15" type="TextureButton" parent="GridContainer" index="11"]
+custom_minimum_size = Vector2(272, 160)
+layout_mode = 2
+texture_normal = ExtResource("9_u1nl1")
+script = ExtResource("5_ha4ej")
+ClickStream = ExtResource("10_p3ajl")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/TextureRect15" index="0"]
+custom_minimum_size = Vector2(256, 144)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 148.0

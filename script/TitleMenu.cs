@@ -44,8 +44,10 @@ public partial class TitleMenu : Control
 	public Wa2Button DigitalNovelBackButton;
 	[Export]
 	public Wa2Button DigitalNovel1Button;
-		[Export]
+	[Export]
 	public Wa2Button DigitalNovel2Button;
+	[Export]
+	public Wa2Button SceneReplayButton;
 	private Wa2EngineMain _engine;
 
 
@@ -61,8 +63,8 @@ public partial class TitleMenu : Control
 		SpecialBackButton.ButtonDown += OnSpecialBackButtonDown;
 		// As1Button.ButtonDown += OnAs1ButtonDown;
 		// As2Button.ButtonDown += OnAs2ButtonDown;
-		DigitalNovel1Button.ButtonDown +=OnDigitalNovel1ButtonDown;
-			DigitalNovel2Button.ButtonDown +=OnDigitalNovel2ButtonDown;
+		DigitalNovel1Button.ButtonDown += OnDigitalNovel1ButtonDown;
+		DigitalNovel2Button.ButtonDown += OnDigitalNovel2ButtonDown;
 		DigitalNovelButton.ButtonDown += OnDigitalNovelButtonDown;
 		DigitalNovelBackButton.ButtonDown += OnDigitalNovelBackButtonDown;
 		OptionsButton.ButtonDown += OnOptionsButtonDown;
@@ -70,6 +72,11 @@ public partial class TitleMenu : Control
 		CodeaButton.ButtonDown += OnCodeaButtonDown;
 		LoadtButton.ButtonDown += OnLoadButtonDown;
 		CgModeButton.ButtonDown += OnCgModeButtonDown;
+		SceneReplayButton.ButtonDown += OnSceneReplayButtonDown;
+	}
+	public void OnSceneReplayButtonDown()
+	{
+		_engine.UiMgr.OpenSceneReplayMenu();
 	}
 	public void OnDigitalNovelButtonDown()
 	{
@@ -119,21 +126,23 @@ public partial class TitleMenu : Control
 		_engine.StartScript("2001");
 		_engine.UiMgr.OpenGame();
 	}
-	public async void OnDigitalNovel1ButtonDown() {
+	public async void OnDigitalNovel1ButtonDown()
+	{
 		_engine.SoundMgr.StopBgm();
 		AnimationPlayer.Play("close");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
 		_engine.StartScript("5000");
 		_engine.UiMgr.OpenGame();
-	
+
 	}
-		public async void OnDigitalNovel2ButtonDown() {
+	public async void OnDigitalNovel2ButtonDown()
+	{
 		_engine.SoundMgr.StopBgm();
 		AnimationPlayer.Play("close");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
 		_engine.StartScript("5100");
 		_engine.UiMgr.OpenGame();
-	
+
 	}
 	public async void OnIcButtonDown()
 	{
@@ -182,14 +191,23 @@ public partial class TitleMenu : Control
 	}
 	public async void Open()
 	{
-		_engine.SoundMgr.StopBgm();
 		Show();
 		AnimationPlayer.Play("RESET");
 		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		// AnimationPlayer.Play("logo");
-		// await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
-		AnimationPlayer.Play("open");
-		await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+		_engine.SoundMgr.StopBgm();
+		if (_engine.ReplayMode > 0)
+		{
+			AnimationPlayer.Play("open");
+			AnimationPlayer.Advance(AnimationPlayer.CurrentAnimation.Length);
+			_engine.UiMgr.OpenSceneReplayMenu();
+		}
+		else
+		{
+			// AnimationPlayer.Play("logo");
+			// await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+			AnimationPlayer.Play("open");
+			await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
+		}
 		_engine.SoundMgr.PlayBgm(31);
 	}
 

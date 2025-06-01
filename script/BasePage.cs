@@ -23,6 +23,12 @@ public partial class BasePage : Control
   public virtual void Close()
   {
     AnimationPlayer.Play("close");
+    // _engine.UiMgr.UiQueue.Pop();
+  }
+  public virtual void FaseClose()
+  {
+
+    _engine.UiMgr.ReturnScene();
   }
   public void OnExitBtnDown()
   {
