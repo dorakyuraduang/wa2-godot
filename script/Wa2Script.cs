@@ -162,12 +162,12 @@ public class Wa2Script
 	public List<string> Texts = new();
 	public List<JumpEntry> JumpEntrys = new();
 	public List<Wa2Var> Args = new();
-	public int ScriptIdx;
+	// public int ScriptIdx;
 
 	public Wa2Script(string name, int pos = 0)
 	{
 		_engine = Wa2EngineMain.Engine;
-		ScriptIdx = Array.IndexOf(Wa2Def.ScriptList, name);
+		_engine.ScriptIdx = Array.IndexOf(Wa2Def.ScriptList, name);
 		ScriptName = name;
 		_bnrbuffer = null;
 		LoadBnr(name);
