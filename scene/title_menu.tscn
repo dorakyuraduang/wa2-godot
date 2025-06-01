@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b6u3qm7g3fnoj"]
+[gd_scene load_steps=43 format=3 uid="uid://b6u3qm7g3fnoj"]
 
 [ext_resource type="Script" uid="uid://od6jw6rx7c56" path="res://script/TitleMenu.cs" id="1_le5pv"]
 [ext_resource type="Shader" uid="uid://cdg2vfcimljql" path="res://shader/game.gdshader" id="2_n4ci5"]
@@ -7,10 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://bkg3mbvjllejg" path="res://scene/menu_button.tscn" id="6_qxj8v"]
 [ext_resource type="Texture2D" uid="uid://ie5kj05huamt" path="res://assets/grp/T0100.png" id="7_s6o5p"]
 [ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="7_xo8l8"]
-[ext_resource type="Texture2D" uid="uid://bf3q7r17wdc2t" path="res://assets/grp/T0201.tga" id="8_u5ylh"]
-[ext_resource type="Texture2D" uid="uid://bu8yilf0bmwmn" path="res://assets/grp/T0000.tga" id="9_fn04i"]
+[ext_resource type="Texture2D" uid="uid://boftyc87m843f" path="res://assets/grp/T0201.png" id="8_s6o5p"]
+[ext_resource type="Texture2D" uid="uid://csqgy3fwbshlt" path="res://assets/grp/T0000.png" id="9_fn04i"]
 [ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="10_fma1i"]
-[ext_resource type="Texture2D" uid="uid://clnbaidoou7qv" path="res://assets/grp/weather.tga" id="10_kyofm"]
+[ext_resource type="Texture2D" uid="uid://bci6ssv1nmk5i" path="res://assets/grp/weather.png" id="11_s6o5p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4rxvu"]
 shader = ExtResource("2_n4ci5")
@@ -41,6 +41,10 @@ region = Rect2(0, 280, 320, 40)
 atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 320, 320, 40)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tq4pe"]
+atlas = ExtResource("8_s6o5p")
+region = Rect2(0, 40, 288, 40)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_y7jcp"]
 atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 0, 320, 40)
@@ -62,7 +66,7 @@ atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 160, 320, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yml00"]
-atlas = ExtResource("8_u5ylh")
+atlas = ExtResource("8_s6o5p")
 region = Rect2(0, 0, 288, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s6o5p"]
@@ -89,6 +93,10 @@ region = Rect2(0, 520, 320, 40)
 atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 320, 320, 40)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_edpuy"]
+atlas = ExtResource("8_s6o5p")
+region = Rect2(0, 80, 288, 40)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_sc831"]
 atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 560, 320, 40)
@@ -96,6 +104,10 @@ region = Rect2(0, 560, 320, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ybmbq"]
 atlas = ExtResource("7_s6o5p")
 region = Rect2(0, 600, 320, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4g6b4"]
+atlas = ExtResource("8_s6o5p")
+region = Rect2(0, 120, 288, 40)
 
 [sub_resource type="Resource" id="Resource_s6o5p"]
 metadata/__load_path__ = "res://assets/grp/AQUAPLUS.tga"
@@ -672,7 +684,7 @@ _data = {
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5nfrc"]
-atlas = ExtResource("10_kyofm")
+atlas = ExtResource("11_s6o5p")
 region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="Curve" id="Curve_cdx0a"]
@@ -763,9 +775,9 @@ visible = false
 custom_minimum_size = Vector2(320, 240)
 anchors_preset = 0
 offset_left = 480.0
-offset_top = 390.0
+offset_top = 380.0
 offset_right = 800.0
-offset_bottom = 630.0
+offset_bottom = 620.0
 scale = Vector2(1.25, 1.25)
 pivot_offset = Vector2(160, 120)
 mouse_filter = 2
@@ -796,6 +808,14 @@ offset_bottom = 240.0
 texture_normal = SubResource("AtlasTexture_qseaf")
 ClickStream = ExtResource("7_xo8l8")
 
+[node name="TextureRect3" type="TextureRect" parent="InitalStart"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 240.0
+offset_right = 304.0
+offset_bottom = 280.0
+texture = SubResource("AtlasTexture_tq4pe")
+
 [node name="TitleMenu" type="Control" parent="."]
 custom_minimum_size = Vector2(320, 240)
 layout_mode = 1
@@ -805,9 +825,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -160.0
-offset_top = 30.0
+offset_top = 20.0
 offset_right = 160.0
-offset_bottom = 270.0
+offset_bottom = 260.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.25, 1.25)
@@ -864,9 +884,9 @@ ClickStream = ExtResource("10_fma1i")
 [node name="Quit" parent="TitleMenu" instance=ExtResource("6_qxj8v")]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_top = 160.0
+offset_top = 200.0
 offset_right = 320.0
-offset_bottom = 200.0
+offset_bottom = 240.0
 mouse_filter = 2
 texture_normal = SubResource("AtlasTexture_prpdi")
 texture_pressed = SubResource("AtlasTexture_prpdi")
@@ -879,9 +899,9 @@ ClickStream = ExtResource("10_fma1i")
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = 16.0
-offset_top = 200.0
+offset_top = 240.0
 offset_right = 304.0
-offset_bottom = 240.0
+offset_bottom = 280.0
 texture = SubResource("AtlasTexture_yml00")
 
 [node name="Special" type="Control" parent="."]
@@ -889,9 +909,9 @@ visible = false
 custom_minimum_size = Vector2(320, 240)
 anchors_preset = 0
 offset_left = 480.0
-offset_top = 390.0
-offset_right = 480.0
-offset_bottom = 390.0
+offset_top = 380.0
+offset_right = 800.0
+offset_bottom = 620.0
 scale = Vector2(1.25, 1.25)
 pivot_offset = Vector2(160, 120)
 
@@ -935,14 +955,22 @@ offset_bottom = 240.0
 texture_normal = SubResource("AtlasTexture_txsne")
 ClickStream = ExtResource("7_xo8l8")
 
+[node name="TextureRect3" type="TextureRect" parent="Special"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 240.0
+offset_right = 304.0
+offset_bottom = 280.0
+texture = SubResource("AtlasTexture_edpuy")
+
 [node name="DigitalNovel" type="Control" parent="."]
 visible = false
 custom_minimum_size = Vector2(320, 240)
 anchors_preset = 0
 offset_left = 480.0
-offset_top = 390.0
+offset_top = 380.0
 offset_right = 800.0
-offset_bottom = 630.0
+offset_bottom = 620.0
 scale = Vector2(1.25, 1.25)
 pivot_offset = Vector2(160, 120)
 
@@ -964,6 +992,14 @@ offset_top = 200.0
 offset_bottom = 240.0
 texture_normal = SubResource("AtlasTexture_txsne")
 ClickStream = ExtResource("7_xo8l8")
+
+[node name="TextureRect3" type="TextureRect" parent="DigitalNovel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 240.0
+offset_right = 304.0
+offset_bottom = 280.0
+texture = SubResource("AtlasTexture_4g6b4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

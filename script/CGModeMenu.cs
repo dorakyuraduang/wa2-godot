@@ -29,6 +29,7 @@ public partial class CGModeMenu : BasePage
   public override void _Ready()
   {
     base._Ready();
+    Tabs.GetChild<Wa2Button>(_pageNum).ButtonPressed=true;
     CurCgList.Clear();
     for (int i = 0; i < 12; i++)
     {

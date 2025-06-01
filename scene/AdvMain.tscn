@@ -1,11 +1,10 @@
-[gd_scene load_steps=271 format=3 uid="uid://8iltc13k4sm1"]
+[gd_scene load_steps=270 format=3 uid="uid://8iltc13k4sm1"]
 
 [ext_resource type="Script" uid="uid://b5kx876bryffm" path="res://script/Wa2AdvMain.cs" id="1_mc03i"]
 [ext_resource type="Texture2D" uid="uid://dxdw1w7apeaqj" path="res://assets/grp/sys_00001.png" id="2_n2b20"]
 [ext_resource type="Texture2D" uid="uid://dapodc5hl2xfu" path="res://assets/grp/sys_00000.png" id="3_n2b20"]
 [ext_resource type="Script" uid="uid://qsw3xkgywsql" path="res://script/Wa2Label.cs" id="4_cjs8f"]
 [ext_resource type="Texture2D" uid="uid://cmgdubqht36c6" path="res://assets/fonts/cn/本体80.png" id="5_5s8hw"]
-[ext_resource type="Texture2D" uid="uid://1u4mqvs0hy43" path="res://assets/grp/sys_00010.tga" id="5_irdw5"]
 [ext_resource type="Texture2D" uid="uid://kphqvd0w7amu" path="res://assets/fonts/cn/袋影80.png" id="6_cwlbo"]
 [ext_resource type="Texture2D" uid="uid://cv0it6rp3o5fk" path="res://assets/grp/page_01.png" id="7_pe64g"]
 [ext_resource type="Texture2D" uid="uid://dy70fdewudf72" path="res://assets/grp/page_02.png" id="8_wrrn3"]
@@ -1702,7 +1701,7 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vay2s"]
-atlas = ExtResource("5_irdw5")
+atlas = ExtResource("11_pr5sd")
 region = Rect2(120, 0, 40, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0csty"]
@@ -1714,11 +1713,11 @@ atlas = ExtResource("11_pr5sd")
 region = Rect2(80, 0, 40, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q8mxu"]
-atlas = ExtResource("5_irdw5")
+atlas = ExtResource("11_pr5sd")
 region = Rect2(200, 0, 40, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1krnq"]
-atlas = ExtResource("5_irdw5")
+atlas = ExtResource("11_pr5sd")
 region = Rect2(240, 0, 40, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rargn"]

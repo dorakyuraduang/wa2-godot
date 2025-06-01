@@ -2,18 +2,18 @@
 
 [ext_resource type="Script" uid="uid://dstvmh6b1vjdi" path="res://script/DataSlot.cs" id="1_pudf4"]
 [ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="2_k5oa6"]
-[ext_resource type="Texture2D" uid="uid://ekms51gcnb2h" path="res://assets/grp/sys_01010.tga" id="2_yye6e"]
 [ext_resource type="FontFile" uid="uid://13ow1d25naon" path="res://assets/fonts/number.tres" id="3_8eqka"]
+[ext_resource type="Texture2D" uid="uid://dcqm6ivf4c1ny" path="res://assets/grp/sys_01010.png" id="3_smn8n"]
 [ext_resource type="Script" uid="uid://qsw3xkgywsql" path="res://script/Wa2Label.cs" id="7_smn8n"]
 [ext_resource type="Texture2D" uid="uid://cmgdubqht36c6" path="res://assets/fonts/cn/本体80.png" id="8_7aix8"]
 [ext_resource type="Texture2D" uid="uid://kphqvd0w7amu" path="res://assets/fonts/cn/袋影80.png" id="8_xnv3s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6o85h"]
-atlas = ExtResource("2_yye6e")
+atlas = ExtResource("3_smn8n")
 region = Rect2(0, 0, 632, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbthv"]
-atlas = ExtResource("2_yye6e")
+atlas = ExtResource("3_smn8n")
 region = Rect2(632, 0, 632, 96)
 
 [sub_resource type="LabelSettings" id="LabelSettings_8eqka"]

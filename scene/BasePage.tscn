@@ -4,18 +4,18 @@
 [ext_resource type="Script" uid="uid://cjrdd864ulfsm" path="res://script/BasePage.cs" id="1_q0q6a"]
 [ext_resource type="Texture2D" uid="uid://ykaqwp4o8kgx" path="res://assets/grp/sys_09000.png" id="1_uh34x"]
 [ext_resource type="PackedScene" uid="uid://b27eh550h0leb" path="res://scene/bgm_player.tscn" id="2_w237v"]
-[ext_resource type="Texture2D" uid="uid://qv6t25tic016" path="res://assets/grp/sys_09100.tga" id="3_7o4pd"]
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="4_47v8p"]
 [ext_resource type="AudioStream" uid="uid://clwoheb3ixdy1" path="res://assets/se/SE_9211.WAV" id="5_nac0h"]
 [ext_resource type="AudioStream" uid="uid://c4ucnxq7r28er" path="res://assets/se/SE_9213.WAV" id="6_123d5"]
+[ext_resource type="Texture2D" uid="uid://cbxmnpgy7ayfq" path="res://assets/grp/sys_09100.png" id="6_q0q6a"]
 [ext_resource type="Texture2D" uid="uid://kjst0j70oly0" path="res://assets/grp/sys_04010.png" id="8_nac0h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqrnk"]
-atlas = ExtResource("3_7o4pd")
+atlas = ExtResource("6_q0q6a")
 region = Rect2(0, 0, 56, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nrua7"]
-atlas = ExtResource("3_7o4pd")
+atlas = ExtResource("6_q0q6a")
 region = Rect2(0, 48, 56, 24)
 
 [sub_resource type="Animation" id="Animation_1iyey"]

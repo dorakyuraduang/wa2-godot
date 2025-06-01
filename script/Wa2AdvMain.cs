@@ -185,8 +185,12 @@ public partial class Wa2AdvMain : Control
 		}
 		else
 		{
-			LoadButton.Visible = true;
-			SaveButton.Visible = true;
+			if (_engine.ReplayMode == 0)
+			{
+				LoadButton.Visible = true;
+				SaveButton.Visible = true;
+			}
+
 			AutoButton.Visible = true;
 			OffButton.Visible = true;
 			BackLogButton.Visible = true;
@@ -254,7 +258,7 @@ public partial class Wa2AdvMain : Control
 					}
 					if (_engine.Backlogs.Count > 0)
 					{
-						_engine.Backlogs[^1].Segment = Math.Max(0,TextLabel.Segment-1);
+						_engine.Backlogs[^1].Segment = Math.Max(0, TextLabel.Segment - 1);
 					}
 				}
 
@@ -314,6 +318,16 @@ public partial class Wa2AdvMain : Control
 			State = AdvState.PARSE_TEXT;
 			NameLabel.Update(-1);
 
+		}
+		if (_engine.ReplayMode > 0)
+		{
+			SaveButton.Hide();
+			LoadButton.Hide();
+		}
+		else
+		{
+			SaveButton.Show();
+			LoadButton.Show();
 		}
 	}
 	public void AdvHide(float time = 0.2f)

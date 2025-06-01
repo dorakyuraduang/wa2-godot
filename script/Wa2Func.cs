@@ -251,13 +251,14 @@ public class Wa2Func
 	{
 		// if (args[0].Get() == 0)
 		// {
-		if (!(args[^2].Get() is int))
+		//参数1大概率是废弃了
+		if (!(args[0].Get() is int))
 		{
 			GD.Print("vi");
 		}
 		if (args[1].Get()!=-1)
 		{
-			_engine.Label = args[^1].Get();
+			_engine.Label = args[1].Get();
 		}
 		return true;
 		// }

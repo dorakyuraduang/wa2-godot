@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_4a45v"]
 [ext_resource type="Script" uid="uid://donmnudefokyw" path="res://script/BackLogMenu.cs" id="2_g6p1y"]
-[ext_resource type="Texture2D" uid="uid://b5l32uwggpucn" path="res://assets/grp/sys_00032.tga" id="2_vw6ks"]
 [ext_resource type="Texture2D" uid="uid://cgnie27dykapw" path="res://assets/grp/sys_00033.png" id="3_vw6ks"]
+[ext_resource type="Texture2D" uid="uid://dm5uslthnol4n" path="res://assets/grp/sys_00032.png" id="4_x7cua"]
 [ext_resource type="PackedScene" uid="uid://b77hx1i001s2f" path="res://scene/back_log_item.tscn" id="5_hirb6"]
 [ext_resource type="Texture2D" uid="uid://daj7v6ntkuj5e" path="res://assets/grp/sys_00030.png" id="6_x7cua"]
 
@@ -53,7 +53,7 @@ texture = ExtResource("3_vw6ks")
 visible = false
 
 [node name="PageTop" parent="." index="3"]
-texture = ExtResource("2_vw6ks")
+texture = ExtResource("4_x7cua")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." index="8"]
 layout_mode = 1

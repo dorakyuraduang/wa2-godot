@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://bkg3mbvjllejg"]
 
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="1_7ig6y"]
-[ext_resource type="Texture2D" uid="uid://c5psqj30t21r0" path="res://assets/grp/T0101.tga" id="2_gvosl"]
+[ext_resource type="Texture2D" uid="uid://d35bbq3q1b2uo" path="res://assets/grp/T0101.png" id="2_ggccj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dcxh0"]
-atlas = ExtResource("2_gvosl")
+atlas = ExtResource("2_ggccj")
 region = Rect2(0, 0, 320, 40)
 
 [node name="MenuButton" type="TextureButton"]

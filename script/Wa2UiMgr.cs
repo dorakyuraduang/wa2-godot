@@ -100,7 +100,7 @@ public partial class Wa2UiMgr : Control
 	public void OpenTitleMenu()
 	{
 		_engine.State = Wa2EngineMain.GameState.TITLE;
-		
+		_engine.ReplayMode = 0;
 		_engine.ScriptStack.Clear();
 		_engine.Script=null;
 		_engine.Reset();
