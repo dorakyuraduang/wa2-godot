@@ -429,7 +429,7 @@ public partial class Wa2Label : Node2D
 						_renderDatas.Add(new CharRenderData(Text[i], drawX, drawY, modFontSize, 16));
 					}
 					lastDrawX = drawX;
-					if (drawX >= (MaxChars * (FontSize + LineSpacing)))
+					if (drawX >= ((MaxChars-1) * (FontSize + LineSpacing)))
 					{
 						drawY += FontSize + ParagraphSpacing;
 						drawX = 0;

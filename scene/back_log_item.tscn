@@ -20,12 +20,12 @@ atlas = ExtResource("5_cbnvi")
 region = Rect2(0, 0, 28, 28)
 
 [node name="BackLogItem" type="Control" node_paths=PackedStringArray("VoiceBtn", "NmaeLabel", "TextLabel")]
-custom_minimum_size = Vector2(840, 160)
+custom_minimum_size = Vector2(847, 160)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -440.0
+offset_right = -433.0
 offset_bottom = -560.0
 grow_horizontal = 2
 grow_vertical = 2
