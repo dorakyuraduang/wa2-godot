@@ -255,7 +255,7 @@ public class Wa2Func
 		{
 			GD.Print("vi");
 		}
-		if (args[^2].Get() is int)
+		if (args[1].Get()!=-1)
 		{
 			_engine.Label = args[^1].Get();
 		}
