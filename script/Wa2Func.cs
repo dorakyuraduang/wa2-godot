@@ -188,7 +188,7 @@ public class Wa2Func
 		else
 		{
 			// _engine.AdvMain.ClearText();
-			_engine.Backlogs.Add(new BacklogEntry());
+			_engine.AddBackLog(new BacklogEntry());
 			_engine.AdvMain.TextLabel.Clear();
 			_engine.AdvMain.NameLabel.Clear();
 			_engine.AdvMain.TextLabel.Segment = 0;

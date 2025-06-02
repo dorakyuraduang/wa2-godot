@@ -576,7 +576,7 @@ public partial class Wa2EngineMain : Control
 		VideoPlayer.Hide();
 		WaitTimer.DeActive();
 	}
-	public void AddhBackLog(BacklogEntry e)
+	public void AddBackLog(BacklogEntry e)
 	{
 		// GD.Print(Backlogs.Count);
 		if (Backlogs.Count > 50)
