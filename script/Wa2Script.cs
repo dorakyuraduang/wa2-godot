@@ -158,7 +158,7 @@ public class Wa2Script
 	public int[] GloInts = new int[26];
 	public string ScriptName;
 	public uint ScriptPos;
-	public bool Exit=false;
+	public bool Exit = false;
 	public List<string> Texts = new();
 	public List<JumpEntry> JumpEntrys = new();
 	public List<Wa2Var> Args = new();
@@ -233,7 +233,7 @@ public class Wa2Script
 			case 0:
 				return false;
 			case 1:
-			  Exit=true;
+				Exit = true;
 				break;
 			case 2:
 				if (JumpEntrys.Count < 15)
@@ -245,7 +245,7 @@ public class Wa2Script
 				JumpEntrys[^1].Pos = ReadU32();
 				break;
 			case 3:
-				if (JumpEntrys[^1].Flag !=0)
+				if (JumpEntrys[^1].Flag != 0)
 				{
 					ScriptPos = JumpEntrys[^1].Pos;
 					// JumpEntrys.RemoveAt(JumpEntrys.Count - 1);
@@ -347,7 +347,7 @@ public class Wa2Script
 				JumpEntrys[^1].Flag = Args[^1].Get();
 				uint pos1 = JumpEntrys[^1].PosArr[0];
 				uint pos2 = JumpEntrys[^1].Pos;
-				if (JumpEntrys[^1].Flag !=0)
+				if (JumpEntrys[^1].Flag != 0)
 				{
 					break;
 				}
@@ -472,13 +472,18 @@ public class Wa2Script
 					JumpEntrys.RemoveAt(i);
 				}
 			}
-			if (ScriptPos >= _bnrbuffer.Length ||Exit)
+			if (ScriptPos >= _bnrbuffer.Length || Exit)
 			{
 				if (_engine.ScriptStack.Count > 1)
 				{
 					_engine.ScriptStack.Pop();
 				}
 				_engine.Script = _engine.ScriptStack.Peek();
+				int idx = Array.IndexOf(Wa2Def.ScriptList, _engine.Script.ScriptName);
+				if (idx != -1)
+				{
+					_engine.ScriptIdx = idx;
+				}
 			}
 		}
 	}
