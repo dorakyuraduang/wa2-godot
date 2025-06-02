@@ -37,6 +37,10 @@ public partial class BgmModeMenu : BasePage
   }
   public override void Open()
   {
+    if (_engine.ReadSysFlag(0x68) == 1 && _engine.ReadSysFlag(0xa3) == 1)
+    {
+      _engine.SetBgmFlag(0x22);
+    }
     base.Open();
     _engine.SoundMgr.StopBgm();
     UpdatePage();
