@@ -27,6 +27,8 @@ public partial class Wa2UiMgr : Control
 	public NovelBackLogMenu NovelBackLogMenu;
 	[Export]
 	public SceneReplayMenu SceneReplayMenu;
+	[Export]
+	public VoiceMessageMenu VoiceMessageMenu;
 	private Wa2EngineMain _engine;
 	public override void _Ready()
 	{
@@ -63,9 +65,15 @@ public partial class Wa2UiMgr : Control
 			ui.Hide();
 		}
 	}
-	public void OpenOptionsMenu(){
+	public void OpenOptionsMenu()
+	{
 		OptionsMenu.Open();
 		UiQueue.Push(OptionsMenu);
+	}
+	public void OpenVoiceMessageMenu()
+	{
+		VoiceMessageMenu.Open();
+		UiQueue.Push(VoiceMessageMenu);
 	}
 	public void OpenSaveMenu()
 	{
@@ -92,24 +100,26 @@ public partial class Wa2UiMgr : Control
 		LoadSaveMenu.Open(DataMode.Load);
 		UiQueue.Push(LoadSaveMenu);
 	}
-	public void OpenConfirm(string text1,string text2,bool confirm, Action action){
+	public void OpenConfirm(string text1, string text2, bool confirm, Action action)
+	{
 		UiQueue.Push(UIConfirm);
-		UIConfirm.Open(text1,text2,confirm,action);
-		
+		UIConfirm.Open(text1, text2, confirm, action);
+
 	}
 	public void OpenTitleMenu()
 	{
 		_engine.State = Wa2EngineMain.GameState.TITLE;
 		// _engine.ReplayMode = 0;
 		_engine.ScriptStack.Clear();
-		_engine.Script=null;
+		_engine.Script = null;
 		_engine.Reset();
 		_engine.SubViewport.Hide();
-		
+
 		TitleMenu.Open();
 		JumpScene(TitleMenu);
 	}
-	public void OpenUICalender(){
+	public void OpenUICalender()
+	{
 		UiQueue.Push(UICalender);
 		UICalender.Open();
 	}

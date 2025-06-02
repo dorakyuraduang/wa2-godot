@@ -14,6 +14,7 @@ public partial class CGModeMenu : BasePage
   public int _pageNum;
   public override void Open()
   {
+    CGViewer.Hide();
     _engine.SoundMgr.PlayBgm(41);
     base.Open();
     Tabs.GetChild<Wa2Button>(_pageNum).GrabFocus();
@@ -21,15 +22,19 @@ public partial class CGModeMenu : BasePage
   }
   public override void Close()
   {
-    AnimationPlayer.Play("close");
-    CGViewer.Close();
-    _engine.SoundMgr.PlayBgm(31);
-
+    if (!CGViewer.Visible)
+    {
+      base.Close();
+    }
+    else
+    {
+      CGViewer.Hide();
+    }
   }
   public override void _Ready()
   {
     base._Ready();
-    Tabs.GetChild<Wa2Button>(_pageNum).ButtonPressed=true;
+    Tabs.GetChild<Wa2Button>(_pageNum).ButtonPressed = true;
     CurCgList.Clear();
     for (int i = 0; i < 12; i++)
     {
@@ -112,5 +117,11 @@ public partial class CGModeMenu : BasePage
         }
       }
     }
+  }
+  public override void OnCloseAnimationFinished()
+  {
+    base.OnCloseAnimationFinished();
+    _engine.SoundMgr.PlayBgm(31);
+    // CGViewer.Close();
   }
 }

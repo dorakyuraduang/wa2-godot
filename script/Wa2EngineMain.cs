@@ -767,7 +767,7 @@ public partial class Wa2EngineMain : Control
 	{
 		if (@event is InputEventKey keyEvent)
 		{
-			if (keyEvent.Keycode == Key.Escape)
+			if (keyEvent.Keycode == Key.Escape && keyEvent.Pressed && !keyEvent.IsEcho())
 			{
 				Back();
 			}

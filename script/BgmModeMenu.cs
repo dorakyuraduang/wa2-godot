@@ -47,13 +47,10 @@ public partial class BgmModeMenu : BasePage
     BgmName.Hide();
     BgmAuthor.Hide();
   }
-  public override void OnAnimationFinished(StringName anime)
+  public override void OnCloseAnimationFinished()
   {
-    base.OnAnimationFinished(anime);
-    if (anime == "close")
-    {
+    base.OnCloseAnimationFinished();
       _engine.SoundMgr.PlayBgm(31);
-    }
   }
   public void ChangePage(int val)
   {

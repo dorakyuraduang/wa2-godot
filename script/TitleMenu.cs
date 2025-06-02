@@ -48,6 +48,8 @@ public partial class TitleMenu : Control
 	public Wa2Button DigitalNovel2Button;
 	[Export]
 	public Wa2Button SceneReplayButton;
+	[Export]
+	public Wa2Button VoiceMessageButton;
 	private Wa2EngineMain _engine;
 
 
@@ -73,10 +75,15 @@ public partial class TitleMenu : Control
 		LoadtButton.ButtonDown += OnLoadButtonDown;
 		CgModeButton.ButtonDown += OnCgModeButtonDown;
 		SceneReplayButton.ButtonDown += OnSceneReplayButtonDown;
+		VoiceMessageButton.ButtonDown+=OnVoiceMessageButtonDown;
 	}
 	public void OnSceneReplayButtonDown()
 	{
 		_engine.UiMgr.OpenSceneReplayMenu();
+	}
+	public void OnVoiceMessageButtonDown()
+	{
+		_engine.UiMgr.OpenVoiceMessageMenu();
 	}
 	public void OnDigitalNovelButtonDown()
 	{

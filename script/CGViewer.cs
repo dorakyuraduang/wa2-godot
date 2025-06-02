@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class CGViewer : Wa2Image
+public partial class CGViewer : TextureRect
 {
   public List<int> CgList = new();
   public int CurIdx;
@@ -10,7 +10,7 @@ public partial class CGViewer : Wa2Image
     CgList = list;
     CurIdx = 0;
     Show();
-    SetCurTexture(Wa2Resource.GetCgImage(CgList[CurIdx]));
+   Texture=Wa2Resource.GetCgImage(CgList[CurIdx]);
   }
   public override void _GuiInput(InputEvent @event)
   {
@@ -23,7 +23,7 @@ public partial class CGViewer : Wa2Image
       else
       {
         CurIdx++;
-        SetCurTexture(Wa2Resource.GetCgImage(CgList[CurIdx]));
+       Texture=Wa2Resource.GetCgImage(CgList[CurIdx]);
       }
     }
   }

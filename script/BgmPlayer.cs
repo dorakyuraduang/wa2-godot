@@ -9,9 +9,15 @@ public partial class BgmPlayer : Control
   [Export]
   public TextureProgressBar BgmVolume;
   public AudioEffectSpectrumAnalyzerInstance _spectrum;
+  [Export]
+  public int ListenType=0;
   public override void _Ready()
   {
-    _spectrum = AudioServer.GetBusEffectInstance(1, 0) as AudioEffectSpectrumAnalyzerInstance;
+    _spectrum = AudioServer.GetBusEffectInstance(ListenType+1, 0) as AudioEffectSpectrumAnalyzerInstance;
+    if (ListenType != 0)
+    {
+      BgmName.Hide();
+    }
   }
   public override void _Process(double delta)
   {
@@ -20,8 +26,11 @@ public partial class BgmPlayer : Control
       return;
     }
     float m = _spectrum.GetMagnitudeForFrequencyRange(0, 3200, AudioEffectSpectrumAnalyzerInstance.MagnitudeMode.Average).Length();
-    // GD.Print(_spectrum.GetMagnitudeForFrequencyRange(20,20000).Length());
     BgmVolume.Value = Math.Clamp((60 + Mathf.LinearToDb(m)) / 60, 0.0f, 1.0f);
+    if (ListenType != 0)
+    {
+      return;
+    }
     int pos = Array.IndexOf(Wa2Def.BgmSlot, Wa2EngineMain.Engine.SoundMgr.BgmId);
     if (pos >= 0)
     {
@@ -32,7 +41,6 @@ public partial class BgmPlayer : Control
     {
       BgmName.Hide();
     }
-
 
   }
 }

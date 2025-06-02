@@ -9,9 +9,11 @@ public partial class BasePage : Control
   [Export]
   public AnimationPlayer AnimationPlayer;
   public Wa2EngineMain _engine;
+
   public virtual void Open()
   {
     AnimationPlayer.Play("open");
+    BgmPlayer.Show();
 
   }
   public override void _Ready()
@@ -23,6 +25,7 @@ public partial class BasePage : Control
   public virtual void Close()
   {
     AnimationPlayer.Play("close");
+    BgmPlayer.Hide();
     // _engine.UiMgr.UiQueue.Pop();
   }
   public virtual void FaseClose()
@@ -39,7 +42,11 @@ public partial class BasePage : Control
   {
     if (anime == "close")
     {
-      _engine.UiMgr.ReturnScene();
+      OnCloseAnimationFinished();
     }
+  }
+  public  virtual  void OnCloseAnimationFinished()
+  {
+    _engine.UiMgr.ReturnScene();
   }
 }

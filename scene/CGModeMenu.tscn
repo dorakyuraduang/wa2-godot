@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://djqgqhlm8ewbt"]
+[gd_scene load_steps=41 format=3 uid="uid://djqgqhlm8ewbt"]
 
 [ext_resource type="Script" uid="uid://34crv7qrvoy8" path="res://script/CGModeMenu.cs" id="1_5nscl"]
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_mkt11"]
@@ -9,7 +9,6 @@
 [ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="9_e1cb6"]
 [ext_resource type="Texture2D" uid="uid://dyi6h35oskvpo" path="res://assets/grp/sys_05200.png" id="11_1iyey"]
 [ext_resource type="Texture2D" uid="uid://x5qal0hextgb" path="res://assets/grp/sys_05900.png" id="12_iboml"]
-[ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="13_ltjj8"]
 [ext_resource type="Script" uid="uid://bg3cy4kowkyff" path="res://script/CGViewer.cs" id="14_1aw2s"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_e1cb6"]
@@ -129,18 +128,6 @@ region = Rect2(780, 64, 60, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_k2aol"]
 atlas = ExtResource("8_x6mkq")
 region = Rect2(780, 0, 60, 32)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c5rwq"]
-resource_local_to_scene = true
-shader = ExtResource("13_ltjj8")
-shader_parameter/cur_scale = Vector2(1, 1)
-shader_parameter/cur_offset = Vector2(0, 0)
-shader_parameter/next_scale = Vector2(1, 1)
-shader_parameter/next_offset = Vector2(0, 0)
-shader_parameter/blend = 0.0
-shader_parameter/fead_weight = 1.0
-shader_parameter/canvas_size = Vector2(1280, 720)
-shader_parameter/center = false
 
 [node name="CGModeMenu" node_paths=PackedStringArray("Tabs", "CGSlots", "CGViewer") instance=ExtResource("1_mkt11")]
 script = ExtResource("1_5nscl")
@@ -570,9 +557,8 @@ offset_top = 4.0
 offset_right = 264.0
 offset_bottom = 148.0
 
-[node name="CgViewer" type="ColorRect" parent="." index="10"]
+[node name="CgViewer" type="TextureRect" parent="." index="10"]
 visible = false
-material = SubResource("ShaderMaterial_c5rwq")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -580,4 +566,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("14_1aw2s")
-metadata/_custom_type_script = "uid://ch3fjcpjwskoj"

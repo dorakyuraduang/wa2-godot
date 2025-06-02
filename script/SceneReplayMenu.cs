@@ -25,11 +25,10 @@ public partial class SceneReplayMenu : BasePage
       SceneSlots.GetChild<Wa2Button>(i).ButtonDown += () => OnSelectScene(idx + _pageNum*12+1);
     }
   }
-  public override void Close()
+  public override void OnCloseAnimationFinished()
   {
-    AnimationPlayer.Play("close");
+    base.OnCloseAnimationFinished();
     _engine.SoundMgr.PlayBgm(31);
-
   }
   public override void Open()
   {
