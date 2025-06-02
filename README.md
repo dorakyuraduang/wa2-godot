@@ -12,7 +12,7 @@
   cg鉴赏✔  
   音乐鉴赏✔  
   声优访谈×  
-  事件鉴赏×  
+  回想模式✔  
 9.未完成功能会在后续逐步更新完善  
 10.文件放置参考示例  
 ![e74b63e84385f853f6112d605b38093c](https://github.com/user-attachments/assets/303a7d6e-99e1-4683-bed9-671d271e08be)
