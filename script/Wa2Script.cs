@@ -167,7 +167,12 @@ public class Wa2Script
 	public Wa2Script(string name, int pos = 0)
 	{
 		_engine = Wa2EngineMain.Engine;
-		_engine.ScriptIdx = Array.IndexOf(Wa2Def.ScriptList, name);
+		int idx = Array.IndexOf(Wa2Def.ScriptList, name);
+		if (idx != -1)
+		{
+			_engine.ScriptIdx = idx;
+		}
+		//  = Array.IndexOf(Wa2Def.ScriptList, name);
 		ScriptName = name;
 		_bnrbuffer = null;
 		LoadBnr(name);
