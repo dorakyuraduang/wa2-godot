@@ -209,8 +209,9 @@ public partial class TitleMenu : Control
 			await ToSignal(AnimationPlayer, AnimationPlayer.SignalName.AnimationFinished);
 		}
 		_engine.SoundMgr.PlayBgm(31);
+		_engine.ReplayMode = 0;
 	}
-
+	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	// public override void _Process(double delta)
 	// {
