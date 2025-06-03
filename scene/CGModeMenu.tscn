@@ -559,10 +559,5 @@ offset_bottom = 148.0
 
 [node name="CgViewer" type="TextureRect" parent="." index="10"]
 visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
 script = ExtResource("14_1aw2s")
