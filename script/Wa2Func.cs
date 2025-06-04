@@ -932,6 +932,8 @@ public class Wa2Func
 	public bool SetSelect(List<Wa2Var> args)
 	{
 		_engine.ShowSelectMessage();
+
+		//_engine.SelectIdx 1<<idx | value
 		return false;
 
 		// _engine.SelectVar = args[0];

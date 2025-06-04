@@ -15,7 +15,7 @@ public static class Wa2Def
 	//3.场景名称
 	//4.未知字符串
 	//5.flag	
-	public static (int, int,  string,string, int)[] SceneSlots = [
+	public static (int, int, string, string, int)[] SceneSlots = [
 		(101700,0,"","2031",80),
 		(200800,1,"","2031",300),
 		(201200,1,"","2031",301),
@@ -571,4 +571,29 @@ public static class Wa2Def
 			FontMap.TryAdd(str[i], i);
 		}
 	}
+	public static int[] SelectScript = [
+		2003,
+		2004,
+		2005,
+		2007,
+		2009,
+		2011,
+		2013,
+		2014,
+		2015,
+		2016,
+		2017,
+		2018,
+		2019,
+		2024,
+		2503,
+		3003,
+		3005,
+		3009,
+		3012,
+		3013,
+		3014,
+		3016,
+		3904
+	];
 }

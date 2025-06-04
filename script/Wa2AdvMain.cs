@@ -149,6 +149,7 @@ public partial class Wa2AdvMain : Control
 			SelectMessageContainer.GetChild<SelectMessage>(i).Hide();
 		}
 		_engine.Script.Args[^1].Set(idx);
+		_engine.WirtSysFlag(_engine.SelectIdx, (1<<idx)|_engine.ReadSysFlag(_engine.SelectIdx));
 		_engine.SelectItems.Clear();
 		SelectMessageContainer.Hide();
 		State = AdvState.END;
@@ -388,7 +389,7 @@ public partial class Wa2AdvMain : Control
 	}
 	public void OnSaveButtonDown()
 	{
-		if ((State != AdvState.WAIT_CLICK && !_engine.AdvMain.SelectMessageContainer.Visible) || _engine.WaitTimer.IsActive() || _engine.ScriptStack.Count > 1)
+		if ((State != AdvState.WAIT_CLICK && !_engine.AdvMain.SelectMessageContainer.Visible) || _engine.WaitTimer.IsActive())
 		{
 			return;
 		}
@@ -396,7 +397,7 @@ public partial class Wa2AdvMain : Control
 	}
 	public void OnLoadButtonDown()
 	{
-		if ((State != AdvState.WAIT_CLICK && !_engine.AdvMain.SelectMessageContainer.Visible) || _engine.WaitTimer.IsActive() || _engine.ScriptStack.Count > 1)
+		if ((State != AdvState.WAIT_CLICK && !_engine.AdvMain.SelectMessageContainer.Visible) || _engine.WaitTimer.IsActive() )
 		{
 			return;
 		}

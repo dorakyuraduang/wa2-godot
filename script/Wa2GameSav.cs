@@ -253,6 +253,15 @@ public class Wa2GameSav
 			}
 		}
 		file.Store8((byte)(_engine.AdvMain.NovelMode ? 1 : 0));
+		file.Store32((uint)_engine.ScriptStack.Count-1);
+		if (_engine.ScriptStack.Count > 1)
+		{
+			Wa2Script[] scripts = _engine.ScriptStack.ToArray();
+			for (int i = 1; i < scripts.Length; i++)
+			{
+				SaveScript(file, scripts[i]);
+			}
+		}
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -261,7 +270,9 @@ public class Wa2GameSav
 		_engine.Reset();
 		FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
 		file.Seek(0x1b000 + 32);
-		_engine.JumpScript(file.GetBuffer(8).GetStringFromAscii().Replace("\0", ""));
+		_engine.GameFlags = new int[0x1d];
+		_engine.ScriptStack.Clear();
+		_engine.Script = new Wa2Script(file.GetBuffer(8).GetStringFromAscii().Replace("\0", ""));
 		_engine.Calender = new Calender()
 		{
 			Year = (int)file.Get32(),
@@ -391,6 +402,100 @@ public class Wa2GameSav
 		_engine.UpdateChar(0f);
 		_engine.HasReadMessage = true;
 		_engine.Backlogs.Clear();
+		List<Wa2Script> scripts = new();
+		scripts.Add(_engine.Script);
+		for (int i = 0; i < (int)file.Get32(); i++)
+		{
+			Wa2Script script = LoadScript(file);
+			scripts.Add(script);
+		}
+		scripts.Reverse();
+		_engine.ScriptStack =new Stack<Wa2Script>(scripts);
 		file.Close();
+	}
+	public void SaveScript(FileAccess file, Wa2Script script)
+	{
+		file.StoreBuffer([.. Encoding.ASCII.GetBytes(script.ScriptName).Concat(new byte[8]).Take(8)]);
+		file.Store32(script.ScriptPos);
+		for (int i = 0; i < script.GloInts.Length; i++)
+		{
+			file.Store32((uint)script.GloInts[i]);
+		}
+		for (int i = 0; i < script.GloFloats.Length; i++)
+		{
+			file.StoreFloat(script.GloFloats[i]);
+		}
+		file.Store32((uint)script.JumpEntrys.Count);
+		for (int i = 0; i < script.JumpEntrys.Count; i++)
+		{
+
+			file.Store32(script.JumpEntrys[i].Type);
+			file.Store32(script.JumpEntrys[i].Count);
+			file.Store32(script.JumpEntrys[i].Pos);
+			file.Store32((uint)script.JumpEntrys[i].Flag);
+			for (int k = 0; k < 64; k++)
+			{
+				file.Store32(script.JumpEntrys[i].PosArr[k]);
+			}
+			for (int k = 0; k < 64; k++)
+			{
+				file.Store32(script.JumpEntrys[i].FlagArr[k]);
+			}
+		}
+		file.Store32((uint)script.Args.Count);
+		for (int i = 0; i < script.Args.Count; i++)
+		{
+
+			file.Store32((uint)script.Args[i].CmdType);
+			file.Store32((uint)script.Args[i].ValType);
+			file.Store32((uint)script.Args[i].Value0);
+			file.Store32((uint)script.Args[i].IntValue);
+			file.Store32((uint)script.Args[i].FloatValue);
+		}
+	}
+	public Wa2Script LoadScript(FileAccess file)
+	{
+		Wa2Script script = new(file.GetBuffer(8).GetStringFromAscii().Replace("\0", ""));
+		script.ScriptPos = file.Get32();
+		for (int i = 0; i < 26; i++)
+		{
+			script.GloInts[i] = (int)file.Get32();
+		}
+		for (int i = 0; i < 26; i++)
+		{
+			script.GloFloats[i] = file.GetFloat();
+		}
+
+		int JumpEntryCount = (int)file.Get32();
+		GD.Print("跳转数量:", JumpEntryCount);
+		for (int i = 0; i < JumpEntryCount; i++)
+		{
+
+			script.JumpEntrys.Add(new());
+			script.JumpEntrys[i].Type = file.Get32();
+			script.JumpEntrys[i].Count = file.Get32();
+			script.JumpEntrys[i].Pos = file.Get32();
+			script.JumpEntrys[i].Flag = (int)file.Get32();
+			for (int k = 0; k < 64; k++)
+			{
+				script.JumpEntrys[i].PosArr[k] = file.Get32();
+			}
+			for (int k = 0; k < 64; k++)
+			{
+				script.JumpEntrys[i].FlagArr[k] = file.Get32();
+			}
+
+		}
+		int ArgsCount = (int)file.Get32();
+		for (int i = 0; i < ArgsCount; i++)
+		{
+			script.Args.Add(new());
+			script.Args[i].CmdType = (CmdType)file.Get32();
+			script.Args[i].ValType = (ValueType)file.Get32();
+			script.Args[i].Value0 = (int)file.Get32();
+			script.Args[i].IntValue = (int)file.Get32();
+			script.Args[i].FloatValue = file.GetFloat();
+		}
+		return script;
 	}
 }

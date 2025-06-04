@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7lxvocpmkbiu"]
+[gd_scene load_steps=11 format=3 uid="uid://c7lxvocpmkbiu"]
 
 [ext_resource type="Texture2D" uid="uid://gy8fe86dy4t8" path="res://assets/grp/sys_00200.png" id="1_3nk4o"]
 [ext_resource type="Script" uid="uid://qsw3xkgywsql" path="res://script/Wa2Label.cs" id="2_2tuhy"]
 [ext_resource type="Script" uid="uid://crrhojl1rbbpq" path="res://script/SelectMessage.cs" id="2_3ecsp"]
 [ext_resource type="Texture2D" uid="uid://cmgdubqht36c6" path="res://assets/fonts/cn/本体80.png" id="3_3ecsp"]
+[ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="3_ktgq3"]
 [ext_resource type="Texture2D" uid="uid://kphqvd0w7amu" path="res://assets/fonts/cn/袋影80.png" id="4_ktgq3"]
 [ext_resource type="Texture2D" uid="uid://dl8c41uirpqks" path="res://assets/grp/sys_00011.png" id="5_va5ci"]
 
@@ -19,7 +20,7 @@ region = Rect2(0, 144, 784, 72)
 atlas = ExtResource("5_va5ci")
 region = Rect2(204, 64, 32, 32)
 
-[node name="SelectMessage" type="TextureButton" node_paths=PackedStringArray("TextLabel")]
+[node name="SelectMessage" type="TextureButton" node_paths=PackedStringArray("TextLabel", "ReadLabel")]
 texture_normal = SubResource("AtlasTexture_ioubw")
 texture_pressed = SubResource("AtlasTexture_ioubw")
 texture_hover = SubResource("AtlasTexture_ioubw")
@@ -27,6 +28,8 @@ texture_disabled = SubResource("AtlasTexture_ioubw")
 texture_focused = SubResource("AtlasTexture_ioubw")
 script = ExtResource("2_3ecsp")
 TextLabel = NodePath("TextLabel")
+ReadLabel = NodePath("TextureRect2")
+ClickStream = ExtResource("3_ktgq3")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 self_modulate = Color(1.5, 1.5, 1.5, 1)

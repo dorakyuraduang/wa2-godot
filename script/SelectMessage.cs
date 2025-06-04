@@ -5,6 +5,8 @@ public partial class SelectMessage : Wa2Button
 {
   [Export]
   public Wa2Label TextLabel;
+  [Export]
+  public TextureRect ReadLabel;
   public override void _Ready()
   {
     MouseEntered += OnMouseEntered;

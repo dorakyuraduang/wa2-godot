@@ -54,7 +54,7 @@ public partial class Wa2EngineMain : Control
 	public Wa2Var SelectVar;
 	public double PressedTime = 0.0f;
 	public bool IsPressed = false;
-
+	public int SelectIdx=-1;
 	public int ScriptIdx;
 	public int Year;
 	public int Month;
@@ -182,6 +182,8 @@ public partial class Wa2EngineMain : Control
 		// GD.Print("和纱本气度:", GameSav.GameFlags[5]);
 		// GD.Print("和纱浮气度:", GameSav.GameFlags[6]);
 		// GD.Print("雪菜好意度:", GameSav.GameFlags[7]);
+		int idx = int.Parse(Script.ScriptName);
+		SelectIdx =Script.Args[^1].Get()+4*Array.IndexOf(Wa2Def.SelectScript, idx)+900;
 		AdvMain.SelectMessageContainer.Show();
 		for (int i = 0; i < 3; i++)
 		{
@@ -190,6 +192,14 @@ public partial class Wa2EngineMain : Control
 			{
 
 				btn.TextLabel.SetText(SelectItems[i].Text);
+				if ((ReadSysFlag(SelectIdx) & (1<<i)) > 0)
+				{
+					btn.ReadLabel.Show();
+				}
+				else
+				{
+					btn.ReadLabel.Hide();
+				}
 				if (SelectItems[i].V2 == ReadSysFlag(SelectItems[i].V1))
 				{
 					btn.Active();
