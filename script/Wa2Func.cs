@@ -1158,6 +1158,8 @@ public class Wa2Func
 		_engine.ScriptStack.Clear();
 		_engine.Script = new(args[0].Get(), args[1].Get());
 		_engine.ScriptStack.Push(_engine.Script);
+		_engine.SetScriptIdx(_engine.Script.ScriptName);
+		
 		return false;
 
 	}
@@ -1166,6 +1168,7 @@ public class Wa2Func
 		_engine.Reset(false);
 		_engine.ScriptStack.Push(new(args[0].Get(), args[1].Get()));
 		_engine.Script = _engine.ScriptStack.Peek();
+		_engine.SetScriptIdx(_engine.Script.ScriptName);
 		// GD.Print("scall:", args[0].Get());
 		return false;
 		// GD.Print("无用函数");

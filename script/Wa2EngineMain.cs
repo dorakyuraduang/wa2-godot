@@ -54,7 +54,7 @@ public partial class Wa2EngineMain : Control
 	public Wa2Var SelectVar;
 	public double PressedTime = 0.0f;
 	public bool IsPressed = false;
-	public int SelectIdx=-1;
+	public int SelectIdx = -1;
 	public int ScriptIdx;
 	public int Year;
 	public int Month;
@@ -183,7 +183,7 @@ public partial class Wa2EngineMain : Control
 		// GD.Print("和纱浮气度:", GameSav.GameFlags[6]);
 		// GD.Print("雪菜好意度:", GameSav.GameFlags[7]);
 		int idx = int.Parse(Script.ScriptName);
-		SelectIdx =Script.Args[^1].Get()+4*Array.IndexOf(Wa2Def.SelectScript, idx)+900;
+		SelectIdx = Script.Args[^1].Get() + 4 * Array.IndexOf(Wa2Def.SelectScript, idx) + 900;
 		AdvMain.SelectMessageContainer.Show();
 		for (int i = 0; i < 3; i++)
 		{
@@ -192,7 +192,7 @@ public partial class Wa2EngineMain : Control
 			{
 
 				btn.TextLabel.SetText(SelectItems[i].Text);
-				if ((ReadSysFlag(SelectIdx) & (1<<i)) > 0)
+				if ((ReadSysFlag(SelectIdx) & (1 << i)) > 0)
 				{
 					btn.ReadLabel.Show();
 				}
@@ -605,6 +605,8 @@ public partial class Wa2EngineMain : Control
 		ScriptStack.Clear();
 		Script = new(name, pos);
 		ScriptStack.Push(Script);
+		SetScriptIdx(Script.ScriptName);
+		// HasReadMessage = GetReadMessage(CurMessageIdx);
 	}
 	public void ScriptParse()
 	{
@@ -794,7 +796,7 @@ public partial class Wa2EngineMain : Control
 			case GameState.OP:
 				if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
 				{
-					if (VideoPlayer.IsPlaying() && VideoPlayer.StreamPosition>0)
+					if (VideoPlayer.IsPlaying() && VideoPlayer.StreamPosition > 0)
 					{
 						HideVideo();
 						// WaitTimer.DeActive();
@@ -958,6 +960,24 @@ public partial class Wa2EngineMain : Control
 		}
 		CharItems.Clear();
 		return false;
+	}
+	public void SetScriptIdx(string name)
+	{
+		int idx = Array.IndexOf(Wa2Def.ScriptList, name);
+		if (idx >= 0)
+		{
+			if (idx != ScriptIdx)
+			{
+				if (CurMessageIdx > 0 | idx == 29 | idx == 30 | idx == 31)
+				{
+					ScriptIdx = idx;
+					SetReadMessage(CurMessageIdx + 1);
+				}
+				CurMessageIdx = 0;
+				HasReadMessage = GetReadMessage(0);
+			}
+			ScriptIdx = idx;
+		}
 	}
 }
 

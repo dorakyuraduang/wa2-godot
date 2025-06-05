@@ -167,17 +167,21 @@ public class Wa2Script
 	public Wa2Script(string name, int pos = 0)
 	{
 		_engine = Wa2EngineMain.Engine;
-		int idx = Array.IndexOf(Wa2Def.ScriptList, name);
-		if (idx != -1)
-		{
-			_engine.ScriptIdx = idx;
-		}
+		// int idx = Array.IndexOf(Wa2Def.ScriptList, name);
+		// if (idx != -1)
+		// {
+		// 	if (idx != 29 && idx != 30 && idx != 31)
+		// 	{
+		// 		_engine.ScriptIdx = idx;
+		// 	}
+		// }
+
 		//  = Array.IndexOf(Wa2Def.ScriptList, name);
 		ScriptName = name;
 		_bnrbuffer = null;
 		LoadBnr(name);
 		ScriptPos = Points[pos];
-		_engine.HasReadMessage = _engine.GetReadMessage(0);
+
 	}
 	public void LoadBnr(string name)
 	{
@@ -479,11 +483,12 @@ public class Wa2Script
 					_engine.ScriptStack.Pop();
 				}
 				_engine.Script = _engine.ScriptStack.Peek();
-				int idx = Array.IndexOf(Wa2Def.ScriptList, _engine.Script.ScriptName);
-				if (idx != -1)
-				{
-					_engine.ScriptIdx = idx;
-				}
+				_engine.SetScriptIdx(_engine.Script.ScriptName);
+				// int idx = Array.IndexOf(Wa2Def.ScriptList, _engine.Script.ScriptName);
+				// if (idx != -1)
+				// {
+				// 	_engine.ScriptIdx = idx;
+				// }
 			}
 		}
 	}

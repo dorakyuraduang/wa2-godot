@@ -411,6 +411,7 @@ public class Wa2GameSav
 		}
 		scripts.Reverse();
 		_engine.ScriptStack =new Stack<Wa2Script>(scripts);
+		_engine.SetScriptIdx(_engine.Script.ScriptName);
 		file.Close();
 	}
 	public void SaveScript(FileAccess file, Wa2Script script)
