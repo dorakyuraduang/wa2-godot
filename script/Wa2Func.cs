@@ -1159,13 +1159,14 @@ public class Wa2Func
 		_engine.Script = new(args[0].Get(), args[1].Get());
 		_engine.ScriptStack.Push(_engine.Script);
 		_engine.SetScriptIdx(_engine.Script.ScriptName);
-		
+
 		return false;
 
 	}
 	public bool SCall(List<Wa2Var> args)
 	{
 		_engine.Reset(false);
+		GD.Print("调用脚本", args[0].Get());
 		_engine.ScriptStack.Push(new(args[0].Get(), args[1].Get()));
 		_engine.Script = _engine.ScriptStack.Peek();
 		_engine.SetScriptIdx(_engine.Script.ScriptName);

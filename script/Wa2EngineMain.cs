@@ -137,13 +137,13 @@ public partial class Wa2EngineMain : Control
 	{
 		return FBColor;
 	}
-	public void JumpScript(string name)
-	{
-		GameFlags = new int[0x1d];
-		ScriptStack.Clear();
-		Script = new Wa2Script(name);
-		ScriptStack.Push(Script);
-	}
+	// public void JumpScript(string name)
+	// {
+	// 	GameFlags = new int[0x1d];
+	// 	ScriptStack.Clear();
+	// 	Script = new Wa2Script(name);
+	// 	ScriptStack.Push(Script);
+	// }
 	public void StopSkip()
 	{
 		Skipping = false;
@@ -963,12 +963,12 @@ public partial class Wa2EngineMain : Control
 	}
 	public void SetScriptIdx(string name)
 	{
-		int idx = Array.IndexOf(Wa2Def.ScriptList, name);
+		int idx = Array.IndexOf(Wa2Def.ScriptList, name.ToLower());
 		if (idx >= 0)
 		{
 			if (idx != ScriptIdx)
 			{
-				if (CurMessageIdx > 0 | idx == 29 | idx == 30 | idx == 31)
+				if (CurMessageIdx > 0 || idx == 29 || idx == 30 || idx == 31)
 				{
 					ScriptIdx = idx;
 					SetReadMessage(CurMessageIdx + 1);
