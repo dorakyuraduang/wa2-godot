@@ -4,7 +4,7 @@ using System;
 public partial class Wa2AdvMain : Control
 {
 
-	public bool NovelMode = false;
+	// public bool NovelMode = false;
 	[Export]
 	public Wa2Button BackLogButton;
 	[Export]
@@ -61,10 +61,28 @@ public partial class Wa2AdvMain : Control
 		HIDE = 6
 	}
 	public AdvState State = AdvState.END;
+	public void UpdateWindowAlpha()
+	{
+		if (_engine.BgType == 1)
+		{
+		 SetWindowAlpha(_engine.Prefs.GetConfig("win_alpha_vis"));
+		}
+		else
+		{
+			if (_engine.NovelMode)
+			{
+				SetWindowAlpha(_engine.Prefs.GetConfig("win_alpha_novel"));
+			}
+			else
+			{
+				SetWindowAlpha(_engine.Prefs.GetConfig("win_alpha"));
+			}
+		}
+	}
 	// public bool Active;
 	public void SetNovelMode(bool flag)
 	{
-		NovelMode = flag;
+		_engine.NovelMode = flag;
 		if (flag)
 		{
 			MessageBox.Hide();
@@ -119,7 +137,7 @@ public partial class Wa2AdvMain : Control
 		{
 			return;
 		}
-		if (NovelMode)
+		if (_engine.NovelMode)
 		{
 			_engine.UiMgr.OpenNovelBackLog();
 		}
@@ -364,7 +382,7 @@ public partial class Wa2AdvMain : Control
 		// ClearText();
 		// TextLabel.Modulate=new Color(1, 1, 1, 1);
 		// Mask.Modulate = new Color(1, 1, 1, 1);
-		if (NovelMode && Mask.Modulate.A < 1)
+		if (_engine.NovelMode && Mask.Modulate.A < 1)
 		{
 			NovelShow(0.2f);
 		}
@@ -386,6 +404,7 @@ public partial class Wa2AdvMain : Control
 				_engine.StopSkip();
 			}
 		}
+		UpdateWindowAlpha();
 	}
 	public void OnSaveButtonDown()
 	{

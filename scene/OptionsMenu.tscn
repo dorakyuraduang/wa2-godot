@@ -141,7 +141,7 @@ region = Rect2(384, 0, 192, 32)
 atlas = ExtResource("13_p84jc")
 region = Rect2(0, 0, 208, 24)
 
-[node name="OptionsMenu" node_paths=PackedStringArray("YesNoBtnList", "MsgWaitBtnList", "MsgCutOptinAllBtn", "MsgCutOptinReadBtn", "WaitFastBtn", "WaitNormalBtn", "OptionButtonList", "PageList", "CharVoiceList", "AllVolumeBar", "BgmVolumeBar", "SeVolumeBar", "VoiceVolumeBar", "VolumeBtnList", "WindowAlphaBar", "AutoMaxBar", "WindowAlphaBtnList", "AutoMaxBtnList", "DefaultBtn") instance=ExtResource("1_rxglr")]
+[node name="OptionsMenu" node_paths=PackedStringArray("YesNoBtnList", "MsgWaitBtnList", "MsgCutOptinAllBtn", "MsgCutOptinReadBtn", "WaitFastBtn", "WaitNormalBtn", "OptionButtonList", "PageList", "CharVoiceList", "AllVolumeBar", "BgmVolumeBar", "SeVolumeBar", "VoiceVolumeBar", "VolumeBtnList", "WindowAlphaBar", "WindowAlphaVisBar", "WindowAlphaNovelBar", "AutoMaxBar", "WindowAlphaBtnList", "WindowAlphaVisBtnList", "WindowAlphaNovelBtnList", "AutoMaxBtnList", "DefaultBtn") instance=ExtResource("1_rxglr")]
 script = ExtResource("2_kvry6")
 YesNoBtnList = NodePath("PageList/Option2/YesNoBtnList")
 MsgWaitBtnList = NodePath("PageList/Option1/MsgWait")
@@ -158,8 +158,12 @@ SeVolumeBar = NodePath("PageList/Option2/VBoxContainer/SeVolume")
 VoiceVolumeBar = NodePath("PageList/Option2/VBoxContainer/VoiceVolume")
 VolumeBtnList = NodePath("PageList/Option2/VolumeBtnList")
 WindowAlphaBar = NodePath("PageList/Option1/WindowAlpha")
+WindowAlphaVisBar = NodePath("PageList/Option1/WindowAlphaVis")
+WindowAlphaNovelBar = NodePath("PageList/Option1/WindowAlphaNovel")
 AutoMaxBar = NodePath("PageList/Option1/AutoMax")
 WindowAlphaBtnList = NodePath("PageList/Option1/WindowAlphaBtnList")
+WindowAlphaVisBtnList = NodePath("PageList/Option1/WindowAlphaVisBtnList")
+WindowAlphaNovelBtnList = NodePath("PageList/Option1/WindowAlphaNovelBtnList")
 AutoMaxBtnList = NodePath("PageList/Option1/AutoMaxBtnList")
 DefaultBtn = NodePath("Default")
 
@@ -304,7 +308,38 @@ max_value = 21.0
 value = 21.0
 texture_progress = SubResource("AtlasTexture_eqhdx")
 
-[node name="AutoMaxBtnList" type="HBoxContainer" parent="PageList/Option1" index="5"]
+[node name="WindowAlphaVis" type="TextureProgressBar" parent="PageList/Option1" index="5"]
+layout_mode = 0
+offset_left = 545.0
+offset_top = 305.0
+offset_right = 879.0
+offset_bottom = 323.0
+max_value = 21.0
+value = 21.0
+texture_progress = SubResource("AtlasTexture_eqhdx")
+
+[node name="WindowAlphaNovel" type="TextureProgressBar" parent="PageList/Option1" index="6"]
+layout_mode = 0
+offset_left = 545.0
+offset_top = 345.0
+offset_right = 879.0
+offset_bottom = 363.0
+max_value = 21.0
+value = 21.0
+texture_progress = SubResource("AtlasTexture_eqhdx")
+
+[node name="CmdAlpha" type="TextureProgressBar" parent="PageList/Option1" index="7"]
+visible = false
+layout_mode = 0
+offset_left = 545.0
+offset_top = 385.0
+offset_right = 879.0
+offset_bottom = 403.0
+max_value = 21.0
+value = 21.0
+texture_progress = SubResource("AtlasTexture_eqhdx")
+
+[node name="AutoMaxBtnList" type="HBoxContainer" parent="PageList/Option1" index="8"]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 158.0
@@ -330,7 +365,7 @@ script = ExtResource("8_ojnhc")
 ClickStream = ExtResource("6_m5qo3")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="WindowAlphaBtnList" type="HBoxContainer" parent="PageList/Option1" index="6"]
+[node name="WindowAlphaBtnList" type="HBoxContainer" parent="PageList/Option1" index="9"]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 262.0
@@ -356,7 +391,7 @@ script = ExtResource("8_ojnhc")
 ClickStream = ExtResource("6_m5qo3")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="PageList/Option1" index="7"]
+[node name="WindowAlphaVisBtnList" type="HBoxContainer" parent="PageList/Option1" index="10"]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 302.0
@@ -364,7 +399,7 @@ offset_right = 942.0
 offset_bottom = 338.0
 theme_override_constants/separation = 356
 
-[node name="Wa2Button" type="TextureButton" parent="PageList/Option1/HBoxContainer3" index="0"]
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option1/WindowAlphaVisBtnList" index="0"]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_48jvx")
 texture_pressed = SubResource("AtlasTexture_48jvx")
@@ -374,13 +409,13 @@ texture_focused = SubResource("AtlasTexture_48jvx")
 script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="Wa2Button2" type="TextureButton" parent="PageList/Option1/HBoxContainer3" index="1"]
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option1/WindowAlphaVisBtnList" index="1"]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_50byg")
 script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="PageList/Option1" index="8"]
+[node name="WindowAlphaNovelBtnList" type="HBoxContainer" parent="PageList/Option1" index="11"]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 342.0
@@ -388,7 +423,7 @@ offset_right = 942.0
 offset_bottom = 378.0
 theme_override_constants/separation = 356
 
-[node name="Wa2Button" type="TextureButton" parent="PageList/Option1/HBoxContainer4" index="0"]
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option1/WindowAlphaNovelBtnList" index="0"]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_48jvx")
 texture_pressed = SubResource("AtlasTexture_48jvx")
@@ -398,13 +433,13 @@ texture_focused = SubResource("AtlasTexture_48jvx")
 script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="Wa2Button2" type="TextureButton" parent="PageList/Option1/HBoxContainer4" index="1"]
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option1/WindowAlphaNovelBtnList" index="1"]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_50byg")
 script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="PageList/Option1" index="9"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="PageList/Option1" index="12"]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 382.0

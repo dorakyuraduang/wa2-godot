@@ -24,12 +24,22 @@ public class Wa2Prefs
 		SetVolume(1, GetConfig("bgm_vol"));
 		SetVolume(2, GetConfig("se_vol"));
 		SetVolume(3, GetConfig("voice_vol"));
-		_engine.AdvMain.SetWindowAlpha(GetConfig("win_alpha"));
+		
 	}
 	public void SetWindowAlpha(int alpha)
 	{
 		SetConfig("win_alpha", alpha);
-		_engine.AdvMain.SetWindowAlpha(GetConfig("win_alpha"));
+		_engine.AdvMain.UpdateWindowAlpha();
+	}
+	public void SetWindowAlphaVis(int alpha)
+	{
+		SetConfig("win_alpha_vis", alpha);
+		_engine.AdvMain.UpdateWindowAlpha();
+	}
+	public void SetWindowAlphaNovel(int alpha)
+	{
+		SetConfig("win_alpha_novel", alpha);
+		_engine.AdvMain.UpdateWindowAlpha();
 	}
 	public void SetConfig(string key, int val)
 	{
@@ -126,9 +136,10 @@ public class Wa2Prefs
 	}
 	public int GetMsgWaitIdx()
 	{
-		return Array.IndexOf(MsgWaitIdxs,GetMsgWait());
+		return Array.IndexOf(MsgWaitIdxs, GetMsgWait());
 	}
-	public int GetMsgWaitValue(int idx){
+	public int GetMsgWaitValue(int idx)
+	{
 		return MsgWaitIdxs[idx];
 	}
 

@@ -42,12 +42,13 @@ public partial class Wa2EngineMain : Control
 	// public List<string> Texts = new();
 	public List<BacklogEntry> Backlogs = new();
 	public bool EroMode = false;
+	public int BgType = 0;
 	public bool TestMode = true;
 	public bool SkipMode = false;
 	public bool SkipDisable = false;
 	public int ReplayMode = 0;
 	public bool AutoMode = false;
-
+	public bool NovelMode = false;
 	public bool ClickedInWait;
 	public int CurMessageIdx;
 	public static Wa2EngineMain Engine;
@@ -119,6 +120,8 @@ public partial class Wa2EngineMain : Control
 	public int[] GameFlags = new int[0x1d];
 	public double ScriptDelta = 0.0f;
 	public double FrameDelta = 0.0f;
+
+
 	public Wa2EngineMain()
 	{
 		if (Engine == null)
@@ -550,6 +553,7 @@ public partial class Wa2EngineMain : Control
 		AdvMain.Clear();
 		UpdateChar(0);
 		EroMode = false;
+		// CgMode = false;
 		// ReplayMode = 0;
 		AnimatorMgr.FinishAll(true);
 		BgTexture.Reset();
@@ -876,6 +880,7 @@ public partial class Wa2EngineMain : Control
 	// public void Load
 	public void RenderImage(int id, int efc, bool updateChar, int type, int frame, int offset, int x, int y, float scaleX, float ScaleY)
 	{
+		BgType = type;
 		AnimatorMgr.FinishAll(true);
 		Texture2D NextTexture;
 		Texture2D CeacheTexture = ImageTexture.CreateFromImage(Viewport.GetTexture().GetImage());

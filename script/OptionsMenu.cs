@@ -33,9 +33,17 @@ public partial class OptionsMenu : BasePage
   [Export]
   public TextureProgressBar WindowAlphaBar;
   [Export]
+  public TextureProgressBar WindowAlphaVisBar;
+  [Export]
+  public TextureProgressBar WindowAlphaNovelBar;
+  [Export]
   public TextureProgressBar AutoMaxBar;
   [Export]
   public HBoxContainer WindowAlphaBtnList;
+  [Export]
+  public HBoxContainer WindowAlphaVisBtnList;
+  [Export]
+  public HBoxContainer WindowAlphaNovelBtnList;
   [Export]
   public HBoxContainer AutoMaxBtnList;
   [Export]
@@ -53,9 +61,15 @@ public partial class OptionsMenu : BasePage
     YesNoBtnList.GetChild<Wa2Button>(1).ButtonDown += () => _engine.Prefs.SetConfig("yes_no", 0);
     WindowAlphaBtnList.GetChild<Wa2Button>(0).ButtonDown += () => WindowAlphaBar.Value--;
     WindowAlphaBtnList.GetChild<Wa2Button>(1).ButtonDown += () => WindowAlphaBar.Value++;
+    WindowAlphaVisBtnList.GetChild<Wa2Button>(0).ButtonDown += () => WindowAlphaVisBar.Value--;
+    WindowAlphaVisBtnList.GetChild<Wa2Button>(1).ButtonDown += () => WindowAlphaVisBar.Value++;
+    WindowAlphaNovelBtnList.GetChild<Wa2Button>(0).ButtonDown += () => WindowAlphaNovelBar.Value--;
+    WindowAlphaNovelBtnList.GetChild<Wa2Button>(1).ButtonDown += () => WindowAlphaNovelBar.Value++;
     AutoMaxBtnList.GetChild<Wa2Button>(0).ButtonDown += () => AutoMaxBar.Value--;
     AutoMaxBtnList.GetChild<Wa2Button>(1).ButtonDown += () => AutoMaxBar.Value++;
     WindowAlphaBar.ValueChanged += (double val) => _engine.Prefs.SetWindowAlpha((int)(val * 256 / 21));
+    WindowAlphaVisBar.ValueChanged += (double val) => _engine.Prefs.SetWindowAlphaVis((int)(val * 256 / 21));
+    WindowAlphaNovelBar.ValueChanged += (double val) => _engine.Prefs.SetWindowAlphaNovel((int)(val * 256 / 21));
     AutoMaxBar.ValueChanged += (double val) => _engine.Prefs.SetConfig("auto_max", 60 + (int)(val * 540 / 21));
     MsgCutOptinAllBtn.ButtonDown += () => _engine.Prefs.SetConfig("msg_cut_optin", 1);
     MsgCutOptinReadBtn.ButtonDown += () => _engine.Prefs.SetConfig("msg_cut_optin", 0);
@@ -63,10 +77,10 @@ public partial class OptionsMenu : BasePage
     WaitNormalBtn.ButtonDown += () => _engine.Prefs.SetConfig("wait", 0);
     for (int i = 0; i < 4; i++)
     {
-      int idx=i;
+      int idx = i;
       MsgWaitBtnList.GetChild<Wa2Button>(i).ButtonDown += () =>
       {
-        _engine.Prefs.SetConfig("msg_wait",_engine.Prefs.GetMsgWaitValue(idx));
+        _engine.Prefs.SetConfig("msg_wait", _engine.Prefs.GetMsgWaitValue(idx));
       };
     }
     VolumeBtnList.GetChild<HBoxContainer>(0).GetChild<Wa2Button>(0).ButtonDown += () =>
@@ -153,6 +167,7 @@ public partial class OptionsMenu : BasePage
   {
     _engine.Prefs.SetDefault();
     UpdateOption();
+    _engine.AdvMain.UpdateWindowAlpha();
     _engine.UiMgr.UIConfirm.Close();
   }
   public void UpdateOption()
@@ -165,6 +180,8 @@ public partial class OptionsMenu : BasePage
     VoiceVolumeBar.Value = (int)(_engine.Prefs.GetConfig("voice_vol") / (256 / 21));
     AutoMaxBar.Value = (int)((_engine.Prefs.GetConfig("auto_max") - 60) / (540 / 21));
     WindowAlphaBar.Value = (int)(_engine.Prefs.GetConfig("win_alpha") / (256 / 21));
+    WindowAlphaVisBar.Value = (int)(_engine.Prefs.GetConfig("win_alpha_vis") / (256 / 21));
+    WindowAlphaNovelBar.Value = (int)(_engine.Prefs.GetConfig("win_alpha_novel") / (256 / 21));
     MsgWaitBtnList.GetChild<Wa2Button>(_engine.Prefs.GetMsgWaitIdx()).ButtonPressed = true;
     for (int i = 0; i < 10; i++)
     {
@@ -193,6 +210,7 @@ public partial class OptionsMenu : BasePage
     {
       WaitNormalBtn.ButtonPressed = true;
     }
+    
   }
 
   public override void Open()

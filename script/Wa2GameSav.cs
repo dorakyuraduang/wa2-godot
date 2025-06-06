@@ -3,7 +3,76 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using System.Threading.Channels;
+// 0x110a0
+//A5F660
+// public struct ImageInfo
+// {
+// 	public int Id;
+// 	public int X;
+// 	public int Y;
+// 	public float ScaleX;
+// 	public float ScaleY;
+// 	public int type;
+// 	public int V12;
+// 	//无意义参数
+// 	public int Show;
+// }
+public struct GameState
+{
+	//0-5? shake
+	public int V0;
+	public int V1;
+	public int V2;
+	public int V3;
+	public int V4;
+	public int V5;
+	public int Id;
+	public int X;
+	public int Y;
+	public float ScaleX;
+	public float ScaleY;
+	public int type;
+	public int V12;
+
+	//无意义参数
+	public int Show;
+	public int V14;
+	public int V15;
+	public int V16;
+	public int V17;
+	public int V18;
+	public int TimeMode;
+	public int V20;
+	public int ChromaMode1;
+	public int ChromaMode2;
+	//32
+	public string Amp1;
+	//32
+	public string Amp2;
+	//32
+	public string Amp3;
+	public int[] CharsShow;
+	public int[] CharsIdx;
+	// public int[] CharsPos;
+	
+
+
+}
+public struct SavInfo
+{
+	public int Flag;
+	public int Calendar;
+	public short Year;
+	public short Month;
+	public short WeekOfDay;
+	public short Day;
+	public short Hout;
+	public short Minute;
+	public short Second;
+	public short MillisSecond;
+	public byte[] First;
+	public byte[] Image;
+}
 public struct Calender
 {
 	public int Year;
@@ -252,8 +321,8 @@ public class Wa2GameSav
 				file.Store8((byte)(seAudios[i].Loop ? 1 : 0));
 			}
 		}
-		file.Store8((byte)(_engine.AdvMain.NovelMode ? 1 : 0));
-		file.Store32((uint)_engine.ScriptStack.Count-1);
+		file.Store8((byte)(_engine.NovelMode ? 1 : 0));
+		file.Store32((uint)_engine.ScriptStack.Count - 1);
 		if (_engine.ScriptStack.Count > 1)
 		{
 			Wa2Script[] scripts = _engine.ScriptStack.ToArray();
@@ -410,7 +479,7 @@ public class Wa2GameSav
 			scripts.Add(script);
 		}
 		scripts.Reverse();
-		_engine.ScriptStack =new Stack<Wa2Script>(scripts);
+		_engine.ScriptStack = new Stack<Wa2Script>(scripts);
 		_engine.SetScriptIdx(_engine.Script.ScriptName);
 		file.Close();
 	}
