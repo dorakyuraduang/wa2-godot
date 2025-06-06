@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce04x87bmxhmk"]
+
+[ext_resource type="Script" uid="uid://bpluvwe16cka3" path="res://script/SavLoadTest.cs" id="1_mj7cr"]
+
+[node name="SavLoadTest" type="Node"]
+script = ExtResource("1_mj7cr")
+Path = "res://sav/save_00.sav"

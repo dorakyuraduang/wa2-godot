@@ -17,6 +17,7 @@ using System.Linq;
 // 	//无意义参数
 // 	public int Show;
 // }
+// 0x110a0
 public struct GameState
 {
 	//0-5? shake
@@ -53,8 +54,28 @@ public struct GameState
 	public string Amp3;
 	public int[] CharsShow;
 	public int[] CharsIdx;
+	//72-75 ?
+	public int V72;
+	public int V73;
+	public int V74;
+	public int V75;
+	public int[] Pos1;
+	public int[] Pos2;
+	public int[] U1;
+	public int[] U2;
+	public int[] CharAlpha;
+	public short D18;
+	public short D14;
+	public short TextProgress;
+	//size 256 pos136+2
+	public string Text;
+	//size16 pos393
+	public string Name;
+
+
+
 	// public int[] CharsPos;
-	
+
 
 
 }
