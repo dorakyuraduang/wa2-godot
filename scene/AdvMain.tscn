@@ -2067,6 +2067,7 @@ offset_bottom = -12.0
 grow_vertical = 0
 
 [node name="IsRead" type="TextureRect" parent="HBoxContainer2"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 offset_right = 40.0
@@ -2074,6 +2075,7 @@ offset_bottom = 40.0
 texture = SubResource("AtlasTexture_ijh6q")
 
 [node name="Auto" type="TextureRect" parent="HBoxContainer2"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 offset_left = 40.0
@@ -2082,6 +2084,7 @@ offset_bottom = 40.0
 texture = SubResource("AtlasTexture_f3hh6")
 
 [node name="Skip" type="TextureRect" parent="HBoxContainer2"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 offset_left = 80.0
