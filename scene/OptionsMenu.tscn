@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://du2ied53oeq1x"]
+[gd_scene load_steps=60 format=3 uid="uid://du2ied53oeq1x"]
 
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_rxglr"]
 [ext_resource type="Script" uid="uid://dmtoyob7b1fd4" path="res://script/OptionsMenu.cs" id="2_kvry6"]
@@ -75,6 +75,26 @@ region = Rect2(458, 14, 252, 36)
 atlas = ExtResource("7_li33v")
 region = Rect2(714, 14, 252, 36)
 
+[sub_resource type="ButtonGroup" id="ButtonGroup_e1dmw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahuwn"]
+atlas = ExtResource("7_li33v")
+region = Rect2(457, 301, 253, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvqyc"]
+atlas = ExtResource("7_li33v")
+region = Rect2(714, 302, 252, 36)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ahuwn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qdmk"]
+atlas = ExtResource("7_li33v")
+region = Rect2(458, 342, 252, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8k7r5"]
+atlas = ExtResource("7_li33v")
+region = Rect2(714, 342, 252, 36)
+
 [sub_resource type="ButtonGroup" id="ButtonGroup_x3o0d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7xsla"]
@@ -141,7 +161,7 @@ region = Rect2(384, 0, 192, 32)
 atlas = ExtResource("13_p84jc")
 region = Rect2(0, 0, 208, 24)
 
-[node name="OptionsMenu" node_paths=PackedStringArray("YesNoBtnList", "MsgWaitBtnList", "MsgCutOptinAllBtn", "MsgCutOptinReadBtn", "WaitFastBtn", "WaitNormalBtn", "OptionButtonList", "PageList", "CharVoiceList", "AllVolumeBar", "BgmVolumeBar", "SeVolumeBar", "VoiceVolumeBar", "VolumeBtnList", "WindowAlphaBar", "WindowAlphaVisBar", "WindowAlphaNovelBar", "AutoMaxBar", "WindowAlphaBtnList", "WindowAlphaVisBtnList", "WindowAlphaNovelBtnList", "AutoMaxBtnList", "DefaultBtn") instance=ExtResource("1_rxglr")]
+[node name="OptionsMenu" node_paths=PackedStringArray("YesNoBtnList", "MsgWaitBtnList", "MsgCutOptinAllBtn", "MsgCutOptinReadBtn", "WaitFastBtn", "WaitNormalBtn", "OptionButtonList", "PageList", "CharVoiceList", "AllVolumeBar", "BgmVolumeBar", "SeVolumeBar", "VoiceVolumeBar", "VolumeBtnList", "WindowAlphaBar", "WindowAlphaVisBar", "WindowAlphaNovelBar", "AutoMaxBar", "WindowAlphaBtnList", "WindowAlphaVisBtnList", "WindowAlphaNovelBtnList", "AutoMaxBtnList", "DefaultBtn", "PageVoiceYesBtn", "PageVoiceNoBtn", "EroVoiceYesBtn", "EroVoiceNoBtn") instance=ExtResource("1_rxglr")]
 script = ExtResource("2_kvry6")
 YesNoBtnList = NodePath("PageList/Option2/YesNoBtnList")
 MsgWaitBtnList = NodePath("PageList/Option1/MsgWait")
@@ -166,6 +186,10 @@ WindowAlphaVisBtnList = NodePath("PageList/Option1/WindowAlphaVisBtnList")
 WindowAlphaNovelBtnList = NodePath("PageList/Option1/WindowAlphaNovelBtnList")
 AutoMaxBtnList = NodePath("PageList/Option1/AutoMaxBtnList")
 DefaultBtn = NodePath("Default")
+PageVoiceYesBtn = NodePath("PageList/Option2/PageVoiceBtnList/Wa2Button")
+PageVoiceNoBtn = NodePath("PageList/Option2/PageVoiceBtnList/Wa2Button2")
+EroVoiceYesBtn = NodePath("PageList/Option2/EroVoiceBtnList/Wa2Button2")
+EroVoiceNoBtn = NodePath("PageList/Option2/EroVoiceBtnList/Wa2Button")
 
 [node name="PageList" type="Control" parent="." index="7"]
 layout_mode = 1
@@ -177,6 +201,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Option1" type="TextureRect" parent="PageList" index="0"]
+visible = false
 layout_mode = 0
 offset_left = 128.0
 offset_top = 128.0
@@ -464,7 +489,6 @@ script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="Option2" type="TextureRect" parent="PageList" index="1"]
-visible = false
 layout_mode = 0
 offset_left = 128.0
 offset_top = 128.0
@@ -618,6 +642,62 @@ metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 [node name="Wa2Button2" type="TextureButton" parent="PageList/Option2/VolumeBtnList/HBoxContainer4" index="1"]
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_50byg")
+script = ExtResource("8_ojnhc")
+ClickStream = ExtResource("6_m5qo3")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="PageVoiceBtnList" type="HBoxContainer" parent="PageList/Option2" index="3"]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 301.0
+offset_right = 715.0
+offset_bottom = 341.0
+theme_override_constants/separation = 3
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option2/PageVoiceBtnList" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_e1dmw")
+texture_pressed = SubResource("AtlasTexture_ahuwn")
+script = ExtResource("8_ojnhc")
+ClickStream = ExtResource("6_m5qo3")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option2/PageVoiceBtnList" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_e1dmw")
+texture_pressed = SubResource("AtlasTexture_fvqyc")
+script = ExtResource("8_ojnhc")
+ClickStream = ExtResource("6_m5qo3")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="EroVoiceBtnList" type="HBoxContainer" parent="PageList/Option2" index="4"]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 342.0
+offset_right = 965.0
+offset_bottom = 378.0
+theme_override_constants/separation = 3
+
+[node name="Wa2Button" type="TextureButton" parent="PageList/Option2/EroVoiceBtnList" index="0"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_ahuwn")
+texture_pressed = SubResource("AtlasTexture_0qdmk")
+script = ExtResource("8_ojnhc")
+ClickStream = ExtResource("6_m5qo3")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="Wa2Button2" type="TextureButton" parent="PageList/Option2/EroVoiceBtnList" index="1"]
+layout_mode = 2
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_ahuwn")
+texture_pressed = SubResource("AtlasTexture_8k7r5")
 script = ExtResource("8_ojnhc")
 ClickStream = ExtResource("6_m5qo3")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"

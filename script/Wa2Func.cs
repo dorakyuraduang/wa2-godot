@@ -193,6 +193,7 @@ public class Wa2Func
 			_engine.AdvMain.NameLabel.Clear();
 			_engine.AdvMain.TextLabel.Segment = 0;
 			_engine.AdvMain.TextLabel.Text = text;
+
 		}
 
 		_engine.AdvMain.TextProgress = 0;
@@ -217,6 +218,10 @@ public class Wa2Func
 		// 	Text = _engine.AdvMain.TextLabel.Text,
 		// 	VoiceInfos = [.. _engine.VoiceInfos]
 		// });
+		if (_engine.Prefs.GetConfig("page_voice") == 1)
+		{
+			_engine.SoundMgr.StopVoice(0);
+		}
 		_engine.VoiceInfos.Clear();
 		return true;
 	}

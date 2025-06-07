@@ -352,6 +352,7 @@ public class Wa2GameSav
 				SaveScript(file, scripts[i]);
 			}
 		}
+		file.Store8((byte)(_engine.EroMode ? 1 : 0));
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -502,6 +503,7 @@ public class Wa2GameSav
 		scripts.Reverse();
 		_engine.ScriptStack = new Stack<Wa2Script>(scripts);
 		_engine.SetScriptIdx(_engine.Script.ScriptName);
+		_engine.EroMode = file.Get8() == 1;
 		file.Close();
 	}
 	public void SaveScript(FileAccess file, Wa2Script script)

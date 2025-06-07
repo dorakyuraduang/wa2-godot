@@ -48,6 +48,15 @@ public partial class OptionsMenu : BasePage
   public HBoxContainer AutoMaxBtnList;
   [Export]
   public Wa2Button DefaultBtn;
+  [Export]
+  public Wa2Button PageVoiceYesBtn;
+  [Export]
+  public Wa2Button PageVoiceNoBtn;
+  [Export]
+  public Wa2Button EroVoiceYesBtn;
+  [Export]
+  public Wa2Button EroVoiceNoBtn;
+
   public override void Close()
   {
     base.Close();
@@ -59,6 +68,10 @@ public partial class OptionsMenu : BasePage
     DefaultBtn.ButtonDown += OnDefaultBtnDown;
     YesNoBtnList.GetChild<Wa2Button>(0).ButtonDown += () => _engine.Prefs.SetConfig("yes_no", 1);
     YesNoBtnList.GetChild<Wa2Button>(1).ButtonDown += () => _engine.Prefs.SetConfig("yes_no", 0);
+    PageVoiceYesBtn.ButtonDown += () => _engine.Prefs.SetConfig("page_voice", 1);
+    PageVoiceNoBtn.ButtonDown += () => _engine.Prefs.SetConfig("page_voice", 0);
+    EroVoiceYesBtn.ButtonDown += () => _engine.Prefs.SetConfig("ero_voice", 1);
+    EroVoiceYesBtn.ButtonDown += () => _engine.Prefs.SetConfig("ero_voice", 0);
     WindowAlphaBtnList.GetChild<Wa2Button>(0).ButtonDown += () => WindowAlphaBar.Value--;
     WindowAlphaBtnList.GetChild<Wa2Button>(1).ButtonDown += () => WindowAlphaBar.Value++;
     WindowAlphaVisBtnList.GetChild<Wa2Button>(0).ButtonDown += () => WindowAlphaVisBar.Value--;
@@ -210,7 +223,23 @@ public partial class OptionsMenu : BasePage
     {
       WaitNormalBtn.ButtonPressed = true;
     }
-    
+    if (_engine.Prefs.GetConfig("page_voice") == 1)
+    {
+      PageVoiceYesBtn.ButtonPressed = true;
+    }
+    else
+    {
+      PageVoiceNoBtn.ButtonPressed = true;
+
+    }
+    if (_engine.Prefs.GetConfig("ero_voice") == 1)
+    {
+       EroVoiceYesBtn.ButtonPressed = true;
+    }
+    else
+    {
+      EroVoiceNoBtn.ButtonPressed =  true;
+    }
   }
 
   public override void Open()
