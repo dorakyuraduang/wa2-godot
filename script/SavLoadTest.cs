@@ -23,6 +23,7 @@ public partial class SavLoadTest : Node
   }
   public void PrintGameState(FileAccess file)
   {
+    ulong start = 0x110a0;
     file.Seek(0x110a0);
     file.GetBuffer(24);
     GD.Print("图片id", file.Get32());
@@ -78,8 +79,55 @@ public partial class SavLoadTest : Node
         file.Seek(0x11160 + 240 + (ulong)i * 4);
         GD.Print("alpha", file.Get32());
       }
-    }
 
+    }
+    //end116
+    //949-955 effect
+    //956
+    file.Seek(start + 956 * 4);
+    GD.Print("EroMode", file.Get32());
+    GD.Print("游戏时间", file.Get32());
+    //959
+    file.Seek(start + 959 * 4);
+    for (int i = 0; i < 4; i++)
+    {
+      file.Seek(start + 959 * 4 + (ulong)i * 4);
+      GD.Print("BGM", (int)file.Get32());
+      file.Seek(start + 963 * 4 + (ulong)i * 4);
+      GD.Print("播放", (int)file.Get32());
+      file.Seek(start + 967 * 4 + (ulong)i * 4);
+      GD.Print("循环", file.Get32());
+      file.Seek(start + 971 * 4 + (ulong)i * 4);
+      GD.Print("音量", file.Get32());
+    }
+    for (int i = 0; i < 16; i++)
+    {
+      file.Seek(start + 975 * 4 + (ulong)i * 4);
+      GD.Print("音效播放", file.Get32());
+      file.Seek(start + 991 * 4 + (ulong)i * 4);
+      GD.Print("音效id", file.Get32());
+      file.Seek(start + 1007 * 4 + (ulong)i * 4);
+      GD.Print("音效循环", file.Get32());
+      file.Seek(start + 1023 * 4 + (ulong)i * 4);
+      GD.Print("音效音量", file.Get32());
+    }
+    for (int i = 0; i < 4; i++)
+    {
+      file.Seek(start + 1055 * 4 + (ulong)i * 4);
+      GD.Print("语音播放", file.Get32());
+      file.Seek(start + 1059 * 4 + (ulong)i * 4);
+      GD.Print("语音id", file.Get32());
+      file.Seek(start + 1063 * 4 + (ulong)i * 4);
+      GD.Print("语音label", file.Get32());
+      file.Seek(start + 1067 * 4 + (ulong)i * 4);
+      GD.Print("语音角色", file.Get32());
+      file.Seek(start + 1071 * 4 + (ulong)i * 4);
+      GD.Print("语音音量", file.Get32());
+    }
+    file.Seek(start + 1091 * 4);
+    GD.Print("语音标签", file.Get32());
+    file.Seek(start + 1093 * 4);
+    GD.Print("va参数", file.Get32());
 
     // public int[] CharsShow;
     // public int[] CharsIdx;

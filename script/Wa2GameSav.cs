@@ -121,7 +121,7 @@ public struct BgInfo
 	public Vector2 Offset;
 	public string Path;
 	public int Frame;
-	public int V0;
+	public int Type;
 	public int V1;
 	public int V2;
 	public int V3;
@@ -316,7 +316,7 @@ public class Wa2GameSav
 		file.StoreFloat(_engine.BgInfo.Offset.X);
 		file.StoreFloat(_engine.BgInfo.Offset.Y);
 		file.Store32((uint)_engine.BgInfo.Frame);
-		file.Store32((uint)_engine.BgInfo.V0);
+		file.Store32((uint)_engine.BgInfo.Type);
 		file.Store32((uint)_engine.BgInfo.V1);
 		file.Store32((uint)_engine.BgInfo.V2);
 		file.Store32((uint)_engine.BgInfo.V3);
@@ -453,7 +453,7 @@ public class Wa2GameSav
 		_engine.BgInfo.Offset.X = file.GetFloat();
 		_engine.BgInfo.Offset.Y = file.GetFloat();
 		_engine.BgInfo.Frame = (int)file.Get32();
-		_engine.BgInfo.V0 = (int)file.Get32();
+		_engine.BgInfo.Type = (int)file.Get32();
 		_engine.BgInfo.V1 = (int)file.Get32();
 		_engine.BgInfo.V2 = (int)file.Get32();
 		_engine.BgInfo.V3 = (int)file.Get32();

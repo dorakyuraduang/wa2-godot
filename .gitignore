@@ -13,6 +13,7 @@
 *.WAV
 *.wav
 *.mp4
+/sav/
 /assets/grp
 /assets/movie
 /assets/se

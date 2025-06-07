@@ -42,7 +42,7 @@ public partial class Wa2EngineMain : Control
 	// public List<string> Texts = new();
 	public List<BacklogEntry> Backlogs = new();
 	public bool EroMode = false;
-	public int BgType = 0;
+	// public int BgType = 0;
 	public bool TestMode = true;
 	public bool SkipMode = false;
 	public bool SkipDisable = false;
@@ -880,7 +880,8 @@ public partial class Wa2EngineMain : Control
 	// public void Load
 	public void RenderImage(int id, int efc, bool updateChar, int type, int frame, int offset, int x, int y, float scaleX, float ScaleY)
 	{
-		BgType = type;
+		// BgType = type;
+		BgInfo.Type = type;
 		AnimatorMgr.FinishAll(true);
 		Texture2D NextTexture;
 		Texture2D CeacheTexture = ImageTexture.CreateFromImage(Viewport.GetTexture().GetImage());

@@ -63,7 +63,7 @@ public partial class Wa2AdvMain : Control
 	public AdvState State = AdvState.END;
 	public void UpdateWindowAlpha()
 	{
-		if (_engine.BgType == 1)
+		if (_engine.BgInfo.Type == 1)
 		{
 		 SetWindowAlpha(_engine.Prefs.GetConfig("win_alpha_vis"));
 		}
