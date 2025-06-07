@@ -477,6 +477,17 @@ public class Wa2GameSav
 			_engine.SoundMgr.PlaySe(channel, id, loop, 0, volume);
 		}
 		_engine.AdvMain.SetNovelMode(file.Get8() == 1);
+		List<Wa2Script> scripts = new();
+		scripts.Add(_engine.Script);
+		for (int i = 0; i < (int)file.Get32(); i++)
+		{
+			Wa2Script script = LoadScript(file);
+			scripts.Add(script);
+		}
+		scripts.Reverse();
+		_engine.ScriptStack = new Stack<Wa2Script>(scripts);
+		_engine.SetScriptIdx(_engine.Script.ScriptName);
+		_engine.EroMode = file.Get8() == 1;
 		if (_engine.AdvMain.ParseMode == 0)
 		{
 			_engine.AdvMain.ParseMode = 2;
@@ -493,17 +504,7 @@ public class Wa2GameSav
 		_engine.UpdateChar(0f);
 		_engine.HasReadMessage = true;
 		_engine.Backlogs.Clear();
-		List<Wa2Script> scripts = new();
-		scripts.Add(_engine.Script);
-		for (int i = 0; i < (int)file.Get32(); i++)
-		{
-			Wa2Script script = LoadScript(file);
-			scripts.Add(script);
-		}
-		scripts.Reverse();
-		_engine.ScriptStack = new Stack<Wa2Script>(scripts);
-		_engine.SetScriptIdx(_engine.Script.ScriptName);
-		_engine.EroMode = file.Get8() == 1;
+
 		file.Close();
 	}
 	public void SaveScript(FileAccess file, Wa2Script script)
