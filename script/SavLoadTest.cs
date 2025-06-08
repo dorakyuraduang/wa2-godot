@@ -49,40 +49,68 @@ public partial class SavLoadTest : Node
     GD.Print("v47", file.Get32());
     for (int i = 0; i < 8; i++)
     {
-      file.Seek(0x11160 + (ulong)i * 4);
+      file.Seek(start + 48 * 4 + (ulong)i * 4);
       int show = (int)file.Get32();
       if (show == 1)
       {
 
-        file.Seek(0x11160 + 32 + (ulong)i * 4);
+        file.Seek(start + 56 * 4 + (ulong)i * 4);
         GD.Print("角色名", Wa2Def.CharDict.GetValueOrDefault((int)file.Get32()));
         // GD.Print("位置", Wa2Def.CharPos[i]);
-        file.Seek(0x11160 + 64 + (ulong)i * 4);
+        file.Seek(start + 64 * 4 + (ulong)i * 4);
         GD.Print("立绘id", file.Get32());
-        file.Seek(0x11160 + 96 + (ulong)i * 4);
+        file.Seek(start + 72 * 4 + (ulong)i * 4);
         int usePos = file.Get16();
         GD.Print("使用位置", usePos);
         if (usePos == 1)
         {
-          file.Seek(0x11160 + 144 + (ulong)i * 4);
+          file.Seek(start + 84 * 4 + (ulong)i * 4);
           GD.Print("位置", file.GetFloat());
         }
         else
         {
-          file.Seek(0x11160 + 112 + (ulong)i * 4);
+          file.Seek(start + 76 * 4 + (ulong)i * 4);
           GD.Print("位置", Wa2Def.CharPos[file.Get32()]);
         }
-        file.Seek(0x11160 + 176 + (ulong)i * 4);
+        file.Seek(start + 92 * 4 + (ulong)i * 4);
         GD.Print("offset", file.GetFloat());
-        file.Seek(0x11160 + 208 + (ulong)i * 4);
+        file.Seek(start + 100 * 4 + (ulong)i * 4);
         GD.Print("fb", file.Get32());
-        file.Seek(0x11160 + 240 + (ulong)i * 4);
+        file.Seek(start + 108 * 4 + (ulong)i * 4);
         GD.Print("alpha", file.Get32());
       }
-
     }
-    //end116
-    //949-955 effect
+    file.Seek(start + 134 * 4 + 2);
+    GD.Print("段落", file.Get8());
+    file.Seek(start + 135 * 4);
+    GD.Print("文本进度", file.Get16());
+    file.Seek(start + 136 * 4 + 2);
+    GD.Print("对话文本", e.GetString(file.GetBuffer(1024)).Replace("\0", ""));
+    file.Seek(start + 392 * 4 + 2);
+    GD.Print("名称显示进度", file.Get16());
+    file.Seek(start + 393 * 4);
+    GD.Print("名称", e.GetString(file.GetBuffer(16)).Replace("\0", ""));
+    file.Seek(start + 409 * 4);
+    GD.Print("小说模式", file.Get32());
+    GD.Print("选择模式", file.Get32());
+    file.Seek(start + 412 * 4);
+    int selectCount = (int)file.Get32();
+    GD.Print("选项数量", selectCount);
+    for (int i = 0; i < selectCount; i++)
+    {
+      file.Seek(start + 413 * 4 + (ulong)i * 256);
+      GD.Print("选项文本", e.GetString(file.GetBuffer(256)).Replace("\0", ""));
+      file.Seek(start + 941 * 4 + (ulong)i);
+      GD.Print("选项值1:", file.Get8());
+      file.Seek(start + 943 * 4 + (ulong)i);
+      GD.Print("选项值2:", file.Get8());
+      file.Seek(start + 945 * 4 + (ulong)i);
+      GD.Print("选项值3:", file.Get8());
+    }
+    file.Seek(start + 947 * 4);
+    GD.Print("选项idx:", file.Get32());
+    GD.Print("脚本idx:", file.Get32());
+    //effect 949-955
     //956
     file.Seek(start + 956 * 4);
     GD.Print("EroMode", file.Get32());
@@ -128,6 +156,27 @@ public partial class SavLoadTest : Node
     GD.Print("语音标签", file.Get32());
     file.Seek(start + 1093 * 4);
     GD.Print("va参数", file.Get32());
+    file.Seek(start + 2313 * 4);
+    GD.Print("年", file.Get32());
+    GD.Print("月", file.Get32());
+    GD.Print("星期", file.Get32());
+    GD.Print("日", file.Get32());
+    start = 0x134D4;
+    file.Seek(start + 52984 + 12);
+    GD.Print("脚本名", e.GetString(file.GetBuffer(8)).Replace("\0", ""));
+    file.Seek(start + 53052 + 12);
+    GD.Print("pak名称", e.GetString(file.GetBuffer(8)).Replace("\0", ""));
+    file.Seek(start + 4);
+    GD.Print("脚本数量", file.Get32());
+    ulong pos = start + 13415 * 4;
+    for (int i = 0; i < 4; i++)
+    {
+      file.Seek(pos+52984);
+      GD.Print("脚本名", e.GetString(file.GetBuffer(8)).Replace("\0", ""));
+      file.Seek(pos+53052);
+       GD.Print("pak名称", e.GetString(file.GetBuffer(8)).Replace("\0", ""));
+      pos += 13412 * 4;
+    }
 
     // public int[] CharsShow;
     // public int[] CharsIdx;
