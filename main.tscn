@@ -413,22 +413,34 @@ layout_mode = 1
 mouse_filter = 2
 
 [node name="LoadSaveMenu2" parent="Wa2UiMgr" instance=ExtResource("9_kek77")]
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
+mouse_filter = 2
 
 [node name="LoadSaveMenu" parent="Wa2UiMgr" instance=ExtResource("9_kek77")]
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
+mouse_filter = 2
 
 [node name="CGModeMenu" parent="Wa2UiMgr" instance=ExtResource("10_efxa6")]
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
+mouse_filter = 2
 
 [node name="BgmModeMenu" parent="Wa2UiMgr" instance=ExtResource("11_dg77c")]
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
+mouse_filter = 2
 
 [node name="BackLogMenu" parent="Wa2UiMgr" instance=ExtResource("13_w48qg")]
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
+mouse_filter = 2
 
 [node name="OptionsMenu" parent="Wa2UiMgr" instance=ExtResource("14_vivmo")]
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
+mouse_filter = 2
 
 [node name="UIConfirm" parent="Wa2UiMgr" instance=ExtResource("15_2cqfq")]
 visible = false
@@ -438,13 +450,19 @@ layout_mode = 1
 layout_mode = 1
 
 [node name="NovelBackLogMenu" parent="Wa2UiMgr" instance=ExtResource("18_82xsv")]
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
+mouse_filter = 2
 
 [node name="SceneReplayMenu" parent="Wa2UiMgr" instance=ExtResource("19_getpj")]
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
+mouse_filter = 2
 
 [node name="VoiceMessage" parent="Wa2UiMgr" instance=ExtResource("20_ryguw")]
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
+mouse_filter = 2
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 1

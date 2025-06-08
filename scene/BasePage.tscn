@@ -182,6 +182,7 @@ _data = {
 
 [node name="BasePage" type="Control" node_paths=PackedStringArray("BgmPlayer", "ExitBtn", "AnimationPlayer")]
 visible = false
+custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -189,7 +190,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(640, 360)
-mouse_filter = 2
+mouse_filter = 1
 script = ExtResource("1_q0q6a")
 BgmPlayer = NodePath("BgmPlayer")
 ExitBtn = NodePath("ExitButton")

@@ -71,7 +71,7 @@ public partial class Wa2AdvMain : Control
 		{
 			if (_engine.NovelMode)
 			{
-				SetWindowAlpha(_engine.Prefs.GetConfig("win_alpha_novel"));
+				Mask.SelfModulate=new Color(1,1,1,_engine.Prefs.GetConfig("win_alpha_novel")/256f);
 			}
 			else
 			{
