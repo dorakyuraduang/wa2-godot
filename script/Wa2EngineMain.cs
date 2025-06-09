@@ -974,7 +974,7 @@ public partial class Wa2EngineMain : Control
 		{
 			if (idx != ScriptIdx)
 			{
-				if (CurMessageIdx > 0 || idx == 29 || idx == 30 || idx == 31)
+				if (idx == 29 || idx == 30 || idx == 31)
 				{
 					SetReadMessage(CurMessageIdx + 1);
 				}
