@@ -976,13 +976,12 @@ public partial class Wa2EngineMain : Control
 			{
 				if (CurMessageIdx > 0 || idx == 29 || idx == 30 || idx == 31)
 				{
-					ScriptIdx = idx;
 					SetReadMessage(CurMessageIdx + 1);
 				}
 				CurMessageIdx = 0;
+				ScriptIdx = idx;
 				HasReadMessage = GetReadMessage(0);
 			}
-			ScriptIdx = idx;
 		}
 	}
 }
