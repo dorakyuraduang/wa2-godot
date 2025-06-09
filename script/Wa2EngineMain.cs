@@ -978,10 +978,13 @@ public partial class Wa2EngineMain : Control
 				{
 					SetReadMessage(CurMessageIdx + 1);
 				}
-				CurMessageIdx = 0;
-				ScriptIdx = idx;
-				HasReadMessage = GetReadMessage(0);
+				else
+				{
+					CurMessageIdx = 0;
+					ScriptIdx = idx;
+				}
 			}
+			HasReadMessage = GetReadMessage(CurMessageIdx);
 		}
 	}
 }
