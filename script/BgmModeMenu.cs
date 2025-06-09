@@ -13,7 +13,7 @@ public partial class BgmModeMenu : BasePage
   public Wa2Button PreBtn;
   [Export]
   public Wa2Button NextBtn;
-  public int _pageNum;
+  private  int _pageNum;
   public override void _Ready()
   {
     base._Ready();
@@ -37,6 +37,7 @@ public partial class BgmModeMenu : BasePage
   }
   public override void Open()
   {
+   
     if (_engine.ReadSysFlag(0x68) == 1 && _engine.ReadSysFlag(0xa3) == 1)
     {
       _engine.SetBgmFlag(0x22);
@@ -82,6 +83,7 @@ public partial class BgmModeMenu : BasePage
     for (int i = 0; i < count; i++)
     {
       Wa2Button btn = BgmBtnContainer.GetChild<VBoxContainer>(i / 13).GetChild<Wa2Button>(i % 13);
+      btn.ButtonPressed = false;
       if (_engine.GetBgmFlag(Wa2Def.BgmSlot[start + i]) == 1)
       {
         btn.Disabled = false;

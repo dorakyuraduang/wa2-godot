@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://kthxdrmqdyyc"]
+[gd_scene load_steps=84 format=3 uid="uid://kthxdrmqdyyc"]
 
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_k3gkk"]
 [ext_resource type="Script" uid="uid://k5kx8gpn65af" path="res://script/BgmModeMenu.cs" id="2_841a6"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://dmmg44u5m0veu" path="res://assets/grp/sys_04021.png" id="8_qedy5"]
 [ext_resource type="Texture2D" uid="uid://c1xy5c1hk7eb1" path="res://assets/grp/sys_03020.png" id="9_p16cv"]
 [ext_resource type="AudioStream" uid="uid://c4ucnxq7r28er" path="res://assets/se/SE_9213.WAV" id="10_7jfyl"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_841a6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_slwt3"]
 atlas = ExtResource("2_h4jf4")
@@ -296,6 +298,10 @@ theme_override_constants/separation = 0
 
 [node name="Wa2Button" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="0"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -314,6 +320,10 @@ texture = SubResource("AtlasTexture_7jfyl")
 
 [node name="Wa2Button2" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="1"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -332,6 +342,10 @@ texture = SubResource("AtlasTexture_7olan")
 
 [node name="Wa2Button3" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="2"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -350,6 +364,10 @@ texture = SubResource("AtlasTexture_esf1j")
 
 [node name="Wa2Button4" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="3"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -368,6 +386,10 @@ texture = SubResource("AtlasTexture_or781")
 
 [node name="Wa2Button5" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="4"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -386,6 +408,10 @@ texture = SubResource("AtlasTexture_8ah48")
 
 [node name="Wa2Button6" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="5"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -404,6 +430,10 @@ texture = SubResource("AtlasTexture_eac0v")
 
 [node name="Wa2Button7" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="6"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -422,6 +452,10 @@ texture = SubResource("AtlasTexture_p16cv")
 
 [node name="Wa2Button8" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="7"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -440,6 +474,10 @@ texture = SubResource("AtlasTexture_841a6")
 
 [node name="Wa2Button9" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="8"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -458,6 +496,10 @@ texture = SubResource("AtlasTexture_58ogc")
 
 [node name="Wa2Button10" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="9"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -476,6 +518,10 @@ texture = SubResource("AtlasTexture_2882d")
 
 [node name="Wa2Button11" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="10"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -494,6 +540,10 @@ texture = SubResource("AtlasTexture_gy6f0")
 
 [node name="Wa2Button12" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="11"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -512,6 +562,10 @@ texture = SubResource("AtlasTexture_uqmeu")
 
 [node name="Wa2Button13" type="TextureButton" parent="HBoxContainer/VBoxContainer" index="12"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -534,6 +588,10 @@ theme_override_constants/separation = 0
 
 [node name="Wa2Button" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="0"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -552,6 +610,10 @@ texture = SubResource("AtlasTexture_t8sij")
 
 [node name="Wa2Button2" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="1"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -570,6 +632,10 @@ texture = SubResource("AtlasTexture_e0e5x")
 
 [node name="Wa2Button3" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="2"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -588,6 +654,10 @@ texture = SubResource("AtlasTexture_whsec")
 
 [node name="Wa2Button4" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="3"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -606,6 +676,10 @@ texture = SubResource("AtlasTexture_oy6e4")
 
 [node name="Wa2Button5" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="4"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -624,6 +698,10 @@ texture = SubResource("AtlasTexture_culwr")
 
 [node name="Wa2Button6" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="5"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -642,6 +720,10 @@ texture = SubResource("AtlasTexture_np011")
 
 [node name="Wa2Button7" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="6"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -660,6 +742,10 @@ texture = SubResource("AtlasTexture_6s3ar")
 
 [node name="Wa2Button8" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="7"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -678,6 +764,10 @@ texture = SubResource("AtlasTexture_nfxmc")
 
 [node name="Wa2Button9" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="8"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -696,6 +786,10 @@ texture = SubResource("AtlasTexture_n0psq")
 
 [node name="Wa2Button10" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="9"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -714,6 +808,10 @@ texture = SubResource("AtlasTexture_k4u4m")
 
 [node name="Wa2Button11" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="10"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -732,6 +830,10 @@ texture = SubResource("AtlasTexture_rs115")
 
 [node name="Wa2Button12" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="11"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -750,6 +852,10 @@ texture = SubResource("AtlasTexture_8i3yx")
 
 [node name="Wa2Button13" type="TextureButton" parent="HBoxContainer/VBoxContainer2" index="12"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -772,6 +878,10 @@ theme_override_constants/separation = 0
 
 [node name="Wa2Button7" type="TextureButton" parent="HBoxContainer/VBoxContainer3" index="0"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -790,6 +900,10 @@ texture = SubResource("AtlasTexture_iu1yc")
 
 [node name="Wa2Button8" type="TextureButton" parent="HBoxContainer/VBoxContainer3" index="1"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -808,6 +922,10 @@ texture = SubResource("AtlasTexture_47163")
 
 [node name="Wa2Button9" type="TextureButton" parent="HBoxContainer/VBoxContainer3" index="2"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -826,6 +944,10 @@ texture = SubResource("AtlasTexture_bkxy0")
 
 [node name="Wa2Button10" type="TextureButton" parent="HBoxContainer/VBoxContainer3" index="3"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -844,6 +966,10 @@ texture = SubResource("AtlasTexture_mj1ti")
 
 [node name="Wa2Button11" type="TextureButton" parent="HBoxContainer/VBoxContainer3" index="4"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
@@ -862,6 +988,10 @@ texture = SubResource("AtlasTexture_usdsa")
 
 [node name="Wa2Button12" type="TextureButton" parent="HBoxContainer/VBoxContainer3" index="5"]
 layout_mode = 2
+focus_mode = 0
+toggle_mode = true
+keep_pressed_outside = true
+button_group = SubResource("ButtonGroup_841a6")
 texture_normal = SubResource("AtlasTexture_slwt3")
 texture_pressed = SubResource("AtlasTexture_bu3v7")
 texture_hover = SubResource("AtlasTexture_slwt3")
