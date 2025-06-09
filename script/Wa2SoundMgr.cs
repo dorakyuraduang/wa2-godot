@@ -87,7 +87,7 @@ public partial class Wa2SoundMgr : Node
 		{
 			if (!_engine.CanSkip() || _engine.DemoMode || channel != 0 )
 			{
-				if (_engine.EroMode && Array.IndexOf(Wa2Def.EroChar, chr) < 0)
+				if (_engine.EroMode && Array.IndexOf(Wa2Def.EroChar, chr) < 0 &&_engine.Prefs.GetConfig("ero_voice")==1)
 				{
 					return;
 				}

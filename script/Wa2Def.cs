@@ -450,7 +450,7 @@ public static class Wa2Def
 		{36,"yan"},
 		{37,"mas"},
 	};
-	public static int[] EroChar = [2, 3, 4, 5];
+	public static int[] EroChar = [1,2, 3, 4, 5];
 	public static int[] BgmSlot = [
 		4,
 		1,

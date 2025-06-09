@@ -71,7 +71,7 @@ public partial class OptionsMenu : BasePage
     PageVoiceYesBtn.ButtonDown += () => _engine.Prefs.SetConfig("page_voice", 1);
     PageVoiceNoBtn.ButtonDown += () => _engine.Prefs.SetConfig("page_voice", 0);
     EroVoiceYesBtn.ButtonDown += () => _engine.Prefs.SetConfig("ero_voice", 1);
-    EroVoiceYesBtn.ButtonDown += () => _engine.Prefs.SetConfig("ero_voice", 0);
+    EroVoiceNoBtn.ButtonDown += () => _engine.Prefs.SetConfig("ero_voice", 0);
     WindowAlphaBtnList.GetChild<Wa2Button>(0).ButtonDown += () => WindowAlphaBar.Value--;
     WindowAlphaBtnList.GetChild<Wa2Button>(1).ButtonDown += () => WindowAlphaBar.Value++;
     WindowAlphaVisBtnList.GetChild<Wa2Button>(0).ButtonDown += () => WindowAlphaVisBar.Value--;

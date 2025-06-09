@@ -18,82 +18,82 @@ using System.Linq;
 // 	public int Show;
 // }
 // 0x110a0
-public struct GameState
-{
-	//0-5? shake
-	public int V0;
-	public int V1;
-	public int V2;
-	public int V3;
-	public int V4;
-	public int V5;
-	public int Id;
-	public int X;
-	public int Y;
-	public float ScaleX;
-	public float ScaleY;
-	public int type;
-	public int V12;
+// public struct GameState
+// {
+// 	//0-5? shake
+// 	public int V0;
+// 	public int V1;
+// 	public int V2;
+// 	public int V3;
+// 	public int V4;
+// 	public int V5;
+// 	public int Id;
+// 	public int X;
+// 	public int Y;
+// 	public float ScaleX;
+// 	public float ScaleY;
+// 	public int type;
+// 	public int V12;
 
-	//无意义参数
-	public int Show;
-	public int V14;
-	public int V15;
-	public int V16;
-	public int V17;
-	public int V18;
-	public int TimeMode;
-	public int V20;
-	public int ChromaMode1;
-	public int ChromaMode2;
-	//32
-	public string Amp1;
-	//32
-	public string Amp2;
-	//32
-	public string Amp3;
-	public int[] CharsShow;
-	public int[] CharsIdx;
-	//72-75 ?
-	public int V72;
-	public int V73;
-	public int V74;
-	public int V75;
-	public int[] Pos1;
-	public int[] Pos2;
-	public int[] U1;
-	public int[] U2;
-	public int[] CharAlpha;
-	public short D18;
-	public short D14;
-	public short TextProgress;
-	//size 256 pos136+2
-	public string Text;
-	//size16 pos393
-	public string Name;
-
-
-
-	// public int[] CharsPos;
+// 	//无意义参数
+// 	public int Show;
+// 	public int V14;
+// 	public int V15;
+// 	public int V16;
+// 	public int V17;
+// 	public int V18;
+// 	public int TimeMode;
+// 	public int V20;
+// 	public int ChromaMode1;
+// 	public int ChromaMode2;
+// 	//32
+// 	public string Amp1;
+// 	//32
+// 	public string Amp2;
+// 	//32
+// 	public string Amp3;
+// 	public int[] CharsShow;
+// 	public int[] CharsIdx;
+// 	//72-75 ?
+// 	public int V72;
+// 	public int V73;
+// 	public int V74;
+// 	public int V75;
+// 	public int[] Pos1;
+// 	public int[] Pos2;
+// 	public int[] U1;
+// 	public int[] U2;
+// 	public int[] CharAlpha;
+// 	public short D18;
+// 	public short D14;
+// 	public short TextProgress;
+// 	//size 256 pos136+2
+// 	public string Text;
+// 	//size16 pos393
+// 	public string Name;
 
 
 
-}
-public struct SavInfo
-{
-	public int Flag;
-	public int Calendar;
-	public short Year;
-	public short Month;
-	public short WeekOfDay;
-	public short Day;
-	public short Hout;
-	public short Minute;
-	public short Second;
-	public short MillisSecond;
-	public byte[] First;
-	public byte[] Image;
-}
+// 	// public int[] CharsPos;
+
+
+
+// }
+// public struct SavInfo
+// {
+// 	public int Flag;
+// 	public int Calendar;
+// 	public short Year;
+// 	public short Month;
+// 	public short WeekOfDay;
+// 	public short Day;
+// 	public short Hout;
+// 	public short Minute;
+// 	public short Second;
+// 	public short MillisSecond;
+// 	public byte[] First;
+// 	public byte[] Image;
+// }
 public struct Calender
 {
 	public int Year;
