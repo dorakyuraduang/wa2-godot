@@ -898,12 +898,12 @@ public partial class Wa2EngineMain : Control
 		{
 			if (type == 1)
 			{
-				BgInfo.Path = string.Format("v{0:D6}.tga", id, TimeMode);
+				BgInfo.Path = string.Format("v{0:D6}.tga", id);
 				SetCgFlag(id, 1);
 			}
 			else if (type == 2)
 			{
-				BgInfo.Path = string.Format("h{0:D6}.tga", id, TimeMode);
+				BgInfo.Path = string.Format("h{0:D6}.tga", id);
 			}
 			else
 			{

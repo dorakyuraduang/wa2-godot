@@ -442,30 +442,21 @@ public partial class Wa2Label : Node2D
 					{
 						drawX += modFontSize + LineSpacing;
 					}
-
-
 					break;
 			}
 		}
-		if (r.WaitKey)
-		{
-			if (drawX != 0 || drawY == 0 || drawX > (MaxChars + 1) * (FontSize + LineSpacing))
-			{
-				r.EndPosition = new Vector2(drawX, drawY);
 
-			}
-			else
-			{
-				r.EndPosition = new Vector2(lastDrawX, drawY - FontSize - ParagraphSpacing);
-
-			}
-		}
-		else
+		if (drawX != 0 || drawY == 0 || drawX > (MaxChars + 1) * (FontSize + LineSpacing))
 		{
 			r.EndPosition = new Vector2(drawX, drawY);
 
-			// GD.Print(r.EndPosition);
 		}
+		else
+		{
+			r.EndPosition = new Vector2(lastDrawX+FontSize, drawY - FontSize - ParagraphSpacing);
+
+		}
+
 		r.ParseEnd = curprogress <= (progress - 16);
 		QueueRedraw();
 		return r;
