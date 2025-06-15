@@ -32,11 +32,14 @@ public partial class LoadSaveMenu : BasePage
   public GridContainer DataSlots;
   [Export]
   public HBoxContainer Tabs;
+  [Export]
+  public TextureRect NewDataTexture;
 
   public int _pageNum = 0;
 
   private DataMode _mode;
   private int _selectIdx;
+  private int _newDataIdx;
   // public void OnCancelBtnDown()
   // {
   //   Mask.Hide();
@@ -80,7 +83,8 @@ public partial class LoadSaveMenu : BasePage
   public async void SaveData()
   {
 
-    if(_engine.Script==null){
+    if (_engine.Script == null)
+    {
       return;
     }
     _engine.GameSav.SaveData(_selectIdx);
@@ -90,7 +94,8 @@ public partial class LoadSaveMenu : BasePage
   }
   public void OnDataSlotDown(int idx)
   {
-    if(AnimationPlayer.IsPlaying()){
+    if (AnimationPlayer.IsPlaying())
+    {
       return;
     }
     _selectIdx = _pageNum * 10 + idx;
@@ -133,8 +138,9 @@ public partial class LoadSaveMenu : BasePage
 
   public void Open(DataMode mode)
   {
+    base.Open();
     _mode = mode;
-    Tabs.GetChild<Wa2Button>(_pageNum).ButtonPressed=true;
+    Tabs.GetChild<Wa2Button>(_pageNum).ButtonPressed = true;
     if (_mode == DataMode.Save)
     {
       PageTop.Texture = ResourceLoader.Load<Texture2D>("res://assets/grp/sys_01000.png");
@@ -143,9 +149,8 @@ public partial class LoadSaveMenu : BasePage
     {
       PageTop.Texture = ResourceLoader.Load<Texture2D>("res://assets/grp/sys_02000.png");
     }
-
+    _newDataIdx = GetNewDataIdx();
     UpdatePage();
-    AnimationPlayer.Play("open");
   }
 
   public void UpdatePage()
@@ -154,5 +159,50 @@ public partial class LoadSaveMenu : BasePage
     {
       DataSlots.GetChild<DataSlot>(i).Update(_pageNum * 10 + i);
     }
+    if (_newDataIdx >= 0 && _newDataIdx / 10 == _pageNum)
+    {
+      NewDataTexture.Show();
+      int posIdx = _newDataIdx % 10;
+      if (posIdx %2==1)
+      {
+        NewDataTexture.Position = new Vector2(190+632, 174+96*(posIdx/2));
+      }
+      else
+      {
+        NewDataTexture.Position = new Vector2(190, 174+96*(posIdx/2));
+      }
+    }
+    else
+    {
+      NewDataTexture.Hide();
+    }
+  }
+  public int GetNewDataIdx()
+  {
+    int num = 0;
+    int idx = -1;
+    for (int i = 0; i < 100; i++)
+    {
+      if (FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", i)))
+      {
+
+        FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", i), FileAccess.ModeFlags.Read);
+        int year = (int)file.Get32();
+        int month = (int)file.Get32();
+        int dayOfWeek = (int)file.Get32();
+        int day = (int)file.Get32();
+        int hour = (int)file.Get32();
+        int minute = (int)file.Get32();
+        int second = (int)file.Get32();
+        int millisecond = (int)file.Get32();
+        int num2 = second + 60 * (minute + 60 * (hour + 24 * (day + 31 * (month + 12 * (year % 100)))));
+        if (num2 > num)
+        {
+          idx = i;
+          num = num2;
+        }
+      }
+    }
+    return idx;
   }
 }

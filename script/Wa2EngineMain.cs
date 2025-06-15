@@ -976,7 +976,7 @@ public partial class Wa2EngineMain : Control
 			{
 				if (idx == 29 || idx == 30 || idx == 31)
 				{
-					SetReadMessage(CurMessageIdx + 1);
+					SetReadMessage(CurMessageIdx);
 				}
 				else
 				{

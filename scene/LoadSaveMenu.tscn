@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://ikxlgfxd3sa7"]
+[gd_scene load_steps=44 format=3 uid="uid://ikxlgfxd3sa7"]
 
 [ext_resource type="Script" uid="uid://dbkyiayv0e7wj" path="res://script/LoadSaveMenu.cs" id="1_l5c20"]
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_pkuu4"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://clwoheb3ixdy1" path="res://assets/se/SE_9211.WAV" id="7_n1sq5"]
 [ext_resource type="PackedScene" uid="uid://vhl58c04l614" path="res://scene/data_slot.tscn" id="8_21eec"]
 [ext_resource type="Texture2D" uid="uid://66mg0ihriw0r" path="res://assets/grp/sys_01020.png" id="9_kslka"]
+[ext_resource type="Texture2D" uid="uid://b12k1hpa8ljm2" path="res://assets/grp/sys_01014.png" id="10_ngv2f"]
 [ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="12_xqhj0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h0fet"]
@@ -17,10 +18,6 @@ region = Rect2(0, 48, 840, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_e5niv"]
 atlas = ExtResource("9_kslka")
 region = Rect2(0, 0, 840, 48)
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_pkuu4"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_ngv2f"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_21eec"]
 
@@ -37,6 +34,10 @@ region = Rect2(0, 0, 840, 48)
 [sub_resource type="ButtonGroup" id="ButtonGroup_8afw7"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_4g5eb"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_kslka"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_fwtsg"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_fcvwr"]
 
@@ -120,11 +121,12 @@ region = Rect2(576, 64, 64, 32)
 atlas = ExtResource("6_pkuu4")
 region = Rect2(576, 0, 64, 32)
 
-[node name="LoadSaveMenu" node_paths=PackedStringArray("PageTop", "DataSlots", "Tabs") instance=ExtResource("1_pkuu4")]
+[node name="LoadSaveMenu" node_paths=PackedStringArray("PageTop", "DataSlots", "Tabs", "NewDataTexture") instance=ExtResource("1_pkuu4")]
 script = ExtResource("1_l5c20")
 PageTop = NodePath("PageTop")
 DataSlots = NodePath("GridContainer")
 Tabs = NodePath("PageBtnContainer")
+NewDataTexture = NodePath("NewData")
 
 [node name="PageTop" parent="." index="2"]
 texture = ExtResource("3_l5c20")
@@ -167,61 +169,61 @@ columns = 2
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pkuu4")
+button_group = SubResource("ButtonGroup_21eec")
 
 [node name="SaveSlot2" parent="GridContainer" index="1" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_ngv2f")
+button_group = SubResource("ButtonGroup_n1sq5")
 
 [node name="SaveSlot3" parent="GridContainer" index="2" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_21eec")
+button_group = SubResource("ButtonGroup_xqhj0")
 
 [node name="SaveSlot4" parent="GridContainer" index="3" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_n1sq5")
+button_group = SubResource("ButtonGroup_3rr5g")
 
 [node name="SaveSlot5" parent="GridContainer" index="4" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_xqhj0")
+button_group = SubResource("ButtonGroup_ptr3u")
 
 [node name="SaveSlot6" parent="GridContainer" index="5" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_3rr5g")
+button_group = SubResource("ButtonGroup_q83v8")
 
 [node name="SaveSlot7" parent="GridContainer" index="6" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_ptr3u")
+button_group = SubResource("ButtonGroup_8afw7")
 
 [node name="SaveSlot8" parent="GridContainer" index="7" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_q83v8")
+button_group = SubResource("ButtonGroup_4g5eb")
 
 [node name="SaveSlot9" parent="GridContainer" index="8" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_8afw7")
+button_group = SubResource("ButtonGroup_kslka")
 
 [node name="SaveSlot10" parent="GridContainer" index="9" instance=ExtResource("8_21eec")]
 layout_mode = 2
 focus_mode = 0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_4g5eb")
+button_group = SubResource("ButtonGroup_fwtsg")
 
 [node name="PageBtnContainer" type="HBoxContainer" parent="." index="10"]
 layout_mode = 0
@@ -340,3 +342,12 @@ texture_pressed = SubResource("AtlasTexture_pcplq")
 script = ExtResource("6_damy8")
 HoverStream = ExtResource("7_n1sq5")
 ClickStream = ExtResource("12_xqhj0")
+
+[node name="NewData" type="TextureRect" parent="." index="11"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 174.0
+offset_right = 352.0
+offset_bottom = 194.0
+mouse_filter = 2
+texture = ExtResource("10_ngv2f")
