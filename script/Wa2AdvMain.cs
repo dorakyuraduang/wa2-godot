@@ -398,7 +398,7 @@ public partial class Wa2AdvMain : Control
 		else
 		{
 			_engine.HasReadMessage = false;
-			_engine.SetReadMessage(_engine.CurMessageIdx);
+			
 			if (_engine.Prefs.GetConfig("msg_cut_optin") == 0)
 			{
 				_engine.StopSkip();
