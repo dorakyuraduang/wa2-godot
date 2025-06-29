@@ -163,13 +163,13 @@ public partial class LoadSaveMenu : BasePage
     {
       NewDataTexture.Show();
       int posIdx = _newDataIdx % 10;
-      if (posIdx %2==1)
+      if (posIdx % 2 == 1)
       {
-        NewDataTexture.Position = new Vector2(190+632, 174+96*(posIdx/2));
+        NewDataTexture.Position = new Vector2(190 + 632, 174 + 96 * (posIdx / 2));
       }
       else
       {
-        NewDataTexture.Position = new Vector2(190, 174+96*(posIdx/2));
+        NewDataTexture.Position = new Vector2(190, 174 + 96 * (posIdx / 2));
       }
     }
     else

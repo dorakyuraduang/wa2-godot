@@ -1,5 +1,5 @@
 shader_type canvas_item;
- render_mode blend_add;
+render_mode blend_add;
 global uniform  vec3 fb;
 void fragment() {
     vec4 tex_color = texture(TEXTURE, UV);

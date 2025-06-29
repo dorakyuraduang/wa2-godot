@@ -1,7 +1,7 @@
-[gd_scene load_steps=43 format=3 uid="uid://b6u3qm7g3fnoj"]
+[gd_scene load_steps=44 format=3 uid="uid://b6u3qm7g3fnoj"]
 
 [ext_resource type="Script" uid="uid://od6jw6rx7c56" path="res://script/TitleMenu.cs" id="1_le5pv"]
-[ext_resource type="Shader" uid="uid://cdg2vfcimljql" path="res://shader/game.gdshader" id="2_n4ci5"]
+[ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="2_s6o5p"]
 [ext_resource type="Texture2D" uid="uid://b2l2ae7pgpkg0" path="res://assets/grp/T0011.png" id="4_ptj1n"]
 [ext_resource type="Texture2D" uid="uid://mo7h0usloxai" path="res://assets/grp/T0020.png" id="5_ptj1n"]
 [ext_resource type="PackedScene" uid="uid://bkg3mbvjllejg" path="res://scene/menu_button.tscn" id="6_qxj8v"]
@@ -13,17 +13,17 @@
 [ext_resource type="Texture2D" uid="uid://bci6ssv1nmk5i" path="res://assets/grp/weather.png" id="11_s6o5p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4rxvu"]
-shader = ExtResource("2_n4ci5")
-shader_parameter/chars_priority = false
-shader_parameter/bg1_scale = Vector2(1, 1)
-shader_parameter/bg1_offset = Vector2(0, 0)
-shader_parameter/bg2_scale = Vector2(1, 1)
-shader_parameter/bg2_offset = Vector2(0, 0)
-shader_parameter/amp_mode = 2
-shader_parameter/amp_flag = false
-shader_parameter/amp_strength = 0.0
-shader_parameter/bg2_alpha = 1.0
-shader_parameter/time = 0.0
+resource_local_to_scene = true
+shader = ExtResource("2_s6o5p")
+shader_parameter/cur_texture = ExtResource("9_fn04i")
+shader_parameter/cur_scale = Vector2(1, 1)
+shader_parameter/cur_offset = Vector2(0, 0)
+shader_parameter/next_scale = Vector2(1, 1)
+shader_parameter/next_offset = Vector2(0, 0)
+shader_parameter/blend = 1.0
+shader_parameter/fead_weight = 1.0
+shader_parameter/canvas_size = Vector2(1280, 720)
+shader_parameter/center = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1k54k"]
 atlas = ExtResource("7_s6o5p")
@@ -108,9 +108,6 @@ region = Rect2(0, 600, 320, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4g6b4"]
 atlas = ExtResource("8_s6o5p")
 region = Rect2(0, 120, 288, 40)
-
-[sub_resource type="Resource" id="Resource_s6o5p"]
-metadata/__load_path__ = "res://assets/grp/AQUAPLUS.tga"
 
 [sub_resource type="Animation" id="Animation_plad3"]
 length = 0.001
@@ -213,67 +210,67 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("ColorRect:material:shader_parameter/bg2_alpha")
+tracks/8/path = NodePath("GPUParticles2D:emitting")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
+"update": 1,
+"values": [false]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("ColorRect:material:shader_parameter/bg1_offset")
+tracks/9/path = NodePath("ColorRect2:color")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Color(0, 0, 0, 0)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("ColorRect:material:shader_parameter/bg1_texture")
+tracks/10/path = NodePath("ColorRect2:mouse_filter")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [SubResource("Resource_s6o5p")]
+"values": [2]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("GPUParticles2D:emitting")
+tracks/11/path = NodePath("TitleMenu/Start:mouse_filter")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [2]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("ColorRect2:color")
+tracks/12/path = NodePath("TitleMenu/Load:mouse_filter")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
+"update": 1,
+"values": [2]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("ColorRect2:mouse_filter")
+tracks/13/path = NodePath("TitleMenu/Options:mouse_filter")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -285,7 +282,7 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("TitleMenu/Start:mouse_filter")
+tracks/14/path = NodePath("TitleMenu/Quit:mouse_filter")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
@@ -297,110 +294,98 @@ tracks/14/keys = {
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("TitleMenu/Load:mouse_filter")
+tracks/15/path = NodePath("InitalStart:visible")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [2]
+"values": [false]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("TitleMenu/Options:mouse_filter")
+tracks/16/path = NodePath("TitleMenu:visible")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [2]
+"values": [true]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("TitleMenu/Quit:mouse_filter")
+tracks/17/path = NodePath("TitleMenu/Special:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("InitalStart:visible")
+tracks/18/path = NodePath("TitleMenu/Special:mouse_filter")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [2]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("TitleMenu:visible")
+tracks/19/path = NodePath("Special:visible")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("TitleMenu/Special:modulate")
+tracks/20/path = NodePath("DigitalNovel:visible")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [false]
 }
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("TitleMenu/Special:mouse_filter")
+tracks/21/path = NodePath("ColorRect:material:shader_parameter/cur_offset")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("Special:visible")
+tracks/22/path = NodePath("ColorRect:material:shader_parameter/blend")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/23/type = "value"
-tracks/23/imported = false
-tracks/23/enabled = true
-tracks/23/path = NodePath("DigitalNovel:visible")
-tracks/23/interp = 1
-tracks/23/loop_wrap = true
-tracks/23/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_lsq3n"]
@@ -558,55 +543,55 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("ColorRect:material:shader_parameter/bg2_alpha")
+tracks/8/path = NodePath("GPUParticles2D:emitting")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 2.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.0, 0.0]
+"update": 1,
+"values": [false, true]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("ColorRect:material:shader_parameter/bg1_offset")
+tracks/9/path = NodePath("TitleMenu/Start:mouse_filter")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0, 2.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 136)]
+"update": 1,
+"values": [2, 0]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("ColorRect:material:shader_parameter/bg1_texture")
+tracks/10/path = NodePath("TitleMenu/Load:mouse_filter")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ExtResource("9_fn04i")]
+"values": [2, 0]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("GPUParticles2D:emitting")
+tracks/11/path = NodePath("TitleMenu/Options:mouse_filter")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0, 2.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true]
+"values": [2, 0]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("TitleMenu/Start:mouse_filter")
+tracks/12/path = NodePath("TitleMenu/Quit:mouse_filter")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
@@ -618,62 +603,62 @@ tracks/12/keys = {
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("TitleMenu/Load:mouse_filter")
+tracks/13/path = NodePath("TitleMenu/Special:modulate")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PackedFloat32Array(0, 2.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [2, 0]
-}
-tracks/14/type = "value"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("TitleMenu/Options:mouse_filter")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
-"times": PackedFloat32Array(0, 2.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [2, 0]
-}
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("TitleMenu/Quit:mouse_filter")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
-"times": PackedFloat32Array(0, 2.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [2, 0]
-}
-tracks/16/type = "value"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("TitleMenu/Special:modulate")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = {
 "times": PackedFloat32Array(1.9, 2.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/17/type = "value"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("TitleMenu/Special:mouse_filter")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("TitleMenu/Special:mouse_filter")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
 "times": PackedFloat32Array(2.5),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("ColorRect:material:shader_parameter/cur_offset")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 136)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("ColorRect:material:shader_parameter/blend")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("ColorRect2:color")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a6br7"]
@@ -687,27 +672,34 @@ _data = {
 atlas = ExtResource("11_s6o5p")
 region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="Curve" id="Curve_cdx0a"]
-_limits = [0.1, 0.5, 0.0, 1.0]
-_data = [Vector2(0, 0.1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_s6o5p"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0538793, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.508936), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_eg327"]
+curve = SubResource("Curve_s6o5p")
+
+[sub_resource type="Curve" id="Curve_eg327"]
+_limits = [0.13, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0.13), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_nst6c"]
-width = 32
-curve = SubResource("Curve_cdx0a")
+[sub_resource type="CurveTexture" id="CurveTexture_kx5k3"]
+curve = SubResource("Curve_eg327")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m1pm3"]
 particle_flag_disable_z = true
 emission_shape = 3
-emission_box_extents = Vector3(640, 0, 1)
+emission_box_extents = Vector3(840, 0, 1)
 direction = Vector3(0, 1, 0)
 spread = 15.0
-initial_velocity_min = 1.0
-initial_velocity_max = 128.0
+initial_velocity_min = 8.0
+initial_velocity_max = 116.0
 gravity = Vector3(0, 0, 0)
-scale_over_velocity_min = 32.0
-scale_over_velocity_max = 128.0
-scale_over_velocity_curve = SubResource("CurveTexture_nst6c")
+scale_over_velocity_min = 8.0
+scale_over_velocity_max = 116.0
+scale_over_velocity_curve = SubResource("CurveTexture_kx5k3")
+alpha_curve = SubResource("CurveTexture_eg327")
 
 [node name="TitleMenu" type="Control" node_paths=PackedStringArray("CgModeButton", "BgmModeButton", "MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton", "SpecialBackButton", "SpecialButton", "Special", "DigitalNovel", "DigitalNovelButton", "DigitalNovelBackButton", "DigitalNovel1Button", "DigitalNovel2Button", "SceneReplayButton", "VoiceMessageButton")]
 layout_mode = 3
@@ -1010,9 +1002,10 @@ libraries = {
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(640, -48)
 emitting = false
-amount = 256
+amount = 400
 texture = SubResource("AtlasTexture_5nfrc")
 lifetime = 12.0
+randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_m1pm3")
 
 [node name="ColorRect2" type="ColorRect" parent="."]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://7uxpuwpj1411"]
+
+[ext_resource type="Texture2D" uid="uid://bci6ssv1nmk5i" path="res://assets/grp/weather.png" id="1_15tl1"]
+[ext_resource type="Shader" uid="uid://b1q1tay4r8qml" path="res://shader/weather.gdshader" id="1_stw1k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltqrl"]
+atlas = ExtResource("1_15tl1")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_15tl1"]
+shader = ExtResource("1_stw1k")
+shader_parameter/mode = 0
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+texture = SubResource("AtlasTexture_ltqrl")
+lifetime = 5.0
+process_material = SubResource("ShaderMaterial_15tl1")

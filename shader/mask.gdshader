@@ -11,19 +11,6 @@ uniform float fead_weight:hint_range(0,50)=1;
 uniform vec2 canvas_size=vec2(1280,720);
 uniform bool center=false;
 global uniform vec3 fb;
-//vec4 blend_color(vec4 color1,vec4 color2){
-		//vec4 res;
-		//float sa = 1.0f - color2.a;
-		//res.a = color1.a * sa + color2.a;
-		//if (res.a == 0.0) {
-			//return vec4(0.0);
-		//} else {
-			//res.r = (color1.r * color1.a * sa + color2.r * color2.a) / res.a;
-			//res.g = (color1.g * color1.a * sa + color2.g * color2.a) / res.a;
-			//res.b = (color1.b * color1.a * sa + color2.b * color2.a) / res.a;
-		//}
-		//return res;
-//}
 vec4 fb_color(vec4 tex_color){
     float bias = length(fb- vec3(0.5)) * 2.0;
     vec3 target_color = vec3(step(0.5, fb));

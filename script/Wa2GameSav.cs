@@ -233,6 +233,7 @@ public class Wa2GameSav
 		DateTime SystemTime = DateTime.Now;
 		Image image = _engine.Viewport.GetTexture().GetImage();
 		image.Resize(256, 144);
+		image.Convert(Image.Format.Rgb8);
 		file.Store32((uint)SystemTime.Year);
 		file.Store32((uint)SystemTime.Month);
 		file.Store32((uint)SystemTime.DayOfWeek);

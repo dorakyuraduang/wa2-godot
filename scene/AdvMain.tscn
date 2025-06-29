@@ -1,4 +1,4 @@
-[gd_scene load_steps=270 format=3 uid="uid://8iltc13k4sm1"]
+[gd_scene load_steps=272 format=3 uid="uid://8iltc13k4sm1"]
 
 [ext_resource type="Script" uid="uid://b5kx876bryffm" path="res://script/Wa2AdvMain.cs" id="1_mc03i"]
 [ext_resource type="Texture2D" uid="uid://dxdw1w7apeaqj" path="res://assets/grp/sys_00001.png" id="2_n2b20"]
@@ -1700,6 +1700,14 @@ animations = [{
 "speed": 60.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5gl5"]
+atlas = ExtResource("11_pr5sd")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqsrd"]
+atlas = ExtResource("11_pr5sd")
+region = Rect2(40, 0, 40, 40)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_vay2s"]
 atlas = ExtResource("11_pr5sd")
 region = Rect2(120, 0, 40, 40)
@@ -1862,17 +1870,43 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -384.0
+offset_left = -576.0
 offset_top = -48.0
-offset_right = -48.0
+offset_right = -96.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
 
+[node name="QSave" type="TextureButton" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = SubResource("AtlasTexture_c5gl5")
+stretch_mode = 0
+script = ExtResource("9_pe64g")
+ClickStream = ExtResource("11_y4c0q")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="QLoad" type="TextureButton" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 0
+offset_left = 48.0
+offset_right = 88.0
+offset_bottom = 40.0
+texture_normal = SubResource("AtlasTexture_mqsrd")
+stretch_mode = 0
+script = ExtResource("9_pe64g")
+ClickStream = ExtResource("11_y4c0q")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
 [node name="Save" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-offset_right = 48.0
+offset_left = 144.0
+offset_right = 192.0
 offset_bottom = 48.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -1889,8 +1923,8 @@ ClickStream = ExtResource("11_y4c0q")
 [node name="Load" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-offset_left = 48.0
-offset_right = 96.0
+offset_left = 192.0
+offset_right = 240.0
 offset_bottom = 48.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -1907,8 +1941,8 @@ ClickStream = ExtResource("11_y4c0q")
 [node name="Option" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-offset_left = 96.0
-offset_right = 144.0
+offset_left = 240.0
+offset_right = 288.0
 offset_bottom = 48.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -1925,8 +1959,8 @@ ClickStream = ExtResource("11_y4c0q")
 [node name="Back" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-offset_left = 144.0
-offset_right = 192.0
+offset_left = 288.0
+offset_right = 336.0
 offset_bottom = 48.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -1943,8 +1977,8 @@ ClickStream = ExtResource("11_y4c0q")
 [node name="Auto" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-offset_left = 192.0
-offset_right = 240.0
+offset_left = 336.0
+offset_right = 384.0
 offset_bottom = 48.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -1961,8 +1995,8 @@ ClickStream = ExtResource("11_y4c0q")
 [node name="Skip" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-offset_left = 240.0
-offset_right = 288.0
+offset_left = 384.0
+offset_right = 432.0
 offset_bottom = 48.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -1979,8 +2013,8 @@ ClickStream = ExtResource("11_y4c0q")
 [node name="Off" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-offset_left = 288.0
-offset_right = 336.0
+offset_left = 432.0
+offset_right = 480.0
 offset_bottom = 48.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
