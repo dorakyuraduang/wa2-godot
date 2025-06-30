@@ -15,7 +15,10 @@ public class Animator
   public void Finish()
   {
     _tween.Stop();
-    _tween.CustomStep(_duration + 1.0);
+    if (Wait)
+    {
+      _tween.CustomStep(_duration + 1.0);
+    }
   }
   public bool IsActive()
   {
