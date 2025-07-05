@@ -1002,7 +1002,7 @@ public class Wa2Func
 	}
 	public bool EroMode(List<Wa2Var> args)
 	{
-		_engine.EroMode = true;
+		_engine.EroMode = args[0].Get()==1;
 		return true;
 	}
 	public bool GetReplayMode(List<Wa2Var> args)
