@@ -4,7 +4,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FFMediaToolkit" Version="4.5.1" />
+    <!-- <PackageReference Include="FFMediaToolkit" Version="4.5.1" /> -->
     <PackageReference Include="YamlDotNet" Version="16.3.0" />
   </ItemGroup>
 </Project>

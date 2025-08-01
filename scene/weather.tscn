@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccgml2kidjj3u"]
+
+[ext_resource type="Script" uid="uid://bviqy2ift4v5x" path="res://script/Weather.cs" id="1_mcfid"]
+
+[node name="Weather" type="Node2D"]
+position = Vector2(639.25, 356.25)
+scale = Vector2(1279.5, 713.5)
+script = ExtResource("1_mcfid")

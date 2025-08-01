@@ -1,4 +1,4 @@
-using FFmpeg.AutoGen;
+// using FFmpeg.AutoGen;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -616,6 +616,10 @@ public class Wa2Func
 	}
 	public bool SetWeather(List<Wa2Var> args)
 	{
+		int type = args[0].Get();
+		int xSpd = args[1].Get();
+		int ySpd = args[2].Get();
+		int count = args[4].Get();
 		GD.Print("设置天气");
 		return true;
 	}

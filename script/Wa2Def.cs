@@ -458,7 +458,7 @@ public static class Wa2Def
 		3,
 		5,
 		6,
-		12,
+		0x12,
 		7,
 		8,
 		9,

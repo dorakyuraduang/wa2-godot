@@ -8,4 +8,3 @@
 7.如果出现闪退问题清除缓存即可,但是不要清除用户数据,清除数据会清空存档  
 8.文件放置参考示例 
 ![e74b63e84385f853f6112d605b38093c](https://github.com/user-attachments/assets/303a7d6e-99e1-4683-bed9-671d271e08be)
-
