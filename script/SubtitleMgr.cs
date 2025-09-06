@@ -67,9 +67,31 @@ public partial class SubtitleMgr : Node
         return;
       }
     }
-    TextLabel.Text = "";
-    ListenAudio = null;
-    ListenContent = null;
+    if (ListenAudio == null)
+    {
+      TextLabel.Text = "";
+      ListenAudio = null;
+      ListenContent = null;
+    }
+  }
+  public void ListenSe(int id, Wa2Audio audio)
+  {
+    for (int i = 0; i < SoundSubtitleList.Count; i++)
+    {
+      if (SoundSubtitleList[i].Id == id)
+      {
+        ListenContent = SoundSubtitleList[i].Content;
+        ListenAudio = audio;
+        return;
+      }
+    }
+    if (ListenAudio == null)
+    {
+      TextLabel.Text = "";
+      ListenAudio = null;
+      ListenContent = null;
+    }
+
   }
   public override void _Process(double delta)
   {

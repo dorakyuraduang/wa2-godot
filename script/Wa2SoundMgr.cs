@@ -187,6 +187,7 @@ public partial class Wa2SoundMgr : Node
 	{
 		// GD.Print("播放音效2");
 		SeAudios[channel].PlaySound(id, loopFlag, time, volume);
+		_engine.SubtitleMgr.ListenSe(id,SeAudios[channel]);
 	}
 	// public void PlaySe(SeInfo seInfo)
 	// {
