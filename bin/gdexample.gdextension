@@ -4,9 +4,8 @@ entry_symbol = "ffmpeg_init"
 compatibility_minimum = "4.1"
 
 [libraries]
-
-macos.debug = "res://bin/libgdexample.macos.template_debug.framework"
-macos.release = "res://bin/libgdexample.macos.template_release.framework"
+macos.debug = "res://bin/libgdffmpeg.macos.template_debug.framework"
+macos.release = "res://bin/libgdffmpeg.macos.template_release.framework"
 windows.debug.x86_32 = "res://bin/libgdexample.windows.template_debug.x86_32.dll"
 windows.release.x86_32 = "res://bin/libgdexample.windows.template_release.x86_32.dll"
 windows.debug.x86_64 = "res://bin/libgdexample.windows.template_debug.x86_64.dll"
