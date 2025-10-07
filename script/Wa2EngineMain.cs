@@ -35,6 +35,8 @@ public partial class Wa2EngineMain : Control
 	public Wa2GameSav GameSav;
 	[Export]
 	public SubtitleMgr SubtitleMgr;
+	[Export]
+	public ErrorMessage ErrorMessage;
 	// public int CurSelect=0;
 
 	// public int[] GameFlags = new int[1024];
@@ -986,6 +988,10 @@ public partial class Wa2EngineMain : Control
 			}
 			HasReadMessage = GetReadMessage(CurMessageIdx);
 		}
+	}
+	public void OpenErrorMessage(string message)
+	{
+		ErrorMessage.Open(message);
 	}
 }
 

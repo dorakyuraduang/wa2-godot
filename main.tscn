@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=49 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -22,6 +22,11 @@
 [ext_resource type="FontFile" uid="uid://bqnr5jmcejvam" path="res://assets/fonts/fzzyjt.ttf" id="18_cegan"]
 [ext_resource type="PackedScene" uid="uid://rteyiik8w6ct" path="res://scene/SceneReplayMenu.tscn" id="19_getpj"]
 [ext_resource type="PackedScene" uid="uid://b7lnyub20p6ad" path="res://scene/VoiceMessage.tscn" id="20_ryguw"]
+[ext_resource type="Texture2D" uid="uid://drerrl4salxby" path="res://assets/grp/sys_00100.png" id="23_lswn8"]
+[ext_resource type="Texture2D" uid="uid://dr0gcwfsp0q0n" path="res://assets/grp/sys_00101.png" id="24_a6jrf"]
+[ext_resource type="Script" uid="uid://uw3h3ty4mxjo" path="res://script/ErrorMessage.cs" id="24_xuqvo"]
+[ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="25_xuqvo"]
+[ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="26_qsp4k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tw2vm"]
 resource_local_to_scene = true
@@ -186,7 +191,32 @@ outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 
-[node name="EngineMain" type="Control" node_paths=PackedStringArray("BmpContainer", "AnimatorMgr", "SubtitleMgr", "VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
+[sub_resource type="FontVariation" id="FontVariation_q83v8"]
+base_font = ExtResource("18_cegan")
+
+[sub_resource type="LabelSettings" id="LabelSettings_kq58d"]
+font = SubResource("FontVariation_q83v8")
+font_size = 18
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seu75"]
+atlas = ExtResource("24_a6jrf")
+region = Rect2(0, 0, 160, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kslka"]
+load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htxhm"]
+atlas = SubResource("CompressedTexture2D_kslka")
+region = Rect2(0, 80, 160, 40)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e727q"]
+load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq2sk"]
+atlas = SubResource("CompressedTexture2D_e727q")
+region = Rect2(0, 40, 160, 40)
+
+[node name="EngineMain" type="Control" node_paths=PackedStringArray("BmpContainer", "AnimatorMgr", "SubtitleMgr", "ErrorMessage", "VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -197,6 +227,7 @@ script = ExtResource("1_wdeo5")
 BmpContainer = NodePath("SubViewportContainer/SubViewport/BmpContainer")
 AnimatorMgr = NodePath("AnimatorMgr")
 SubtitleMgr = NodePath("SubtitleMgr")
+ErrorMessage = NodePath("ErrorMessage")
 VideoPlayer = NodePath("VideoStreamPlayer")
 CharGroup = NodePath("SubViewportContainer/SubViewport/CharGroup")
 SubViewport = NodePath("SubViewportContainer")
@@ -472,3 +503,83 @@ offset_bottom = 77.0
 grow_horizontal = 2
 label_settings = SubResource("LabelSettings_82xsv")
 horizontal_alignment = 1
+
+[node name="ErrorMessage" type="Control" parent="." node_paths=PackedStringArray("label", "btn")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("24_xuqvo")
+label = NodePath("Bg/Label")
+btn = NodePath("Bg/VBoxContainer/Wa2Button")
+
+[node name="ColorRect" type="ColorRect" parent="ErrorMessage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25098)
+
+[node name="Bg" type="TextureRect" parent="ErrorMessage"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -272.0
+offset_top = -108.0
+offset_right = 272.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("23_lswn8")
+
+[node name="Label" type="Label" parent="ErrorMessage/Bg"]
+custom_minimum_size = Vector2(192, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -46.5
+offset_right = 64.0
+offset_bottom = -1.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_kq58d")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="HBoxContainer" parent="ErrorMessage/Bg"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -93.0
+offset_right = 80.0
+offset_bottom = -53.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="Wa2Button" type="TextureButton" parent="ErrorMessage/Bg/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = SubResource("AtlasTexture_seu75")
+texture_pressed = SubResource("AtlasTexture_htxhm")
+texture_hover = SubResource("AtlasTexture_jq2sk")
+texture_disabled = SubResource("AtlasTexture_seu75")
+texture_focused = SubResource("AtlasTexture_htxhm")
+script = ExtResource("25_xuqvo")
+ClickStream = ExtResource("26_qsp4k")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"

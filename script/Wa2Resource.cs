@@ -323,79 +323,95 @@ public class Wa2Resource
 		string fullPath = System.IO.Path.Combine(ProjectSettings.GlobalizePath(ResPath), path);
 		// GD.Print(ProjectSettings.GlobalizePath(ResPath));
 		// GD.Print(path);
-		using (System.IO.FileStream fs = new System.IO.FileStream(fullPath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
-		using (System.IO.BinaryReader reader = new System.IO.BinaryReader(fs))
+		try
 		{
-			uint magic = reader.ReadUInt32();
-
-			if (magic == 0x5041434B) // 'PACK'
+			using (System.IO.FileStream fs = new System.IO.FileStream(fullPath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+			using (System.IO.BinaryReader reader = new System.IO.BinaryReader(fs))
 			{
-				reader.ReadUInt64(); // skip 8 bytes
-				uint nentry = reader.ReadUInt32();
+				uint magic = reader.ReadUInt32();
 
-				for (int i = 0; i < nentry; i++)
+				if (magic == 0x5041434B) // 'PACK'
 				{
-					fs.Seek(16 + i * 44, System.IO.SeekOrigin.Begin);
-
-					uint crypted = reader.ReadUInt32();
-
-					byte[] nameBuffer = reader.ReadBytes(24);
-					string fileName = Encoding.GetEncoding("shift_jis")
-							.GetString(nameBuffer).ToLower().Replace("\0", "");
-
 					reader.ReadUInt64(); // skip 8 bytes
+					uint nentry = reader.ReadUInt32();
 
-					uint offset = reader.ReadUInt32();
-					uint size = reader.ReadUInt32();
-
-					FileEntry entry = new()
+					for (int i = 0; i < nentry; i++)
 					{
-						PkgPath = path,
-						Offset = offset,
-						Size = size,
-						Crypted = crypted,
-						FileName = fileName
-					};
+						fs.Seek(16 + i * 44, System.IO.SeekOrigin.Begin);
 
-					FileDic[fileName] = entry;
-				}
-			}
-			else if (magic == 0x0043414C) // 'LAC\x00'
-			{
-				uint nentry = reader.ReadUInt32();
+						uint crypted = reader.ReadUInt32();
 
-				for (int i = 0; i < nentry; i++)
-				{
-					fs.Seek(8 + i * 40, System.IO.SeekOrigin.Begin);
+						byte[] nameBuffer = reader.ReadBytes(24);
+						string fileName = Encoding.GetEncoding("shift_jis")
+								.GetString(nameBuffer).ToLower().Replace("\0", "");
 
-					byte[] nameBuffer = reader.ReadBytes(32);
-					for (int j = 0; j < nameBuffer.Length; j++)
-					{
-						if (nameBuffer[j] != 0)
+						reader.ReadUInt64(); // skip 8 bytes
+
+						uint offset = reader.ReadUInt32();
+						uint size = reader.ReadUInt32();
+
+						FileEntry entry = new()
 						{
-							nameBuffer[j] = (byte)(~nameBuffer[j] & 0xFF);
-						}
+							PkgPath = path,
+							Offset = offset,
+							Size = size,
+							Crypted = crypted,
+							FileName = fileName
+						};
+
+						FileDic[fileName] = entry;
 					}
+				}
+				else if (magic == 0x0043414C) // 'LAC\x00'
+				{
+					uint nentry = reader.ReadUInt32();
 
-					string fileName = Encoding.GetEncoding("shift_jis")
-							.GetString(nameBuffer).ToLower().Replace("\0", "");
-
-					uint size = reader.ReadUInt32();
-					uint offset = reader.ReadUInt32();
-
-					FileEntry entry = new()
+					for (int i = 0; i < nentry; i++)
 					{
-						PkgPath = path,
-						Offset = offset,
-						Size = size,
-						Crypted = 0,
-						FileName = fileName
-					};
+						fs.Seek(8 + i * 40, System.IO.SeekOrigin.Begin);
 
-					FileDic[fileName] = entry;
+						byte[] nameBuffer = reader.ReadBytes(32);
+						for (int j = 0; j < nameBuffer.Length; j++)
+						{
+							if (nameBuffer[j] != 0)
+							{
+								nameBuffer[j] = (byte)(~nameBuffer[j] & 0xFF);
+							}
+						}
+
+						string fileName = Encoding.GetEncoding("shift_jis")
+								.GetString(nameBuffer).ToLower().Replace("\0", "");
+
+						uint size = reader.ReadUInt32();
+						uint offset = reader.ReadUInt32();
+
+						FileEntry entry = new()
+						{
+							PkgPath = path,
+							Offset = offset,
+							Size = size,
+							Crypted = 0,
+							FileName = fileName
+						};
+
+						FileDic[fileName] = entry;
+					}
 				}
 			}
 		}
+		catch (System.IO.FileNotFoundException ex)
+		{
+			Wa2EngineMain.Engine.OpenErrorMessage("资源读取失败,\n文件" + fullPath + "不存在");
+		}
+		catch (System.UnauthorizedAccessException ex)
+		{
+			Wa2EngineMain.Engine.OpenErrorMessage("访问权限获取失败");
+		}
+		catch (System.IO.IOException ex)
+		{
+			Wa2EngineMain.Engine.OpenErrorMessage("资源读取失败,\n文件" + fullPath + "已损坏");
+		}
+
 	}
 
 	// 	var nentry=file.get_32()
