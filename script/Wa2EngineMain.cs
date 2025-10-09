@@ -386,7 +386,7 @@ public partial class Wa2EngineMain : Control
 			// Wa2Resource.ResPath = OS.GetSystemDir(OS.SystemDir.Documents)+"Wa2Res/";
 			// }
 			OS.RequestPermissions();
-			while (!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") && (!OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE"))) ;
+			// while (!OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") && (!OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE"))) ;
 			// await ToSignal(GetTree(), SceneTree.SignalName.OnRequestPermissionsResult);
 			// }
 		}
@@ -394,6 +394,10 @@ public partial class Wa2EngineMain : Control
 		{
 			Wa2Resource.ResPath = "res://assets/";
 		}
+
+	}
+	public void InitGame()
+	{
 		Prefs = new Wa2Prefs();
 		Prefs.Init(this);
 		if (!FileAccess.FileExists("user://sys.sav"))
@@ -645,7 +649,22 @@ public partial class Wa2EngineMain : Control
 	}
 	public override void _Process(double delta)
 	{
-		if (State == GameState.LOGO)
+		if (State == GameState.NONE)
+		{
+			if (OS.GetName() == "Android")
+			{
+				if (OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") || OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE"))
+				{
+					InitGame();
+				}
+			}
+			else
+			{
+				InitGame();
+			}
+
+		}
+		else if (State == GameState.LOGO)
 		{
 			if (!WaitTimer.IsActive())
 			{
