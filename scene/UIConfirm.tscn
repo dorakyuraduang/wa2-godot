@@ -1,19 +1,14 @@
-[gd_scene load_steps=22 format=3 uid="uid://b8606yyc0k403"]
+[gd_scene load_steps=20 format=3 uid="uid://b8606yyc0k403"]
 
 [ext_resource type="Script" uid="uid://gp5glcollg5p" path="res://script/UIConfirm.cs" id="1_1ipbv"]
 [ext_resource type="Texture2D" uid="uid://drerrl4salxby" path="res://assets/grp/sys_00100.png" id="3_gqeii"]
-[ext_resource type="FontFile" uid="uid://bqnr5jmcejvam" path="res://assets/fonts/fzzyjt.ttf" id="4_cr4wg"]
 [ext_resource type="Texture2D" uid="uid://dr0gcwfsp0q0n" path="res://assets/grp/sys_00101.png" id="5_3g2g7"]
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="6_xfnwm"]
 [ext_resource type="AudioStream" uid="uid://dyxtuvb8mcn5g" path="res://assets/se/SE_8905.WAV" id="7_1m5mo"]
 [ext_resource type="Texture2D" uid="uid://bcrxkfog6v6sa" path="res://assets/grp/sys_00110.png" id="8_dtqvg"]
 [ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="8_yj3s7"]
 
-[sub_resource type="FontVariation" id="FontVariation_q83v8"]
-base_font = ExtResource("4_cr4wg")
-
 [sub_resource type="LabelSettings" id="LabelSettings_gx5fx"]
-font = SubResource("FontVariation_q83v8")
 font_size = 18
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xf07o"]
@@ -53,7 +48,6 @@ atlas = SubResource("CompressedTexture2D_fwtsg")
 region = Rect2(160, 40, 160, 40)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2s8dg"]
-font = ExtResource("4_cr4wg")
 font_size = 18
 
 [node name="UIConfirm" type="Control" node_paths=PackedStringArray("ConfirmBtn", "CancelBtn", "ConfirmLabel", "ConfirmMessage", "TipMessage", "TipLabel")]

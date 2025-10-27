@@ -420,19 +420,26 @@ public partial class Wa2EngineMain : Control
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 		Wa2Encoding = new();
 		Wa2Def.LoadFontMap();
-		Wa2Resource.LoadPak("BGM.PAK");
-		Wa2Resource.LoadPak("IC/BGM.PAK");
-		Wa2Resource.LoadPak("IC/bak.pak");
-		Wa2Resource.LoadPak("IC/grp.pak");
-		Wa2Resource.LoadPak("IC/char.pak");
-		Wa2Resource.LoadPak("IC/VOICE.PAK");
-		Wa2Resource.LoadPak("IC/SE.PAK");
-		Wa2Resource.LoadPak("bak.pak");
-		Wa2Resource.LoadPak("ck-gal.pak");
-		Wa2Resource.LoadPak("grp.pak");
-		Wa2Resource.LoadPak("char.pak");
-		Wa2Resource.LoadPak("VOICE.PAK");
-		Wa2Resource.LoadPak("SE.PAK");
+		if (!System.IO.Directory.Exists(ProjectSettings.GlobalizePath(Wa2Resource.ResPath)))
+		{
+			OpenErrorMessage("资源文件夹不存在,\n路径" + Wa2Resource.ResPath);
+		}
+		else
+		{
+			Wa2Resource.LoadPak("BGM.PAK");
+			Wa2Resource.LoadPak("IC/BGM.PAK");
+			Wa2Resource.LoadPak("IC/bak.pak");
+			Wa2Resource.LoadPak("IC/grp.pak");
+			Wa2Resource.LoadPak("IC/char.pak");
+			Wa2Resource.LoadPak("IC/VOICE.PAK");
+			Wa2Resource.LoadPak("IC/SE.PAK");
+			Wa2Resource.LoadPak("bak.pak");
+			Wa2Resource.LoadPak("ck-gal.pak");
+			Wa2Resource.LoadPak("grp.pak");
+			Wa2Resource.LoadPak("char.pak");
+			Wa2Resource.LoadPak("VOICE.PAK");
+			Wa2Resource.LoadPak("SE.PAK");
+		}
 		// VideoPlayer.Finished += OnVideoFinished;
 		AdvMain.Init(this);
 		Chars = new Wa2Image[Wa2Def.CharPos.Length];
@@ -561,6 +568,7 @@ public partial class Wa2EngineMain : Control
 		EroMode = false;
 		// CgMode = false;
 		// ReplayMode = 0;
+		SubViewport.Position = new Vector2(0, 0);
 		AnimatorMgr.FinishAll(true);
 		BgTexture.Reset();
 		MaskTexture.Reset();
@@ -1011,6 +1019,27 @@ public partial class Wa2EngineMain : Control
 	public void OpenErrorMessage(string message)
 	{
 		ErrorMessage.Open(message);
+	}
+	public void InitEffect(int flag, int spdX, int spdY, int a4, int count, int a6, int a7)
+	{
+		byte type = (byte)flag;
+		bool count_80 = (flag & 0x100) != 0;
+		int mask = flag & 0xe00;
+		switch (type)
+		{
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+				break;
+			default:
+				break;
+		}
 	}
 }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 // using FFmpeg.AutoGen;
 using Godot;
@@ -217,6 +218,63 @@ public partial class AnimatorMgr : Node
         image.Hide();
       }
     }));
+  }
+  public void AddShakeAnimation(int type, int strength, int frame)
+  {
+    if (type != 9 && type != 1)
+    {
+      return;
+    }
+    Tween tween = CreateTween();
+    Animator animator = new(tween, frame * _engine.FrameTime);
+    AddAnimator(animator);
+    Random rand = new Random();
+    switch (type)
+    {
+      case 1:
+        for (int i = 0; i < frame / 2; i++)
+        {
+          int dir = rand.Next(0, 2);
+          Vector2 offset = new(0, 0);
+          if (dir == 0)
+          {
+            offset.X = -strength;
+          }
+          else if (dir == 1)
+          {
+            offset.X = strength;
+          }
+          tween.TweenProperty(_engine.SubViewport, "position", offset, _engine.FrameTime);
+          tween.TweenProperty(_engine.SubViewport, "position", new Vector2(0, 0), _engine.FrameTime);
+        }
+        break;
+      case 9:
+        for (int i = 0; i < frame / 2; i++)
+        {
+          int dir = rand.Next(0, 4);
+          Vector2 offset = new(0, 0);
+          if (dir == 0)
+          {
+            offset.X = -strength;
+          }
+          else if (dir == 1)
+          {
+            offset.X = strength;
+          }
+          else if (dir == 2)
+          {
+            offset.Y = -strength;
+          }
+          else if (dir == 3)
+          {
+            offset.Y = strength;
+          }
+          tween.TweenProperty(_engine.SubViewport, "position", offset, _engine.FrameTime);
+          tween.TweenProperty(_engine.SubViewport, "position", new Vector2(0, 0), _engine.FrameTime);
+        }
+        break;
+    }
+    tween.TweenCallback(Callable.From(() => _engine.SubViewport.SetPosition(new Vector2(0, 0))));
   }
   public void AddFBAnimation(Color color, float time)
   {

@@ -440,6 +440,7 @@ public class Wa2Func
 	}
 	public bool SetShake(List<Wa2Var> args)
 	{
+	  _engine.AnimatorMgr.AddShakeAnimation(args[0].Get(), args[1].Get(), args[2].Get());
 		return false;
 	}
 	public bool StopShake(List<Wa2Var> args)

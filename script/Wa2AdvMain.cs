@@ -65,13 +65,13 @@ public partial class Wa2AdvMain : Control
 	{
 		if (_engine.BgInfo.Type == 1)
 		{
-		 SetWindowAlpha(_engine.Prefs.GetConfig("win_alpha_vis"));
+			SetWindowAlpha(_engine.Prefs.GetConfig("win_alpha_vis"));
 		}
 		else
 		{
 			if (_engine.NovelMode)
 			{
-				Mask.SelfModulate=new Color(1,1,1,_engine.Prefs.GetConfig("win_alpha_novel")/256f);
+				Mask.SelfModulate = new Color(1, 1, 1, _engine.Prefs.GetConfig("win_alpha_novel") / 256f);
 			}
 			else
 			{
@@ -167,7 +167,7 @@ public partial class Wa2AdvMain : Control
 			SelectMessageContainer.GetChild<SelectMessage>(i).Hide();
 		}
 		_engine.Script.Args[^1].Set(idx);
-		_engine.WirtSysFlag(_engine.SelectIdx, (1<<idx)|_engine.ReadSysFlag(_engine.SelectIdx));
+		_engine.WirtSysFlag(_engine.SelectIdx, (1 << idx) | _engine.ReadSysFlag(_engine.SelectIdx));
 		_engine.SelectItems.Clear();
 		SelectMessageContainer.Hide();
 		State = AdvState.END;
@@ -177,12 +177,16 @@ public partial class Wa2AdvMain : Control
 	{
 		if (State == AdvState.WAIT_CLICK)
 		{
-			State = AdvState.HIDE;
-			_engine.StopSkip();
-			_engine.StopAutoMode();
-			_engine.AdvMain.Hide();
+			HideAdv();
 		}
 
+	}
+	public void HideAdv()
+	{
+		State = AdvState.HIDE;
+		_engine.StopSkip();
+		_engine.StopAutoMode();
+		_engine.AdvMain.Hide();
 	}
 	public void ClearText()
 	{
@@ -416,7 +420,7 @@ public partial class Wa2AdvMain : Control
 	}
 	public void OnLoadButtonDown()
 	{
-		if ((State != AdvState.WAIT_CLICK && !_engine.AdvMain.SelectMessageContainer.Visible) || _engine.WaitTimer.IsActive() )
+		if ((State != AdvState.WAIT_CLICK && !_engine.AdvMain.SelectMessageContainer.Visible) || _engine.WaitTimer.IsActive())
 		{
 			return;
 		}

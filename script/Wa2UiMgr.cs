@@ -56,6 +56,7 @@ public partial class Wa2UiMgr : Control
 		_engine.SubViewport.Show();
 		_engine.State = Wa2EngineMain.GameState.GAME;
 		JumpScene(AdvMain);
+		AdvMain.Hide();
 	}
 	public void ReturnScene()
 	{
