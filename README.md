@@ -6,6 +6,7 @@
 5.后续版本存档可能会更改结构后导致旧版本的存档报废,如果会废档会在更新时说明  
 6.游戏里还有部分动画特效未完成,不影响主线推进后续更新    
 7.如果出现闪退问题清除缓存即可,0.1.8之前的版本不要清除用户数据,清除数据会清空存档,0.1.8版本开始存档储存在外部清除数据卸载存档也不会消失  
-8.文件放置参考示例 
+8.ps3版视频下载地址  pan.baidu.com/s/1UTSgchekEH0PVtM7yck94w 密码 qjqa  
+9.文件放置参考示例  
 ![e74b63e84385f853f6112d605b38093c](https://github.com/user-attachments/assets/303a7d6e-99e1-4683-bed9-671d271e08be)  
-9.ps3版视频下载地址  pan.baidu.com/s/1UTSgchekEH0PVtM7yck94w 密码 qjqa
+
