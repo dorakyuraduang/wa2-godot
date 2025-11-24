@@ -12,9 +12,9 @@ config_version=5
 
 config/name="wa2"
 run/main_scene="uid://bblla2fup6lge"
-config/features=PackedStringArray("4.4", "C#", "Mobile")
+config/features=PackedStringArray("4.5", "C#", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-boot_splash/image="uid://t5jp2egnjuix"
+boot_splash/image="uid://bselsbmxrq0g7"
 config/icon="res://icon.svg"
 
 [display]

@@ -69,7 +69,7 @@ public partial class Wa2EngineMain : Control
 	public int Label;
 	public bool Skipping = false;
 	public bool DemoMode = false;
-
+	public string SavPath="user://";
 
 	[Export]
 	public VideoStreamPlayer VideoPlayer;
@@ -378,6 +378,9 @@ public partial class Wa2EngineMain : Control
 				if (System.IO.Directory.Exists(string.Format("/storage/emulated/{0}/Wa2Res/", i)))
 				{
 					Wa2Resource.ResPath = string.Format("/storage/emulated/{0}/Wa2Res/", i);
+					DirAccess dir=DirAccess.Open(Wa2Resource.ResPath );
+					dir.MakeDir("sav");
+					SavPath=Wa2Resource.ResPath+"sav/";
 					break;
 				}
 			}
@@ -400,13 +403,13 @@ public partial class Wa2EngineMain : Control
 	{
 		Prefs = new Wa2Prefs();
 		Prefs.Init(this);
-		if (!FileAccess.FileExists("user://sys.sav"))
+		if (!FileAccess.FileExists(SavPath+"sys.sav"))
 		{
-			SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.Write);
+			SysSav = FileAccess.Open(SavPath+"sys.sav", FileAccess.ModeFlags.Write);
 			SysSav.StoreBuffer(new byte[0x26A000]);
 			SysSav.Close();
 		}
-		SysSav = FileAccess.Open("user://sys.sav", FileAccess.ModeFlags.ReadWrite);
+		SysSav = FileAccess.Open(SavPath+"sys.sav", FileAccess.ModeFlags.ReadWrite);
 		SoundMgr.Init(this);
 		// if (SysSav.GetLength() < 0x26A000)
 		// {
@@ -893,13 +896,16 @@ public partial class Wa2EngineMain : Control
 	}
 	public void PlayMovie(string name)
 	{
-		if (!FileAccess.FileExists(Wa2Resource.ResPath + "movie/" + name + "0.mp4"))
+		if (!FileAccess.FileExists(Wa2Resource.ResPath + "movie/" + name + "0.ogv"))
 		{
 			OnVideoFinished();
 		}
 		else
 		{
-			VideoPlayer.Call("set_movie", Wa2Resource.ResPath + "movie/" + name + "0.mp4");
+			VideoStreamTheora s=new VideoStreamTheora();
+			s.File=Wa2Resource.ResPath + "movie/" + name + "0.ogv";
+			VideoPlayer.Stream=s;
+			GD.Print((float)VideoPlayer.GetStreamLength());
 			WaitTimer.Start((float)VideoPlayer.GetStreamLength());
 			VideoPlayer.Play();
 			VideoPlayer.Show();

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=46 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -11,7 +11,6 @@
 [ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="5_3be8l"]
 [ext_resource type="PackedScene" uid="uid://b6u3qm7g3fnoj" path="res://scene/title_menu.tscn" id="5_d5jo3"]
 [ext_resource type="PackedScene" uid="uid://ikxlgfxd3sa7" path="res://scene/LoadSaveMenu.tscn" id="9_kek77"]
-[ext_resource type="Script" uid="uid://bh0600rsr4o0e" path="res://script/wa2_video.gd" id="10_4c57u"]
 [ext_resource type="PackedScene" uid="uid://djqgqhlm8ewbt" path="res://scene/CGModeMenu.tscn" id="10_efxa6"]
 [ext_resource type="PackedScene" uid="uid://kthxdrmqdyyc" path="res://scene/BgmModeMenu.tscn" id="11_dg77c"]
 [ext_resource type="PackedScene" uid="uid://85d6c6lepals" path="res://scene/BackLog.tscn" id="13_w48qg"]
@@ -485,7 +484,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 expand = true
-script = ExtResource("10_4c57u")
 
 [node name="Label" type="Label" parent="."]
 custom_minimum_size = Vector2(640, 24)

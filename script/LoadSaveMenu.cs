@@ -102,10 +102,10 @@ public partial class LoadSaveMenu : BasePage
     if (_mode == DataMode.Save)
     {
 
-      _engine.UiMgr.OpenConfirm("存档将被覆盖。\n确定吗？", "存档保存成功", FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", _selectIdx)) && _engine.Prefs.GetConfig("yes_no") == 1, SaveData);
+      _engine.UiMgr.OpenConfirm("存档将被覆盖。\n确定吗？", "存档保存成功", FileAccess.FileExists(_engine.SavPath+string.Format("sav{0:D2}.sav", _selectIdx)) && _engine.Prefs.GetConfig("yes_no") == 1, SaveData);
 
     }
-    else if (_mode == DataMode.Load && FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", _selectIdx)))
+    else if (_mode == DataMode.Load && FileAccess.FileExists(_engine.SavPath+string.Format("sav{0:D2}.sav", _selectIdx)))
     {
       _engine.UiMgr.OpenConfirm("读取存档。\n确定吗？", "存档读取成功", _engine.Prefs.GetConfig("yes_no") == 1, LoadData);
     }
@@ -183,10 +183,10 @@ public partial class LoadSaveMenu : BasePage
     int idx = -1;
     for (int i = 0; i < 100; i++)
     {
-      if (FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", i)))
+      if (FileAccess.FileExists(_engine.SavPath+string.Format("sav{0:D2}.sav", i)))
       {
 
-        FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", i), FileAccess.ModeFlags.Read);
+        FileAccess file = FileAccess.Open(_engine.SavPath+string.Format("sav{0:D2}.sav", i), FileAccess.ModeFlags.Read);
         int year = (int)file.Get32();
         int month = (int)file.Get32();
         int dayOfWeek = (int)file.Get32();

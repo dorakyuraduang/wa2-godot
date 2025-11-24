@@ -47,14 +47,14 @@ public partial class SubtitleMgr : Node
     SoundSubtitleList = result.SoundSubtitle;
     VoiceSubtitleList = result.VoiceSubtitle;
 
-    foreach (var se in VoiceSubtitleList)
-    {
-      GD.Print($"SoundEffect ID: {se.Id}");
-      foreach (var segment in se.Content)
-      {
-        GD.Print($"  {segment.Begin}-{segment.End}: {segment.Text}");
-      }
-    }
+    // foreach (var se in VoiceSubtitleList)
+    // {
+    //   GD.Print($"SoundEffect ID: {se.Id}");
+    //   foreach (var segment in se.Content)
+    //   {
+    //     GD.Print($"  {segment.Begin}-{segment.End}: {segment.Text}");
+    //   }
+    // }
   }
   public void ListenVoice(int scene, int id, Wa2Audio audio)
   {

@@ -11,14 +11,14 @@ public class Wa2Prefs
 	public void Init(Wa2EngineMain e)
 	{
 		_engine = e;
-		if (!FileAccess.FileExists("user://SYSTEM.ini"))
+		if (!FileAccess.FileExists(_engine.SavPath+"SYSTEM.ini"))
 		{
 			SetDefault();
 
 		}
 		else
 		{
-			ConfigFile.Load("user://SYSTEM.ini");
+			ConfigFile.Load(_engine.SavPath+"SYSTEM.ini");
 		}
 		SetVolume(0, GetConfig("all_vol"));
 		SetVolume(1, GetConfig("bgm_vol"));
@@ -132,7 +132,7 @@ public class Wa2Prefs
 	}
 	public void Save()
 	{
-		ConfigFile.Save("user://SYSTEM.ini");
+		ConfigFile.Save(_engine.SavPath+"SYSTEM.ini");
 	}
 	public int GetMsgWaitIdx()
 	{

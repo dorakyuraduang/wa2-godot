@@ -229,7 +229,7 @@ public class Wa2GameSav
 
 	public void SaveData(int idx)
 	{
-		FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Write);
+		FileAccess file = FileAccess.Open(_engine.SavPath+string.Format("sav{0:D2}.sav", idx), FileAccess.ModeFlags.Write);
 		DateTime SystemTime = DateTime.Now;
 		Image image = _engine.Viewport.GetTexture().GetImage();
 		image.Resize(256, 144);
@@ -360,7 +360,7 @@ public class Wa2GameSav
 	{
 		GD.Print("位置", idx);
 		_engine.Reset();
-		FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
+		FileAccess file = FileAccess.Open(_engine.SavPath+string.Format("sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
 		file.Seek(0x1b000 + 32);
 		_engine.GameFlags = new int[0x1d];
 		_engine.ScriptStack.Clear();

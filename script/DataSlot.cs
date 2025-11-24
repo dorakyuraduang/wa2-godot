@@ -24,10 +24,10 @@ public partial class DataSlot : Wa2Button
   public void Update(int idx)
   {
     IdxLabel.Text = string.Format("{0:D2}", idx + 1);
-    if (FileAccess.FileExists(string.Format("user://sav{0:D2}.sav", idx)))
+    if (FileAccess.FileExists(Wa2EngineMain.Engine.SavPath+string.Format("sav{0:D2}.sav", idx)))
     {
 
-      FileAccess file = FileAccess.Open(string.Format("user://sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
+      FileAccess file = FileAccess.Open(Wa2EngineMain.Engine.SavPath+string.Format("sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
       int year = (int)file.Get32();
       int month = (int)file.Get32();
       int dayOfWeek = (int)file.Get32();
