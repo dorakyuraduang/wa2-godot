@@ -664,7 +664,7 @@ public partial class Wa2EngineMain : Control
 		{
 			if (OS.GetName() == "Android")
 			{
-				if (OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") || OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE"))
+				if (OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") || (OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE")&&OS.GetGrantedPermissions().Contains("android.permission.WRITE_EXTERNAL_STORAGE")))
 				{
 					InitGame();
 				}

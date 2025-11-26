@@ -11,23 +11,31 @@ uniform float fead_weight:hint_range(0,50)=1;
 uniform vec2 canvas_size=vec2(1280,720);
 uniform bool center=false;
 global uniform vec3 fb;
+varying vec2 cur_texture_size;
+varying vec2 mask_texture_size;
+varying vec2 next_texture_size;
+void vertex() {
+    // 获取纹理大小，Godot 返回 vec2
+    cur_texture_size = vec2(textureSize(cur_texture, 0));
+	mask_texture_size = vec2(textureSize(mask_texture, 0));
+	next_texture_size = vec2(textureSize(next_texture, 0));
+}
 vec4 fb_color(vec4 tex_color){
     float bias = length(fb- vec3(0.5)) * 2.0;
     vec3 target_color = vec3(step(0.5, fb));
     vec3 final_color = mix(tex_color.rgb, target_color, clamp(bias*0.6, 0.0, 1.0));
     return vec4(final_color, tex_color.a);
 }
-vec4 get_color(sampler2D input_texture,vec2 uv,vec2 scale,vec2 offset){
-	vec2 texture_size=vec2(textureSize(input_texture,0));
-	if(texture_size==vec2(4,4)){
+vec4 get_color(sampler2D input_texture,vec2 input_size,vec2 uv,vec2 scale,vec2 offset){
+	if(input_size==vec2(4,4)){
 		return vec4(0);
 	}
-	vec2 size=vec2(textureSize(input_texture,0))/canvas_size;
+	vec2 size=vec2(input_size)/canvas_size;
 	vec2 scaled_uv = (uv /scale);
 	if(!center){
 		offset-=vec2(0,0);
 	}else{
-		offset-=vec2((canvas_size.x-texture_size.x)*0.5,canvas_size.y-texture_size.y);
+		offset-=vec2((canvas_size.x-input_size.x)*0.5,canvas_size.y-input_size.y);
 	}
 
     vec2 bg_offset = ((vec2(1.0)-scale)*0.5/scale)-(offset/canvas_size);
@@ -41,8 +49,8 @@ vec4 get_color(sampler2D input_texture,vec2 uv,vec2 scale,vec2 offset){
 }
 void fragment() {
 	vec4 mask_color=texture(mask_texture,UV);
-	vec4 cur_color=get_color(cur_texture,UV,cur_scale,cur_offset);
-	vec4 next_color=get_color(next_texture,UV,next_scale,next_offset);
+	vec4 cur_color=get_color(cur_texture,cur_texture_size,UV,cur_scale,cur_offset);
+	vec4 next_color=get_color(next_texture,next_texture_size,UV,next_scale,next_offset);
 	if (next_color.a==0.0){
 		next_color=vec4(0.0);
 	}
