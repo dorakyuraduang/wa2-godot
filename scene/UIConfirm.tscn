@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b8606yyc0k403"]
+[gd_scene load_steps=16 format=3 uid="uid://b8606yyc0k403"]
 
 [ext_resource type="Script" uid="uid://gp5glcollg5p" path="res://script/UIConfirm.cs" id="1_1ipbv"]
 [ext_resource type="Texture2D" uid="uid://drerrl4salxby" path="res://assets/grp/sys_00100.png" id="3_gqeii"]
@@ -15,36 +15,24 @@ font_size = 18
 atlas = ExtResource("5_3g2g7")
 region = Rect2(0, 0, 160, 40)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kslka"]
-load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_x4vs5"]
-atlas = SubResource("CompressedTexture2D_kslka")
+atlas = ExtResource("5_3g2g7")
 region = Rect2(0, 80, 160, 40)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e727q"]
-load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_l7qad"]
-atlas = SubResource("CompressedTexture2D_e727q")
+atlas = ExtResource("5_3g2g7")
 region = Rect2(0, 40, 160, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_455ds"]
 atlas = ExtResource("5_3g2g7")
 region = Rect2(160, 0, 160, 40)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4g5eb"]
-load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_a1nol"]
-atlas = SubResource("CompressedTexture2D_4g5eb")
+atlas = ExtResource("5_3g2g7")
 region = Rect2(160, 80, 160, 40)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fwtsg"]
-load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1ca.ctex"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_g4wjj"]
-atlas = SubResource("CompressedTexture2D_fwtsg")
+atlas = ExtResource("5_3g2g7")
 region = Rect2(160, 40, 160, 40)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2s8dg"]

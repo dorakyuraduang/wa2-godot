@@ -6,20 +6,12 @@
 
 [sub_resource type="Resource" id="Resource_slh7m"]
 script = ExtResource("1_hi0lw")
-char_settings = {}
-kerning_pairs = Array[Dictionary]([])
-gap = 2
-alignment = Vector2(0, 0)
-monospace = false
-descent = 0.0
-ascent = 0.0
 preview_color = Color(0.12549, 0.141176, 0.192157, 1)
-preview_chars = ""
 
 [resource]
-oversampling = 1.0
 fixed_size = 16
 fixed_size_scale_mode = 2
+oversampling = 1.0
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
