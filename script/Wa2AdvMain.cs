@@ -342,7 +342,7 @@ public partial class Wa2AdvMain : Control
 			NameLabel.Update(-1);
 
 		}
-		if (_engine.ReplayMode > 0)
+		if (_engine.ReplayMode > 0 ||_engine.DemoMode)
 		{
 			SaveButton.Hide();
 			LoadButton.Hide();
