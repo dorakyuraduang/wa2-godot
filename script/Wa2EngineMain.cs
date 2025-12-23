@@ -14,6 +14,12 @@ public class BacklogEntry
 }
 public partial class Wa2EngineMain : Control
 {
+	public enum Language
+	{
+		CN,
+		JP,
+		EN
+	}
 	public enum GameState
 	{
 		NONE,
@@ -69,7 +75,8 @@ public partial class Wa2EngineMain : Control
 	public int Label;
 	public bool Skipping = false;
 	public bool DemoMode = false;
-	public string SavPath="user://";
+	public string SavPath = "user://";
+	public Language Lang = Language.CN;
 
 	[Export]
 	public VideoStreamPlayer VideoPlayer;
@@ -129,6 +136,16 @@ public partial class Wa2EngineMain : Control
 		if (Engine == null)
 		{
 			Engine = this;
+			string[] args = OS.GetCmdlineArgs();
+			foreach (string arg in args)
+			{
+				if (arg == "jp")
+				{
+					Lang = Language.JP;
+					GD.Print("JP");
+				}
+			}
+
 			// Wa2Def.LoadSliceData("res://assets/fonts/cn/本体80.png",Wa2Def.FontSliceData);
 			// Wa2Def.LoadSliceData("res://assets/fonts/cn/袋影80.png",Wa2Def.FontShadowSliceData);
 		}
@@ -378,9 +395,9 @@ public partial class Wa2EngineMain : Control
 				if (System.IO.Directory.Exists(string.Format("/storage/emulated/{0}/Wa2Res/", i)))
 				{
 					Wa2Resource.ResPath = string.Format("/storage/emulated/{0}/Wa2Res/", i);
-					DirAccess dir=DirAccess.Open(Wa2Resource.ResPath );
+					DirAccess dir = DirAccess.Open(Wa2Resource.ResPath);
 					dir.MakeDir("sav");
-					SavPath=Wa2Resource.ResPath+"sav/";
+					SavPath = Wa2Resource.ResPath + "sav/";
 					break;
 				}
 			}
@@ -403,13 +420,13 @@ public partial class Wa2EngineMain : Control
 	{
 		Prefs = new Wa2Prefs();
 		Prefs.Init(this);
-		if (!FileAccess.FileExists(SavPath+"sys.sav"))
+		if (!FileAccess.FileExists(SavPath + "sys.sav"))
 		{
-			SysSav = FileAccess.Open(SavPath+"sys.sav", FileAccess.ModeFlags.Write);
+			SysSav = FileAccess.Open(SavPath + "sys.sav", FileAccess.ModeFlags.Write);
 			SysSav.StoreBuffer(new byte[0x26A000]);
 			SysSav.Close();
 		}
-		SysSav = FileAccess.Open(SavPath+"sys.sav", FileAccess.ModeFlags.ReadWrite);
+		SysSav = FileAccess.Open(SavPath + "sys.sav", FileAccess.ModeFlags.ReadWrite);
 		SoundMgr.Init(this);
 		// if (SysSav.GetLength() < 0x26A000)
 		// {
@@ -437,7 +454,15 @@ public partial class Wa2EngineMain : Control
 			Wa2Resource.LoadPak("IC/VOICE.PAK");
 			Wa2Resource.LoadPak("IC/SE.PAK");
 			Wa2Resource.LoadPak("bak.pak");
-			Wa2Resource.LoadPak("ck-gal.pak");
+			if (Lang == Language.JP)
+			{
+				Wa2Resource.LoadPak("script.pak");
+			}
+			else
+			{
+				Wa2Resource.LoadPak("ck-gal.pak");
+			}
+
 			Wa2Resource.LoadPak("grp.pak");
 			Wa2Resource.LoadPak("char.pak");
 			Wa2Resource.LoadPak("VOICE.PAK");
@@ -664,7 +689,7 @@ public partial class Wa2EngineMain : Control
 		{
 			if (OS.GetName() == "Android")
 			{
-				if (OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") || (OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE")&&OS.GetGrantedPermissions().Contains("android.permission.WRITE_EXTERNAL_STORAGE")))
+				if (OS.GetGrantedPermissions().Contains("android.permission.MANAGE_EXTERNAL_STORAGE") || (OS.GetGrantedPermissions().Contains("android.permission.READ_EXTERNAL_STORAGE") && OS.GetGrantedPermissions().Contains("android.permission.WRITE_EXTERNAL_STORAGE")))
 				{
 					InitGame();
 				}
@@ -902,9 +927,9 @@ public partial class Wa2EngineMain : Control
 		}
 		else
 		{
-			VideoStreamTheora s=new VideoStreamTheora();
-			s.File=Wa2Resource.ResPath + "movie/" + name + "0.ogv";
-			VideoPlayer.Stream=s;
+			VideoStreamTheora s = new VideoStreamTheora();
+			s.File = Wa2Resource.ResPath + "movie/" + name + "0.ogv";
+			VideoPlayer.Stream = s;
 			GD.Print((float)VideoPlayer.GetStreamLength());
 			WaitTimer.Start((float)VideoPlayer.GetStreamLength());
 			VideoPlayer.Play();

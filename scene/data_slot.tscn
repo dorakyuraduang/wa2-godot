@@ -44,7 +44,6 @@ custom_minimum_size = Vector2(632, 96)
 offset_right = 632.0
 offset_bottom = 96.0
 script = ExtResource("1_pudf4")
-ClickStream = ExtResource("2_k5oa6")
 NoData = NodePath("NoData")
 ExistData = NodePath("ExistData")
 SaveTexture = NodePath("SavTexture")
@@ -54,6 +53,7 @@ Category = NodePath("Category")
 DayLabel = NodePath("Day")
 Month = NodePath("Month")
 FirstSentenceLabel = NodePath("FirstSentence")
+ClickStream = ExtResource("2_k5oa6")
 
 [node name="NoData" type="TextureRect" parent="."]
 layout_mode = 0
@@ -129,8 +129,3 @@ ShadowTexture = ExtResource("8_xnv3s")
 Shadow = false
 FontSize = 20
 metadata/_custom_type_script = "uid://qsw3xkgywsql"
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0

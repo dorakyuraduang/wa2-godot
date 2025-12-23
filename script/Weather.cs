@@ -1,17 +1,25 @@
 using Godot;
 using System;
 using System.Diagnostics;
+public enum ParticleFlags
+{
+    
+}
 public struct Particle
 {
 	public bool Active;
 	public int Type;
+	public int U1;
+	public int U2;
 	public float PositionX;
 	public float PositionY;
+	public int U3;
 	public float SpeedScaleX;
 	public float SpeedScaleY;
 	public float ScaleX;
 	public float ScaleY;
 	public int Divergent;
+	public int U4;
 	public Particle()
 	{
 		Active = false;
@@ -191,6 +199,7 @@ public partial class Weather : Node2D
 				}
 				break;
 			case 3:
+				// 第一次启动时：生成 80% 粒子
 				if (Spawn80PercentOnStart)
 				{
 					Spawn80PercentOnStart = false;
@@ -198,12 +207,41 @@ public partial class Weather : Node2D
 
 					for (int i = 0; i < countLimit; i++)
 					{
-						ActivateParticleType3(i,1);
+						ActivateParticleType3(i, 1);
 					}
 				}
 				else
 				{
 					countLimit = ParticleCount;
+				}
+				if (ActiveParticleCount < countLimit)
+				{
+					ActivateParticleType3(ActiveParticleCount, 1);
+					ActiveParticleCount++;
+				}
+				if (ActiveParticleCount <= 0)
+				{
+					
+					return;
+				}
+				for (int k = 0; k < 400; k++)
+				{
+					var p= Particles[k];
+					if (!p.Active)
+                    {
+                        continue;
+                    }
+					if ((Mask & 0x800) != 0)
+                    {
+						//0x800估计
+						float v69=0.000244140625f*DriftTable[(p.Divergent+64)%256]*p.SpeedScaleX*SpeedY;
+						float v70=(p.U4-640)/(5120/(p.U1+1)-p.U3);
+
+                    }
+                    else
+                    {
+                        
+                    }
 				}
 				break;
 		}
@@ -233,39 +271,74 @@ public partial class Weather : Node2D
 		}
 		p.Divergent = (byte)Random.Shared.Next(256) / 255;
 	}
-	void ActivateParticleType3(int index,int v)
+	int ActivateParticleType3(int index, int dirY)
 	{
 		var p = Particles[index];
 		p.Active = true;
+
+		bool flag = true;
 		int v3 = Random.Shared.Next(0, 32);
+		p.U1=256;
+		p.U2=0;
+
+		// v3 == 0 的分支
 		if (v3 == 0)
-        {
+		{
 			p.Type = Random.Shared.Next(0, 16);
-			p.SpeedScaleX = (Random.Shared.Next(0, 100 * (64 - p.Type)) / 100f + 1f)*0.5f;
-			p.SpeedScaleY = (Random.Shared.Next(0, 100 * (64 - p.Type)) / 100f + 1f)*0.5f;;
+			p.SpeedScaleX = (Random.Shared.Next(0, 100 * (64 - p.Type)) / 100f + 1f) * 0.5f;
+			p.SpeedScaleY = (Random.Shared.Next(0, 100 * (64 - p.Type)) / 100f + 1f) * 0.5f;
+			p.SpeedScaleX = Random.Shared.Next(0, 8) + 10;
+			p.SpeedScaleY = Random.Shared.Next(0, 8) + 10;
+		}
 
-        }
-		// var p = Particles[index];
-		// p.Active = true;
-		// p.PositionX = x;
-		// p.PositionY = y;
-		// p.Type = Random.Shared.Next(20) != 0 ? Random.Shared.Next(1, 3) : 0;
-		// if (p.Type == 0)
-		// {
-		// 	p.SpeedScaleX = 8;
-		// 	p.SpeedScaleY = 8;
-		// }
-		// else
-		// {
-		// 	float scaleX = (float)(Random.Shared.Next(100 * (3 - p.Type)) / 100.0 + 1.0);
-		// 	float scaleY = (float)(Random.Shared.Next(100 * (3 - p.Type)) / 100.0 + 1.0);
+		// 处理 type = [192..239] 的分支
+		if ((v3 > 0 && v3 <= 2) || (v3 == 0 && (Mask & 0x200) != 0))
+		{
+			p.Type = Random.Shared.Next(0, 48) + 192;
 
-		// 	p.SpeedScaleX = scaleX * 0.5f;
-		// 	p.SpeedScaleY = scaleY * 0.5f;
-		// 	p.ScaleX = scaleX;
-		// 	p.ScaleY = scaleY;
-		// }
-		// p.Divergent = (byte)Random.Shared.Next(256) / 255;
+			p.SpeedScaleX = Random.Shared.Next(0, 4) + 5;
+			p.SpeedScaleX = Random.Shared.Next(0, 4) + 5; // 覆盖第一次
+
+			flag = (Mask & 0x400) != 0;
+		}
+
+		// flag 分支
+		if (flag)
+		{
+			bool useU2Mode = (Mask & 0x800) != 0;
+
+			p.Type = Random.Shared.Next(0, 8) + 248;
+
+			if (useU2Mode)
+			{
+				p.U2 = Random.Shared.Next(0, 4) + 1;
+
+				p.SpeedScaleX = Random.Shared.Next(0, 3) + 1;
+				p.SpeedScaleY = (Random.Shared.Next(0, 3) - 2 * p.Type + 513) * 0.5f;
+			}
+			else
+			{
+				p.SpeedScaleX = (Random.Shared.Next(0, 100 * (256 - p.Type)) / 100f + 1) * 0.5f;
+				p.SpeedScaleY = (Random.Shared.Next(0, 100 * (256 - p.Type)) / 100f + 1) * 0.5f;
+			}
+		}
+
+		// ---------------- 位置随机计算 ----------------
+		int t = p.Type;
+		p.PositionX = Random.Shared.Next(0, 4 * (576 - t)) - 2 * (256 - t);
+		p.U4=Random.Shared.Next(0, 4 * (576 - t)) - 2 * (256 - t);
+		//根据粒子方向设置y坐标
+		if (dirY > 0)
+		{
+			p.PositionY = Random.Shared.Next(0, 4 * (436 - t)) - 2 * (256 - t);
+		}
+		else
+		{
+			p.PositionY = -Random.Shared.Next(0, 100) - 2 * (256 - t);
+		}
+
+		U3 = p.Type;
+		return Random.Shared.Next(0, 256);
 	}
 	// public void Reset()
 	// {

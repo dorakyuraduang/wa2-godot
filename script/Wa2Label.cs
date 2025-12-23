@@ -68,12 +68,27 @@ public partial class Wa2Label : Node2D
 	// public string EllipsisChar = "…";
 	[Export]
 	public Color ShadowColor = new Color(0, 0, 0, 0.9f); // 阴影颜色
-																											 // [Export]
-																											 // public int ShadowSize = 8; // 阴影大小
+														 // [Export]
+														 // public int ShadowSize = 8; // 阴影大小
 
 	public int Segment = 0;
 	public int ProgressStep = 0;
 	private List<CharRenderData> _renderDatas = new();
+	public override void _Ready()
+	{
+		if (Wa2EngineMain.Engine.Lang == Wa2EngineMain.Language.JP)
+		{
+			
+			FontTexture = ResourceLoader.Load<Texture2D>("res://assets/fonts/jp/本体80.png");
+			ShadowTexture = ResourceLoader.Load<Texture2D>("res://assets/fonts/jp/袋影80.png");
+		}
+		else
+		{
+			FontTexture = ResourceLoader.Load<Texture2D>("res://assets/fonts/cn/本体80.png");
+			ShadowTexture = ResourceLoader.Load<Texture2D>("res://assets/fonts/cn/袋影80.png");
+		}
+	}
+
 	public override void _Draw()
 	{
 		foreach (CharRenderData r in _renderDatas)
@@ -453,7 +468,7 @@ public partial class Wa2Label : Node2D
 		}
 		else
 		{
-			r.EndPosition = new Vector2(lastDrawX+FontSize, drawY - FontSize - ParagraphSpacing);
+			r.EndPosition = new Vector2(lastDrawX + FontSize, drawY - FontSize - ParagraphSpacing);
 
 		}
 

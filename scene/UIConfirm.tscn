@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://b8606yyc0k403"]
+[gd_scene load_steps=17 format=3 uid="uid://b8606yyc0k403"]
 
 [ext_resource type="Script" uid="uid://gp5glcollg5p" path="res://script/UIConfirm.cs" id="1_1ipbv"]
+[ext_resource type="FontFile" uid="uid://bobmxw5bfc6m4" path="res://assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf" id="3_dtqvg"]
 [ext_resource type="Texture2D" uid="uid://drerrl4salxby" path="res://assets/grp/sys_00100.png" id="3_gqeii"]
 [ext_resource type="Texture2D" uid="uid://dr0gcwfsp0q0n" path="res://assets/grp/sys_00101.png" id="5_3g2g7"]
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="6_xfnwm"]
@@ -9,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="8_yj3s7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gx5fx"]
+font = ExtResource("3_dtqvg")
 font_size = 18
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xf07o"]
@@ -36,6 +38,7 @@ atlas = ExtResource("5_3g2g7")
 region = Rect2(160, 40, 160, 40)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2s8dg"]
+font = ExtResource("3_dtqvg")
 font_size = 18
 
 [node name="UIConfirm" type="Control" node_paths=PackedStringArray("ConfirmBtn", "CancelBtn", "ConfirmLabel", "ConfirmMessage", "TipMessage", "TipLabel")]

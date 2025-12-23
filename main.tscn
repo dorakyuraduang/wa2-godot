@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=47 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://dh1x6736ft2sb" path="res://scene/NovelBackLogMenu.tscn" id="18_82xsv"]
 [ext_resource type="PackedScene" uid="uid://rteyiik8w6ct" path="res://scene/SceneReplayMenu.tscn" id="19_getpj"]
 [ext_resource type="PackedScene" uid="uid://b7lnyub20p6ad" path="res://scene/VoiceMessage.tscn" id="20_ryguw"]
+[ext_resource type="FontFile" uid="uid://bobmxw5bfc6m4" path="res://assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf" id="21_lswn8"]
 [ext_resource type="Texture2D" uid="uid://drerrl4salxby" path="res://assets/grp/sys_00100.png" id="23_lswn8"]
 [ext_resource type="Texture2D" uid="uid://dr0gcwfsp0q0n" path="res://assets/grp/sys_00101.png" id="24_a6jrf"]
 [ext_resource type="Script" uid="uid://uw3h3ty4mxjo" path="res://script/ErrorMessage.cs" id="24_xuqvo"]
@@ -183,12 +184,14 @@ shader_parameter/canvas_size = Vector2(1280, 720)
 shader_parameter/center = false
 
 [sub_resource type="LabelSettings" id="LabelSettings_82xsv"]
+font = ExtResource("21_lswn8")
 font_size = 24
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_kq58d"]
+font = ExtResource("21_lswn8")
 font_size = 18
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_seu75"]
