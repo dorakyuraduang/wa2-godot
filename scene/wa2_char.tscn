@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cuqgvqnfroi7h"]
+[gd_scene load_steps=0 format=3 uid="uid://cuqgvqnfroi7h"]
 
 [node name="CharSprite" type="Control"]
 layout_mode = 3

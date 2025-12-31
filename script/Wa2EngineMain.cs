@@ -606,6 +606,11 @@ public partial class Wa2EngineMain : Control
 		AdvMain.Mask.Modulate = new Color(1, 1, 1, 1);
 		ScriptDelta = 0.0f;
 		FrameDelta = 0.0f;
+		foreach (int key in BmpDict.Keys)
+		{
+			BmpDict[key].QueueFree();
+			BmpDict.Remove(key);
+		}
 		if (stop)
 		{
 			StopAutoMode();

@@ -660,6 +660,15 @@ public class Wa2Func
 	}
 	public bool LoadBmpAnime(List<Wa2Var> args)
 	{
+		BmpAnime bmpAnime = new BmpAnime(args[1].Get());
+		ShaderMaterial material = new();
+		bmpAnime.Material = material;
+		bmpAnime.Centered = false;
+		bmpAnime.ZIndex = args[2].Get();
+		
+		_engine.BmpDict[args[0].Get()] = bmpAnime;
+		bmpAnime.SetFrameInfo(0);
+		_engine.BmpContainer.CallDeferred("add_child", bmpAnime);
 		// for (int i = 0; i < args.Count; i++)
 		// {
 		// 	GD.Print("bmpani" + i + ":", args[i].Get());
@@ -740,14 +749,13 @@ public class Wa2Func
 		}
 
 		float d = args[3].Get() * _engine.FrameTime;
-		float a = args[2].Get() / 255f;
 		if (args[3].Get() > 0)
 		{
-			_engine.AnimatorMgr.AddFeadAnimation(tex, d, a);
+			_engine.AnimatorMgr.AddFeadAnimation(tex, d, args[2].Get()/255f);
 		}
 		else
 		{
-			(_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1, a);
+			(_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1,  Math.Min(args[2].Get()+17,255) / 255f);
 		}
 		return true;
 	}
@@ -766,7 +774,7 @@ public class Wa2Func
 			return true;
 		}
 		Sprite2D tex = _engine.BmpDict[args[0].Get()];
-		tex.Position = new Vector2(args[1].Get(), args[2].Get()) / tex.Scale;
+		tex.Position = new Vector2(args[1].Get(), args[2].Get());
 		return true;
 
 		// GD.Print(tex.Position);
@@ -794,8 +802,13 @@ public class Wa2Func
 			return true;
 		}
 		Sprite2D tex = _engine.BmpDict[args[0].Get()];
-		tex.Offset = -new Vector2(args[1].Get(), args[2].Get()) / 2;
-		tex.Scale = new Vector2(tex.Texture.GetSize().X / args[1].Get(), tex.Texture.GetSize().Y / args[2].Get());
+		Vector2 texSize=tex.Texture.GetSize()*args[3].Get();
+		tex.Centered=false;
+		tex.Offset=-new Vector2(args[1].Get(),args[2].Get())/texSize*tex.Texture.GetSize();
+		// tex.Offset=-(texSize-new Vector2(1280,720))/texSize*0.5f*tex.Texture.GetSize();
+		// Vector2 zoomCenter=new Vector2( args[1].Get()*2/texSize.X, args[2].Get()*2/texSize.Y);
+		// tex.Offset =-zoomCenter*tex.Texture.GetSize()*0.5f;
+		tex.Scale = new Vector2(args[3].Get(), args[3].Get());
 		return true;
 	}
 	public bool SetBmpRoll(List<Wa2Var> args)
