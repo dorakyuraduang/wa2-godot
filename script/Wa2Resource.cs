@@ -206,6 +206,7 @@ public class Wa2Resource
 		}
 		Image image = new();
 		image.LoadBmpFromBuffer(buffer);
+		image.Convert(Image.Format.Rgb8);
 		ImageTexture tgaImage = ImageTexture.CreateFromImage(image);
 		return tgaImage;
 	}
