@@ -221,7 +221,7 @@ public partial class AnimatorMgr : Node
   }
   public void AddShakeAnimation(int type, int strength, int frame)
   {
-    if (type != 9 && type != 1)
+    if (type != 9 && type != 1 && type!=0x201)
     {
       return;
     }
@@ -271,6 +271,15 @@ public partial class AnimatorMgr : Node
           }
           tween.TweenProperty(_engine.SubViewport, "position", offset, _engine.FrameTime);
           tween.TweenProperty(_engine.SubViewport, "position", new Vector2(0, 0), _engine.FrameTime);
+        }
+        break;
+      case 0x201:
+        int xDir = -1;
+        for (int i = 0; i < frame / 2; i++)
+        {
+          tween.TweenProperty(_engine.SubViewport, "position:x", xDir * strength, _engine.FrameTime);
+          tween.TweenProperty(_engine.SubViewport, "position", new Vector2(0, 0), _engine.FrameTime);
+          xDir *= -1;
         }
         break;
     }

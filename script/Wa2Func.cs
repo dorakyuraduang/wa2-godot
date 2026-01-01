@@ -440,7 +440,10 @@ public class Wa2Func
 	}
 	public bool SetShake(List<Wa2Var> args)
 	{
-	  _engine.AnimatorMgr.AddShakeAnimation(args[0].Get(), args[1].Get(), args[2].Get());
+		if (!_engine.CanSkip())
+		{
+			_engine.AnimatorMgr.AddShakeAnimation(args[0].Get(), args[1].Get(), args[2].Get());
+		}
 		return false;
 	}
 	public bool StopShake(List<Wa2Var> args)
@@ -665,7 +668,7 @@ public class Wa2Func
 		bmpAnime.Material = material;
 		bmpAnime.Centered = false;
 		bmpAnime.ZIndex = args[2].Get();
-		
+
 		_engine.BmpDict[args[0].Get()] = bmpAnime;
 		bmpAnime.SetFrameInfo(0);
 		_engine.BmpContainer.CallDeferred("add_child", bmpAnime);
@@ -746,16 +749,19 @@ public class Wa2Func
 			case 4:
 				(tex.Material as ShaderMaterial).Shader = ResourceLoader.Load<Shader>("res://shader/add.gdshader");
 				break;
+			case 6:
+				(tex.Material as ShaderMaterial).Shader = ResourceLoader.Load<Shader>("res://shader/bmp_mask.gdshader");
+				break;
 		}
 
 		float d = args[3].Get() * _engine.FrameTime;
 		if (args[3].Get() > 0)
 		{
-			_engine.AnimatorMgr.AddFeadAnimation(tex, d, args[2].Get()/255f);
+			_engine.AnimatorMgr.AddFeadAnimation(tex, d, args[2].Get() / 255f);
 		}
 		else
 		{
-			(_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1,  Math.Min(args[2].Get()+17,255) / 255f);
+			(_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1, Math.Min(args[2].Get() + 17, 255) / 255f);
 		}
 		return true;
 	}
@@ -802,9 +808,9 @@ public class Wa2Func
 			return true;
 		}
 		Sprite2D tex = _engine.BmpDict[args[0].Get()];
-		Vector2 texSize=tex.Texture.GetSize()*args[3].Get();
-		tex.Centered=false;
-		tex.Offset=-new Vector2(args[1].Get(),args[2].Get())/texSize*tex.Texture.GetSize();
+		Vector2 texSize = tex.Texture.GetSize() * args[3].Get();
+		tex.Centered = false;
+		tex.Offset = -new Vector2(args[1].Get(), args[2].Get()) / texSize * tex.Texture.GetSize();
 		// tex.Offset=-(texSize-new Vector2(1280,720))/texSize*0.5f*tex.Texture.GetSize();
 		// Vector2 zoomCenter=new Vector2( args[1].Get()*2/texSize.X, args[2].Get()*2/texSize.Y);
 		// tex.Offset =-zoomCenter*tex.Texture.GetSize()*0.5f;
@@ -1020,7 +1026,7 @@ public class Wa2Func
 	}
 	public bool EroMode(List<Wa2Var> args)
 	{
-		_engine.EroMode = args[0].Get()==1;
+		_engine.EroMode = args[0].Get() == 1;
 		return true;
 	}
 	public bool GetReplayMode(List<Wa2Var> args)
@@ -1138,7 +1144,12 @@ public class Wa2Func
 	}
 	public bool SetShake2(List<Wa2Var> args)
 	{
-		return true;
+		if (!_engine.CanSkip())
+		{
+			_engine.AnimatorMgr.AddShakeAnimation(args[0].Get(), args[1].Get(), args[2].Get());
+		}
+		GD.Print("shake类型:", args[0].Get());
+		return false;
 	}
 	public bool M2(List<Wa2Var> args)
 	{
