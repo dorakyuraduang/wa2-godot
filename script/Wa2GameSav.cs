@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 // 0x110a0
 //A5F660
 // public struct ImageInfo
@@ -139,6 +140,20 @@ public struct CharItem
 	public int id;
 	public int no;
 }
+public class BmpInfo
+{
+	public int Id;
+	public int Type;
+	public string Path;
+	public float Scale;
+	public float OffsetX;
+	public float OffsetY;
+	public float PosX;
+	public float PosY;
+	public int Mode;
+	public int Layer;
+	public float Aplha;
+}
 public class VoiceInfo
 {
 	public int Chr;
@@ -229,7 +244,7 @@ public class Wa2GameSav
 
 	public void SaveData(int idx)
 	{
-		FileAccess file = FileAccess.Open(_engine.SavPath+string.Format("sav{0:D2}.sav", idx), FileAccess.ModeFlags.Write);
+		FileAccess file = FileAccess.Open(_engine.SavPath + string.Format("sav{0:D2}.sav", idx), FileAccess.ModeFlags.Write);
 		DateTime SystemTime = DateTime.Now;
 		Image image = _engine.Viewport.GetTexture().GetImage();
 		image.Resize(256, 144);
@@ -354,13 +369,37 @@ public class Wa2GameSav
 			}
 		}
 		file.Store8((byte)(_engine.EroMode ? 1 : 0));
+		file.Store32((uint)_engine.BmpDict.Count);
+		foreach (int key in _engine.BmpDict.Keys)
+		{
+			file.Store32((uint)key);
+			Wa2Sprite sprite = _engine.BmpDict[key];
+			file.StoreBuffer([.. Encoding.Unicode.GetBytes(sprite.Path).Concat(new byte[32]).Take(32)]);
+			if (sprite is BmpAnime)
+			{
+				file.Store32(1);
+			}
+			else if (sprite is Wa2Sprite)
+			{
+				file.Store32(0);
+			}
+			file.StoreFloat(sprite.Scale.X);
+			file.StoreFloat(sprite.Offset.X);
+			file.StoreFloat(sprite.Offset.Y);
+			file.StoreFloat(sprite.Position.X);
+			file.StoreFloat(sprite.Position.Y);
+			file.Store32((uint)sprite.Mode);
+			file.Store32((uint)sprite.ZIndex);
+			file.StoreFloat(sprite.Modulate.A);
+
+		}
 		file.Close();
 	}
 	public void LoadData(int idx)
 	{
 		GD.Print("位置", idx);
 		_engine.Reset();
-		FileAccess file = FileAccess.Open(_engine.SavPath+string.Format("sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
+		FileAccess file = FileAccess.Open(_engine.SavPath + string.Format("sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
 		file.Seek(0x1b000 + 32);
 		_engine.GameFlags = new int[0x1d];
 		_engine.ScriptStack.Clear();
@@ -496,6 +535,53 @@ public class Wa2GameSav
 		if (selectCount > 0)
 		{
 			_engine.ShowSelectMessage();
+		}
+		int bmpCont = (int)file.Get32();
+		for (int i = 0; i < bmpCont; i++)
+		{
+			Wa2Sprite sprite;
+			int key = (int)file.Get32();
+			string path = Encoding.Unicode.GetString(file.GetBuffer(32)).Replace("\0", "");
+			int type = (int)file.Get32();
+			float scale = file.GetFloat();
+			float offsetX = file.GetFloat();
+			float offsetY = file.GetFloat();
+			float posX = file.GetFloat();
+			float poxY = file.GetFloat();
+			int mode = (int)file.Get32();
+			int layer = (int)file.Get32();
+			float aplha = file.GetFloat();
+			if (type == 0)
+			{
+				sprite = new Wa2Sprite();
+				sprite.Path = path;
+				if (path.EndsWith(".tga"))
+				{
+					sprite.Texture = Wa2Resource.LoadTgaImage(path);
+				}
+				else
+				{
+					sprite.Texture = Wa2Resource.LoadBmpImage(path);
+				}
+			}
+			else if (type == 1)
+			{
+				sprite = new BmpAnime(path);
+				(sprite as BmpAnime).SetFrameInfo(0);
+
+			}
+			else
+			{
+				continue;
+			}
+			sprite.Scale = new Vector2(scale, scale);
+			sprite.Offset = new Vector2(offsetX, offsetY);
+			sprite.Position = new Vector2(posX, poxY);
+			sprite.SetMode(mode);
+			sprite.ZIndex = layer;
+			sprite.Modulate = new Color(1, 1, 1, aplha);
+			_engine.BmpDict.Add(key, sprite);
+			_engine.BmpContainer.CallDeferred("add_child", sprite);
 		}
 		_engine.AdvMain.ShowText(false);
 		_engine.SoundMgr.PlayBgm(_engine.BgmInfo.Id, _engine.BgmInfo.Loop != 0, _engine.BgmInfo.Volume);

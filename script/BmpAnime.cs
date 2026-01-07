@@ -7,14 +7,17 @@ public struct FrameInfo
     public int TextureIdx;
     public int DurationFrame;
 }
-public partial class BmpAnime : Sprite2D
+public partial class BmpAnime : Wa2Sprite
 {
     public List<AtlasTexture> Textures = new();
     public List<FrameInfo> FrameInfos = new();
     public int CurFrameIdx;
     public int NextFrame;
+    public string AniPath;
     public BmpAnime(string aniPath)
     {
+        
+        Path=aniPath;
         byte[] bytes = Wa2Resource.LoadFileBuffer(aniPath);
         int textureCount = BitConverter.ToInt32(bytes, 20);
         int frameCount = BitConverter.ToInt32(bytes, 24);

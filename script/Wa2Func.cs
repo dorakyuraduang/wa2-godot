@@ -638,9 +638,10 @@ public class Wa2Func
 	}
 	public bool LoadBmp(List<Wa2Var> args)
 	{
-		Sprite2D texture = new();
+		Wa2Sprite texture = new();
 		// // AtlasTexture a=new();
 		// a.Atlas= 
+		texture.Path=args[1].Get();
 		if ((args[1].Get() as string).EndsWith(".tga"))
 		{
 			texture.Texture = Wa2Resource.LoadTgaImage(args[1].Get());
@@ -649,9 +650,6 @@ public class Wa2Func
 		{
 			texture.Texture = Wa2Resource.LoadBmpImage(args[1].Get());
 		}
-		ShaderMaterial material = new();
-		texture.Material = material;
-		texture.Centered = false;
 		texture.ZIndex = args[2].Get();
 		_engine.BmpDict[args[0].Get()] = texture;
 		_engine.BmpContainer.CallDeferred("add_child", texture);
@@ -664,11 +662,8 @@ public class Wa2Func
 	public bool LoadBmpAnime(List<Wa2Var> args)
 	{
 		BmpAnime bmpAnime = new BmpAnime(args[1].Get());
-		ShaderMaterial material = new();
-		bmpAnime.Material = material;
-		bmpAnime.Centered = false;
-		bmpAnime.ZIndex = args[2].Get();
 
+		bmpAnime.ZIndex = args[2].Get();
 		_engine.BmpDict[args[0].Get()] = bmpAnime;
 		bmpAnime.SetFrameInfo(0);
 		_engine.BmpContainer.CallDeferred("add_child", bmpAnime);
@@ -737,22 +732,9 @@ public class Wa2Func
 		{
 			return true;
 		}
-		Sprite2D tex = _engine.BmpDict[args[0].Get()];
+		Wa2Sprite tex = _engine.BmpDict[args[0].Get()];
 		int mode = args[1].Get();
-		switch (mode)
-		{
-			case 1:
-				break;
-			case 3:
-				(tex.Material as ShaderMaterial).Shader = ResourceLoader.Load<Shader>("res://shader/bmp_add.gdshader");
-				break;
-			case 4:
-				(tex.Material as ShaderMaterial).Shader = ResourceLoader.Load<Shader>("res://shader/add.gdshader");
-				break;
-			case 6:
-				(tex.Material as ShaderMaterial).Shader = ResourceLoader.Load<Shader>("res://shader/bmp_mask.gdshader");
-				break;
-		}
+		tex.SetMode(mode);
 
 		float d = args[3].Get() * _engine.FrameTime;
 		if (args[3].Get() > 0)

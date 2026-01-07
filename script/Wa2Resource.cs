@@ -151,6 +151,7 @@ public class Wa2Resource
 			SetImageEffect(image, buffer[17]);
 		}
 		ImageTexture tgaImage = ImageTexture.CreateFromImage(image);
+		tgaImage.ResourceName=path;
 		return tgaImage;
 	}
 	public static void SetImageEffect(Image image, int depth)
@@ -208,6 +209,7 @@ public class Wa2Resource
 		image.LoadBmpFromBuffer(buffer);
 		image.Convert(Image.Format.Rgb8);
 		ImageTexture tgaImage = ImageTexture.CreateFromImage(image);
+		tgaImage.ResourceName=path;
 		return tgaImage;
 	}
 	public static AudioStream GetWavStream(string path)

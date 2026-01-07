@@ -117,7 +117,7 @@ public partial class Wa2EngineMain : Control
 	public Wa2Func Func;
 	public Wa2Encoding Wa2Encoding;
 	public FileAccess SysSav;
-	public Dictionary<int, Sprite2D> BmpDict = new();
+	public Dictionary<int, Wa2Sprite> BmpDict = new();
 	public string EffectMode = "";
 	// public int TimeMode;
 	// public int Label=-1;
