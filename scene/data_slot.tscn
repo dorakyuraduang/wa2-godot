@@ -1,11 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://vhl58c04l614"]
+[gd_scene load_steps=15 format=3 uid="uid://vhl58c04l614"]
 
 [ext_resource type="Script" uid="uid://dstvmh6b1vjdi" path="res://script/DataSlot.cs" id="1_pudf4"]
 [ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="2_k5oa6"]
-[ext_resource type="FontFile" uid="uid://13ow1d25naon" path="res://assets/fonts/number.tres" id="3_8eqka"]
 [ext_resource type="Texture2D" uid="uid://dcqm6ivf4c1ny" path="res://assets/grp/sys_01010.png" id="3_smn8n"]
 [ext_resource type="Script" uid="uid://qsw3xkgywsql" path="res://script/Wa2Label.cs" id="7_smn8n"]
 [ext_resource type="Texture2D" uid="uid://cmgdubqht36c6" path="res://assets/fonts/cn/本体80.png" id="8_7aix8"]
+[ext_resource type="FontFile" uid="uid://ckg4ut16piio" path="res://assets/grp/sys_01013.png" id="8_ce71m"]
 [ext_resource type="Texture2D" uid="uid://kphqvd0w7amu" path="res://assets/fonts/cn/袋影80.png" id="8_xnv3s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6o85h"]
@@ -15,10 +15,6 @@ region = Rect2(0, 0, 632, 96)
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbthv"]
 atlas = ExtResource("3_smn8n")
 region = Rect2(632, 0, 632, 96)
-
-[sub_resource type="LabelSettings" id="LabelSettings_8eqka"]
-line_spacing = 0.0
-font = ExtResource("3_8eqka")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_smn8n"]
 load_path = "res://.godot/imported/sys_01016.png-addbcd355ae423a0441b30c5dbc91316.ctex"
@@ -37,7 +33,7 @@ atlas = SubResource("CompressedTexture2D_k5oa6")
 region = Rect2(0, 0, 40, 24)
 
 [sub_resource type="LabelSettings" id="LabelSettings_k5oa6"]
-font = ExtResource("3_8eqka")
+font = ExtResource("8_ce71m")
 
 [node name="DataSlot" type="TextureButton" node_paths=PackedStringArray("NoData", "ExistData", "SaveTexture", "IdxLabel", "DateLabel", "Category", "DayLabel", "Month", "FirstSentenceLabel")]
 custom_minimum_size = Vector2(632, 96)
@@ -74,8 +70,9 @@ offset_left = 14.0
 offset_top = 24.0
 offset_right = 50.0
 offset_bottom = 41.0
-theme_override_fonts/font = ExtResource("3_8eqka")
+theme_override_fonts/font = ExtResource("8_ce71m")
 theme_override_font_sizes/font_size = 16
+text = "00"
 horizontal_alignment = 2
 
 [node name="SavTexture" type="TextureRect" parent="."]
@@ -93,8 +90,8 @@ offset_left = 192.0
 offset_top = 20.0
 offset_right = 349.0
 offset_bottom = 36.0
+theme_override_fonts/font = ExtResource("8_ce71m")
 text = "2012 04/1 20:49"
-label_settings = SubResource("LabelSettings_8eqka")
 
 [node name="Category" type="TextureRect" parent="."]
 layout_mode = 0

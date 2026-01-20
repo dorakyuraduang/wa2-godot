@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://b6u3qm7g3fnoj"]
+[gd_scene load_steps=41 format=3 uid="uid://b6u3qm7g3fnoj"]
 
 [ext_resource type="Script" uid="uid://od6jw6rx7c56" path="res://script/TitleMenu.cs" id="1_le5pv"]
 [ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="2_s6o5p"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://csqgy3fwbshlt" path="res://assets/grp/T0000.png" id="9_fn04i"]
 [ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="10_fma1i"]
 [ext_resource type="Texture2D" uid="uid://bci6ssv1nmk5i" path="res://assets/grp/weather.png" id="11_s6o5p"]
+[ext_resource type="Shader" uid="uid://cfhcyhjqpeirv" path="res://shader/weather_mode3.gdshader" id="12_eg327"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4rxvu"]
 resource_local_to_scene = true
@@ -672,34 +673,11 @@ _data = {
 atlas = ExtResource("11_s6o5p")
 region = Rect2(0, 32, 32, 32)
 
-[sub_resource type="Curve" id="Curve_s6o5p"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0538793, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.508936), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_s6o5p"]
-curve = SubResource("Curve_s6o5p")
-
-[sub_resource type="Curve" id="Curve_eg327"]
-_limits = [0.13, 0.5, 0.0, 1.0]
-_data = [Vector2(0, 0.13), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_eg327"]
-curve = SubResource("Curve_eg327")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m1pm3"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(840, 0, 1)
-direction = Vector3(0, 1, 0)
-spread = 15.0
-initial_velocity_min = 16.0
-initial_velocity_max = 180.0
-gravity = Vector3(0, 0, 0)
-scale_over_velocity_min = 16.0
-scale_over_velocity_max = 180.0
-scale_over_velocity_curve = SubResource("CurveTexture_eg327")
-alpha_curve = SubResource("CurveTexture_s6o5p")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kx5k3"]
+shader = ExtResource("12_eg327")
+shader_parameter/speed_x = 0.0
+shader_parameter/speed_y = 3.0
+shader_parameter/screen_height = 720.0
 
 [node name="TitleMenu" type="Control" node_paths=PackedStringArray("CgModeButton", "BgmModeButton", "MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton", "SpecialBackButton", "SpecialButton", "Special", "DigitalNovel", "DigitalNovelButton", "DigitalNovelBackButton", "DigitalNovel1Button", "DigitalNovel2Button", "SceneReplayButton", "VoiceMessageButton")]
 layout_mode = 3
@@ -1004,9 +982,11 @@ position = Vector2(640, -48)
 emitting = false
 amount = 400
 texture = SubResource("AtlasTexture_5nfrc")
-lifetime = 12.0
-randomness = 1.0
-process_material = SubResource("ParticleProcessMaterial_m1pm3")
+lifetime = 20.0
+fixed_fps = 60
+interpolate = false
+fract_delta = false
+process_material = SubResource("ShaderMaterial_kx5k3")
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 layout_mode = 1
