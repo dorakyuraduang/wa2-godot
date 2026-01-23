@@ -97,6 +97,9 @@ public partial class Wa2EngineMain : Control
 	public Wa2Image BgTexture;
 	[Export]
 	public Wa2Image MaskTexture;
+	[Export]
+	public GpuParticles2D WeatherParticles;
+	public WeatherInfo WeatherInfo;
 	public bool HasPlayMovie = false;
 	public GameState State = GameState.NONE;
 	public Wa2WaitTimer WaitTimer = new();
@@ -121,7 +124,7 @@ public partial class Wa2EngineMain : Control
 	public string EffectMode = "";
 	// public int TimeMode;
 	// public int Label=-1;
-	public int Weather;
+
 	public BgmInfo BgmInfo = new();
 	public BgInfo BgInfo = new();
 	public Color FBColor = new(0.5f, 0.5f, 0.5f, 1);
@@ -474,11 +477,11 @@ public partial class Wa2EngineMain : Control
 		for (int i = 0; i < Wa2Def.CharPos.Length; i++)
 		{
 			// Chars[i]=new Wa2Image();
-			Chars[i] = CharGroup.GetChild(i) as Wa2Image;
+			Chars[i] = CharGroup.GetChild(Wa2Def.CharOrder[i]) as Wa2Image;
 			Chars[i].Size = new Vector2(1280, 720);
 			Chars[i].SetCurOffset(new Vector2(-Wa2Def.CharPos[i], 0));
 			Chars[i].SetNextOffset(new Vector2(-Wa2Def.CharPos[i], 0));
-			Chars[i].ZIndex = -Wa2Def.CharPos[i] + 720;
+			// Chars[i].ZIndex = -Wa2Def.CharPos[i] + 720;
 			Chars[i].SetCenter(true);
 			Chars[i].Hide();
 			// GD.Print(Chars[i].GetCurOffset());
@@ -618,6 +621,7 @@ public partial class Wa2EngineMain : Control
 		}
 		SoundMgr.StopAll();
 		AdvMain.SelectMessageContainer.Hide();
+		ResetWeather();
 	}
 	public void OnVideoFinished()
 	{
@@ -954,6 +958,7 @@ public partial class Wa2EngineMain : Control
 		if (updateChar)
 		{
 			targetTexture = BgTexture;
+			// UpdateWeatherIndex();
 		}
 		else
 		{
@@ -995,15 +1000,12 @@ public partial class Wa2EngineMain : Control
 
 		if (!updateChar)
 		{
-			MaskTexture.SetCurTexture(CeacheTexture);
+			// MaskTexture.SetCurTexture(CeacheTexture);
 			MaskTexture.SetCurOffset(Vector2.Zero);
 			MaskTexture.SetCurScale(Vector2.One);
 			MaskTexture.SetNextOffset(BgInfo.Offset);
 			MaskTexture.SetNextScale(BgInfo.Scale);
-			BgTexture.SetCurOffset(BgInfo.Offset);
-			BgTexture.SetCurScale(BgInfo.Scale);
-			BgTexture.SetCurTexture(NextTexture);
-			AnimatorMgr.AddMaskFeadAnimation(MaskTexture, frame * FrameTime, true);
+			AnimatorMgr.AddMaskFeadAnimation(MaskTexture, BgTexture, BgInfo, frame * FrameTime);
 		}
 		else
 		{
@@ -1076,6 +1078,127 @@ public partial class Wa2EngineMain : Control
 			default:
 				break;
 		}
+	}
+	public void SetWeather(int flag, int speedX, int speedY, int thrbulence, int count, int flag2, int index)
+	{
+		WeatherParticles.Amount = 1;
+		WeatherInfo = new();
+		WeatherInfo.Flag = flag;
+		WeatherInfo.SpeedX = speedX;
+		WeatherInfo.SpeedY = speedY;
+		WeatherInfo.Thrbulence = thrbulence;
+		WeatherInfo.Count = count;
+		WeatherInfo.Flag2 = flag2;
+		WeatherParticles.Visible = true;
+		WeatherParticles.Emitting = true;
+		WeatherParticles.Amount = count;
+		ShaderMaterial shaderMaterial = new ShaderMaterial();
+		WeatherParticles.ProcessMaterial = shaderMaterial;
+		WeatherParticles.Lifetime = 20f;
+		if ((flag & 0x100) != 0)
+		{
+			WeatherParticles.Explosiveness = 0.8f;
+		}
+		else
+		{
+			WeatherParticles.Explosiveness = 0.0f;
+		}
+		switch ((byte)flag)
+		{
+			case 0:
+
+				break;
+			case 3:
+				{
+					AtlasTexture texture = new AtlasTexture();
+					texture.Atlas = GD.Load<Texture2D>("res://assets/grp/weather.png");
+					texture.Region = new Rect2(0, 32, 32, 32);
+					WeatherParticles.Texture = texture;
+					shaderMaterial.Shader = GD.Load<Shader>("res://shader/weather_mode3.gdshader");
+					shaderMaterial.SetShaderParameter("speed_x", speedX);
+					shaderMaterial.SetShaderParameter("speed_y", speedY);
+					shaderMaterial.SetShaderParameter("mask", flag & 0xe00);
+					break;
+				}
+			case 4:
+				{
+					AtlasTexture texture = new AtlasTexture();
+					texture.Atlas = GD.Load<Texture2D>("res://assets/grp/weather.png");
+					texture.Region = new Rect2(0, 32, 32, 32);
+					WeatherParticles.Texture = texture;
+					shaderMaterial.Shader = GD.Load<Shader>("res://shader/weather_mode4.gdshader");
+					shaderMaterial.SetShaderParameter("speed_x", speedX);
+					shaderMaterial.SetShaderParameter("speed_y", speedY);
+					shaderMaterial.SetShaderParameter("mask", flag & 0xe00);
+					break;
+				}
+		}
+		SetWeatherIndex(index);
+	}
+	public void SetWeatherIndex(int index)
+	{
+		WeatherInfo.Index = index;
+		if (index == 0)
+		{
+			WeatherInfo.Index = 0;
+			WeatherParticles.ZIndex=0;
+		}
+		else if (index == 1)
+		{
+			WeatherInfo.Index = 1999;
+			WeatherParticles.ZIndex=99;
+		}
+		else if (index == 2)
+		{
+			WeatherParticles.ZIndex=999;
+		}
+	}
+	public void ResetWeather()
+	{
+		WeatherInfo = null;
+		WeatherParticles.Amount = 1;
+		WeatherParticles.Visible = false;
+		WeatherParticles.Emitting = false;
+		WeatherParticles.ProcessMaterial = null;
+
+	}
+	public void UpdateWeatherIndex()
+	{
+		if (WeatherInfo == null)
+		{
+			return;
+		}
+		if (WeatherInfo.Index == 2)
+		{
+			SetWeatherIndex(0);
+		}
+		else
+		{
+			ResetWeather();
+		}
+	}
+	public void SetWeatherSpeedX(int val)
+	{
+		WeatherInfo.SpeedX = val;
+		if (WeatherParticles.ProcessMaterial != null && WeatherParticles.ProcessMaterial is ShaderMaterial)
+		{
+			(WeatherParticles.ProcessMaterial as ShaderMaterial).SetShaderParameter("speed_x", val);
+		}
+
+	}
+	public void SetWeatherSpeedY(int val)
+	{
+		WeatherInfo.SpeedX = val;
+		if (WeatherParticles.ProcessMaterial != null && WeatherParticles.ProcessMaterial is ShaderMaterial)
+		{
+			(WeatherParticles.ProcessMaterial as ShaderMaterial).SetShaderParameter("speed_y", val);
+		}
+
+	}
+	public void SetWeatherCount(int val)
+	{
+		WeatherInfo.Count = val;
+		WeatherParticles.Amount = val;
 	}
 }
 
