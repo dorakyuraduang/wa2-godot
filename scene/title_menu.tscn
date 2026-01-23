@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://csqgy3fwbshlt" path="res://assets/grp/T0000.png" id="9_fn04i"]
 [ext_resource type="AudioStream" uid="uid://dqvue5cndqhqh" path="res://assets/se/SE_9212.WAV" id="10_fma1i"]
 [ext_resource type="Texture2D" uid="uid://bci6ssv1nmk5i" path="res://assets/grp/weather.png" id="11_s6o5p"]
-[ext_resource type="Shader" uid="uid://cfhcyhjqpeirv" path="res://shader/weather_mode3.gdshader" id="12_eg327"]
+[ext_resource type="Shader" uid="uid://ccrgrfs8o4c3x" path="res://shader/weather_mode3.gdshader" id="12_eg327"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4rxvu"]
 resource_local_to_scene = true
@@ -677,7 +677,8 @@ region = Rect2(0, 32, 32, 32)
 shader = ExtResource("12_eg327")
 shader_parameter/speed_x = 0.0
 shader_parameter/speed_y = 3.0
-shader_parameter/screen_height = 720.0
+shader_parameter/mask = 3584
+shader_parameter/disable = false
 
 [node name="TitleMenu" type="Control" node_paths=PackedStringArray("CgModeButton", "BgmModeButton", "MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton", "SpecialBackButton", "SpecialButton", "Special", "DigitalNovel", "DigitalNovelButton", "DigitalNovelBackButton", "DigitalNovel1Button", "DigitalNovel2Button", "SceneReplayButton", "VoiceMessageButton")]
 layout_mode = 3

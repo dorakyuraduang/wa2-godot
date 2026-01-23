@@ -743,7 +743,15 @@ public class Wa2Func
 		}
 		else
 		{
-			(_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1, Math.Min(args[2].Get() + 17, 255) / 255f);
+			if (tex is BmpAnime)
+            {
+                (_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1, Math.Min(args[2].Get() + 17, 255) / 255f);
+            }
+            else
+            {
+                (_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1, Math.Min(args[2].Get() , 255) / 255f);
+            }
+			
 		}
 		return true;
 	}
