@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=48 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bplbwgh74r3w5" path="res://script/Wa2UiMgr.cs" id="4_p6nqb"]
 [ext_resource type="Shader" uid="uid://dd4pkmct7k0u4" path="res://shader/mask.gdshader" id="5_3be8l"]
 [ext_resource type="PackedScene" uid="uid://b6u3qm7g3fnoj" path="res://scene/title_menu.tscn" id="5_d5jo3"]
+[ext_resource type="Shader" uid="uid://madpfj6flwsk" path="res://shader/bg_mask.gdshader" id="6_a6jrf"]
 [ext_resource type="PackedScene" uid="uid://ikxlgfxd3sa7" path="res://scene/LoadSaveMenu.tscn" id="9_kek77"]
 [ext_resource type="PackedScene" uid="uid://djqgqhlm8ewbt" path="res://scene/CGModeMenu.tscn" id="10_efxa6"]
 [ext_resource type="PackedScene" uid="uid://kthxdrmqdyyc" path="res://scene/BgmModeMenu.tscn" id="11_dg77c"]
@@ -173,9 +174,7 @@ shader_parameter/center = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_536a2"]
 resource_local_to_scene = true
-shader = ExtResource("5_3be8l")
-shader_parameter/cur_scale = Vector2(1, 1)
-shader_parameter/cur_offset = Vector2(0, 0)
+shader = ExtResource("6_a6jrf")
 shader_parameter/next_scale = Vector2(1, 1)
 shader_parameter/next_offset = Vector2(0, 0)
 shader_parameter/blend = 0.0
@@ -212,7 +211,7 @@ load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1c
 atlas = SubResource("CompressedTexture2D_e727q")
 region = Rect2(0, 40, 160, 40)
 
-[node name="EngineMain" type="Control" node_paths=PackedStringArray("BmpContainer", "AnimatorMgr", "SubtitleMgr", "ErrorMessage", "VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture")]
+[node name="EngineMain" type="Control" node_paths=PackedStringArray("BmpContainer", "AnimatorMgr", "SubtitleMgr", "ErrorMessage", "VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture", "WeatherParticles")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -232,7 +231,8 @@ AdvMain = NodePath("Wa2UiMgr/AdvMain")
 UiMgr = NodePath("Wa2UiMgr")
 SoundMgr = NodePath("SoundMgr")
 BgTexture = NodePath("SubViewportContainer/SubViewport/Bg")
-MaskTexture = NodePath("MaskImage")
+MaskTexture = NodePath("SubViewportContainer/SubViewport/MaskImage")
+WeatherParticles = NodePath("SubViewportContainer/SubViewport/GPUParticles2D")
 
 [node name="AnimatorMgr" type="Node" parent="."]
 script = ExtResource("2_ycdy4")
@@ -257,7 +257,7 @@ mouse_filter = 2
 script = ExtResource("3_0aff7")
 BgTexure = NodePath("SubViewport/Bg")
 CharGroup = NodePath("SubViewport/CharGroup")
-RenderTexture = NodePath("../MaskImage")
+RenderTexture = NodePath("SubViewport/MaskImage")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
@@ -275,6 +275,7 @@ script = ExtResource("4_jqvt3")
 metadata/_custom_type_script = "uid://ch3fjcpjwskoj"
 
 [node name="CharGroup" type="Control" parent="SubViewportContainer/SubViewport"]
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -393,13 +394,12 @@ grow_vertical = 2
 script = ExtResource("4_jqvt3")
 
 [node name="BmpContainer" type="Control" parent="SubViewportContainer/SubViewport"]
-z_index = 999
 layout_mode = 3
 anchors_preset = 0
 
-[node name="MaskImage" type="ColorRect" parent="."]
+[node name="MaskImage" type="ColorRect" parent="SubViewportContainer/SubViewport"]
+z_index = 99
 material = SubResource("ShaderMaterial_536a2")
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -407,6 +407,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("4_jqvt3")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="SubViewportContainer/SubViewport"]
+emitting = false
+amount = 1
+fixed_fps = 60
+interpolate = false
+fract_delta = false
 
 [node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("UICalender", "UIConfirm", "OptionsMenu", "BgmModeMenu", "AdvMain", "TitleMenu", "LoadSaveMenu", "CGModeMenu", "BackLogMenu", "NovelBackLogMenu", "SceneReplayMenu", "VoiceMessageMenu")]
 layout_mode = 1

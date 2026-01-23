@@ -620,20 +620,40 @@ public class Wa2Func
 	}
 	public bool SetWeather(List<Wa2Var> args)
 	{
-		int type = args[0].Get();
-		int xSpd = args[1].Get();
-		int ySpd = args[2].Get();
-		int count = args[4].Get();
-		GD.Print("设置天气");
+		_engine.SetWeather(args[0].Get(), args[1].Get(), args[2].Get(), 0, args[3].Get(), args[4].Get(), args[5].Get());
 		return true;
 	}
 	public bool ChangeWeather(List<Wa2Var> args)
 	{
-		GD.Print("改变天气");
+		if (_engine.WeatherInfo == null || _engine.WeatherParticles.ProcessMaterial == null)
+		{
+			return true;
+		}
+		if (args[0].Get() != -1000)
+		{
+			_engine.SetWeatherSpeedX(args[0].Get());
+		}
+		if (args[1].Get() != -1000)
+		{
+			_engine.SetWeatherSpeedY(args[1].Get());
+		}
+		if (args[2].Get() != -1000)
+		{
+			_engine.SetWeatherCount(args[2].Get());
+		}
+		if (args[3].Get() != -1000)
+		{
+
+		}
+		if (args[4].Get() != -1000)
+		{
+			_engine.SetWeatherIndex(args[4].Get());
+		}
 		return true;
 	}
 	public bool ResetWeather(List<Wa2Var> args)
 	{
+		_engine.ResetWeather();
 		return true;
 	}
 	public bool LoadBmp(List<Wa2Var> args)
@@ -641,7 +661,7 @@ public class Wa2Func
 		Wa2Sprite texture = new();
 		// // AtlasTexture a=new();
 		// a.Atlas= 
-		texture.Path=args[1].Get();
+		texture.Path = args[1].Get();
 		if ((args[1].Get() as string).EndsWith(".tga"))
 		{
 			texture.Texture = Wa2Resource.LoadTgaImage(args[1].Get());
@@ -744,14 +764,14 @@ public class Wa2Func
 		else
 		{
 			if (tex is BmpAnime)
-            {
-                (_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1, Math.Min(args[2].Get() + 17, 255) / 255f);
-            }
-            else
-            {
-                (_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1, Math.Min(args[2].Get() , 255) / 255f);
-            }
-			
+			{
+				(_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1, Math.Min(args[2].Get() + 17, 255) / 255f);
+			}
+			else
+			{
+				(_engine.BmpDict[args[0].Get()] as Sprite2D).Modulate = new Color(1, 1, 1, Math.Min(args[2].Get(), 255) / 255f);
+			}
+
 		}
 		return true;
 	}

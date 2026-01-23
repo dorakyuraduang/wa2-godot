@@ -95,6 +95,16 @@ using System.Security.Cryptography.X509Certificates;
 // 	public byte[] First;
 // 	public byte[] Image;
 // }
+public class WeatherInfo
+{
+    public int Flag;
+	public int SpeedX;
+	public int SpeedY;
+	public int Thrbulence;
+	public int Count;
+	public int Flag2;
+	public int Index;
+}
 public struct Calender
 {
 	public int Year;
@@ -325,7 +335,7 @@ public class Wa2GameSav
 
 		file.Store32((uint)_engine.TimeMode);
 		file.Store32((uint)_engine.Label);
-		file.Store32((uint)_engine.Weather);
+		file.Store32(0);
 		file.StoreBuffer([.. Encoding.Unicode.GetBytes(_engine.BgInfo.Path).Concat(new byte[32]).Take(32)]);
 		file.StoreFloat(_engine.BgInfo.Scale.X);
 		file.StoreFloat(_engine.BgInfo.Scale.Y);
@@ -391,8 +401,22 @@ public class Wa2GameSav
 			file.Store32((uint)sprite.Mode);
 			file.Store32((uint)sprite.ZIndex);
 			file.StoreFloat(sprite.Modulate.A);
-
 		}
+		if (_engine.WeatherInfo != null)
+        {
+            file.Store32(1);
+			file.Store32((uint)_engine.WeatherInfo.Flag);
+			file.Store32((uint)_engine.WeatherInfo.SpeedX);
+			file.Store32((uint)_engine.WeatherInfo.SpeedY);
+			file.Store32((uint)_engine.WeatherInfo.Thrbulence);
+			file.Store32((uint)_engine.WeatherInfo.Count);
+			file.Store32((uint)_engine.WeatherInfo.Flag2);
+			file.Store32((uint)_engine.WeatherInfo.Index);
+        }
+        else
+        {
+            file.Store32(0);
+        }
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -487,7 +511,7 @@ public class Wa2GameSav
 
 		_engine.TimeMode = (int)file.Get32();
 		_engine.Label = (int)file.Get32();
-		_engine.Weather = (int)file.Get32();
+		file.Get32();
 		_engine.BgInfo.Path = Encoding.Unicode.GetString(file.GetBuffer(32)).Replace("\0", "");
 		_engine.BgInfo.Scale.X = file.GetFloat();
 		_engine.BgInfo.Scale.Y = file.GetFloat();
@@ -583,6 +607,17 @@ public class Wa2GameSav
 			_engine.BmpDict.Add(key, sprite);
 			_engine.BmpContainer.CallDeferred("add_child", sprite);
 		}
+		if (file.Get32() == 1)
+        {
+			int v1=(int)file.Get32();
+			int v2=(int)file.Get32();
+			int v3=(int)file.Get32();
+			int v4=(int)file.Get32();
+			int v5=(int)file.Get32();
+			int v6=(int)file.Get32();
+			int v7=(int)file.Get32();
+            _engine.SetWeather(v1,v2,v3,v4,v5,v6,v7);
+        }
 		_engine.AdvMain.ShowText(false);
 		_engine.SoundMgr.PlayBgm(_engine.BgmInfo.Id, _engine.BgmInfo.Loop != 0, _engine.BgmInfo.Volume);
 		_engine.BgTexture.SetCurTexture(Wa2Resource.GetTgaImage(_engine.BgInfo.Path));

@@ -412,7 +412,7 @@ public static class Wa2Def
 		160,
 		480
 	};
-
+	public static readonly int[] CharOrder = [5, 7, 3, 0, 8, 1, 9, 2, 4, 6, 10];
 
 	public static Dictionary<int, string> CharDict = new(){
 		{0, "har"},
@@ -450,7 +450,7 @@ public static class Wa2Def
 		{36,"yan"},
 		{37,"mas"},
 	};
-	public static int[] EroChar = [1,2, 3, 4, 5];
+	public static int[] EroChar = [1, 2, 3, 4, 5];
 	public static int[] BgmSlot = [
 		4,
 		1,
