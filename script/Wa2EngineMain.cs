@@ -79,7 +79,7 @@ public partial class Wa2EngineMain : Control
 	public Language Lang = Language.CN;
 
 	[Export]
-	public VideoStreamPlayer VideoPlayer;
+	public VideoPlayback VideoPlayer;
 	[Export]
 	public Node CharGroup;
 	public Wa2Image[] Chars;
@@ -132,7 +132,40 @@ public partial class Wa2EngineMain : Control
 	public int[] GameFlags = new int[0x1d];
 	public double ScriptDelta = 0.0f;
 	public double FrameDelta = 0.0f;
+	// 1. 定义映射表（建议作为类成员，避免每次调用都重新创建）
+	private static readonly Dictionary<string, string> VideoPathMap = new Dictionary<string, string>
+{
+    // 根目录分类
+    { "mv00", "mv000.pak" }, { "mv10", "mv100.pak" }, { "mv11", "mv110.pak" },
+	{ "mv12", "mv120.pak" }, { "mv13", "mv130.pak" }, { "mv14", "mv140.pak" },
+	{ "mv20", "mv200.pak" }, { "mv21", "mv210.pak" }, { "mv22", "mv220.pak" },
+	{ "mv23", "mv230.pak" }, { "mv25", "mv250.pak" },
 
+    // IC 目录分类
+    { "mv01", "IC/mv010.pak" },
+	{ "mv02", "IC/mv020.pak" },
+    
+    // 特殊处理：物理文件名是大写的 MV
+    { "mv07", "IC/MV070.pak" },
+	{ "mv08", "IC/MV080.pak" },
+	{ "mv09", "IC/MV090.pak" }
+};
+
+	// 2. 使用方法
+	public string GetVideoPath(string name)
+	{
+		if (string.IsNullOrEmpty(name)) return "";
+
+		// 统一转小写进行匹配，无论输入是 MV00 还是 mv00 都能找到
+		string key = name.ToLower();
+
+		if (VideoPathMap.TryGetValue(key, out string fileName))
+		{
+			return fileName;
+		}
+
+		return ""; // 如果没找到匹配项，返回空字符串
+	}
 
 	public Wa2EngineMain()
 	{
@@ -373,7 +406,7 @@ public partial class Wa2EngineMain : Control
 				}
 
 			}
-			else if (ui == UiMgr.AdvMain && State == GameState.GAME && !AnimatorMgr.WaitAnimation() && !VideoPlayer.IsPlaying() && AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
+			else if (ui == UiMgr.AdvMain && State == GameState.GAME && !AnimatorMgr.WaitAnimation() && !VideoPlayer.IsPlaying && AdvMain.State == Wa2AdvMain.AdvState.WAIT_CLICK)
 			{
 				UiMgr.OpenConfirm("返回主菜单\n确认吗", "", true, () =>
 				{
@@ -488,7 +521,7 @@ public partial class Wa2EngineMain : Control
 			// GD.Print(Chars[i].GetNextOffset());
 			// CharGroup.AddChild(Chars[i]);
 		}
-		VideoPlayer.Finished += OnVideoFinished;
+		VideoPlayer.VideoEnded += OnVideoFinished;
 		State = GameState.LOGO;
 		// GD.Print(Time.GetTicksMsec());
 		// GetTree().ChangeSceneToFile("res://scene/as/title_menu.tscn");
@@ -506,7 +539,7 @@ public partial class Wa2EngineMain : Control
 			}
 			if (CanSkip() || ClickedInWait)
 			{
-				if (VideoPlayer.IsPlaying())
+				if (VideoPlayer.IsPlaying)
 				{
 					if (!HasPlayMovie || !click)
 					{
@@ -637,7 +670,7 @@ public partial class Wa2EngineMain : Control
 	}
 	public void HideVideo()
 	{
-		VideoPlayer.Stream = null;
+		VideoPlayer.Close();
 		VideoPlayer.Hide();
 		WaitTimer.DeActive();
 	}
@@ -866,7 +899,7 @@ public partial class Wa2EngineMain : Control
 			case GameState.OP:
 				if (@event is InputEventMouseButton && (@event as InputEventMouseButton).ButtonIndex == MouseButton.Left && @event.IsPressed())
 				{
-					if (VideoPlayer.IsPlaying() && VideoPlayer.StreamPosition > 0)
+					if (VideoPlayer.IsPlaying && VideoPlayer.CurrentFrame > 0)
 					{
 						HideVideo();
 						// WaitTimer.DeActive();
@@ -903,7 +936,7 @@ public partial class Wa2EngineMain : Control
 						StopSkip();
 						flag = false;
 					}
-					if (!AdvMain.Visible && !VideoPlayer.IsPlaying() && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.State == Wa2AdvMain.AdvState.HIDE)
+					if (!AdvMain.Visible && !VideoPlayer.IsPlaying && UiMgr.UiQueue.Peek() == UiMgr.AdvMain && AdvMain.State == Wa2AdvMain.AdvState.HIDE)
 					{
 						AdvMain.Show();
 						AdvMain.State = Wa2AdvMain.AdvState.WAIT_CLICK;
@@ -928,19 +961,17 @@ public partial class Wa2EngineMain : Control
 		AutoTimer.DeActive();
 
 	}
-	public void PlayMovie(string name)
+	public async void PlayMovie(string name)
 	{
-		if (!FileAccess.FileExists(Wa2Resource.ResPath + "movie/" + name + "0.ogv"))
+		if (!FileAccess.FileExists(Wa2Resource.ResPath +GetVideoPath(name)))
 		{
 			OnVideoFinished();
 		}
 		else
 		{
-			VideoStreamTheora s = new VideoStreamTheora();
-			s.File = Wa2Resource.ResPath + "movie/" + name + "0.ogv";
-			VideoPlayer.Stream = s;
-			GD.Print((float)VideoPlayer.GetStreamLength());
-			WaitTimer.Start((float)VideoPlayer.GetStreamLength());
+			VideoPlayer.SetVideoPath(Wa2Resource.ResPath +GetVideoPath(name));
+			await ToSignal(VideoPlayer,VideoPlayback.SignalName.VideoLoaded);
+			WaitTimer.Start((float)VideoPlayer.GetVideoLength());
 			VideoPlayer.Play();
 			VideoPlayer.Show();
 		}
@@ -1141,16 +1172,16 @@ public partial class Wa2EngineMain : Control
 		if (index == 0)
 		{
 			WeatherInfo.Index = 0;
-			WeatherParticles.ZIndex=0;
+			WeatherParticles.ZIndex = 0;
 		}
 		else if (index == 1)
 		{
 			WeatherInfo.Index = 1999;
-			WeatherParticles.ZIndex=99;
+			WeatherParticles.ZIndex = 99;
 		}
 		else if (index == 2)
 		{
-			WeatherParticles.ZIndex=999;
+			WeatherParticles.ZIndex = 999;
 		}
 	}
 	public void ResetWeather()

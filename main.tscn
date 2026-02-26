@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=49 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://rteyiik8w6ct" path="res://scene/SceneReplayMenu.tscn" id="19_getpj"]
 [ext_resource type="PackedScene" uid="uid://b7lnyub20p6ad" path="res://scene/VoiceMessage.tscn" id="20_ryguw"]
 [ext_resource type="FontFile" uid="uid://bobmxw5bfc6m4" path="res://assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf" id="21_lswn8"]
+[ext_resource type="Script" uid="uid://dqo4ee3g73ock" path="res://addons/gde_gozen/VideoPlayback.cs" id="22_xuqvo"]
 [ext_resource type="Texture2D" uid="uid://drerrl4salxby" path="res://assets/grp/sys_00100.png" id="23_lswn8"]
 [ext_resource type="Texture2D" uid="uid://dr0gcwfsp0q0n" path="res://assets/grp/sys_00101.png" id="24_a6jrf"]
 [ext_resource type="Script" uid="uid://uw3h3ty4mxjo" path="res://script/ErrorMessage.cs" id="24_xuqvo"]
@@ -485,7 +486,7 @@ layout_mode = 1
 custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+[node name="VideoStreamPlayer" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -493,7 +494,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-expand = true
+script = ExtResource("22_xuqvo")
+metadata/_custom_type_script = "uid://dqo4ee3g73ock"
 
 [node name="Label" type="Label" parent="."]
 custom_minimum_size = Vector2(640, 24)

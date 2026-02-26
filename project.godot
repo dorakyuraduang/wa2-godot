@@ -31,7 +31,7 @@ project/assembly_name="wa2"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/texture_fonts/plugin.cfg")
+enabled=PackedStringArray("res://addons/gde_gozen/plugin.cfg")
 
 [input]
 
