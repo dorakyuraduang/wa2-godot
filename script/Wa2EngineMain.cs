@@ -139,7 +139,7 @@ public partial class Wa2EngineMain : Control
     { "mv00", "mv000.pak" }, { "mv10", "mv100.pak" }, { "mv11", "mv110.pak" },
 	{ "mv12", "mv120.pak" }, { "mv13", "mv130.pak" }, { "mv14", "mv140.pak" },
 	{ "mv20", "mv200.pak" }, { "mv21", "mv210.pak" }, { "mv22", "mv220.pak" },
-	{ "mv23", "mv230.pak" }, { "mv25", "mv250.pak" },
+	{ "mv23", "mv230.pak" }, { "mv25", "mv240.pak" },
 
     // IC 目录分类
     { "mv01", "IC/mv010.pak" },
