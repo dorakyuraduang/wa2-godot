@@ -32,7 +32,9 @@ public partial class VideoPlayback : Control
     public const float PLAYBACK_SPEED_MIN = 0.25f;
     public const float PLAYBACK_SPEED_MAX = 4.0f;
     public const float AUDIO_OFFSET_THRESHOLD = 0.1f;
-
+    private float _forcedTimeFrame = 1.0f / 30.0f;
+    private float _currentFrameFloat = 0.0f;
+    private float _rawPluginFps = 1000.0f; // 初始记录
     private string _path = "";
 
     [Export(PropertyHint.File)]
@@ -45,7 +47,12 @@ public partial class VideoPlayback : Control
     [Export] public bool AudioSpeedToSync = false;
     [Export] public bool EnableAutoPlay = false;
 
+    // 添加帧率修正选项
+    [Export(PropertyHint.Range, "1.0, 144.0, 1.0")]
+    public float ForcedFramerate = 0.0f; // 0 表示自动检测
+
     private float _playbackSpeed = 1.0f;
+    private float _fpsScale = 1.0f;
 
     [Export(PropertyHint.Range, $"0.25,4.0,0.05")]
     public float PlaybackSpeed
@@ -224,29 +231,34 @@ public partial class VideoPlayback : Control
 
         _padding = Video.GetPadding();
         _rotation = Video.GetRotation();
-        _frameRate = Video.GetFramerate();
-        _resolution = Video.GetResolution();
-        _frameCount = Video.GetFrameCount();
-        _hasAlpha = Video.GetHasAlpha();
-        // --- 修复逻辑开始 ---
-        float rawFps = Video.GetFramerate();
-        // 获取视频时长（假设插件有这个方法，或者通过总帧数和原始速率判断）
-        // 如果插件不提供 GetDuration，通常底层是通过总帧数 / 预设帧率算的
+        var rawFrameRate = Video.GetFramerate();
+        var rawFrameCount = Video.GetFrameCount();
 
-        if (rawFps >= 100.0f || rawFps <= 0.1f)
+        // 帧率修正逻辑
+        if (ForcedFramerate > 0)
         {
-            // 如果是离谱的 1000fps，我们尝试寻找一个更合理的数值
-            // 这里提供一个保底方案：优先尝试从视频元数据推算，否则设为 30
+            _frameRate = ForcedFramerate;
+            _fpsScale = rawFrameRate / _frameRate;
+            _frameCount = Mathf.CeilToInt(rawFrameCount / _fpsScale);
+        }
+        else if (rawFrameRate >= 1000.0f)
+        {
+            // 如果检测到异常高帧率（如 Timebase），默认回退到 30 FPS
+            GD.PrintErr($"Detected unusually high framerate ({rawFrameRate}), falling back to 30 FPS. Consider setting ForcedFramerate.");
             _frameRate = 30.0f;
-
-            if (Debug)
-                GD.PrintRich($"[color=yellow]警告：检测到异常帧率 {rawFps}，已强制修正为 {_frameRate}fps[/color]");
+            _fpsScale = rawFrameRate / _frameRate;
+            _frameCount = Mathf.CeilToInt(rawFrameCount / _fpsScale);
         }
         else
         {
-            _frameRate = rawFps;
+            _frameRate = rawFrameRate;
+            _frameCount = rawFrameCount;
+            _fpsScale = 1.0f;
         }
-        // --- 修复逻辑结束 ---
+
+        _resolution = Video.GetResolution();
+        _hasAlpha = Video.GetHasAlpha();
+
         VideoStreams = Video.GetStreams((int)StreamType.Video);
         AudioStreams = Video.GetStreams((int)StreamType.Audio);
         SubtitleStreams = Video.GetStreams((int)StreamType.Subtitle);
@@ -371,7 +383,11 @@ public partial class VideoPlayback : Control
             return;
 
         CurrentFrame = int.Clamp(frame, 0, _frameCount);
-        if (Video.SeekFrame(CurrentFrame) != (int)Error.Ok)
+        
+        // 计算实际需要跳转的帧（如果进行了帧率修正，则还原到原始 Timebase/Frame）
+        int targetFrame = (int)(CurrentFrame * _fpsScale);
+        
+        if (Video.SeekFrame(targetFrame) != (int)Error.Ok)
         {
             GD.PrintErr("Couldn't seek frame!");
         }
@@ -416,7 +432,6 @@ public partial class VideoPlayback : Control
     #endregion
 
     #region Playback Handling
-
     public override void _Process(double delta)
     {
         if (IsPlaying)
