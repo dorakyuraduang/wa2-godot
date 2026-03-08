@@ -43,6 +43,8 @@ public partial class Wa2EngineMain : Control
 	public SubtitleMgr SubtitleMgr;
 	[Export]
 	public ErrorMessage ErrorMessage;
+	[Export]
+	public AnimatedSprite2D Rain;
 	// public int CurSelect=0;
 
 	// public int[] GameFlags = new int[1024];
@@ -963,14 +965,14 @@ public partial class Wa2EngineMain : Control
 	}
 	public async void PlayMovie(string name)
 	{
-		if (!FileAccess.FileExists(Wa2Resource.ResPath +GetVideoPath(name)))
+		if (!FileAccess.FileExists(Wa2Resource.ResPath + GetVideoPath(name)))
 		{
 			OnVideoFinished();
 		}
 		else
 		{
-			VideoPlayer.SetVideoPath(Wa2Resource.ResPath +GetVideoPath(name));
-			await ToSignal(VideoPlayer,VideoPlayback.SignalName.VideoLoaded);
+			VideoPlayer.SetVideoPath(Wa2Resource.ResPath + GetVideoPath(name));
+			await ToSignal(VideoPlayer, VideoPlayback.SignalName.VideoLoaded);
 			WaitTimer.Start((float)VideoPlayer.GetVideoLength());
 			VideoPlayer.Play();
 			VideoPlayer.Show();
@@ -1137,7 +1139,8 @@ public partial class Wa2EngineMain : Control
 		switch ((byte)flag)
 		{
 			case 0:
-
+				Rain.Show();
+				Rain.Play();
 				break;
 			case 3:
 				{
@@ -1149,6 +1152,7 @@ public partial class Wa2EngineMain : Control
 					shaderMaterial.SetShaderParameter("speed_x", speedX);
 					shaderMaterial.SetShaderParameter("speed_y", speedY);
 					shaderMaterial.SetShaderParameter("mask", flag & 0xe00);
+					SetWeatherIndex(index);
 					break;
 				}
 			case 4:
@@ -1161,10 +1165,11 @@ public partial class Wa2EngineMain : Control
 					shaderMaterial.SetShaderParameter("speed_x", speedX);
 					shaderMaterial.SetShaderParameter("speed_y", speedY);
 					shaderMaterial.SetShaderParameter("mask", flag & 0xe00);
+					SetWeatherIndex(index);
 					break;
 				}
 		}
-		SetWeatherIndex(index);
+
 	}
 	public void SetWeatherIndex(int index)
 	{
@@ -1186,6 +1191,8 @@ public partial class Wa2EngineMain : Control
 	}
 	public void ResetWeather()
 	{
+		Rain.Hide();
+		Rain.Stop();
 		WeatherInfo = null;
 		WeatherParticles.Amount = 1;
 		WeatherParticles.Visible = false;
@@ -1199,7 +1206,11 @@ public partial class Wa2EngineMain : Control
 		{
 			return;
 		}
-		if (WeatherInfo.Index == 2)
+		if ((byte)WeatherInfo.Flag == 0)
+        {
+            ResetWeather();
+        }
+		else if (WeatherInfo.Index == 2)
 		{
 			SetWeatherIndex(0);
 		}

@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bblla2fup6lge"]
+[gd_scene load_steps=50 format=3 uid="uid://bblla2fup6lge"]
 
 [ext_resource type="Script" uid="uid://bbb02olkeg8w7" path="res://script/Wa2EngineMain.cs" id="1_wdeo5"]
 [ext_resource type="Script" uid="uid://bo8ltnuy2cw5j" path="res://script/Wa2SoundMgr.cs" id="2_w3y5b"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b6u3qm7g3fnoj" path="res://scene/title_menu.tscn" id="5_d5jo3"]
 [ext_resource type="Shader" uid="uid://madpfj6flwsk" path="res://shader/bg_mask.gdshader" id="6_a6jrf"]
 [ext_resource type="PackedScene" uid="uid://ikxlgfxd3sa7" path="res://scene/LoadSaveMenu.tscn" id="9_kek77"]
+[ext_resource type="SpriteFrames" uid="uid://lv43uf2nn1b" path="res://assets/ani/雨640x360.ani.tres" id="9_qsp4k"]
 [ext_resource type="PackedScene" uid="uid://djqgqhlm8ewbt" path="res://scene/CGModeMenu.tscn" id="10_efxa6"]
 [ext_resource type="PackedScene" uid="uid://kthxdrmqdyyc" path="res://scene/BgmModeMenu.tscn" id="11_dg77c"]
 [ext_resource type="PackedScene" uid="uid://85d6c6lepals" path="res://scene/BackLog.tscn" id="13_w48qg"]
@@ -212,7 +213,7 @@ load_path = "res://.godot/imported/sys_00101.png-7e696b97f0b37b53f28025965ba7f1c
 atlas = SubResource("CompressedTexture2D_e727q")
 region = Rect2(0, 40, 160, 40)
 
-[node name="EngineMain" type="Control" node_paths=PackedStringArray("BmpContainer", "AnimatorMgr", "SubtitleMgr", "ErrorMessage", "VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture", "WeatherParticles")]
+[node name="EngineMain" type="Control" node_paths=PackedStringArray("BmpContainer", "AnimatorMgr", "SubtitleMgr", "ErrorMessage", "Rain", "VideoPlayer", "CharGroup", "SubViewport", "Viewport", "AdvMain", "UiMgr", "SoundMgr", "BgTexture", "MaskTexture", "WeatherParticles")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -224,6 +225,7 @@ BmpContainer = NodePath("SubViewportContainer/SubViewport/BmpContainer")
 AnimatorMgr = NodePath("AnimatorMgr")
 SubtitleMgr = NodePath("SubtitleMgr")
 ErrorMessage = NodePath("ErrorMessage")
+Rain = NodePath("SubViewportContainer/SubViewport/Rain")
 VideoPlayer = NodePath("VideoStreamPlayer")
 CharGroup = NodePath("SubViewportContainer/SubViewport/CharGroup")
 SubViewport = NodePath("SubViewportContainer")
@@ -415,6 +417,14 @@ amount = 1
 fixed_fps = 60
 interpolate = false
 fract_delta = false
+
+[node name="Rain" type="AnimatedSprite2D" parent="SubViewportContainer/SubViewport"]
+visible = false
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("9_qsp4k")
+animation = &"start"
+frame_progress = 0.8554668
 
 [node name="Wa2UiMgr" type="Control" parent="." node_paths=PackedStringArray("UICalender", "UIConfirm", "OptionsMenu", "BgmModeMenu", "AdvMain", "TitleMenu", "LoadSaveMenu", "CGModeMenu", "BackLogMenu", "NovelBackLogMenu", "SceneReplayMenu", "VoiceMessageMenu")]
 layout_mode = 1
