@@ -505,6 +505,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("22_xuqvo")
+AudioSpeedToSync = true
 metadata/_custom_type_script = "uid://dqo4ee3g73ock"
 
 [node name="Label" type="Label" parent="."]
