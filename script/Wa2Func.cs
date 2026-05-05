@@ -1146,10 +1146,35 @@ public class Wa2Func
 	}
 	public bool SetWeather2(List<Wa2Var> args)
 	{
+		_engine.SetWeather(args[0].Get(), args[1].Get(), args[2].Get(),  args[6].Get(), args[3].Get(), args[4].Get(), args[5].Get());
 		return true;
 	}
 	public bool ChangeWeather2(List<Wa2Var> args)
 	{
+		if (_engine.WeatherInfo == null || _engine.WeatherParticles.ProcessMaterial == null)
+		{
+			return true;
+		}
+		if (args[0].Get() != -1000)
+		{
+			_engine.SetWeatherSpeedX(args[0].Get());
+		}
+		if (args[1].Get() != -1000)
+		{
+			_engine.SetWeatherSpeedY(args[1].Get());
+		}
+		if (args[2].Get() != -1000)
+		{
+			_engine.SetWeatherCount(args[2].Get());
+		}
+		if (args[3].Get() != -1000)
+		{
+
+		}
+		if (args[4].Get() != -1000)
+		{
+			_engine.SetWeatherIndex(args[4].Get());
+		}
 		return true;
 	}
 	public bool SetShake2(List<Wa2Var> args)

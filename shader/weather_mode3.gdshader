@@ -6,6 +6,8 @@ uniform float speed_x;
 uniform float speed_y;
 uniform int mask;
 uniform bool disable;
+uniform int thrbulence;
+uniform int large_layer_mode = 0;
 const int drift_table[256] =int[256](
 		0, 100, 200, 301, 401, 501, 601, 700, 799, 897, 995, 1092, 1189, 1284, 1379, 1474,
 		1567, 1659, 1751, 1841, 1930, 2018, 2105, 2191, 2275, 2358, 2439, 2519, 2598, 2675, 2750, 2824,
@@ -29,7 +31,12 @@ float rand(uint seed) {
 	return float((seed * (seed * seed * 15731u + 789221u) + 1376312589u) & 0x7fffffffu) / 2147483647.0;
 }
 void reset(uint seed,inout vec4 custom, inout vec4 userdata1,inout vec4 userdata2,inout vec4 userdata3){
-	int v3=int(rand(seed + 78u) * 32.0);
+	int v3 = int(rand(seed + 78u) * 32.0);
+	if (large_layer_mode == 1 && v3 == 0) {
+		v3 = 1;
+	} else if (large_layer_mode == 2) {
+		v3 = 0;
+	}
 	float t;
 	float ssx;
 	float ssy;
@@ -42,7 +49,7 @@ void reset(uint seed,inout vec4 custom, inout vec4 userdata1,inout vec4 userdata
 		ssy = (rand(seed + 5u) *(100.0*(64.0 - t))/100.0 + 1.0) * 0.5;
 		ssx = rand(seed + 4u) *8.0+10.0;
 		ssy = rand(seed + 5u) *8.0+10.0;
-		if ((mask&0x200)!=0){
+		if (large_layer_mode != 2 && (mask&0x200)!=0){
 			t = rand(seed + 77u) * 48.0+192.0;
 			ssx = rand(seed + 4u) *4.0+5.0;
 			ssy = rand(seed + 5u) *4.0+5.0;

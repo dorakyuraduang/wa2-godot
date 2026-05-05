@@ -102,6 +102,17 @@ public partial class Wa2EngineMain : Control
 	[Export]
 	public GpuParticles2D WeatherParticles;
 	public WeatherInfo WeatherInfo;
+	private readonly List<GpuParticles2D> ExtraWeatherParticles = new();
+	private readonly List<AtlasTexture> SakuraWeatherTextures = new();
+	private const float SakuraParticleTextureScale = 1.0f;
+	private const int SakuraParticleColumns = 12;
+	private const int SakuraParticleRows = 2;
+	private const int SakuraParticleFrameCount = SakuraParticleColumns * SakuraParticleRows;
+	private const float SakuraParticleFrameRate = 12.0f;
+	private const int SnowLargeLayerModeExcludeLarge = 1;
+	private const int SnowLargeLayerModeOnlyLarge = 2;
+	private double SakuraWeatherAnimationTime = 0.0;
+	private int SakuraWeatherFrame = -1;
 	public bool HasPlayMovie = false;
 	public GameState State = GameState.NONE;
 	public Wa2WaitTimer WaitTimer = new();
@@ -729,6 +740,7 @@ public partial class Wa2EngineMain : Control
 	}
 	public override void _Process(double delta)
 	{
+		UpdateSakuraWeatherAnimation(delta);
 		if (State == GameState.NONE)
 		{
 			if (OS.GetName() == "Android")
@@ -1114,7 +1126,12 @@ public partial class Wa2EngineMain : Control
 	}
 	public void SetWeather(int flag, int speedX, int speedY, int thrbulence, int count, int flag2, int index)
 	{
+		ClearExtraWeatherParticles();
+		SakuraWeatherTextures.Clear();
+		SakuraWeatherAnimationTime = 0.0;
+		SakuraWeatherFrame = -1;
 		WeatherParticles.Amount = 1;
+		WeatherParticles.Material = null;
 		WeatherInfo = new();
 		WeatherInfo.Flag = flag;
 		WeatherInfo.SpeedX = speedX;
@@ -1142,16 +1159,24 @@ public partial class Wa2EngineMain : Control
 				Rain.Show();
 				Rain.Play();
 				break;
+			case 1:
+				{
+					SetupWeatherMode1Layer(WeatherParticles, "res://assets/grp/sakura1_2.png", 0, Math.Max(1, count / 20), speedX, speedY, flag);
+					int remaining = Math.Max(0, count - WeatherParticles.Amount);
+					GpuParticles2D layer2 = CreateExtraWeatherParticleLayer();
+					SetupWeatherMode1Layer(layer2, "res://assets/grp/sakura2.png", 1, remaining / 2, speedX, speedY, flag);
+					GpuParticles2D layer3 = CreateExtraWeatherParticleLayer();
+					SetupWeatherMode1Layer(layer3, "res://assets/grp/sakura3.png", 2, remaining - remaining / 2, speedX, speedY, flag);
+					SetWeatherIndex(index);
+					UpdateSakuraWeatherAnimation(0.0);
+					break;
+				}
 			case 3:
 				{
-					AtlasTexture texture = new AtlasTexture();
-					texture.Atlas = GD.Load<Texture2D>("res://assets/grp/weather.png");
-					texture.Region = new Rect2(0, 32, 32, 32);
-					WeatherParticles.Texture = texture;
-					shaderMaterial.Shader = GD.Load<Shader>("res://shader/weather_mode3.gdshader");
-					shaderMaterial.SetShaderParameter("speed_x", speedX);
-					shaderMaterial.SetShaderParameter("speed_y", speedY);
-					shaderMaterial.SetShaderParameter("mask", flag & 0xe00);
+					int largeCount = Math.Max(1, count / 32);
+					SetupSnowWeatherLayer(WeatherParticles, "res://shader/weather_mode3.gdshader", Math.Max(1, count - largeCount), speedX, speedY, flag & 0xe00, 0, SnowLargeLayerModeExcludeLarge);
+					GpuParticles2D largeLayer = CreateExtraWeatherParticleLayer();
+					SetupSnowWeatherLayer(largeLayer, "res://shader/weather_mode3.gdshader", largeCount, speedX, speedY, flag & 0xe00, 0, SnowLargeLayerModeOnlyLarge);
 					SetWeatherIndex(index);
 					break;
 				}
@@ -1168,6 +1193,15 @@ public partial class Wa2EngineMain : Control
 					SetWeatherIndex(index);
 					break;
 				}
+			case 6:
+				{
+					int largeCount = Math.Max(1, count / 4);
+					SetupSnowWeatherLayer(WeatherParticles, "res://shader/weather_mode6.gdshader", Math.Max(1, count - largeCount), speedX, speedY, flag & 0xe00, thrbulence, SnowLargeLayerModeExcludeLarge);
+					GpuParticles2D largeLayer = CreateExtraWeatherParticleLayer();
+					SetupSnowWeatherLayer(largeLayer, "res://shader/weather_mode6.gdshader", largeCount, speedX, speedY, flag & 0xe00, thrbulence, SnowLargeLayerModeOnlyLarge);
+					SetWeatherIndex(index);
+					break;
+				}
 		}
 
 	}
@@ -1177,26 +1211,172 @@ public partial class Wa2EngineMain : Control
 		if (index == 0)
 		{
 			WeatherInfo.Index = 0;
-			WeatherParticles.ZIndex = 0;
+			ApplyWeatherParticleZIndex(0);
 		}
 		else if (index == 1)
 		{
 			WeatherInfo.Index = 1999;
-			WeatherParticles.ZIndex = 99;
+			ApplyWeatherParticleZIndex(99);
 		}
 		else if (index == 2)
 		{
-			WeatherParticles.ZIndex = 999;
+			ApplyWeatherParticleZIndex(999);
 		}
+	}
+	private void ApplyWeatherParticleZIndex(int zIndex)
+	{
+		if (WeatherInfo != null && ((byte)WeatherInfo.Flag) == 1 && ExtraWeatherParticles.Count == 2)
+		{
+			int charZIndex = CharGroup is CanvasItem charCanvasItem ? charCanvasItem.ZIndex : 1;
+			int frontZIndex = Math.Max(zIndex, charZIndex + 1);
+			int backZIndex = Math.Min(zIndex, charZIndex - 1);
+			WeatherParticles.ZIndex = frontZIndex;
+			ExtraWeatherParticles[0].ZIndex = frontZIndex;
+			ExtraWeatherParticles[1].ZIndex = backZIndex;
+			return;
+		}
+		if (WeatherInfo != null && (((byte)WeatherInfo.Flag) == 3 || ((byte)WeatherInfo.Flag) == 6) && ExtraWeatherParticles.Count == 1)
+		{
+			int charZIndex = CharGroup is CanvasItem charCanvasItem ? charCanvasItem.ZIndex : 1;
+			WeatherParticles.ZIndex = Math.Min(zIndex, charZIndex - 1);
+			ExtraWeatherParticles[0].ZIndex = Math.Max(zIndex, charZIndex + 1);
+			return;
+		}
+
+		WeatherParticles.ZIndex = zIndex;
+		foreach (GpuParticles2D particleLayer in ExtraWeatherParticles)
+		{
+			particleLayer.ZIndex = zIndex;
+		}
+	}
+	private GpuParticles2D CreateExtraWeatherParticleLayer()
+	{
+		GpuParticles2D particleLayer = new()
+		{
+			Name = "WeatherParticlesExtra",
+			Position = WeatherParticles.Position,
+			ZIndex = WeatherParticles.ZIndex,
+			Lifetime = WeatherParticles.Lifetime,
+			Explosiveness = WeatherParticles.Explosiveness,
+			Visible = WeatherParticles.Visible,
+			Emitting = WeatherParticles.Emitting
+		};
+		WeatherParticles.GetParent().AddChild(particleLayer);
+		ExtraWeatherParticles.Add(particleLayer);
+		return particleLayer;
+	}
+	private void SetupSnowWeatherLayer(GpuParticles2D particleLayer, string shaderPath, int amount, int speedX, int speedY, int mask, int thrbulence, int largeLayerMode)
+	{
+		AtlasTexture texture = new()
+		{
+			Atlas = GD.Load<Texture2D>("res://assets/grp/weather.png"),
+			Region = new Rect2(0, 32, 32, 32)
+		};
+		ShaderMaterial material = new()
+		{
+			Shader = GD.Load<Shader>(shaderPath)
+		};
+		particleLayer.Texture = texture;
+		particleLayer.Material = null;
+		particleLayer.ProcessMaterial = material;
+		particleLayer.Amount = Math.Max(1, amount);
+		particleLayer.Lifetime = WeatherParticles.Lifetime;
+		particleLayer.Explosiveness = WeatherParticles.Explosiveness;
+		particleLayer.Visible = true;
+		particleLayer.Emitting = true;
+		material.SetShaderParameter("speed_x", speedX);
+		material.SetShaderParameter("speed_y", speedY);
+		material.SetShaderParameter("mask", mask);
+		material.SetShaderParameter("large_layer_mode", largeLayerMode);
+		if (thrbulence != 0)
+		{
+			material.SetShaderParameter("thrbulence", thrbulence);
+		}
+	}
+	private Rect2 GetSakuraParticleRegion(Texture2D atlas, int frame)
+	{
+		float cellWidth = atlas.GetWidth() / (float)SakuraParticleColumns;
+		float cellHeight = atlas.GetHeight() / (float)SakuraParticleRows;
+		int column = frame % SakuraParticleColumns;
+		int row = frame / SakuraParticleColumns;
+		return new Rect2(column * cellWidth, row * cellHeight, cellWidth, cellHeight);
+	}
+	private void UpdateSakuraWeatherAnimation(double delta)
+	{
+		if (WeatherInfo == null || ((byte)WeatherInfo.Flag) != 1 || SakuraWeatherTextures.Count == 0)
+		{
+			return;
+		}
+
+		SakuraWeatherAnimationTime += delta;
+		int frame = (int)Math.Floor(SakuraWeatherAnimationTime * SakuraParticleFrameRate) % SakuraParticleFrameCount;
+		if (frame == SakuraWeatherFrame)
+		{
+			return;
+		}
+
+		SakuraWeatherFrame = frame;
+		foreach (AtlasTexture texture in SakuraWeatherTextures)
+		{
+			if (texture?.Atlas == null)
+			{
+				continue;
+			}
+			texture.Region = GetSakuraParticleRegion(texture.Atlas, frame);
+		}
+	}
+	private void SetupWeatherMode1Layer(GpuParticles2D particleLayer, string texturePath, int particleType, int amount, int speedX, int speedY, int flag)
+	{
+		Texture2D atlas = GD.Load<Texture2D>(texturePath);
+		AtlasTexture texture = new()
+		{
+			Atlas = atlas,
+			Region = GetSakuraParticleRegion(atlas, 0)
+		};
+		ShaderMaterial material = new()
+		{
+			Shader = GD.Load<Shader>("res://shader/weather_mode1.gdshader")
+		};
+		amount = Math.Max(1, amount);
+		particleLayer.Texture = texture;
+		particleLayer.Material = null;
+		particleLayer.ProcessMaterial = material;
+		particleLayer.Amount = amount;
+		particleLayer.Lifetime = WeatherParticles.Lifetime;
+		particleLayer.Explosiveness = WeatherParticles.Explosiveness;
+		particleLayer.Visible = true;
+		particleLayer.Emitting = true;
+		material.SetShaderParameter("speed_x", speedX);
+		material.SetShaderParameter("speed_y", speedY);
+		material.SetShaderParameter("forced_type", particleType);
+		material.SetShaderParameter("initial_fill_count", (flag & 0x100) != 0 ? 4 * amount / 5 : 0);
+		material.SetShaderParameter("texture_scale", SakuraParticleTextureScale);
+		SakuraWeatherTextures.Add(texture);
+	}
+	private void ClearExtraWeatherParticles()
+	{
+		foreach (GpuParticles2D particleLayer in ExtraWeatherParticles)
+		{
+			if (IsInstanceValid(particleLayer))
+			{
+				particleLayer.QueueFree();
+			}
+		}
+		ExtraWeatherParticles.Clear();
+		SakuraWeatherTextures.Clear();
 	}
 	public void ResetWeather()
 	{
+		ClearExtraWeatherParticles();
+		SakuraWeatherAnimationTime = 0.0;
+		SakuraWeatherFrame = -1;
 		Rain.Hide();
 		Rain.Stop();
 		WeatherInfo = null;
 		WeatherParticles.Amount = 1;
 		WeatherParticles.Visible = false;
 		WeatherParticles.Emitting = false;
+		WeatherParticles.Material = null;
 		WeatherParticles.ProcessMaterial = null;
 
 	}
@@ -1207,9 +1387,9 @@ public partial class Wa2EngineMain : Control
 			return;
 		}
 		if ((byte)WeatherInfo.Flag == 0)
-        {
-            ResetWeather();
-        }
+		{
+			ResetWeather();
+		}
 		else if (WeatherInfo.Index == 2)
 		{
 			SetWeatherIndex(0);
@@ -1226,6 +1406,13 @@ public partial class Wa2EngineMain : Control
 		{
 			(WeatherParticles.ProcessMaterial as ShaderMaterial).SetShaderParameter("speed_x", val);
 		}
+		foreach (GpuParticles2D particleLayer in ExtraWeatherParticles)
+		{
+			if (particleLayer.ProcessMaterial is ShaderMaterial material)
+			{
+				material.SetShaderParameter("speed_x", val);
+			}
+		}
 
 	}
 	public void SetWeatherSpeedY(int val)
@@ -1235,12 +1422,41 @@ public partial class Wa2EngineMain : Control
 		{
 			(WeatherParticles.ProcessMaterial as ShaderMaterial).SetShaderParameter("speed_y", val);
 		}
+		foreach (GpuParticles2D particleLayer in ExtraWeatherParticles)
+		{
+			if (particleLayer.ProcessMaterial is ShaderMaterial material)
+			{
+				material.SetShaderParameter("speed_y", val);
+			}
+		}
 
 	}
 	public void SetWeatherCount(int val)
 	{
 		WeatherInfo.Count = val;
-		WeatherParticles.Amount = val;
+		if (((byte)WeatherInfo.Flag) == 1 && ExtraWeatherParticles.Count == 2)
+		{
+			int largeCount = Math.Max(1, val / 20);
+			int remaining = Math.Max(0, val - largeCount);
+			WeatherParticles.Amount = largeCount;
+			ExtraWeatherParticles[0].Amount = Math.Max(1, remaining / 2);
+			ExtraWeatherParticles[1].Amount = Math.Max(1, remaining - remaining / 2);
+		}
+		else if (((byte)WeatherInfo.Flag) == 3 && ExtraWeatherParticles.Count == 1)
+		{
+			int largeCount = Math.Max(1, val / 32);
+			WeatherParticles.Amount = Math.Max(1, val - largeCount);
+			ExtraWeatherParticles[0].Amount = largeCount;
+		}
+		else if (((byte)WeatherInfo.Flag) == 6 && ExtraWeatherParticles.Count == 1)
+		{
+			int largeCount = Math.Max(1, val / 4);
+			WeatherParticles.Amount = Math.Max(1, val - largeCount);
+			ExtraWeatherParticles[0].Amount = largeCount;
+		}
+		else
+		{
+			WeatherParticles.Amount = val;
+		}
 	}
 }
-

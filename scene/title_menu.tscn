@@ -679,6 +679,7 @@ shader_parameter/speed_x = 0.0
 shader_parameter/speed_y = 3.0
 shader_parameter/mask = 3584
 shader_parameter/disable = false
+shader_parameter/thrbulence = 0
 
 [node name="TitleMenu" type="Control" node_paths=PackedStringArray("CgModeButton", "BgmModeButton", "MenuBttons", "InitalStart", "AnimationPlayer", "StartButton", "LoadtButton", "OptionsButton", "QuitButton", "ICButton", "CcButton", "CodeaButton", "StartBackButton", "SpecialBackButton", "SpecialButton", "Special", "DigitalNovel", "DigitalNovelButton", "DigitalNovelBackButton", "DigitalNovel1Button", "DigitalNovel2Button", "SceneReplayButton", "VoiceMessageButton")]
 layout_mode = 3
