@@ -114,6 +114,9 @@ public partial class Wa2EngineMain : Control
 	private double SakuraWeatherAnimationTime = 0.0;
 	private int SakuraWeatherFrame = -1;
 	public bool HasPlayMovie = false;
+	private bool _movieLoading = false;
+	private string _movieLoadingName = "";
+	private int _movieRequestId = 0;
 	public GameState State = GameState.NONE;
 	public Wa2WaitTimer WaitTimer = new();
 	public Wa2Timer AutoTimer = new();
@@ -683,6 +686,9 @@ public partial class Wa2EngineMain : Control
 	}
 	public void HideVideo()
 	{
+		_movieRequestId++;
+		_movieLoading = false;
+		_movieLoadingName = "";
 		VideoPlayer.Close();
 		VideoPlayer.Hide();
 		WaitTimer.DeActive();
@@ -977,14 +983,37 @@ public partial class Wa2EngineMain : Control
 	}
 	public async void PlayMovie(string name)
 	{
-		if (!FileAccess.FileExists(Wa2Resource.ResPath + GetVideoPath(name)))
+		if (_movieLoading)
+		{
+			if (_movieLoadingName == name)
+			{
+				return;
+			}
+
+			_movieRequestId++;
+			_movieLoading = false;
+			_movieLoadingName = "";
+		}
+
+		string videoPath = Wa2Resource.ResPath + GetVideoPath(name);
+		if (!FileAccess.FileExists(videoPath))
 		{
 			OnVideoFinished();
 		}
 		else
 		{
-			VideoPlayer.SetVideoPath(Wa2Resource.ResPath + GetVideoPath(name));
+			_movieLoading = true;
+			_movieLoadingName = name;
+			int requestId = ++_movieRequestId;
+			VideoPlayer.SetVideoPath(videoPath);
 			await ToSignal(VideoPlayer, VideoPlayback.SignalName.VideoLoaded);
+			if (requestId != _movieRequestId || !_movieLoading || _movieLoadingName != name)
+			{
+				return;
+			}
+
+			_movieLoading = false;
+			_movieLoadingName = "";
 			WaitTimer.Start((float)VideoPlayer.GetVideoLength());
 			VideoPlayer.Play();
 			VideoPlayer.Show();
