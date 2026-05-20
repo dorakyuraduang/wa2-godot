@@ -437,6 +437,7 @@ public partial class Wa2EngineMain : Control
 	public override void _Ready()
 	{
 		// GD.Print(FrameTime);
+		
 		GetTree().SetQuitOnGoBack(false);
 		GameSav = new(this);
 		if (OS.GetName() == "Android")
