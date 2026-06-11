@@ -195,6 +195,11 @@ public class SeInfo
 // }
 public class Wa2GameSav
 {
+	private const string BacklogExtensionMagic = "W2BL";
+	private const uint BacklogExtensionVersion = 1;
+	private const int MaxBacklogStringBytes = 64 * 1024;
+	private const int MaxBacklogEntries = 256;
+	private const int MaxVoiceInfosPerBacklog = 64;
 	// public string EffectMode="";
 	// public int TimeMode;
 	// public int Label=-1;
@@ -413,10 +418,11 @@ public class Wa2GameSav
 			file.Store32((uint)_engine.WeatherInfo.Flag2);
 			file.Store32((uint)_engine.WeatherInfo.Index);
         }
-        else
+		else
         {
             file.Store32(0);
         }
+		SaveBacklogs(file);
 		file.Close();
 	}
 	public void LoadData(int idx)
@@ -607,7 +613,7 @@ public class Wa2GameSav
 			_engine.BmpDict.Add(key, sprite);
 			_engine.BmpContainer.CallDeferred("add_child", sprite);
 		}
-		if (file.Get32() == 1)
+		if (HasBytes(file, 4) && file.Get32() == 1 && HasBytes(file, 28))
         {
 			int v1=(int)file.Get32();
 			int v2=(int)file.Get32();
@@ -618,6 +624,8 @@ public class Wa2GameSav
 			int v7=(int)file.Get32();
             _engine.SetWeather(v1,v2,v3,v4,v5,v6,v7);
         }
+		_engine.Backlogs.Clear();
+		LoadBacklogs(file);
 		_engine.AdvMain.ShowText(false);
 		_engine.SoundMgr.PlayBgm(_engine.BgmInfo.Id, _engine.BgmInfo.Loop != 0, _engine.BgmInfo.Volume);
 		_engine.BgTexture.SetCurTexture(Wa2Resource.GetTgaImage(_engine.BgInfo.Path));
@@ -625,9 +633,129 @@ public class Wa2GameSav
 		_engine.BgTexture.SetCurOffset(_engine.BgInfo.Offset);
 		_engine.UpdateChar(0f);
 		_engine.HasReadMessage = true;
-		_engine.Backlogs.Clear();
 
 		file.Close();
+	}
+	private void SaveBacklogs(FileAccess file)
+	{
+		file.StoreBuffer(Encoding.ASCII.GetBytes(BacklogExtensionMagic));
+		file.Store32(BacklogExtensionVersion);
+		file.Store32((uint)_engine.Backlogs.Count);
+		foreach (BacklogEntry backlog in _engine.Backlogs)
+		{
+			SaveString(file, backlog.Name);
+			SaveString(file, backlog.Text);
+			file.Store32((uint)backlog.Segment);
+			file.Store32((uint)backlog.VoiceInfos.Count);
+			foreach (VoiceInfo voiceInfo in backlog.VoiceInfos)
+			{
+				file.Store32((uint)voiceInfo.Chr);
+				file.Store32((uint)voiceInfo.Id);
+				file.Store32((uint)voiceInfo.Label);
+				file.Store32((uint)voiceInfo.Volume);
+			}
+		}
+	}
+	private void LoadBacklogs(FileAccess file)
+	{
+		if (!HasBytes(file, 12))
+		{
+			return;
+		}
+		string magic = file.GetBuffer(4).GetStringFromAscii();
+		if (magic != BacklogExtensionMagic)
+		{
+			return;
+		}
+		uint version = file.Get32();
+		if (version != BacklogExtensionVersion)
+		{
+			return;
+		}
+		uint count = file.Get32();
+		if (count > MaxBacklogEntries)
+		{
+			return;
+		}
+
+		List<BacklogEntry> backlogs = new();
+		for (int i = 0; i < count; i++)
+		{
+			if (!LoadString(file, out string name) || !LoadString(file, out string text) || !LoadInt(file, out int segment) || !LoadInt(file, out int voiceCount))
+			{
+				return;
+			}
+			if (voiceCount < 0 || voiceCount > MaxVoiceInfosPerBacklog)
+			{
+				return;
+			}
+
+			BacklogEntry backlog = new()
+			{
+				Name = name,
+				Text = text,
+				Segment = segment
+			};
+			for (int k = 0; k < voiceCount; k++)
+			{
+				if (!LoadInt(file, out int chr) || !LoadInt(file, out int id) || !LoadInt(file, out int label) || !LoadInt(file, out int volume))
+				{
+					return;
+				}
+				backlog.VoiceInfos.Add(new VoiceInfo()
+				{
+					Chr = chr,
+					Id = id,
+					Label = label,
+					Volume = volume
+				});
+			}
+			backlogs.Add(backlog);
+		}
+
+		_engine.Backlogs.AddRange(backlogs);
+	}
+	private void SaveString(FileAccess file, string value)
+	{
+		byte[] bytes = Encoding.UTF8.GetBytes(value ?? "");
+		file.Store32((uint)bytes.Length);
+		if (bytes.Length > 0)
+		{
+			file.StoreBuffer(bytes);
+		}
+	}
+	private bool LoadString(FileAccess file, out string value)
+	{
+		value = "";
+		if (!HasBytes(file, 4))
+		{
+			return false;
+		}
+		uint length = file.Get32();
+		if (length > MaxBacklogStringBytes || !HasBytes(file, length))
+		{
+			return false;
+		}
+		if (length == 0)
+		{
+			return true;
+		}
+		value = Encoding.UTF8.GetString(file.GetBuffer((long)length));
+		return true;
+	}
+	private bool LoadInt(FileAccess file, out int value)
+	{
+		value = 0;
+		if (!HasBytes(file, 4))
+		{
+			return false;
+		}
+		value = (int)file.Get32();
+		return true;
+	}
+	private bool HasBytes(FileAccess file, ulong byteCount)
+	{
+		return file.GetPosition() + byteCount <= file.GetLength();
 	}
 	public void SaveScript(FileAccess file, Wa2Script script)
 	{
