@@ -471,6 +471,7 @@ public partial class Wa2EngineMain : Control
 	}
 	public void InitGame()
 	{
+
 		Prefs = new Wa2Prefs();
 		Prefs.Init(this);
 		if (!FileAccess.FileExists(SavPath + "sys.sav"))
@@ -736,7 +737,8 @@ public partial class Wa2EngineMain : Control
 		{
 			PressedTime += GetProcessDeltaTime();
 		}
-		if (Input.IsActionPressed("Skip") || PressedTime >= 0.5)
+		bool longPressSkip = Prefs.GetConfig("checkskip") == 1 && PressedTime >= 1.0f;
+		if (Input.IsActionPressed("Skip") || longPressSkip)
 		{
 			Skipping = true;
 		}

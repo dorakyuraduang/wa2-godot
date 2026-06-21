@@ -40,6 +40,7 @@ public partial class LoadSaveMenu : BasePage
   private DataMode _mode;
   private int _selectIdx;
   private int _newDataIdx;
+  private const ulong MinValidSaveSize = 0x1B438;
   // public void OnCancelBtnDown()
   // {
   //   Mask.Hide();
@@ -102,10 +103,10 @@ public partial class LoadSaveMenu : BasePage
     if (_mode == DataMode.Save)
     {
 
-      _engine.UiMgr.OpenConfirm("存档将被覆盖。\n确定吗？", "存档保存成功", FileAccess.FileExists(_engine.SavPath+string.Format("sav{0:D2}.sav", _selectIdx)) && _engine.Prefs.GetConfig("yes_no") == 1, SaveData);
+      _engine.UiMgr.OpenConfirm("存档将被覆盖。\n确定吗？", "存档保存成功", FileAccess.FileExists(GetSavePath(_selectIdx)) && _engine.Prefs.GetConfig("yes_no") == 1, SaveData);
 
     }
-    else if (_mode == DataMode.Load && FileAccess.FileExists(_engine.SavPath+string.Format("sav{0:D2}.sav", _selectIdx)))
+    else if (_mode == DataMode.Load && IsValidSaveData(_selectIdx))
     {
       _engine.UiMgr.OpenConfirm("读取存档。\n确定吗？", "存档读取成功", _engine.Prefs.GetConfig("yes_no") == 1, LoadData);
     }
@@ -183,10 +184,10 @@ public partial class LoadSaveMenu : BasePage
     int idx = -1;
     for (int i = 0; i < 100; i++)
     {
-      if (FileAccess.FileExists(_engine.SavPath+string.Format("sav{0:D2}.sav", i)))
+      if (IsValidSaveData(i))
       {
 
-        FileAccess file = FileAccess.Open(_engine.SavPath+string.Format("sav{0:D2}.sav", i), FileAccess.ModeFlags.Read);
+        FileAccess file = FileAccess.Open(GetSavePath(i), FileAccess.ModeFlags.Read);
         int year = (int)file.Get32();
         int month = (int)file.Get32();
         int dayOfWeek = (int)file.Get32();
@@ -201,8 +202,67 @@ public partial class LoadSaveMenu : BasePage
           idx = i;
           num = num2;
         }
+        file.Close();
       }
     }
     return idx;
+  }
+
+  private string GetSavePath(int idx)
+  {
+    return _engine.SavPath + string.Format("sav{0:D2}.sav", idx);
+  }
+
+  public bool IsValidSaveData(int idx)
+  {
+    if (idx < 0 || idx >= 100)
+    {
+      return false;
+    }
+
+    string path = GetSavePath(idx);
+    if (!FileAccess.FileExists(path))
+    {
+      return false;
+    }
+
+    FileAccess file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+    if (file == null)
+    {
+      return false;
+    }
+
+    bool valid = IsValidSaveFile(file);
+    file.Close();
+    return valid;
+  }
+
+  private bool IsValidSaveFile(FileAccess file)
+  {
+    if (file.GetLength() < MinValidSaveSize)
+    {
+      return false;
+    }
+    return true;
+
+  //   file.Seek(0);
+  //   int year = (int)file.Get32();
+  //   int month = (int)file.Get32();
+  //   int dayOfWeek = (int)file.Get32();
+  //   int day = (int)file.Get32();
+  //   int hour = (int)file.Get32();
+  //   int minute = (int)file.Get32();
+  //   int second = (int)file.Get32();
+  //   int millisecond = (int)file.Get32();
+  //   if (year < 2000 || month < 1 || month > 12 || dayOfWeek < 0 || dayOfWeek > 6 || day < 1 || day > 31 ||
+  //       hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59 ||
+  //       millisecond < 0 || millisecond > 999)
+  //   {
+  //     return false;
+  //   }
+
+  //   file.Seek(32 + 0x1B000);
+  //   string scriptName = file.GetBuffer(8).GetStringFromUtf8().Replace("\0", "");
+  //   return !string.IsNullOrEmpty(scriptName);
   }
 }

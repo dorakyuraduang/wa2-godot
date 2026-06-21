@@ -56,6 +56,8 @@ public partial class OptionsMenu : BasePage
   public Wa2Button EroVoiceYesBtn;
   [Export]
   public Wa2Button EroVoiceNoBtn;
+  [Export]
+  public CheckButton SkipCheck;
 
   public override void Close()
   {
@@ -72,6 +74,7 @@ public partial class OptionsMenu : BasePage
     PageVoiceNoBtn.ButtonDown += () => _engine.Prefs.SetConfig("page_voice", 0);
     EroVoiceYesBtn.ButtonDown += () => _engine.Prefs.SetConfig("ero_voice", 1);
     EroVoiceNoBtn.ButtonDown += () => _engine.Prefs.SetConfig("ero_voice", 0);
+    SkipCheck.Toggled += (bool pressed) => _engine.Prefs.SetConfig("checkskip", pressed ? 1 : 0);
     WindowAlphaBtnList.GetChild<Wa2Button>(0).ButtonDown += () => WindowAlphaBar.Value--;
     WindowAlphaBtnList.GetChild<Wa2Button>(1).ButtonDown += () => WindowAlphaBar.Value++;
     WindowAlphaVisBtnList.GetChild<Wa2Button>(0).ButtonDown += () => WindowAlphaVisBar.Value--;
@@ -240,6 +243,7 @@ public partial class OptionsMenu : BasePage
     {
       EroVoiceNoBtn.ButtonPressed =  true;
     }
+    SkipCheck.ButtonPressed = _engine.Prefs.GetConfig("checkskip") == 1;
   }
 
   public override void Open()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://du2ied53oeq1x"]
+[gd_scene load_steps=62 format=3 uid="uid://du2ied53oeq1x"]
 
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_rxglr"]
 [ext_resource type="Script" uid="uid://dmtoyob7b1fd4" path="res://script/OptionsMenu.cs" id="2_kvry6"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="8_ojnhc"]
 [ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="12_x3o0d"]
 [ext_resource type="Texture2D" uid="uid://b7wqbgiv44x5r" path="res://assets/grp/sys_03030.png" id="13_p84jc"]
+[ext_resource type="FontFile" uid="uid://bobmxw5bfc6m4" path="res://assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf" id="15_ojnhc"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_kvry6"]
 
@@ -161,7 +162,9 @@ region = Rect2(384, 0, 192, 32)
 atlas = ExtResource("13_p84jc")
 region = Rect2(0, 0, 208, 24)
 
-[node name="OptionsMenu" node_paths=PackedStringArray("YesNoBtnList", "MsgWaitBtnList", "MsgCutOptinAllBtn", "MsgCutOptinReadBtn", "WaitFastBtn", "WaitNormalBtn", "OptionButtonList", "PageList", "CharVoiceList", "AllVolumeBar", "BgmVolumeBar", "SeVolumeBar", "VoiceVolumeBar", "VolumeBtnList", "WindowAlphaBar", "WindowAlphaVisBar", "WindowAlphaNovelBar", "AutoMaxBar", "WindowAlphaBtnList", "WindowAlphaVisBtnList", "WindowAlphaNovelBtnList", "AutoMaxBtnList", "DefaultBtn", "PageVoiceYesBtn", "PageVoiceNoBtn", "EroVoiceYesBtn", "EroVoiceNoBtn") instance=ExtResource("1_rxglr")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0w33h"]
+
+[node name="OptionsMenu" node_paths=PackedStringArray("YesNoBtnList", "MsgWaitBtnList", "MsgCutOptinAllBtn", "MsgCutOptinReadBtn", "WaitFastBtn", "WaitNormalBtn", "OptionButtonList", "PageList", "CharVoiceList", "AllVolumeBar", "BgmVolumeBar", "SeVolumeBar", "VoiceVolumeBar", "VolumeBtnList", "WindowAlphaBar", "WindowAlphaVisBar", "WindowAlphaNovelBar", "AutoMaxBar", "WindowAlphaBtnList", "WindowAlphaVisBtnList", "WindowAlphaNovelBtnList", "AutoMaxBtnList", "DefaultBtn", "PageVoiceYesBtn", "PageVoiceNoBtn", "EroVoiceYesBtn", "EroVoiceNoBtn", "SkipCheck") instance=ExtResource("1_rxglr")]
 script = ExtResource("2_kvry6")
 YesNoBtnList = NodePath("PageList/Option2/YesNoBtnList")
 MsgWaitBtnList = NodePath("PageList/Option1/MsgWait")
@@ -190,6 +193,7 @@ PageVoiceYesBtn = NodePath("PageList/Option2/PageVoiceBtnList/Wa2Button")
 PageVoiceNoBtn = NodePath("PageList/Option2/PageVoiceBtnList/Wa2Button2")
 EroVoiceYesBtn = NodePath("PageList/Option2/EroVoiceBtnList/Wa2Button2")
 EroVoiceNoBtn = NodePath("PageList/Option2/EroVoiceBtnList/Wa2Button")
+SkipCheck = NodePath("SkipCheck")
 
 [node name="PageList" type="Control" parent="." index="7"]
 layout_mode = 1
@@ -1043,3 +1047,23 @@ texture_focused = SubResource("AtlasTexture_e1dmw")
 script = ExtResource("8_ojnhc")
 ClickStream = ExtResource("6_m5qo3")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="SkipCheck" type="CheckButton" parent="." index="12"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_top = 33.0
+offset_right = -16.0
+offset_bottom = 64.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("15_ojnhc")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0w33h")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0w33h")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_0w33h")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_0w33h")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w33h")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0w33h")
+text = "长按快进"

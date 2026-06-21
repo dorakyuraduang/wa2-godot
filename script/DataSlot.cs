@@ -24,10 +24,16 @@ public partial class DataSlot : Wa2Button
   public void Update(int idx)
   {
     IdxLabel.Text = string.Format("{0:D2}", idx + 1);
-    if (FileAccess.FileExists(Wa2EngineMain.Engine.SavPath+string.Format("sav{0:D2}.sav", idx)))
+    if (FileAccess.FileExists(Wa2EngineMain.Engine.SavPath + string.Format("sav{0:D2}.sav", idx)))
     {
 
-      FileAccess file = FileAccess.Open(Wa2EngineMain.Engine.SavPath+string.Format("sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
+      FileAccess file = FileAccess.Open(Wa2EngineMain.Engine.SavPath + string.Format("sav{0:D2}.sav", idx), FileAccess.ModeFlags.Read);
+      if (file == null || file.GetLength() < 0x1B438)
+      {
+        file?.Close();
+        Clear();
+        return;
+      }
       int year = (int)file.Get32();
       int month = (int)file.Get32();
       int dayOfWeek = (int)file.Get32();
@@ -40,6 +46,12 @@ public partial class DataSlot : Wa2Button
       SaveTexture.Texture = ImageTexture.CreateFromImage(Image.CreateFromData(256, 144, false, Image.Format.Rgb8, file.GetBuffer(0x1b000)));
       // GD.Print(idx);
       string scriptName = file.GetBuffer(8).GetStringFromUtf8().Replace("\0", "");
+      if (string.IsNullOrEmpty(scriptName))
+      {
+        file.Close();
+        Clear();
+        return;
+      }
       Category.Show();
       AtlasTexture texture = (AtlasTexture)Category.Texture;
       if (scriptName[0] == '1')
@@ -128,15 +140,19 @@ public partial class DataSlot : Wa2Button
     }
     else
     {
-      FirstSentenceLabel.SetText("");
-      FirstSentenceLabel.Clear();
-      Category.Hide();
-      SaveTexture.Texture = null;
-      NoData.Show();
-      ExistData.Hide();
-      DateLabel.Hide();
-      Month.Hide();
-      DayLabel.Hide();
+      Clear();
     }
+  }
+  public void Clear()
+  {
+    FirstSentenceLabel.SetText("");
+    FirstSentenceLabel.Clear();
+    Category.Hide();
+    SaveTexture.Texture = null;
+    NoData.Show();
+    ExistData.Hide();
+    DateLabel.Hide();
+    Month.Hide();
+    DayLabel.Hide();
   }
 }

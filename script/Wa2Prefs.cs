@@ -20,6 +20,7 @@ public class Wa2Prefs
 		{
 			ConfigFile.Load(_engine.SavPath+"SYSTEM.ini");
 		}
+		EnsureConfigDefaults();
 		SetVolume(0, GetConfig("all_vol"));
 		SetVolume(1, GetConfig("bgm_vol"));
 		SetVolume(2, GetConfig("se_vol"));
@@ -143,6 +144,15 @@ public class Wa2Prefs
 		return MsgWaitIdxs[idx];
 	}
 
+	private void EnsureConfigDefaults()
+	{
+		string section = "DEFAULT";
+		if (!ConfigFile.HasSectionKey(section, "checkskip"))
+		{
+			ConfigFile.SetValue(section, "checkskip", 0);
+		}
+	}
+
 	public void SetDefault()
 	{
 		string section = "DEFAULT";
@@ -186,6 +196,7 @@ public class Wa2Prefs
 		ConfigFile.SetValue(section, "debug_mouse", -1);
 		ConfigFile.SetValue(section, "window_x", 278);
 		ConfigFile.SetValue(section, "window_y", 235);
+		ConfigFile.SetValue(section, "checkskip", 0);
 		Save();
 	}
 }
