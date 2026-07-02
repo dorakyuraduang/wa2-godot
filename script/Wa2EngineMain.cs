@@ -737,7 +737,7 @@ public partial class Wa2EngineMain : Control
 		{
 			PressedTime += GetProcessDeltaTime();
 		}
-		bool longPressSkip = Prefs.GetConfig("checkskip") == 1 && PressedTime >= 1.0f;
+		bool longPressSkip = Prefs.GetConfig("checkskip") == 1 && PressedTime >= 0.6f;
 		if (Input.IsActionPressed("Skip") || longPressSkip)
 		{
 			Skipping = true;

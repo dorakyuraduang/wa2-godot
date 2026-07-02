@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://du2ied53oeq1x"]
+[gd_scene load_steps=63 format=3 uid="uid://du2ied53oeq1x"]
 
 [ext_resource type="PackedScene" uid="uid://bopft70o0x3ub" path="res://scene/BasePage.tscn" id="1_rxglr"]
 [ext_resource type="Script" uid="uid://dmtoyob7b1fd4" path="res://script/OptionsMenu.cs" id="2_kvry6"]
@@ -14,7 +14,16 @@
 [ext_resource type="Script" uid="uid://cfj5h2ne5rpx" path="res://script/Wa2Button.cs" id="8_ojnhc"]
 [ext_resource type="AudioStream" uid="uid://cj3qrdicoboyc" path="res://assets/se/SE_9015.WAV" id="12_x3o0d"]
 [ext_resource type="Texture2D" uid="uid://b7wqbgiv44x5r" path="res://assets/grp/sys_03030.png" id="13_p84jc"]
-[ext_resource type="FontFile" uid="uid://bobmxw5bfc6m4" path="res://assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf" id="15_ojnhc"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_fvqyc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv4mg"]
+atlas = ExtResource("5_kvry6")
+region = Rect2(458, 14, 252, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fi4ja"]
+atlas = ExtResource("5_kvry6")
+region = Rect2(714, 14, 252, 36)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_kvry6"]
 
@@ -162,9 +171,7 @@ region = Rect2(384, 0, 192, 32)
 atlas = ExtResource("13_p84jc")
 region = Rect2(0, 0, 208, 24)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0w33h"]
-
-[node name="OptionsMenu" node_paths=PackedStringArray("YesNoBtnList", "MsgWaitBtnList", "MsgCutOptinAllBtn", "MsgCutOptinReadBtn", "WaitFastBtn", "WaitNormalBtn", "OptionButtonList", "PageList", "CharVoiceList", "AllVolumeBar", "BgmVolumeBar", "SeVolumeBar", "VoiceVolumeBar", "VolumeBtnList", "WindowAlphaBar", "WindowAlphaVisBar", "WindowAlphaNovelBar", "AutoMaxBar", "WindowAlphaBtnList", "WindowAlphaVisBtnList", "WindowAlphaNovelBtnList", "AutoMaxBtnList", "DefaultBtn", "PageVoiceYesBtn", "PageVoiceNoBtn", "EroVoiceYesBtn", "EroVoiceNoBtn", "SkipCheck") instance=ExtResource("1_rxglr")]
+[node name="OptionsMenu" node_paths=PackedStringArray("YesNoBtnList", "MsgWaitBtnList", "MsgCutOptinAllBtn", "MsgCutOptinReadBtn", "WaitFastBtn", "WaitNormalBtn", "OptionButtonList", "PageList", "CharVoiceList", "AllVolumeBar", "BgmVolumeBar", "SeVolumeBar", "VoiceVolumeBar", "VolumeBtnList", "WindowAlphaBar", "WindowAlphaVisBar", "WindowAlphaNovelBar", "AutoMaxBar", "WindowAlphaBtnList", "WindowAlphaVisBtnList", "WindowAlphaNovelBtnList", "AutoMaxBtnList", "DefaultBtn", "PageVoiceYesBtn", "PageVoiceNoBtn", "EroVoiceYesBtn", "EroVoiceNoBtn", "LongPressSkipYesBtn", "LongPressSkipNoBtn") instance=ExtResource("1_rxglr")]
 script = ExtResource("2_kvry6")
 YesNoBtnList = NodePath("PageList/Option2/YesNoBtnList")
 MsgWaitBtnList = NodePath("PageList/Option1/MsgWait")
@@ -193,7 +200,8 @@ PageVoiceYesBtn = NodePath("PageList/Option2/PageVoiceBtnList/Wa2Button")
 PageVoiceNoBtn = NodePath("PageList/Option2/PageVoiceBtnList/Wa2Button2")
 EroVoiceYesBtn = NodePath("PageList/Option2/EroVoiceBtnList/Wa2Button2")
 EroVoiceNoBtn = NodePath("PageList/Option2/EroVoiceBtnList/Wa2Button")
-SkipCheck = NodePath("SkipCheck")
+LongPressSkipYesBtn = NodePath("PageList/Option1/LongPressSkip/LongPressSkipYes")
+LongPressSkipNoBtn = NodePath("PageList/Option1/LongPressSkip/LongPressSkipNo")
 
 [node name="PageList" type="Control" parent="." index="7"]
 layout_mode = 1
@@ -205,7 +213,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Option1" type="TextureRect" parent="PageList" index="0"]
-visible = false
 layout_mode = 0
 offset_left = 128.0
 offset_top = 128.0
@@ -213,7 +220,33 @@ offset_right = 1152.0
 offset_bottom = 592.0
 texture = ExtResource("3_jifwb")
 
-[node name="MsgWait" type="HBoxContainer" parent="PageList/Option1" index="0"]
+[node name="LongPressSkip" type="HBoxContainer" parent="PageList/Option1" index="0"]
+layout_mode = 0
+offset_left = 458.0
+offset_top = 14.0
+offset_right = 966.0
+offset_bottom = 50.0
+
+[node name="LongPressSkipNo" type="TextureButton" parent="PageList/Option1/LongPressSkip" index="0"]
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_fvqyc")
+texture_pressed = SubResource("AtlasTexture_hv4mg")
+script = ExtResource("8_ojnhc")
+ClickStream = ExtResource("6_m5qo3")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="LongPressSkipYes" type="TextureButton" parent="PageList/Option1/LongPressSkip" index="1"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_fvqyc")
+texture_pressed = SubResource("AtlasTexture_fi4ja")
+script = ExtResource("8_ojnhc")
+ClickStream = ExtResource("6_m5qo3")
+metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
+
+[node name="MsgWait" type="HBoxContainer" parent="PageList/Option1" index="1"]
 layout_mode = 0
 offset_left = 455.0
 offset_top = 77.0
@@ -261,7 +294,7 @@ script = ExtResource("8_ojnhc")
 ClickStream = ExtResource("6_m5qo3")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="MsgCutOptin" type="HBoxContainer" parent="PageList/Option1" index="1"]
+[node name="MsgCutOptin" type="HBoxContainer" parent="PageList/Option1" index="2"]
 layout_mode = 0
 offset_left = 455.0
 offset_top = 116.0
@@ -289,7 +322,7 @@ script = ExtResource("8_ojnhc")
 ClickStream = ExtResource("6_m5qo3")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="Wait" type="HBoxContainer" parent="PageList/Option1" index="2"]
+[node name="Wait" type="HBoxContainer" parent="PageList/Option1" index="3"]
 layout_mode = 0
 offset_left = 458.0
 offset_top = 222.0
@@ -317,7 +350,7 @@ script = ExtResource("8_ojnhc")
 ClickStream = ExtResource("6_m5qo3")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="AutoMax" type="TextureProgressBar" parent="PageList/Option1" index="3"]
+[node name="AutoMax" type="TextureProgressBar" parent="PageList/Option1" index="4"]
 layout_mode = 0
 offset_left = 545.0
 offset_top = 161.0
@@ -327,7 +360,7 @@ max_value = 21.0
 value = 21.0
 texture_progress = SubResource("AtlasTexture_eqhdx")
 
-[node name="WindowAlpha" type="TextureProgressBar" parent="PageList/Option1" index="4"]
+[node name="WindowAlpha" type="TextureProgressBar" parent="PageList/Option1" index="5"]
 layout_mode = 0
 offset_left = 545.0
 offset_top = 265.0
@@ -337,7 +370,7 @@ max_value = 21.0
 value = 21.0
 texture_progress = SubResource("AtlasTexture_eqhdx")
 
-[node name="WindowAlphaVis" type="TextureProgressBar" parent="PageList/Option1" index="5"]
+[node name="WindowAlphaVis" type="TextureProgressBar" parent="PageList/Option1" index="6"]
 layout_mode = 0
 offset_left = 545.0
 offset_top = 305.0
@@ -347,7 +380,7 @@ max_value = 21.0
 value = 21.0
 texture_progress = SubResource("AtlasTexture_eqhdx")
 
-[node name="WindowAlphaNovel" type="TextureProgressBar" parent="PageList/Option1" index="6"]
+[node name="WindowAlphaNovel" type="TextureProgressBar" parent="PageList/Option1" index="7"]
 layout_mode = 0
 offset_left = 545.0
 offset_top = 345.0
@@ -357,7 +390,7 @@ max_value = 21.0
 value = 21.0
 texture_progress = SubResource("AtlasTexture_eqhdx")
 
-[node name="CmdAlpha" type="TextureProgressBar" parent="PageList/Option1" index="7"]
+[node name="CmdAlpha" type="TextureProgressBar" parent="PageList/Option1" index="8"]
 visible = false
 layout_mode = 0
 offset_left = 545.0
@@ -368,7 +401,7 @@ max_value = 21.0
 value = 21.0
 texture_progress = SubResource("AtlasTexture_eqhdx")
 
-[node name="AutoMaxBtnList" type="HBoxContainer" parent="PageList/Option1" index="8"]
+[node name="AutoMaxBtnList" type="HBoxContainer" parent="PageList/Option1" index="9"]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 158.0
@@ -394,7 +427,7 @@ script = ExtResource("8_ojnhc")
 ClickStream = ExtResource("6_m5qo3")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="WindowAlphaBtnList" type="HBoxContainer" parent="PageList/Option1" index="9"]
+[node name="WindowAlphaBtnList" type="HBoxContainer" parent="PageList/Option1" index="10"]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 262.0
@@ -420,7 +453,7 @@ script = ExtResource("8_ojnhc")
 ClickStream = ExtResource("6_m5qo3")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="WindowAlphaVisBtnList" type="HBoxContainer" parent="PageList/Option1" index="10"]
+[node name="WindowAlphaVisBtnList" type="HBoxContainer" parent="PageList/Option1" index="11"]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 302.0
@@ -444,7 +477,7 @@ texture_normal = SubResource("AtlasTexture_50byg")
 script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="WindowAlphaNovelBtnList" type="HBoxContainer" parent="PageList/Option1" index="11"]
+[node name="WindowAlphaNovelBtnList" type="HBoxContainer" parent="PageList/Option1" index="12"]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 342.0
@@ -468,7 +501,7 @@ texture_normal = SubResource("AtlasTexture_50byg")
 script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="PageList/Option1" index="12"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="PageList/Option1" index="13"]
 layout_mode = 0
 offset_left = 482.0
 offset_top = 382.0
@@ -493,6 +526,7 @@ script = ExtResource("8_ojnhc")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
 
 [node name="Option2" type="TextureRect" parent="PageList" index="1"]
+visible = false
 layout_mode = 0
 offset_left = 128.0
 offset_top = 128.0
@@ -1047,23 +1081,3 @@ texture_focused = SubResource("AtlasTexture_e1dmw")
 script = ExtResource("8_ojnhc")
 ClickStream = ExtResource("6_m5qo3")
 metadata/_custom_type_script = "uid://cfj5h2ne5rpx"
-
-[node name="SkipCheck" type="CheckButton" parent="." index="12"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -128.0
-offset_top = 33.0
-offset_right = -16.0
-offset_bottom = 64.0
-grow_horizontal = 0
-theme_override_fonts/font = ExtResource("15_ojnhc")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_0w33h")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_0w33h")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_0w33h")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_0w33h")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_0w33h")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_0w33h")
-text = "长按快进"

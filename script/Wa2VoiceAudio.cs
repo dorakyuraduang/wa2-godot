@@ -2,7 +2,7 @@ using Godot;
 public partial class Wa2VoiceAudio : Wa2Audio
 {
   public int Id;
-  public int Chr;
+  public int Chr=-1;
   public int Label;
   public void PlaySound(AudioStream stream, bool loop, int volume)
   {

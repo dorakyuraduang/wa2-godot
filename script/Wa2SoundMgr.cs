@@ -28,12 +28,15 @@ public partial class Wa2SoundMgr : Node
 	public void StopVoice(int idx, float time = 0.0f)
 	{
 		_voiceAudios[idx].StopStream(time);
+		_voiceAudios[idx].Chr = -1;
+
 	}
 	public void StopAll()
 	{
 		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
 		{
-			_voiceAudios[i].Stream = null;
+			StopVoice(i, 0);
+
 		}
 		StopBgm();
 		for (int i = 0; i < MAX_SE_CHANNELS; i++)
@@ -62,13 +65,21 @@ public partial class Wa2SoundMgr : Node
 	{
 		Wa2VoiceAudio audio = _voiceAudios[0];
 		_engine.SubtitleMgr.ListenVoice(9500, idx, audio);
-		audio.PlaySound(Wa2Resource.GetOggStream(string.Format("9500_000{0:D1}_{1:D2}.ogg",idx,idx+1)), false,255);
+		audio.PlaySound(Wa2Resource.GetOggStream(string.Format("9500_000{0:D1}_{1:D2}.ogg", idx, idx + 1)), false, 255);
 
 	}
 	public void PlayVoice(int label, int id, int chr, int volume = 256, bool loop = false, int channel = 0)
 	{
 
 		Wa2VoiceAudio audio = _voiceAudios[channel];
+		audio.Chr = chr;
+		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
+		{
+			if (i != channel && _voiceAudios[i].Chr == chr)
+			{
+				_voiceAudios[i].Playing=false;
+			}
+		}
 		if (label == -1)
 		{
 			label = _engine.Label;
@@ -85,9 +96,9 @@ public partial class Wa2SoundMgr : Node
 		}
 		if (_engine.Prefs.CanPlayCharVoice(chr))
 		{
-			if (!_engine.CanSkip() || _engine.DemoMode || channel != 0 )
+			if (!_engine.CanSkip() || _engine.DemoMode || channel != 0)
 			{
-				if (_engine.EroMode && Array.IndexOf(Wa2Def.EroChar, chr) < 0 &&_engine.Prefs.GetConfig("ero_voice")==1)
+				if (_engine.EroMode && Array.IndexOf(Wa2Def.EroChar, chr) < 0 && _engine.Prefs.GetConfig("ero_voice") == 1)
 				{
 					return;
 				}
@@ -141,7 +152,15 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void OnVoiceFinished(int idx)
 	{
+		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
+		{
+			if (i != idx && _voiceAudios[i].Chr == _voiceAudios[idx].Chr)
+			{
+				_voiceAudios[i].Playing=true;
+			}
+		}
 		_voiceAudios[idx].Stream = null;
+		_voiceAudios[idx].Chr = -1;
 	}
 	public override void _Ready()
 	{
@@ -187,7 +206,7 @@ public partial class Wa2SoundMgr : Node
 	{
 		// GD.Print("播放音效2");
 		SeAudios[channel].PlaySound(id, loopFlag, time, volume);
-		_engine.SubtitleMgr.ListenSe(id,SeAudios[channel]);
+		_engine.SubtitleMgr.ListenSe(id, SeAudios[channel]);
 	}
 	// public void PlaySe(SeInfo seInfo)
 	// {

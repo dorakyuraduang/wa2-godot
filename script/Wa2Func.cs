@@ -561,7 +561,14 @@ public class Wa2Func
 	}
 	public bool SE(List<Wa2Var> args)
 	{
-		Wa2SoundMgr.Instance.PlaySe(0, args[0].Get(), false, 0, args[1].Get());
+		for (int i = 0; i < 8; i++)
+		{
+			if (Wa2SoundMgr.Instance.SeAudios[i].Stream == null)
+			{
+				Wa2SoundMgr.Instance.PlaySe(i, args[0].Get(), false, 0, args[1].Get());
+				break;
+			}
+		}
 		args.Clear();
 		return true;
 	}
@@ -570,6 +577,7 @@ public class Wa2Func
 		// GD.Print(args.Count);
 		// GD.Print("循环播放:", args[3].Get());
 		// GD.Print("id:", args[1].Get());
+		GD.Print("SEP:",args[5].Get());
 		Wa2SoundMgr.Instance.PlaySe(args[0].Get(), args[1].Get(), args[3].Get() != 0, args[2].Get() * _engine.FrameTime, args[4].Get());
 		args.Clear();
 		return true;
