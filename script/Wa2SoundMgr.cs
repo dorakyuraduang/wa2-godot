@@ -27,6 +27,13 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void StopVoice(int idx, float time = 0.0f)
 	{
+		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
+		{
+			if (i != idx && _voiceAudios[i].Chr == _voiceAudios[idx].Chr &&_voiceAudios[i].Stream != null)
+			{
+				_voiceAudios[i].Playing = true;
+			}
+		}
 		_voiceAudios[idx].StopStream(time);
 		_voiceAudios[idx].Chr = -1;
 
@@ -75,10 +82,15 @@ public partial class Wa2SoundMgr : Node
 		audio.Chr = chr;
 		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
 		{
-			if (i != channel && _voiceAudios[i].Chr == chr)
+			if (i != channel && _voiceAudios[i].Chr == chr && _voiceAudios[i].Stream != null)
 			{
-				_voiceAudios[i].Playing=false;
+				_voiceAudios[i].Playing = false;
 			}
+			if (i != channel && _voiceAudios[i].Chr != chr && _voiceAudios[i].Stream != null && _voiceAudios[i].Playing == false)
+			{
+				_voiceAudios[i].Playing = true;
+			}
+
 		}
 		if (label == -1)
 		{
@@ -94,7 +106,7 @@ public partial class Wa2SoundMgr : Node
 				Volume = volume
 			});
 		}
-		if (_engine.Prefs.CanPlayCharVoice(chr))
+		if (_engine.Prefs.CanPlayCharVoice(chr) || channel != 0)
 		{
 			if (!_engine.CanSkip() || _engine.DemoMode || channel != 0)
 			{
@@ -107,6 +119,7 @@ public partial class Wa2SoundMgr : Node
 				if (channel != 0)
 				{
 					_engine.SubtitleMgr.ListenVoice(label, id, audio);
+					audio.Playing = false;
 				}
 			}
 		}
@@ -152,15 +165,7 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void OnVoiceFinished(int idx)
 	{
-		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
-		{
-			if (i != idx && _voiceAudios[i].Chr == _voiceAudios[idx].Chr)
-			{
-				_voiceAudios[i].Playing=true;
-			}
-		}
-		_voiceAudios[idx].Stream = null;
-		_voiceAudios[idx].Chr = -1;
+		StopVoice(idx, 0);
 	}
 	public override void _Ready()
 	{
