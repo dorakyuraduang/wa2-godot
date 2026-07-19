@@ -96,6 +96,7 @@ public partial class Wa2SoundMgr : Node
 		{
 			label = _engine.Label;
 		}
+		GD.Print("chr:",channel);
 		if (channel == 0)
 		{
 			_engine.VoiceInfos.Add(new()
@@ -119,7 +120,7 @@ public partial class Wa2SoundMgr : Node
 				if (channel != 0)
 				{
 					_engine.SubtitleMgr.ListenVoice(label, id, audio);
-					audio.Playing = false;
+					// audio.Playing = false;
 				}
 			}
 		}
