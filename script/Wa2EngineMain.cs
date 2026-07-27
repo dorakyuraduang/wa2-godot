@@ -727,7 +727,7 @@ public partial class Wa2EngineMain : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public void InputKeyHandling()
 	{
-		if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain && UiMgr.UiQueue.Peek() != UiMgr.UICalender && State != GameState.GAME)
+		if (UiMgr.UiQueue.Peek() != UiMgr.AdvMain && UiMgr.UiQueue.Peek() != UiMgr.UICalender)
 		{
 			StopSkip();
 			return;

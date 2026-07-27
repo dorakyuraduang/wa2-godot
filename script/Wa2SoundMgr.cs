@@ -27,11 +27,15 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void StopVoice(int idx, float time = 0.0f)
 	{
-		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
+		bool isCharVoice = Array.IndexOf(Wa2Def.EroChar, _voiceAudios[idx].Chr) >= 0;
+		if (isCharVoice)
 		{
-			if (i != idx && _voiceAudios[i].Chr == _voiceAudios[idx].Chr &&_voiceAudios[i].Stream != null)
+			for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
 			{
-				_voiceAudios[i].Playing = true;
+				if (i != idx && _voiceAudios[i].Chr == _voiceAudios[idx].Chr && _voiceAudios[i].Stream != null)
+				{
+					_voiceAudios[i].Playing = true;
+				}
 			}
 		}
 		_voiceAudios[idx].StopStream(time);
@@ -77,26 +81,30 @@ public partial class Wa2SoundMgr : Node
 	}
 	public void PlayVoice(int label, int id, int chr, int volume = 256, bool loop = false, int channel = 0)
 	{
-
+		bool isCharVoice = Array.IndexOf(Wa2Def.EroChar, chr) >= 0;
 		Wa2VoiceAudio audio = _voiceAudios[channel];
 		audio.Chr = chr;
-		for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
+		if (isCharVoice)
 		{
-			if (i != channel && _voiceAudios[i].Chr == chr && _voiceAudios[i].Stream != null)
+			for (int i = 0; i < MAX_VOICE_CHANNELS; i++)
 			{
-				_voiceAudios[i].Playing = false;
-			}
-			if (i != channel && _voiceAudios[i].Chr != chr && _voiceAudios[i].Stream != null && _voiceAudios[i].Playing == false)
-			{
-				_voiceAudios[i].Playing = true;
-			}
+				if (i != channel && _voiceAudios[i].Chr == chr && _voiceAudios[i].Stream != null)
+				{
+					_voiceAudios[i].Playing = false;
+				}
+				if (i != channel && _voiceAudios[i].Chr != chr && _voiceAudios[i].Stream != null && _voiceAudios[i].Playing == false)
+				{
+					_voiceAudios[i].Playing = true;
+				}
 
+			}
 		}
+
 		if (label == -1)
 		{
 			label = _engine.Label;
 		}
-		GD.Print("chr:",channel);
+		GD.Print("chr:", channel);
 		if (channel == 0)
 		{
 			_engine.VoiceInfos.Add(new()
