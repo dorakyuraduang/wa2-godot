@@ -1,87 +1,34 @@
-# Godot and .NET generated files
-.godot/
-.mono/
-.vs/
-/bin/
-/obj/
-*.uid
-
-# Android build template and generated packages
-/android/
-*.apk
-*.aab
-
-# Signing keys and local secrets: never commit these
-*.keystore
-*.jks
-*.p12
-*.pfx
-*.pem
-*.key
-.env
-.env.*
-
-# Native build intermediates (runtime DLL/SO files under addons are intentional)
-.sconsign.dblite
-*.obj
-*.o
-*.os
-*.a
-*.lib
-*.exp
-*.pdb
-*.dSYM/
-.scons_cache/
-.sconf_temp/
-config.log
-/thirdparty/
 /build/
-
-# iOS XCFramework archives are final distributable plugin artifacts
-!/addons/wmv_video/bin/ios/*.xcframework/**/*.a
-
-# Superseded plugin binaries retained locally while Godot holds the old DLL
-/addons/wmv_video/bin/wmv_video_v0_4.windows.*.dll
-/addons/wmv_video/bin/android/arm64-v8a/libwmv_video_v0_4.android.*.so
-/addons/wmv_video/bin/wmv_video_v0_5.windows.*.dll
-/addons/wmv_video/bin/android/arm64-v8a/libwmv_video_v0_5.android.*.so
-/addons/wmv_video/bin/~*.dll*
-
-# Local editor/tool state
-.VSCodeCounter/
-.vscode/
-.qodo/
-.qodo
-__pycache__/
-*.py[cod]
-.venv/
-.DS_Store
-DerivedData/
-*.xcarchive/
-xcuserdata/
-*.xcuserstate
+/build-windows/
 /sav/
-/.local_backup/
+/Wa2Res/
+*.exe
+*.log
+*.png
+*.tmp
+sys.sav
 
-# Repository-local artwork excluded from distribution
+# Local files that can remain when switching from the Godot main branch.
+/.godot/
+/.local_backup/
+/.qodo/
+/.vscode/
+/.VSCodeCounter/
+/addons/
+/android/
+/assets/
+/scene/
+/script/
+/shader/
 /PIC1.PNG
 /icon.png
-
-# Original game data and user-provided media: not redistributable here
-*.pak
-*.ogg
-*.wav
-*.WAV
-*.mp4
-*.ogv
-*.zip
-/assets/grp/
-/assets/movie/
-/assets/se/
-/assets/IC/
-/assets/fonts/cn/
-/assets/fonts/jp/
-/assets/fonts/fzzyjt.ttf
-/assets/fonts/fzzyjt.ttf.import
-/assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf
-/assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf.import
+/icon.svg
+/main.tscn
+/project.godot
+/default_bus_layout.tres
+/export_presets.cfg
+/wa2.csproj
+/wa2.sln
+*.apk
+*.aab
+*.keystore

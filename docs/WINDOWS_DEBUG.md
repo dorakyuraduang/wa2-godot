@@ -16,9 +16,8 @@ build-windows/Debug/wa2_core_tests.exe
 The executable is a console application so runtime warnings and failures remain visible. It keeps
 source debug symbols and statically links SDL2/MinGW runtime libraries.
 
-Open `native-cpp` itself as the VS Code workspace with the Microsoft C/C++ extension, then press `F5` and select
-`WA2: Title Menu` or `WA2: Script 2001`. The included task rebuilds and runs tests before launch;
-the resource-directory prompt defaults to the current local Godot project's `assets` directory.
+The build script is the canonical Windows entry point. Configure a local GDB/IDE launch profile against
+`build-windows/Debug/wa2_cpp.exe`; editor-specific workspace state is intentionally not committed.
 
 ## GDB
 

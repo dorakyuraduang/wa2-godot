@@ -1,10 +1,7 @@
-WA2 Porting Code
-Copyright 2026 WA2 port contributors
+WA2 C++ Runtime
+Copyright 2026 WA2 C++ port contributors
 
-The original porting code identified in PORTING_CODE.md is licensed under the
-Apache License, Version 2.0.
-
-This is an unofficial project. It is not affiliated with, authorized by, or
-endorsed by AQUAPLUS. WHITE ALBUM2 and related names, characters, software,
-content, and trademarks belong to their respective rightsholders. This
-distribution contains no license to those materials.
+This is an unofficial runtime port. It is not affiliated with, authorized by,
+or endorsed by AQUAPLUS. WHITE ALBUM2 and related content and trademarks belong
+to their respective rightsholders. This distribution contains no game assets
+and grants no rights to them.
