@@ -63,6 +63,10 @@ xcuserdata/
 /sav/
 /.local_backup/
 
+# Repository-local artwork excluded from distribution
+/PIC1.PNG
+/icon.png
+
 # Original game data and user-provided media: not redistributable here
 *.pak
 *.ogg
