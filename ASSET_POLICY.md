@@ -15,9 +15,16 @@ The following local files are specifically excluded because this repository does
 - `assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf`;
 - files under `assets/grp`, `assets/movie`, `assets/se`, `assets/IC`, `assets/fonts/cn`, and `assets/fonts/jp`.
 
-`assets/font.map` and `assets/sub.yaml` are intentionally tracked project data. Their presence does not place them within the Apache-2.0 scope in `PORTING_CODE.md`; contributors remain responsible for confirming the provenance and redistribution permission of their contents.
+`assets/ani/**/*.tres` and `assets/font.map` are intentionally tracked,
+contributor-authored project configuration covered by the Apache-2.0 scope in
+`PORTING_CODE.md`. This grant covers their original Godot configuration and
+mapping data, not any external textures or other resources they reference.
 
-The project uses Godot's bundled default font for its normal UI, so the excluded Alibaba font is not required by a clean clone. Animation `.tres` files may be committed only when they are contributor-authored configuration and do not embed original images, audio, dialogue, or other game data.
+`assets/sub.yaml` is intentionally tracked mixed-source subtitle data and is not
+covered by Apache-2.0. See `SUBTITLE_NOTICE.md`. Its presence does not represent
+a repository-wide grant of rights to the subtitle text.
+
+The project uses Godot's bundled default font for its normal UI, so the excluded Alibaba font is not required by a clean clone. Animation `.tres` files may be committed when they are contributor-authored configuration and do not embed original images, audio, dialogue, or other game data.
 
 The `.gitignore` file enforces the common paths and extensions. Before every push, review `git status` and the staged diff. A file being technically uploadable does not mean its copyright owner has authorized redistribution.
 

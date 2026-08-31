@@ -16,9 +16,10 @@ subject to their respective licenses and notices.
 
 2. WA2 Godot porting code
 
-The contributor-authored scripts, Godot scenes, and project integration files
-identified in `PORTING_CODE.md` are licensed under the Apache License, Version
-2.0. The complete license text is in `LICENSES/Apache-2.0.txt`.
+The contributor-authored scripts, shaders, Godot scenes, animation
+configuration, font mapping, and project integration files identified in
+`PORTING_CODE.md` are licensed under the Apache License, Version 2.0. The
+complete license text is in `LICENSES/Apache-2.0.txt`.
 
 This grant covers only the original implementation contained in those files.
 It does not cover game data read at runtime, referenced external resources,

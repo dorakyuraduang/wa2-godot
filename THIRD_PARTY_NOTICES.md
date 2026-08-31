@@ -8,7 +8,15 @@ This repository is not licensed as a single work. Only files explicitly identifi
 - Scope: the exact paths listed in `PORTING_CODE.md`
 - Full license: `LICENSES/Apache-2.0.txt`
 
-These files are contributor-authored resource readers, runtime logic, Godot scenes, and project integration files. They are intended to work with data supplied separately by a user. The Apache-2.0 grant covers only that original implementation and does not license referenced game data or other proprietary material.
+These files are contributor-authored resource readers, runtime logic, shaders, Godot scenes, animation configuration, font mapping, and project integration files. They are intended to work with data supplied separately by a user. The Apache-2.0 grant covers only that original implementation and does not license referenced game data or other proprietary material.
+
+## Subtitle data
+
+- Location: `assets/sub.yaml`
+- License: mixed third-party content; not covered by Apache-2.0
+- Detailed notice: `SUBTITLE_NOTICE.md`
+
+Embedded comments attribute portions to 萌娘百科 (Moegirlpedia) and CK-GAL汉化组. Moegirlpedia states that its text is generally available under CC BY-NC-SA 3.0 CN unless otherwise noted, but the exact source pages and any underlying third-party lyrics or dialogue are not fully documented in this repository. No redistribution license has been identified for the CK-GAL portions. Redistributors must verify, replace, or remove this data as appropriate.
 
 ## WMV Video GDExtension
 

@@ -29,9 +29,10 @@ Windows 与 Android 原生运行库已经放在插件的 `bin` 目录中。Andro
 
 本仓库不适用统一的项目级 MIT 许可证，具体范围见 [LICENSE](LICENSE)：
 
-- [PORTING_CODE.md](PORTING_CODE.md) 明确列出的原创资源读取脚本、Godot 场景和项目配置按 Apache License 2.0 开放，任何人都可直接 fork、修改、移植和再发布，无需提交 PR、单独申请批准或把修改交回本仓库；
+- [PORTING_CODE.md](PORTING_CODE.md) 明确列出的原创资源读取脚本、shader、Godot 场景、动画配置、字体映射和项目配置按 Apache License 2.0 开放，任何人都可直接 fork、修改、移植和再发布，无需提交 PR、单独申请批准或把修改交回本仓库；
 - `addons/wmv_video` 中由贡献者原创的插件源码、构建工具和文档按该目录内的 MIT License 开放；
 - FFmpeg、godot-cpp、libwinpthread 和 YamlDotNet 保留各自许可证；
+- `assets/sub.yaml` 是带有萌娘百科和 CK-GAL汉化组来源标记的混合第三方字幕，不属于 Apache-2.0，具体限制见 [SUBTITLE_NOTICE.md](SUBTITLE_NOTICE.md)；
 - 未被 `PORTING_CODE.md`、组件许可证或文件级 SPDX 标记明确覆盖的文件，本仓库暂不授予复制、修改、再发布或销售许可；
 - 源码能够查看不等于已经取得开源或再发布授权。
 
@@ -71,4 +72,4 @@ bash addons/wmv_video/tools/build.sh --platform ios
 
 依赖目录、FFmpeg SDK 布局、可选参数和 LGPL 注意事项见 [中文构建说明](addons/wmv_video/BUILDING.zh-CN.md) 与 [完整构建说明](addons/wmv_video/BUILDING.md)。当前只有 Windows x86_64 和 Android ARM64 生成过二进制；Android 已验证 APK 打包但尚未记录真机测试，Linux、macOS、iOS 和 Android x86_64 仍属于构建配置，移植者需要在对应系统上自行编译和测试。
 
-移植者可以更改项目名称、界面和实现，也可以建立独立仓库，但 Apache-2.0 只覆盖授权清单中的原创移植代码。`addons/wmv_video` 继续使用其目录内的 MIT License；FFmpeg、godot-cpp、YamlDotNet 等第三方组件继续遵守各自许可证；原作资源和权利不随本仓库代码一起授权。
+移植者可以更改项目名称、界面和实现，也可以建立独立仓库，但 Apache-2.0 只覆盖授权清单中的原创移植代码。`addons/wmv_video` 继续使用其目录内的 MIT License；FFmpeg、godot-cpp、YamlDotNet 等第三方组件继续遵守各自许可证；`assets/sub.yaml` 需要单独处理其第三方来源和非商业/未知授权部分；原作资源和权利不随本仓库代码一起授权。
