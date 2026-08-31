@@ -1,0 +1,46 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "WA2: Title Menu",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\build-windows\\Debug\\wa2_cpp.exe",
+      "args": [
+        "--res", "${input:resourceRoot}",
+        "--save", "${workspaceFolder}\\sav",
+        "--font", "C:\\Windows\\Fonts\\msyh.ttc"
+      ],
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "D:\\mingw64\\bin\\gdb.exe",
+      "preLaunchTask": "Build Windows Debug",
+      "externalConsole": false
+    },
+    {
+      "name": "WA2: Script 2001",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\build-windows\\Debug\\wa2_cpp.exe",
+      "args": [
+        "--res", "${input:resourceRoot}",
+        "--save", "${workspaceFolder}\\sav",
+        "--font", "C:\\Windows\\Fonts\\msyh.ttc",
+        "--script", "2001"
+      ],
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "miDebuggerPath": "D:\\mingw64\\bin\\gdb.exe",
+      "preLaunchTask": "Build Windows Debug",
+      "externalConsole": false
+    }
+  ],
+  "inputs": [
+    {
+      "id": "resourceRoot",
+      "type": "promptString",
+      "description": "Directory containing the original WA2 PAK files",
+      "default": "..\\assets"
+    }
+  ]
+}
