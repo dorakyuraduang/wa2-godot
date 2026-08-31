@@ -1,12 +1,5 @@
 [简体中文](README.md) | **English**
 
-## Native C++ Port Branch
-
-The `cpp-native-port` branch keeps the Godot/C# implementation as a behavioral reference while
-developing a standalone C++17 + SDL2 runtime under [`native-cpp/`](native-cpp/README.md). Windows
-is the current primary debugging platform; Linux, Android, macOS, iOS, and Nintendo Switch
-Homebrew are later targets. Original game resources remain local and are never committed.
-
 ## Game Installation (Android)
 
 1. Download and install the APK.
@@ -45,7 +38,7 @@ The Windows and Android native libraries are included in the plugin's `bin` dire
 
 This repository is not covered by a single project-wide MIT license. See [LICENSE](LICENSE) for the exact scope:
 
-- Contributor-authored resource readers, shaders, Godot scenes, the native C++ runtime, animation configuration, font mapping, and project configuration explicitly listed in [PORTING_CODE.md](PORTING_CODE.md) are licensed under Apache License 2.0. Anyone may fork, modify, port, and redistribute them without opening a pull request, requesting separate approval, or contributing changes back to this repository.
+- Contributor-authored resource readers, shaders, Godot scenes, animation configuration, font mapping, and project configuration explicitly listed in [PORTING_CODE.md](PORTING_CODE.md) are licensed under Apache License 2.0. Anyone may fork, modify, port, and redistribute them without opening a pull request, requesting separate approval, or contributing changes back to this repository.
 - Contributor-authored plugin source, build tools, and documentation under `addons/wmv_video` are licensed under the MIT License in that directory.
 - FFmpeg, godot-cpp, libwinpthread, and YamlDotNet remain subject to their respective licenses.
 - `assets/sub.yaml` contains mixed third-party subtitle data credited to Moegirlpedia and CK-GAL. It is not covered by Apache-2.0. See [SUBTITLE_NOTICE.md](SUBTITLE_NOTICE.md) for details.

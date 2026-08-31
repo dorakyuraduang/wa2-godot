@@ -1,12 +1,5 @@
 **简体中文** | [English](README_EN.md)
 
-## C++ 原生复刻分支
-
-当前 `cpp-native-port` 分支在保留 Godot/C# 实现作为行为参考的同时，于
-[`native-cpp/`](native-cpp/README.md) 开发不依赖 Godot、C# 或 .NET 的 C++17 + SDL2
-运行时。Windows 是当前首要调试平台，后续目标包括 Linux、Android、macOS、iOS 和
-Nintendo Switch Homebrew。原作资源仍只从本地 `assets/` 或用户指定目录读取，不会纳入版本控制。
-
 【游戏安装方法】  
 1.安装程序： 下载并安装 APK 文件。   
 2.复制文件： 将 PC 版游戏文件夹整体复制到手机 根目录。  
@@ -38,7 +31,7 @@ Windows 与 Android 原生运行库已经放在插件的 `bin` 目录中。Andro
 
 本仓库不适用统一的项目级 MIT 许可证，具体范围见 [LICENSE](LICENSE)：
 
-- [PORTING_CODE.md](PORTING_CODE.md) 明确列出的原创资源读取脚本、shader、Godot 场景、原生 C++ 运行时、动画配置、字体映射和项目配置按 Apache License 2.0 开放，任何人都可直接 fork、修改、移植和再发布，无需提交 PR、单独申请批准或把修改交回本仓库；
+- [PORTING_CODE.md](PORTING_CODE.md) 明确列出的原创资源读取脚本、shader、Godot 场景、动画配置、字体映射和项目配置按 Apache License 2.0 开放，任何人都可直接 fork、修改、移植和再发布，无需提交 PR、单独申请批准或把修改交回本仓库；
 - `addons/wmv_video` 中由贡献者原创的插件源码、构建工具和文档按该目录内的 MIT License 开放；
 - FFmpeg、godot-cpp、libwinpthread 和 YamlDotNet 保留各自许可证；
 - `assets/sub.yaml` 是带有萌娘百科和 CK-GAL汉化组来源标记的混合第三方字幕，不属于 Apache-2.0，具体限制见 [SUBTITLE_NOTICE.md](SUBTITLE_NOTICE.md)；

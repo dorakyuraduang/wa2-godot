@@ -1,6 +1,6 @@
 # Apache-2.0 Porting Code Scope
 
-The following paths contain contributor-authored WA2 Godot and native C++ porting code and are
+The following paths contain contributor-authored WA2 Godot porting code and are
 licensed under the Apache License, Version 2.0 in
 `LICENSES/Apache-2.0.txt`:
 
@@ -15,7 +15,6 @@ licensed under the Apache License, Version 2.0 in
 /wa2.csproj
 /default_bus_layout.tres
 /export_presets.cfg
-/native-cpp/**
 ```
 
 Anyone may fork, use, modify, port, and redistribute these covered files in a
@@ -30,9 +29,7 @@ The shaders and animation resources are contributor-authored implementations
 created by reference to visible game behavior and effects, without copying
 original source code. The scenes contain contributor-authored Godot node
 structures and configuration. `assets/font.map` is contributor-authored project
-mapping data. `native-cpp` contains the contributor-authored standalone C++17
-runtime, SDL2 frontend, build configuration, tests, and documentation; its
-third-party dependencies retain their own licenses.
+mapping data.
 
 This license covers only the original expression in the listed files. It does
 not cover any external file or content referenced or loaded by them. In

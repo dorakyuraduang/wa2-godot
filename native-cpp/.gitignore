@@ -1,9 +1,0 @@
-/build/
-/build-windows/
-/sav/
-/Wa2Res/
-*.exe
-*.log
-*.png
-*.tmp
-sys.sav
